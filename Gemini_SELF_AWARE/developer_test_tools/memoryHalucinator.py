@@ -2,8 +2,13 @@ import time
 import datetime
 import re
 import os
-import  google.generativeai as  genai
+import google.generativeai as genai
+from termcolor import colored, cprint
 genai.configure(api_key='AIzaSyDEa1BAKI4ybj4N8Xloo4XY5uW5X62e-lw')
+import time
+import datetime
+import re
+import os
 import google.generativeai as genai
 from termcolor import colored, cprint
 
@@ -139,13 +144,9 @@ def create_file_structure():
                 os.makedirs(folder_path, exist_ok=True)
 
 
-# --- Function to Generate Random Interaction Prompt ---
 
 
-
-
-
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response):  # Pass tool_manager here
+def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response):
     """Interprets the model's response, extracts function details, and executes the appropriate function."""
 
     print_colored(f"---------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------", "yellow")
@@ -181,44 +182,7 @@ def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response):  # Pass tool_manager her
 
 
 def store_memory(memory_log_details: dict, conversation_context: str = ""):
-    """
-    Stores a memory log entry in the appropriate file based on its category and time.
-    The memory is saved within a hierarchical folder structure:
 
-    - `memories` (root folder)
-        - `category` (folder named after the "CATEGORY" parameter)
-            - `past` (subfolder within the category folder)
-                - `subcategory` (subfolder within the "past" folder named after the "SUBCATEGORY" parameter)
-
-    The filename for the memory log entry is generated using the current date and a sequential counter.
-
-    Args:
-        memory_log_details (dict): A dictionary containing the memory details.
-            Required keys:
-                - CATEGORY (str): The category of the memory (e.g., "Personal", "Work"). The memory will be saved in a subfolder named after this category within the "memories/past" folder.
-                - SUBCATEGORY (str): The subcategory of the memory (e.g., "Family", "Project"). The memory will be saved in a subfolder named after this subcategory within the "memories/past/category" folder.
-                - ABOUT (str): A brief description of what the memory is about.
-                - TIME (str): The timestamp of the memory.
-                - INTERACTION_TYPE (str): The type of interaction associated with the memory.
-                - RESULT (str): The outcome of the interaction.
-                - POSITIVE_IMPACT (str): The positive impact of the memory.
-                - NEGATIVE_IMPACT (str): The negative impact of the memory.
-                - EXPECTATIONS (str): Expectations associated with the memory.
-                - OBJECT_STATES (str): The state of objects involved in the memory.
-                - SHORT_DESCRIPTION (str): A concise summary of the memory.
-            Optional keys:
-                - DETAILS (dict): A dictionary containing additional details about the memory.
-                - INTENSITY (str): The intensity of the memory.
-                - DURATION (str): The duration of the memory.
-                - OBJECTS (list): A list of objects involved in the memory.
-                - PEOPLE (list): A list of people involved in the memory.
-                - CONCLUSION (str): A conclusion drawn from the memory.
-                - INTERACTIONS (list): A list of interactions within the memory.
-        conversation_context (str, optional): The full conversation history up to this point. Defaults to "".
-
-    Returns:
-        None
-    """
     print_colored(f"Storing Memory:", "green")
 
     # Create MemoryLog object
@@ -283,23 +247,9 @@ def store_memory(memory_log_details: dict, conversation_context: str = ""):
         # ... implement the trigger logic here ...
 
 
-# Example usage (Replace with your actual memory data)
-memory_details = {
-    'Category': 'Personal',
-    'Subcategory': 'Family',
-    'About': 'Dinner with family',
-    'Time': '2023-10-26',
-    'Interaction_Type': 'Conversation',
-    'Result': 'Pleasant',
-    'Positive_Impact': 'Feeling connected',
-    'Negative_Impact': 'None',
-    'Expectations': 'Good time',
-    'Object_States': 'Dinner table set',
-    'Short_Description': 'Enjoyed dinner with family',
-    # ... other optional keys ...
-}
 
-store_memory(memory_details)
+
+
 
 STORE_MEMORY_DESCRIPTION = {
     'function_declarations': [
@@ -323,12 +273,12 @@ STORE_MEMORY_DESCRIPTION = {
                             'CATEGORY': {
                                 'type_': 'STRING',
                                 'description': 'The category of the memory (e.g., "Personal", "Work"). '
-                                             'Determines the subfolder within `memories/past` where the memory is stored.'
+                                               'Determines the subfolder within `memories/past` where the memory is stored.'
                             },
                             'SUBCATEGORY': {
                                 'type_': 'STRING',
                                 'description': 'The subcategory of the memory (e.g., "Family", "Project"). '
-                                             'Determines the subfolder within `memories/past/category` where the memory is stored.'
+                                               'Determines the subfolder within `memories/past/category` where the memory is stored.'
                             },
                             'ABOUT': {
                                 'type_': 'STRING',
@@ -369,44 +319,44 @@ STORE_MEMORY_DESCRIPTION = {
                             'DETAILS': {
                                 'type_': 'OBJECT',
                                 'description': 'A dictionary containing additional details about the memory.',
-                                'optional': 'TRUE'
+
                             },
                             'INTENSITY': {
                                 'type_': 'STRING',
                                 'description': 'The intensity of the memory.',
-                                'optional': 'TRUE'
+
                             },
                             'DURATION': {
                                 'type_': 'STRING',
                                 'description': 'The duration of the memory.',
-                                'optional': 'TRUE'
+
                             },
                             'OBJECTS': {
                                 'type_': 'ARRAY',
                                 'description': 'A list of objects involved in the memory.',
-                                'optional': 'TRUE'
+
                             },
                             'PEOPLE': {
                                 'type_': 'ARRAY',
                                 'description': 'A list of people involved in the memory.',
-                                'optional': 'TRUE'
+
                             },
                             'CONCLUSION': {
                                 'type_': 'STRING',
                                 'description': 'A conclusion drawn from the memory.',
-                                'optional': 'TRUE'
+
                             },
                             'INTERACTIONS': {
                                 'type_': 'ARRAY',
                                 'description': 'A list of interactions within the memory.',
-                                'optional': 'TRUE'
+
                             }
                         }
                     },
                     'CONVERSATION_CONTEXT': {
                         'type_': 'STRING',
                         'description': 'The full conversation history up to this point.',
-                        'optional': 'TRUE'
+
                     }
                 }
             }
@@ -428,16 +378,8 @@ while True:
 
     def CreatePrompt(user):
         mojtime = str(time.time())
-        """
-        Creates a  for generating a memory or experience.
 
-        Args:
-            user: The user's name.
-            mojtime: The time to include in the prompt.
 
-        Returns:
-            A string containing the prompt.
-        """
         prompt = f"{user}, create a vivid memory, experience, or interaction from the past. Include a specific detail about the time: {mojtime}"
         return prompt
 
@@ -470,7 +412,7 @@ while True:
                     - Object States: [objects/locations involved]
                     - Short Description: [brief summary]
                     - Details: [optional additional information]
-                    
+
                     Schema of folder  structure :
                     memories/
 
@@ -478,210 +420,117 @@ memories/
 ├── Actions and Results/
 │   ├── past/
 │   │   ├── Actions Taken/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Results Observed/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   ├── present/
 │   │   ├── Current Actions/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Ongoing Results/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   └── future/
 │       ├── Planned Actions/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       └── Anticipated Results/
-│           ├── Example_1.txt
-│           ├── Example_2.txt
-│           └── ...
+│           
 ├── Things/
 │   ├── past/
 │   │   ├── Objects Encountered/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Places Visited/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Concepts Learned/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   ├── present/
 │   │   ├── Current Objects/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Current Location/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Concepts Applied/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   └── future/
 │       ├── Desired Objects/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       ├── Planned Locations/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       └── Future Applications/
-│           ├── Example_1.txt
-│           ├── Example_2.txt
-│           └── ...
+│           
 ├── OwnState/
 │   ├── past/
 │   │   ├── Emotional State/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Physical State/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Mental State/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Spiritual State/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   ├── present/
 │   │   ├── Current Emotional State/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Current Physical State/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Current Mental State/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Current Spiritual State/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   └── future/
 │       ├── Anticipated Emotional State/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       ├── Desired Physical State/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       ├── Expected Mental State/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       └── Spiritual Goals/
-│           ├── Example_1.txt
-│           ├── Example_2.txt
-│           └── ...
+│           
 ├── Paradoxes and Contradictions/
 │   ├── past/
 │   │   ├── Past Paradoxes/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Past Internal Conflicts/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Past Cognitive Dissonance/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   ├── present/
 │   │   ├── Current Paradoxes/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Ongoing Internal Conflicts/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Current Cognitive Dissonance/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   └── future/
 │       ├── Potential Paradoxes/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       ├── Expected Internal Conflicts/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       └── Strategies to Address Dissonance/
-│           ├── Example_1.txt
-│           ├── Example_2.txt
-│           └── ...
+│           
 ├── Living Things/
 │   ├── past/
 │   │   ├── Past Human Interactions/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Past Animal Encounters/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Past Nature Experiences/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │      
 │   ├── present/
 │   │   ├── Current Relationships/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   ├── Current Animal Interactions/
-│   │   │   ├── Example_1.txt
-│   │   │   ├── Example_2.txt
-│   │   │   └── ...
+│   │   │   
 │   │   └── Current Nature Experiences/
-│   │       ├── Example_1.txt
-│   │       ├── Example_2.txt
-│   │       └── ...
+│   │       
 │   └── future/
 │       ├── Future Relationships/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       ├── Anticipated Animal Encounters/
-│       │   ├── Example_1.txt
-│       │   ├── Example_2.txt
-│       │   └── ...
+│       │   
 │       └── Planned Nature Experiences/
-│           ├── Example_1.txt
-│           ├── Example_2.txt
-│           └── ...         
-                
-                
-                Save  fie  in  correct place:
-                
-                   ''')
+│           
 
+                Save  fie  in  folder/subfolder with correct name:
 
+                  ''' )
 
     Memory_making_model = genai.GenerativeModel(
         model_name='gemini-1.5-flash-latest',
@@ -693,10 +542,35 @@ memories/
     response2 = chat2.send_message(response1.text)
 
     print_colored(response2, "magenta")
-    if response2.text is not None:
-        print_colored(response2.text, "green")
 
-    intrpreterResult = RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response2)
+
+
+
+    # --- Memory Creation Loop ---
+    iteration_count = 0
+
+    print_colored(f"Iteration: {iteration_count}", "yellow")
+    iteration_count += 1
+
+    # Generate Creative Writing Prompt
+    chat_creative_writing = interaction_model.start_chat(history=[])
+    creative_prompt = "Create a random story, experience, or action - anything you like."
+    print_colored(f"Creative Writing Prompt: {creative_prompt}", "cyan")
+    creative_response = chat_creative_writing.send_message(creative_prompt)
+    print_colored(f"Creative Output: {creative_response.text}", "green")
+
+    # Create Memory from Creative Output
+    memory_chat = memory_model.start_chat(history=[])
+    memory_prompt = (f"Create a memory log entry and save it in the "
+                     f"proper folder using the 'store_memory' function call "
+                     f"Base the memory on this: \n{creative_response.text}")
+
+
+    print_colored(f" create memory log:")
+    memory_response = memory_chat.send_message(memory_prompt)
+
+    # Interpret and execute function call
+    Result=RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(memory_response)  # che
 
     # --- Memory Creation Loop ---
     iteration_count = 0
@@ -720,4 +594,5 @@ memories/
     memory_response = memory_chat.send_message(memory_prompt)
 
     # Interpret and execute function call
-    RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(memory_response)
+    RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(
+        memory_response)  # check and fix inconsistencies: for example   Personal  is on red
