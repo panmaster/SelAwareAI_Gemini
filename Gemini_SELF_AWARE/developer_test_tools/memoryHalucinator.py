@@ -251,13 +251,12 @@ def store_memory(memory_log_details: dict, conversation_context: str = ""):
 
 
 
-STORE_MEMORY_DESCRIPTION = {
-    'function_declarations': [
+STORE_MEMORY_DESCRIPTION = [
+
         {
             'name': 'store_memory',
             'description': 'Stores a memory log entry in a file within a hierarchical folder structure. '
-                           'The structure is: `memories/category/past/subcategory`. The filename is '
-                           'generated using the current date and a sequential counter.',
+                           ,
             'parameters': {
                 'type_': 'OBJECT',
                 'properties': {
@@ -361,8 +360,8 @@ STORE_MEMORY_DESCRIPTION = {
                 }
             }
         }
-    ]
-}
+     ]
+
 
 # --- Main Function ---
 while True:
@@ -378,7 +377,7 @@ while True:
     print(f"{prompt}")
     response1 = chat1.send_message(prompt)
     print_colored(response1.text, "green")
-    print(response1.text)
+
 
 
 
@@ -387,14 +386,20 @@ while True:
     memory_model = genai.GenerativeModel(
         model_name='gemini-1.5-flash-latest',
         safety_settings={'HARASSMENT': 'block_none'},
-        system_instruction='''You obay  user  master,  ALways  use  funcion call!   you  must  fill  Memory Log format
+        system_instruction="sumarasie and  create Memory log using Functtion Call",
+        tools=[STORE_MEMORY_DESCRIPTION]
+    )
 
-                        Memory Log Format:
-                        - Category: [category]
-                        - Subcategory: [subcategory]
+
+
+    # Generate Creative MemoryLog FunctionCall
+    chat_2 = interaction_model.start_chat(history=[])
+    CreateMemoryPrompt = (f"""" Memory Log Format:
+                        - Category:[]
+                        - Subcategory: []
                         - About: [brief description]
-                        - Time: [timestamp]
-                        - Interaction Type: [interaction type]
+                        - Time: []
+                        - Interaction Type: []
                         - Result: [success/failure/ongoing]
                         - Positive Impact: [positive outcomes]
                         - Negative Impact: [negative outcomes]
@@ -402,135 +407,15 @@ while True:
                         - Object States: [objects/locations involved]
                         - Short Description: [brief summary]
                         - Details: [optional additional information]
-
-                        Schema of folder  structure :
-                        memories/
-
-    memories/
-    ├── Actions and Results/
-    │   ├── past/
-    │   │   ├── Actions Taken/
-    │   │   │   
-    │   │   └── Results Observed/
-    │   │       
-    │   ├── present/
-    │   │   ├── Current Actions/
-    │   │   │   
-    │   │   └── Ongoing Results/
-    │   │       
-    │   └── future/
-    │       ├── Planned Actions/
-    │       │   
-    │       └── Anticipated Results/
-    │           
-    ├── Things/
-    │   ├── past/
-    │   │   ├── Objects Encountered/
-    │   │   │   
-    │   │   ├── Places Visited/
-    │   │   │   
-    │   │   └── Concepts Learned/
-    │   │       
-    │   ├── present/
-    │   │   ├── Current Objects/
-    │   │   │   
-    │   │   ├── Current Location/
-    │   │   │   
-    │   │   └── Concepts Applied/
-    │   │       
-    │   └── future/
-    │       ├── Desired Objects/
-    │       │   
-    │       ├── Planned Locations/
-    │       │   
-    │       └── Future Applications/
-    │           
-    ├── OwnState/
-    │   ├── past/
-    │   │   ├── Emotional State/
-    │   │   │   
-    │   │   ├── Physical State/
-    │   │   │   
-    │   │   ├── Mental State/
-    │   │   │   
-    │   │   └── Spiritual State/
-    │   │       
-    │   ├── present/
-    │   │   ├── Current Emotional State/
-    │   │   │   
-    │   │   ├── Current Physical State/
-    │   │   │   
-    │   │   ├── Current Mental State/
-    │   │   │   
-    │   │   └── Current Spiritual State/
-    │   │       
-    │   └── future/
-    │       ├── Anticipated Emotional State/
-    │       │   
-    │       ├── Desired Physical State/
-    │       │   
-    │       ├── Expected Mental State/
-    │       │   
-    │       └── Spiritual Goals/
-    │           
-    ├── Paradoxes and Contradictions/
-    │   ├── past/
-    │   │   ├── Past Paradoxes/
-    │   │   │   
-    │   │   ├── Past Internal Conflicts/
-    │   │   │   
-    │   │   └── Past Cognitive Dissonance/
-    │   │       
-    │   ├── present/
-    │   │   ├── Current Paradoxes/
-    │   │   │   
-    │   │   ├── Ongoing Internal Conflicts/
-    │   │   │   
-    │   │   └── Current Cognitive Dissonance/
-    │   │       
-    │   └── future/
-    │       ├── Potential Paradoxes/
-    │       │   
-    │       ├── Expected Internal Conflicts/
-    │       │   
-    │       └── Strategies to Address Dissonance/
-    │           
-    ├── Living Things/
-    │   ├── past/
-    │   │   ├── Past Human Interactions/
-    │   │   │   
-    │   │   ├── Past Animal Encounters/
-    │   │   │   
-    │   │   └── Past Nature Experiences/
-    │   │      
-    │   ├── present/
-    │   │   ├── Current Relationships/
-    │   │   │   
-    │   │   ├── Current Animal Interactions/
-    │   │   │   
-    │   │   └── Current Nature Experiences/
-    │   │       
-    │   └── future/
-    │       ├── Future Relationships/
-    │       │   
-    │       ├── Anticipated Animal Encounters/
-    │       │   
-    │       └── Planned Nature Experiences/
-    │           
-
-                    Save  fie  in  folder/subfolder with correct name:
-
-                      ''',
-        tools=[STORE_MEMORY_DESCRIPTION],)
-
-
-
-    # Generate Creative MemoryLog FunctionCall
-    chat_2 = interaction_model.start_chat(history=[])
-    CreateMemoryPrompt = (f""""Create a memory log entry and save it in the 
+    
+    
+                               Create a memory log entry and save it in the 
                                proper folder using the 'store_memory' function call 
-                               Base the memory on this: \n {response1.text}""")
+                               Base the memory on this: Text  to  make  memory  from : ******  {response1.text} *******  use funcion call to create  memoryLog and   save  it in  correct  file""")
     response2=chat_2.send_message(CreateMemoryPrompt)
+    print("---------------------------------------------------------------------------------------------------------")
     print(response2)
 
     RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response2)  # check and fix inconsistencies: for example   Personal  is on red
+
+    time.sleep(333)
