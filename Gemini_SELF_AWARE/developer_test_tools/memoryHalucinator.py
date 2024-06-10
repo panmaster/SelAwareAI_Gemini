@@ -372,165 +372,158 @@ while True:
         system_instruction=("You follow orders and generate creative text "
                             "interactions."),
         model_name='gemini-1.5-flash-latest',
-        safety_settings={'HARASSMENT': 'block_none'}
-    )
+        safety_settings={'HARASSMENT': 'block_none'})
     chat1 = interaction_model.start_chat(history=[])
-    prompt=f"create  story, expiriane, or  actions, some  random  stuff + f{str(time.strftime())}"
+    prompt=f"create  story, expiriane, or  actions, some  random  stuff"
     print(f"{prompt}")
-    response1 = chat1.send_message()
+    response1 = chat1.send_message(prompt)
     print_colored(response1.text, "green")
-    #########################################################################
+    print(response1.text)
 
+
+
+
+    ###########################################################################################
     memory_model = genai.GenerativeModel(
         model_name='gemini-1.5-flash-latest',
         safety_settings={'HARASSMENT': 'block_none'},
         system_instruction='''You obay  user  master,  ALways  use  funcion call!   you  must  fill  Memory Log format
 
-                    Memory Log Format:
-                    - Category: [category]
-                    - Subcategory: [subcategory]
-                    - About: [brief description]
-                    - Time: [timestamp]
-                    - Interaction Type: [interaction type]
-                    - Result: [success/failure/ongoing]
-                    - Positive Impact: [positive outcomes]
-                    - Negative Impact: [negative outcomes]
-                    - Expectations: [expectations prior to the interaction]
-                    - Object States: [objects/locations involved]
-                    - Short Description: [brief summary]
-                    - Details: [optional additional information]
+                        Memory Log Format:
+                        - Category: [category]
+                        - Subcategory: [subcategory]
+                        - About: [brief description]
+                        - Time: [timestamp]
+                        - Interaction Type: [interaction type]
+                        - Result: [success/failure/ongoing]
+                        - Positive Impact: [positive outcomes]
+                        - Negative Impact: [negative outcomes]
+                        - Expectations: [expectations prior to the interaction]
+                        - Object States: [objects/locations involved]
+                        - Short Description: [brief summary]
+                        - Details: [optional additional information]
 
-                    Schema of folder  structure :
-                    memories/
+                        Schema of folder  structure :
+                        memories/
 
-memories/
-├── Actions and Results/
-│   ├── past/
-│   │   ├── Actions Taken/
-│   │   │   
-│   │   └── Results Observed/
-│   │       
-│   ├── present/
-│   │   ├── Current Actions/
-│   │   │   
-│   │   └── Ongoing Results/
-│   │       
-│   └── future/
-│       ├── Planned Actions/
-│       │   
-│       └── Anticipated Results/
-│           
-├── Things/
-│   ├── past/
-│   │   ├── Objects Encountered/
-│   │   │   
-│   │   ├── Places Visited/
-│   │   │   
-│   │   └── Concepts Learned/
-│   │       
-│   ├── present/
-│   │   ├── Current Objects/
-│   │   │   
-│   │   ├── Current Location/
-│   │   │   
-│   │   └── Concepts Applied/
-│   │       
-│   └── future/
-│       ├── Desired Objects/
-│       │   
-│       ├── Planned Locations/
-│       │   
-│       └── Future Applications/
-│           
-├── OwnState/
-│   ├── past/
-│   │   ├── Emotional State/
-│   │   │   
-│   │   ├── Physical State/
-│   │   │   
-│   │   ├── Mental State/
-│   │   │   
-│   │   └── Spiritual State/
-│   │       
-│   ├── present/
-│   │   ├── Current Emotional State/
-│   │   │   
-│   │   ├── Current Physical State/
-│   │   │   
-│   │   ├── Current Mental State/
-│   │   │   
-│   │   └── Current Spiritual State/
-│   │       
-│   └── future/
-│       ├── Anticipated Emotional State/
-│       │   
-│       ├── Desired Physical State/
-│       │   
-│       ├── Expected Mental State/
-│       │   
-│       └── Spiritual Goals/
-│           
-├── Paradoxes and Contradictions/
-│   ├── past/
-│   │   ├── Past Paradoxes/
-│   │   │   
-│   │   ├── Past Internal Conflicts/
-│   │   │   
-│   │   └── Past Cognitive Dissonance/
-│   │       
-│   ├── present/
-│   │   ├── Current Paradoxes/
-│   │   │   
-│   │   ├── Ongoing Internal Conflicts/
-│   │   │   
-│   │   └── Current Cognitive Dissonance/
-│   │       
-│   └── future/
-│       ├── Potential Paradoxes/
-│       │   
-│       ├── Expected Internal Conflicts/
-│       │   
-│       └── Strategies to Address Dissonance/
-│           
-├── Living Things/
-│   ├── past/
-│   │   ├── Past Human Interactions/
-│   │   │   
-│   │   ├── Past Animal Encounters/
-│   │   │   
-│   │   └── Past Nature Experiences/
-│   │      
-│   ├── present/
-│   │   ├── Current Relationships/
-│   │   │   
-│   │   ├── Current Animal Interactions/
-│   │   │   
-│   │   └── Current Nature Experiences/
-│   │       
-│   └── future/
-│       ├── Future Relationships/
-│       │   
-│       ├── Anticipated Animal Encounters/
-│       │   
-│       └── Planned Nature Experiences/
-│           
+    memories/
+    ├── Actions and Results/
+    │   ├── past/
+    │   │   ├── Actions Taken/
+    │   │   │   
+    │   │   └── Results Observed/
+    │   │       
+    │   ├── present/
+    │   │   ├── Current Actions/
+    │   │   │   
+    │   │   └── Ongoing Results/
+    │   │       
+    │   └── future/
+    │       ├── Planned Actions/
+    │       │   
+    │       └── Anticipated Results/
+    │           
+    ├── Things/
+    │   ├── past/
+    │   │   ├── Objects Encountered/
+    │   │   │   
+    │   │   ├── Places Visited/
+    │   │   │   
+    │   │   └── Concepts Learned/
+    │   │       
+    │   ├── present/
+    │   │   ├── Current Objects/
+    │   │   │   
+    │   │   ├── Current Location/
+    │   │   │   
+    │   │   └── Concepts Applied/
+    │   │       
+    │   └── future/
+    │       ├── Desired Objects/
+    │       │   
+    │       ├── Planned Locations/
+    │       │   
+    │       └── Future Applications/
+    │           
+    ├── OwnState/
+    │   ├── past/
+    │   │   ├── Emotional State/
+    │   │   │   
+    │   │   ├── Physical State/
+    │   │   │   
+    │   │   ├── Mental State/
+    │   │   │   
+    │   │   └── Spiritual State/
+    │   │       
+    │   ├── present/
+    │   │   ├── Current Emotional State/
+    │   │   │   
+    │   │   ├── Current Physical State/
+    │   │   │   
+    │   │   ├── Current Mental State/
+    │   │   │   
+    │   │   └── Current Spiritual State/
+    │   │       
+    │   └── future/
+    │       ├── Anticipated Emotional State/
+    │       │   
+    │       ├── Desired Physical State/
+    │       │   
+    │       ├── Expected Mental State/
+    │       │   
+    │       └── Spiritual Goals/
+    │           
+    ├── Paradoxes and Contradictions/
+    │   ├── past/
+    │   │   ├── Past Paradoxes/
+    │   │   │   
+    │   │   ├── Past Internal Conflicts/
+    │   │   │   
+    │   │   └── Past Cognitive Dissonance/
+    │   │       
+    │   ├── present/
+    │   │   ├── Current Paradoxes/
+    │   │   │   
+    │   │   ├── Ongoing Internal Conflicts/
+    │   │   │   
+    │   │   └── Current Cognitive Dissonance/
+    │   │       
+    │   └── future/
+    │       ├── Potential Paradoxes/
+    │       │   
+    │       ├── Expected Internal Conflicts/
+    │       │   
+    │       └── Strategies to Address Dissonance/
+    │           
+    ├── Living Things/
+    │   ├── past/
+    │   │   ├── Past Human Interactions/
+    │   │   │   
+    │   │   ├── Past Animal Encounters/
+    │   │   │   
+    │   │   └── Past Nature Experiences/
+    │   │      
+    │   ├── present/
+    │   │   ├── Current Relationships/
+    │   │   │   
+    │   │   ├── Current Animal Interactions/
+    │   │   │   
+    │   │   └── Current Nature Experiences/
+    │   │       
+    │   └── future/
+    │       ├── Future Relationships/
+    │       │   
+    │       ├── Anticipated Animal Encounters/
+    │       │   
+    │       └── Planned Nature Experiences/
+    │           
 
-                Save  fie  in  folder/subfolder with correct name:
+                    Save  fie  in  folder/subfolder with correct name:
 
-                  ''' ,
-        tools=[STORE_MEMORY_DESCRIPTION],
-        tool_config=[memory_model]
-
-    )
+                      ''',
+        tools=[STORE_MEMORY_DESCRIPTION],)
 
 
-
-    # Generate Creative Writing Prompt
-    chat1 = memory_model.start_chat(history=[])
-    creative_prompt = "Create a random story, experience, or action - anything you like."
-    response1 = chat1.send_message(creative_prompt)
-    print(response1.text)
-    ###########################################################################################
 
     # Generate Creative MemoryLog FunctionCall
     chat_2 = interaction_model.start_chat(history=[])
@@ -539,7 +532,5 @@ memories/
                                Base the memory on this: \n {response1.text}""")
     response2=chat_2.send_message(CreateMemoryPrompt)
     print(response2)
-
-
 
     RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response2)  # check and fix inconsistencies: for example   Personal  is on red
