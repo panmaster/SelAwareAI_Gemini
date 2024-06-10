@@ -367,36 +367,23 @@ STORE_MEMORY_DESCRIPTION = {
 # --- Main Function ---
 while True:
 
-    # Interaction History Generator Model
+
     interaction_model = genai.GenerativeModel(
         system_instruction=("You follow orders and generate creative text "
                             "interactions."),
         model_name='gemini-1.5-flash-latest',
         safety_settings={'HARASSMENT': 'block_none'}
     )
-
-
-    def CreatePrompt(user):
-        mojtime = str(time.time())
-
-
-        prompt = f"{user}, create a vivid memory, experience, or interaction from the past. Include a specific detail about the time: {mojtime}"
-        return prompt
-
-
     chat1 = interaction_model.start_chat(history=[])
-    user = input("user:")
-    prompt = CreatePrompt(user)
-
-    print_colored(prompt, "cyan")
-    response1 = chat1.send_message(user + prompt)
+    prompt=f"create  story, expiriane, or  actions, some  random  stuff + f{str(time.strftime())}"
+    print(f"{prompt}")
+    response1 = chat1.send_message()
     print_colored(response1.text, "green")
+    #########################################################################
 
-    print_colored("going to second  stage", "yellow")
-    # --- Tool Description for AI Model ---
-
-    # Memory Creation Model
     memory_model = genai.GenerativeModel(
+        model_name='gemini-1.5-flash-latest',
+        safety_settings={'HARASSMENT': 'block_none'},
         system_instruction='''You obay  user  master,  ALways  use  funcion call!   you  must  fill  Memory Log format
 
                     Memory Log Format:
@@ -530,19 +517,20 @@ memories/
 
                 Save  fie  in  folder/subfolder with correct name:
 
-                  ''' )
+                  ''' ,
+        tools=[STORE_MEMORY_DESCRIPTION],
+        tool_config=[memory_model]
 
-    Memory_making_model = genai.GenerativeModel(
-        model_name='gemini-1.5-flash-latest',
-        safety_settings={'HARASSMENT': 'block_none'},
-        tools=[STORE_MEMORY_DESCRIPTION]
     )
+
+
+
     # Generate Creative Writing Prompt
-    chat1 = Memory_making_model.start_chat(history=[])
+    chat1 = memory_model.start_chat(history=[])
     creative_prompt = "Create a random story, experience, or action - anything you like."
     response1 = chat1.send_message(creative_prompt)
     print(response1.text)
-
+    ###########################################################################################
 
     # Generate Creative MemoryLog FunctionCall
     chat_2 = interaction_model.start_chat(history=[])
