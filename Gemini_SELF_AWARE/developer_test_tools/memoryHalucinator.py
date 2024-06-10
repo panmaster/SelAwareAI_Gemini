@@ -148,7 +148,7 @@ def create_file_structure():
 
 def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response):
     """Interprets the model's response, extracts function details, and executes the appropriate function."""
-
+    global  store_memory
     print_colored(f"---------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------", "yellow")
     Multiple_ResultsOfFunctions_From_interpreter = []
 
@@ -159,8 +159,8 @@ def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response):
                 function_name = function_call.name
                 function_args = function_call.args
 
-                # Get the function from the tool manager
-                function_to_call = globals().get(function_name)
+                # Get the function from the tool manage
+                function_to_call = globals().get(store_memory)
 
                 if function_to_call:  # Check if the tool function is found
                     print_colored(f"FUNCTION CALL: {function_name}({function_args}) ", "cyan")
@@ -537,62 +537,21 @@ memories/
         safety_settings={'HARASSMENT': 'block_none'},
         tools=[STORE_MEMORY_DESCRIPTION]
     )
-
-    chat2 = Memory_making_model.start_chat(history=[])
-    response2 = chat2.send_message(response1.text)
-
-    print_colored(response2, "magenta")
-
-
-
-
-    # --- Memory Creation Loop ---
-    iteration_count = 0
-
-    print_colored(f"Iteration: {iteration_count}", "yellow")
-    iteration_count += 1
-
     # Generate Creative Writing Prompt
-    chat_creative_writing = interaction_model.start_chat(history=[])
+    chat1 = Memory_making_model.start_chat(history=[])
     creative_prompt = "Create a random story, experience, or action - anything you like."
-    print_colored(f"Creative Writing Prompt: {creative_prompt}", "cyan")
-    creative_response = chat_creative_writing.send_message(creative_prompt)
-    print_colored(f"Creative Output: {creative_response.text}", "green")
-
-    # Create Memory from Creative Output
-    memory_chat = memory_model.start_chat(history=[])
-    memory_prompt = (f"Create a memory log entry and save it in the "
-                     f"proper folder using the 'store_memory' function call "
-                     f"Base the memory on this: \n{creative_response.text}")
+    response1 = chat1.send_message(creative_prompt)
+    print(response1.text)
 
 
-    print_colored(f" create memory log:")
-    memory_response = memory_chat.send_message(memory_prompt)
+    # Generate Creative MemoryLog FunctionCall
+    chat_2 = interaction_model.start_chat(history=[])
+    CreateMemoryPrompt = (f""""Create a memory log entry and save it in the 
+                               proper folder using the 'store_memory' function call 
+                               Base the memory on this: \n {response1.text}""")
+    response2=chat_2.send_message(CreateMemoryPrompt)
+    print(response2)
 
-    # Interpret and execute function call
-    Result=RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(memory_response)  # che
 
-    # --- Memory Creation Loop ---
-    iteration_count = 0
 
-    print_colored(f"Iteration: {iteration_count}", "yellow")
-    iteration_count += 1
-
-    # Generate Creative Writing Prompt
-    chat_creative_writing = interaction_model.start_chat(history=[])
-    creative_prompt = "Create a random story, experience, or action - anything you like."
-    print_colored(f"Creative Writing Prompt: {creative_prompt}", "cyan")
-    creative_response = chat_creative_writing.send_message(creative_prompt)
-    print_colored(f"Creative Output: {creative_response.text}", "green")
-
-    # Create Memory from Creative Output
-    memory_chat = memory_model.start_chat(history=[])
-    memory_prompt = (f"Create a memory log entry and save it in the "
-                     f"proper folder using the 'store_memory' function. "
-                     f"Base the memory on this: \n{creative_response.text}")
-    print_colored(f"Memory Creation Prompt: {memory_prompt}", "blue")
-    memory_response = memory_chat.send_message(memory_prompt)
-
-    # Interpret and execute function call
-    RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(
-        memory_response)  # check and fix inconsistencies: for example   Personal  is on red
+    RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response2)  # check and fix inconsistencies: for example   Personal  is on red
