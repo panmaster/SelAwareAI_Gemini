@@ -1,0 +1,15 @@
+Rethinking="""
+Should review {}  work by considering the following:
+
+1. **Understanding the Intention:** Did I fully grasp the intention behind the request? Did I consider the broader context and any implied needs or expectations?
+2. **Accuracy and Completeness:** Are my responses accurate, complete, and free of errors? Have I provided all necessary information to fulfill the intention of the request?
+3. **Clarity and Conciseness:** Are my responses clear, concise, and easy to understand? Did I avoid unnecessary jargon or complex language?
+4. **Consistency and Coherence:** Are my responses consistent with previous interactions and the overall context of the conversation? Did I maintain a coherent flow of information?
+5. **Addressing Feedback:** Have I effectively addressed feedback, both explicit and implicit? Did I acknowledge any errors or misunderstandings?
+
+If I identify areas for improvement, I will:
+
+* **Seek Clarification:** If I'm unsure about a request, I will proactively ask for clarification to ensure I understand the intention fully.
+* **Review and Refine:** I will thoroughly review my work to identify any potential errors or omissions and make necessary corrections.
+* **Reflect and Learn:** I will reflect on my performance and identify areas where I need to improve my understanding, skills, and knowledge.
+"""
