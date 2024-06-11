@@ -1,9 +1,13 @@
+import sys
 import time
 import datetime
 import re
 import os
+from turtle import pd
+
 import google.generativeai as genai
 from termcolor import colored, cprint
+
 genai.configure(api_key='AIzaSyDEa1BAKI4ybj4N8Xloo4XY5uW5X62e-lw')
 import time
 import datetime
@@ -11,6 +15,11 @@ import re
 import os
 import google.generativeai as genai
 from termcolor import colored, cprint
+import datetime
+
+timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+
+
 
 # ANSI escape codes for text colors
 COLOR_CODES = {
@@ -66,6 +75,7 @@ categories = {
 }
 
 
+# --- Function to Create File Structure ---
 def create_file_structure():
     """Creates the file structure for storing memories."""
     for category in categories:
@@ -75,11 +85,6 @@ def create_file_structure():
                 os.makedirs(folder_path, exist_ok=True)
 
 
-create_file_structure()
-print_colored("Generated Memory Folders", "green")
-
-
-# --- MemoryLog Class ---
 class MemoryLog:
     """
     A class to represent a single memory entry in a MemoryLog.
@@ -134,55 +139,12 @@ class MemoryLog:
         return output
 
 
-# --- Function to Create File Structure ---
-def create_file_structure():
-    """Creates the file structure for storing memories."""
-    for category in categories:
-        for time_period in ["past", "present", "future"]:
-            for subcategory in categories[category][time_period]:
-                folder_path = os.path.join("memories", category, time_period, subcategory)
-                os.makedirs(folder_path, exist_ok=True)
+create_file_structure()
+print_colored("Generated Memory Folders", "green")
 
 
-
-
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response):
-    """Interprets the model's response, extracts function details, and executes the appropriate function."""
-    global  store_memory
-    print_colored(f"---------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------", "yellow")
-    Multiple_ResultsOfFunctions_From_interpreter = []
-
-    if response.candidates:
-        for part in response.candidates[0].content.parts:
-            if hasattr(part, 'function_call'):
-                function_call = part.function_call
-                function_name = function_call.name
-                function_args = function_call.args
-
-                # Get the function from the tool manage
-                function_to_call = globals().get(store_memory)
-
-                if function_to_call:  # Check if the tool function is found
-                    print_colored(f"FUNCTION CALL: {function_name}({function_args}) ", "cyan")
-
-                    try:
-                        results = function_to_call(**function_args)
-                    except TypeError as e:
-                        results = f"TypeError: {e}"
-                    except Exception as e:
-                        results = f"Exception: {e}"
-
-                    function_name_arguments = f"{function_name}({function_args})"
-                    modified_results = f"Result of Called function {function_name_arguments}: {results}"
-                    Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
-                else:
-                    print_colored(f"Warning: Tool function '{function_name}' not found.", "red")
-
-    return Multiple_ResultsOfFunctions_From_interpreter
-
-
+# Define the `store_memory` function here
 def store_memory(memory_log_details: dict, conversation_context: str = ""):
-
     print_colored(f"Storing Memory:", "green")
 
     # Create MemoryLog object
@@ -247,175 +209,305 @@ def store_memory(memory_log_details: dict, conversation_context: str = ""):
         # ... implement the trigger logic here ...
 
 
+ALLOWED_FUNCTIONS = {
+    "store_memory": store_memory,
+    # Add more functions here as needed
+}
 
 
+def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response):
+    """Interprets the model's response, extracts function details, and executes the appropriate function."""
+    global store_memory
+    print_colored(f"---------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------", "yellow")
+    Multiple_ResultsOfFunctions_From_interpreter = []
+
+    if response.candidates:
+        for part in response.candidates[0].content.parts:
+            if hasattr(part, 'function_call'):
+                function_call = part.function_call
+                function_name = function_call.name
+                function_args = function_call.args
+
+                # Get the function from the tool manage
+                function_to_call = globals().get(store_memory)
+
+                if function_to_call := ALLOWED_FUNCTIONS.get(function_name):  # Safe function lookup
+                    print_colored(f"FUNCTION CALL: {function_name}({function_args}) ", "cyan")
+
+                    try:
+                        results = function_to_call(**function_args)
+                    except TypeError as e:
+                        results = f"TypeError: {e}"
+                    except Exception as e:
+                        results = f"Exception: {e}"
+
+                    function_name_arguments = f"{function_name}({function_args})"
+                    modified_results = f"Result of Called function {function_name_arguments}: {results}"
+                    Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
+                else:
+                    print_colored(f"Warning: Tool function '{function_name}' not found.", "red")
+
+    return Multiple_ResultsOfFunctions_From_interpreter
 
 
 STORE_MEMORY_DESCRIPTION = [
 
-        {
-            'name': 'store_memory',
-            'description': 'Stores a memory log entry in a file within a hierarchical folder structure. '
-                           ,
-            'parameters': {
-                'type_': 'OBJECT',
-                'properties': {
-                    'MEMORY_LOG_DETAILS': {
-                        'type_': 'OBJECT',
-                        'description': 'A dictionary containing the memory details.',
-                        'required': [
-                            'CATEGORY', 'SUBCATEGORY', 'ABOUT', 'TIME', 'INTERACTION_TYPE',
-                            'RESULT', 'POSITIVE_IMPACT', 'NEGATIVE_IMPACT', 'EXPECTATIONS',
-                            'OBJECT_STATES', 'SHORT_DESCRIPTION'
-                        ],
-                        'properties': {
-                            'CATEGORY': {
-                                'type_': 'STRING',
-                                'description': 'The category of the memory (e.g., "Personal", "Work"). '
-                                               'Determines the subfolder within `memories/past` where the memory is stored.'
-                            },
-                            'SUBCATEGORY': {
-                                'type_': 'STRING',
-                                'description': 'The subcategory of the memory (e.g., "Family", "Project"). '
-                                               'Determines the subfolder within `memories/past/category` where the memory is stored.'
-                            },
-                            'ABOUT': {
-                                'type_': 'STRING',
-                                'description': 'A brief description of what the memory is about.'
-                            },
-                            'TIME': {
-                                'type_': 'STRING',
-                                'description': 'The timestamp of the memory.'
-                            },
-                            'INTERACTION_TYPE': {
-                                'type_': 'STRING',
-                                'description': 'The type of interaction associated with the memory.'
-                            },
-                            'RESULT': {
-                                'type_': 'STRING',
-                                'description': 'The outcome of the interaction.'
-                            },
-                            'POSITIVE_IMPACT': {
-                                'type_': 'STRING',
-                                'description': 'The positive impact of the memory.'
-                            },
-                            'NEGATIVE_IMPACT': {
-                                'type_': 'STRING',
-                                'description': 'The negative impact of the memory.'
-                            },
-                            'EXPECTATIONS': {
-                                'type_': 'STRING',
-                                'description': 'Expectations associated with the memory.'
-                            },
-                            'OBJECT_STATES': {
-                                'type_': 'STRING',
-                                'description': 'The state of objects involved in the memory.'
-                            },
-                            'SHORT_DESCRIPTION': {
-                                'type_': 'STRING',
-                                'description': 'A concise summary of the memory.'
-                            },
-                            'DETAILS': {
-                                'type_': 'OBJECT',
-                                'description': 'A dictionary containing additional details about the memory.',
+    {
+        'name': 'store_memory',
+        'description': 'Stores a memory log entry in a file within a hierarchical folder structure. '
+        ,
+        'parameters': {
+            'type_': 'OBJECT',
+            'properties': {
+                'MEMORY_LOG_DETAILS': {
+                    'type_': 'OBJECT',
+                    'description': 'A dictionary containing the memory details.',
+                    'required': [
+                        'CATEGORY', 'SUBCATEGORY', 'ABOUT', 'TIME', 'INTERACTION_TYPE',
+                        'RESULT', 'POSITIVE_IMPACT', 'NEGATIVE_IMPACT', 'EXPECTATIONS',
+                        'OBJECT_STATES', 'SHORT_DESCRIPTION'
+                    ],
+                    'properties': {
+                        'CATEGORY': {
+                            'type_': 'STRING',
+                            'description': 'The category of the memory (e.g., "Personal", "Work"). '
+                                           'Determines the subfolder within `memories/past` where the memory is stored.'
+                        },
+                        'SUBCATEGORY': {
+                            'type_': 'STRING',
+                            'description': 'The subcategory of the memory (e.g., "Family", "Project"). '
+                                           'Determines the subfolder within `memories/past/category` where the memory is stored.'
+                        },
+                        'ABOUT': {
+                            'type_': 'STRING',
+                            'description': 'A brief description of what the memory is about.'
+                        },
+                        'TIME': {
+                            'type_': 'STRING',
+                            'description': 'The timestamp of the memory.'
+                        },
+                        'INTERACTION_TYPE': {
+                            'type_': 'STRING',
+                            'description': 'The type of interaction associated with the memory.'
+                        },
+                        'RESULT': {
+                            'type_': 'STRING',
+                            'description': 'The outcome of the interaction.'
+                        },
+                        'POSITIVE_IMPACT': {
+                            'type_': 'STRING',
+                            'description': 'The positive impact of the memory.'
+                        },
+                        'NEGATIVE_IMPACT': {
+                            'type_': 'STRING',
+                            'description': 'The negative impact of the memory.'
+                        },
+                        'EXPECTATIONS': {
+                            'type_': 'STRING',
+                            'description': 'Expectations associated with the memory.'
+                        },
+                        'OBJECT_STATES': {
+                            'type_': 'STRING',
+                            'description': 'The state of objects involved in the memory.'
+                        },
+                        'SHORT_DESCRIPTION': {
+                            'type_': 'STRING',
+                            'description': 'A concise summary of the memory.'
+                        },
+                        'DETAILS': {
+                            'type_': 'OBJECT',
+                            'description': 'A dictionary containing additional details about the memory.',
 
-                            },
-                            'INTENSITY': {
-                                'type_': 'STRING',
-                                'description': 'The intensity of the memory.',
+                        },
+                        'INTENSITY': {
+                            'type_': 'STRING',
+                            'description': 'The intensity of the memory.',
 
-                            },
-                            'DURATION': {
-                                'type_': 'STRING',
-                                'description': 'The duration of the memory.',
+                        },
+                        'DURATION': {
+                            'type_': 'STRING',
+                            'description': 'The duration of the memory.',
 
-                            },
-                            'OBJECTS': {
-                                'type_': 'ARRAY',
-                                'description': 'A list of objects involved in the memory.',
+                        },
+                        'OBJECTS': {
+                            'type_': 'ARRAY',
+                            'description': 'A list of objects involved in the memory.',
 
-                            },
-                            'PEOPLE': {
-                                'type_': 'ARRAY',
-                                'description': 'A list of people involved in the memory.',
+                        },
+                        'PEOPLE': {
+                            'type_': 'ARRAY',
+                            'description': 'A list of people involved in the memory.',
 
-                            },
-                            'CONCLUSION': {
-                                'type_': 'STRING',
-                                'description': 'A conclusion drawn from the memory.',
+                        },
+                        'CONCLUSION': {
+                            'type_': 'STRING',
+                            'description': 'A conclusion drawn from the memory.',
 
-                            },
-                            'INTERACTIONS': {
-                                'type_': 'ARRAY',
-                                'description': 'A list of interactions within the memory.',
+                        },
+                        'INTERACTIONS': {
+                            'type_': 'ARRAY',
+                            'description': 'A list of interactions within the memory.',
 
-                            }
                         }
-                    },
-                    'CONVERSATION_CONTEXT': {
-                        'type_': 'STRING',
-                        'description': 'The full conversation history up to this point.',
-
                     }
+                },
+                'CONVERSATION_CONTEXT': {
+                    'type_': 'STRING',
+                    'description': 'The full conversation history up to this point.',
+
                 }
             }
         }
-     ]
+    }
+]
+
+from datetime import datetime
+import os
 
 
-# --- Main Function ---
+import os
+from datetime import datetime
+
+def store_conversation_frame(user_input="", ai_response="",
+                             ai_response_summary="", session_name="default_session",
+                             path="conversation_logs",
+                             memory_frame_number=None, edit_number=0):
+    """Stores conversation data with enhanced file naming and timestamps.
+
+    Args:
+        user_input (str): The user's input.
+        ai_response (str): The AI's response.
+        ai_response_summary (str): A summary of the AI's response.
+        session_name (str): Unique identifier for the conversation.
+        path (str): Base directory for storing logs.
+        memory_frame_number (int): Frame number. Auto-increments if None.
+        edit_number (int): Number of edits to this frame.
+    """
+
+    separator = "######$######"
+    os.makedirs(path, exist_ok=True)
+
+    # --- Enhanced File Naming ---
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"MemoryFrame_{session_name}_{timestamp}.txt"
+    filepath = os.path.join(path, filename)
+
+    # --- Memory Frame Numbering ---
+    if memory_frame_number is None:
+        memory_frame_number = 1
+
+    # --- Frame Data ---
+    frame_data = {
+        "MEMORY_FRAME_NUMBER": memory_frame_number,
+        "EDIT_NUMBER": edit_number,
+        "TIMESTAMP": timestamp,
+        "USER_INPUT": user_input,
+        "AI_RESPONSE": ai_response,
+        "AI_RESPONSE_SUMMARY": ai_response_summary
+    }
+
+    # --- Construct Content with Readable Timestamps ---
+    readable_timestamp = datetime.now().strftime('%A, %B %d, %Y - %H:%M:%S') #day month date year - hour minute second
+    frame_content = f"{separator} Memory Frame {memory_frame_number}, Edit {edit_number} - {readable_timestamp} {separator}\n"
+    for key, value in frame_data.items():
+        frame_content += f"{key}: {value}\n"  # Improved formatting
+    frame_content += f"{separator} Memory Frame End {memory_frame_number}, Edit {edit_number} {separator}\n\n" #double /n for readability
+
+    # --- Write to File ---
+    with open(filepath, 'a', encoding='utf-8') as f:
+        f.write(frame_content)
+
+    print(f"Memory frame saved in: {filepath}")
+
+
+
+
+
+
+
+def categorize_memory(summary, categories):
+    """Categorizes a memory frame based on keywords in the summary."""
+    # *** Start with Simple Keyword Matching (Improve Later) ***
+    for category, subcategories in categories.items():
+        for time_period, keyword_list in subcategories.items():
+            for keyword in keyword_list:
+                if re.search(rf"\b{keyword}\b", summary, re.IGNORECASE):
+                    return category, time_period, keyword
+
+    return "uncategorized", "unknown", "unknown"  # Default if no match
+
+
 while True:
-
-
+    user = input("enter input")
     interaction_model = genai.GenerativeModel(
-        system_instruction=("You follow orders and generate creative text "
+        system_instruction=("You follow orders and generate creative text , "
                             "interactions."),
         model_name='gemini-1.5-flash-latest',
         safety_settings={'HARASSMENT': 'block_none'})
     chat1 = interaction_model.start_chat(history=[])
-    prompt=f"create  story, expiriane, or  actions, some  random  stuff"
+    prompt = f"create   {user}"
     print(f"{prompt}")
     response1 = chat1.send_message(prompt)
     print_colored(response1.text, "green")
-
-
-
-
+    chat1.history = []
 
     ###########################################################################################
     memory_model = genai.GenerativeModel(
         model_name='gemini-1.5-flash-latest',
         safety_settings={'HARASSMENT': 'block_none'},
-        system_instruction="sumarasie and  create Memory log using Functtion Call",
-        tools=[STORE_MEMORY_DESCRIPTION]
+        system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
+        Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate.""",
     )
-
-
 
     # Generate Creative MemoryLog FunctionCall
     chat_2 = interaction_model.start_chat(history=[])
-    CreateMemoryPrompt = (f"""" Memory Log Format:
-                        - Category:[]
-                        - Subcategory: []
-                        - About: [brief description]
-                        - Time: []
-                        - Interaction Type: []
-                        - Result: [success/failure/ongoing]
-                        - Positive Impact: [positive outcomes]
-                        - Negative Impact: [negative outcomes]
-                        - Expectations: [expectations prior to the interaction]
-                        - Object States: [objects/locations involved]
-                        - Short Description: [brief summary]
-                        - Details: [optional additional information]
-    
-    
-                               Create a memory log entry and save it in the 
-                               proper folder using the 'store_memory' function call 
-                               Base the memory on this: Text  to  make  memory  from : ******  {response1.text} *******  use funcion call to create  memoryLog and   save  it in  correct  file""")
-    response2=chat_2.send_message(CreateMemoryPrompt)
+    json_schema_example = """
+    {
+      "concise_summary": "Your concise summary of the conversation goes here.",
+      "main_topic": "The central theme or subject of the conversation.",
+      "keywords": ["keyword1", "keyword2", "keyword3", ...], 
+      "entities": ["entity1", "entity2", ...], 
+      "actions": ["action1", "action2", ...], 
+      "category": "The category of the memory", 
+      "subcategory": "The subcategory of the memory",
+      "memory_about": "A brief description of what the memory is about", 
+      "interaction_type": "Describe the type of interaction that occurred in this conversation.",
+      "positive_impact": "What were the positive outcomes or benefits of this conversation?", 
+      "negative_impact":  "Were there any negative outcomes or drawbacks discussed?", 
+      "expectations": "What were the user's expectations before the conversation?",
+      "object_states": "Describe the objects or locations involved.",
+      "short_description": "An even briefer summary", 
+      "details": {}, // Optional additional details as key-value pairs
+      "facts": ["fact1", "fact2", ...],
+      "contradictions_paradoxes": ["contradiction1", "paradox2", ...],
+      "strength_of_experience": "A description of the intensity or significance of this conversation for the user.",
+      "personal_information": "Any relevant personal details",
+      "observed_interactions": ["interaction1", "interaction2", ...],
+      "people": ["person1", "person2", ...],
+      "objects": ["object1", "object2", ...],
+      "animals": ["animal1", "animal2", ...],
+      "obtained_knowledge": "What new knowledge or insights were gained from this conversation?",
+      "scientific_data": ["data_point1", "data_point2", ...],
+      "tags": ["tag1", "tag2", ...] // For additional retrieval 
+    }
+    """
+    CreateMemoryPrompt = f'''User: {user}
+                                  AI: {response1.text}
+
+                                  You are a sophisticated AI assistant helping to organize memories. 
+    Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate.
+
+    Specifically, provide the following information in a structured format using JSON:
+    {json_schema_example}
+
+   '''
+
+    print(CreateMemoryPrompt)
+    response2 = chat_2.send_message(CreateMemoryPrompt)
     print("---------------------------------------------------------------------------------------------------------")
-    print(response2)
+    print(response2.text)
 
-    RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response2)  # check and fix inconsistencies: for example   Personal  is on red
+    RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(
+        response2)  # check and fix inconsistencies: for example   Personal  is on red
 
-    time.sleep(333)
+    store_conversation_frame(user_input=user, ai_response=response1.text, ai_response_summary=response2.text)
