@@ -8,7 +8,7 @@ from turtle import pd
 import google.generativeai as genai
 from termcolor import colored, cprint
 
-genai.configure(api_key='AIzaSyDEa1BAKI4ybj4N8Xloo4XY5uW5X62e-lw')
+genai.configure(api_key='AIzaSyDB4T_w4yat1SUGcP5zLl0x94I9Emb6-kY')
 import time
 import datetime
 import re
