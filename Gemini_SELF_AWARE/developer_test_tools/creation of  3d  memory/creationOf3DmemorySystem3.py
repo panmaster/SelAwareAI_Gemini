@@ -5,7 +5,7 @@ def hash_category(category):
     """Hashes a category name to 3D coordinates (limited to 6x6x6 grid)."""
     hash_object = hashlib.sha256(category.encode())
     hex_digest = hash_object.hexdigest()
-    x = int(hex_digest[0:2], 16) % 6  # Modulo for x-coordinate
+    x = int(hex_digest[0:2], 16) % 6  # Modulo for creation of  3d  memory-coordinate
     y = int(hex_digest[2:4], 16) % 6  # Modulo for y-coordinate
     z = int(hex_digest[4:6], 16) % 6  # Modulo for z-coordinate
     return x, y, z
