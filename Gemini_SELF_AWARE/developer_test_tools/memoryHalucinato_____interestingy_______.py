@@ -1,6 +1,14 @@
 print("wait. Loading........")
 import os
 import re
+import json
+
+
+import re  # Import the re module
+import json
+from collections import defaultdict
+from collections import defaultdict
+import  json
 from datetime import datetime
 import google.generativeai as genai
 from fuzzywuzzy import fuzz
@@ -3865,9 +3873,35 @@ COLOR_CODES = {
     "reset": "\033[0m",
 }
 
+red = "\033[91m"
+green = "\033[92m"
+yellow = "\033[93m"
+blue = "\033[94m"
+magenta = "\033[95m"
+cyan = "\033[96m"
+white = "\033[97m"
+reset = "\033[0m"
 
 
-genai.configure(api_key='AIzaSyC_fukkmeyeP-Xs2ajjL1WDCcBd6NA1sx8')
+
+from collections import defaultdict
+
+# ANSI color codes for terminal output
+class TerminalColors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+
+
+
+genai.configure(api_key='AIzaSyCsGVvjuxBMelP4YW8HMTb_QXdiWzcdaso')
 
 
 
@@ -4065,11 +4099,212 @@ FUNCTION_MAPPING = {
 
 def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memory_data):
     """Stores structured memory data and the conversation frame across multiple templates SIMULTANEOUSLY."""
+    # Define color codes
+    red = "\033[91m"
+    green = "\033[92m"
+    yellow = "\033[93m"
+    blue = "\033[94m"
+    magenta = "\033[95m"
+    cyan = "\033[96m"
+    white = "\033[97m"
+    reset = "\033[0m"
+    import json
+    from collections import defaultdict
+    from typing import List, Dict
+
+    import json
+    from collections import defaultdict
+
+    def extract_entries_smart(response_message):
+        """
+        Extracts entries from a response message containing a JSON block.
+        Prints extracted entries with colors for better readability.
+
+        Args:
+            response_message: The response message string.
+
+        Returns:
+            A list of dictionaries, each representing an extracted entry.
+        """
+        entries = []
+        print(f"{magenta}extract_entries_smart{reset}")
+
+        # Use regex to find the JSON block
+        json_match = re.search(r"```json\n(.*?)\n```", response_message, re.DOTALL)
+
+        # If JSON block is found, extract the JSON data
+        if json_match:
+            try:
+                json_data = json_match.group(1)  # Extract JSON string
+                response_data = json.loads(json_data)
+                print(f"{green}Successfully loaded JSON data:{reset}")
+                print(json.dumps(response_data, indent=4))  # Print the loaded JSON data
+
+                # --- Extract data using matching rules ---
+                entry = defaultdict(list)
+
+                # Define a set of single-value fields
+                single_value_fields = {
+                    "concise_summary",
+                    "main_topic",
+                    "problem_solved",
+                    "concept_definition",
+                    "category",
+                    "subcategory",
+                    "memory_about",
+                    "interaction_type",
+                    "positive_impact",
+                    "negative_impact",
+                    "expectations",
+                    "object_states",
+                    "short_description",
+                    "description",
+                    "strength_of_experience",
+                    "personal_information",
+                    "obtained_knowledge"
+                }
+
+                # Define a set of list-type fields
+                list_type_fields = {
+                    "keywords",
+                    "entities",
+                    "actions",
+                    "facts",
+                    "contradictions_paradoxes",
+                    "people",
+                    "objects",
+                    "animals",
+                    "scientific_data",
+                    "tags",
+                    "tools_and_technologies",
+                    "example_projects",
+                    "best_practices",
+                    "common_challenges",
+                    "debugging_tips",
+                    "related_concepts",
+                    "visualizations"
+                }
+
+                # Direct Matching:
+                for key, value in response_data.items():
+                    if key in single_value_fields:
+                        entry[key] = value
+                        print(f"{blue}Direct match: {key} = {value}{reset}")
+                    elif key in list_type_fields:
+                        if isinstance(value, list):
+                            entry[key].extend(value)
+                            print(f"{blue}List match: {key} = {value}{reset}")
+                        else:
+                            entry[key].append(value)
+                            print(f"{blue}List match: {key} = {value}{reset}")
+                    elif isinstance(value, list) and value and isinstance(value[0], dict):
+                        entry[key].extend(value)
+                        print(f"{blue}List of dictionaries match: {key} = {value}{reset}")
+
+                # Keyword-Based Mapping:
+                for key, value in response_data.items():
+                    if "keyword" in key.lower() and isinstance(value, list):
+                        entry["keywords"].extend(value)
+                        print(f"{blue}Keyword match: {key} = {value}{reset}")
+                    elif "description" in key.lower():
+                        entry["description"] = value
+                        print(f"{blue}Description match: {key} = {value}{reset}")
+                    elif "summary" in key.lower():
+                        entry["concise_summary"] = value
+                        print(f"{blue}Summary match: {key} = {value}{reset}")
+                    elif "step" in key.lower() and isinstance(value, list) and value and isinstance(value[0], dict):
+                        entry["implementation_steps"].extend(value)
+                        print(f"{blue}Step match: {key} = {value}{reset}")
+                    elif "resource" in key.lower() and isinstance(value, list) and value and isinstance(value[0], dict):
+                        entry["resources"].extend(value)
+                        print(f"{blue}Resource match: {key} = {value}{reset}")
+                    elif "code" in key.lower() and isinstance(value, list) and value and isinstance(value[0], dict):
+                        entry["code_examples"].extend(value)
+                        print(f"{blue}Code match: {key} = {value}{reset}")
+
+                # Additional Matching:
+                for key, value in response_data.items():
+                    if "interaction_type" in key.lower() and isinstance(value, list):
+                        entry["interaction_type"].extend(value)
+                        print(f"{blue}Interaction type match: {key} = {value}{reset}")
+                    if "category" in key.lower():
+                        entry["category"] = value
+                        print(f"{blue}Category match: {key} = {value}{reset}")
+                    if "subcategory" in key.lower():
+                        entry["subcategory"] = value
+                        print(f"{blue}Subcategory match: {key} = {value}{reset}")
+
+                # Append the entry to the list
+                entries.append(dict(entry))  # Convert back to regular dict
+                print(f"{green}Extracted entry: {entry}{reset}")  # Print the extracted entry
+                print(f"{yellow}{'-' * 30}{reset}")  # Separator for better readability
+
+            except json.JSONDecodeError:
+                print(f"{red}Error: Invalid JSON in response message.{reset}")
+            except Exception as e:
+                print(f"{red}Error extracting entry: {e}{reset}")
+
+        return entries
+
+    extract_entries_smart(ai_response2)
 
 
+    def extract_entries_smart(response_message):
+        """
+        Extracts entries from a response message containing a JSON block.
+        Prints extracted entries in a beautiful, color-coded format.
 
+        Args:
+            response_message: The response message string.
 
+        Returns:
+            A list of dictionaries, each representing an extracted entry.
+        """
+        entries = []
+        print("extract_entries_smart")
+        # Use regex to find the JSON block
+        json_match = re.search(r"```json\n(.*?)\n```", response_message, re.DOTALL)
 
+        # If JSON block is found, extract the JSON data
+        if json_match:
+            try:
+                json_data = json_match.group(1)  # Extract JSON string
+                response_data = json.loads(json_data)
+                print("\nSuccessfully loaded JSON data:\n")
+                print(json.dumps(response_data, indent=4))  # Print the loaded JSON data
+
+                # --- Extract data using matching rules ---
+                entry = defaultdict(list)
+
+                # ... (rest of the code remains the same) ...
+
+                # Append the entry to the list
+                entries.append(dict(entry))  # Convert back to regular dict
+
+                # Print the extracted entry in a beautiful format
+                print("\nExtracted entry:")
+                for key, value in entry.items():
+                    # Color the keys and values
+                    key_color = "\033[93m"  # Yellow
+                    value_color = "\033[95m"  # Magenta
+                    reset_color = "\033[0m"  # Reset to default color
+
+                    # Handle different data types
+                    if isinstance(value, list):
+                        print(f"{key_color}{key}{reset_color}:")
+                        for item in value:
+                            print(f"  {value_color}{item}{reset_color}")
+                    else:
+                        print(f"{key_color}{key}{reset_color}: {value_color}{value}{reset_color}")
+
+                print("-" * 30)  # Separator for better readability
+
+            except json.JSONDecodeError:
+                print("Error: Invalid JSON in response message.")
+            except Exception as e:
+                print(f"Error extracting entry: {e}")
+
+        return entries
     memory_frame_number = memory_data.get('MEMORY_FRAME_NUMBER', 1)
     edit_number = memory_data.get('EDIT_NUMBER', 0)
     timestamp_format = "%Y-%m-%d_%H-%M-%S"
@@ -4186,6 +4421,8 @@ while True:
         except Exception as e:
             print(e)
 
+
+
         # --- Memory Processing with Gemini ---
         memory_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
@@ -4193,75 +4430,104 @@ while True:
             system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
                     Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate.
                     use provided schema  for  response
-                    Specifically, provide the following information in a structured format using JSON:  you  have  2 Templates to choose form
-                    Template 1:
-                    Template 2 is  More technical:
-                    you can  use  only one
+                    Provide the following information in a structured format using JSON:  you  have  2 Templates to choose form
+                    
+                    you can also  cut  out entries  if  they  dont  seem  approparate for  memory storage and would be  empty
+                    never  crose  out   "Memory Folder storage entry": 
                     """,
 
         )
-
-        schema_for_chat2 = """    
-            Template 1={
-              "concise_summary": "Your concise summary of the conversation goes here.",
-              "main_topic": "The central theme or subject of the conversation.",
-              "keywords": ["keyword1", "keyword2", "keyword3", ...], 
-              "entities": ["entity1", "entity2", ...], 
-              "actions": ["action1", "action2", ...], 
-              "category": "The category of the memory", 
-              "subcategory": "The subcategory of the memory",
-              "memory_about": "A brief description of what the memory is about", 
-              "interaction_type": "Describe the type of interaction that occurred in this conversation.",
-              "positive_impact": "What were the positive outcomes or benefits of this conversation?", 
-              "negative_impact":  "Were there any negative outcomes or drawbacks discussed?", 
-              "expectations": "What were the user's expectations before the conversation?",
-              "object_states": "Describe the objects or locations involved.",
-              "short_description": "An even briefer summary",
-              "description": "longer summary",
-              "details": {}, // Optional additional details as key-value pairs
-              "facts": ["fact1", "fact2", ...],
-              "contradictions_paradoxes": ["contradiction1", "paradox2", ...],
-              "strength_of_experience": "A description of the intensity or significance of this conversation for the user.",
-              "personal_information": "Any relevant personal details",
-              "observed_interactions": ["interaction1", "interaction2", ...],
-              "people": ["person1", "person2", ...],
-              "objects": ["object1", "object2", ...],
-              "animals": ["animal1", "animal2", ...],
-              "obtained_knowledge": "What new knowledge or insights were gained from this conversation?",
-              "scientific_data": ["data_point1", "data_point2", ...],
-              "tags": ["tag1", "tag2", ...] // For additional retrieval 
-              "Memory Folder storage": ["tag1", "tag2", ...] // Propose folder  names for memory storage
-            }
-            
-            Template 2={
-                          "concise_summary": "A brief overview of the technical concept and its application.",
-                          "main_topic": "The central theme or topic of the technical knowledge.",
-                          "keywords": ["keyword1", "keyword2", "keyword3", ...],
-                          "problem_solved": "What problem does this concept solve or address?",
-                          "concept_definition": "A clear and concise definition of the technical term or concept.",
-                          "implementation_steps": [ 
-                            {"step": "Step 1 description", "code_snippet": "Relevant code snippet for this step", "notes": "Any additional notes for this step"},
-                            {"step": "Step 2 description", "code_snippet": "Relevant code snippet for this step", "notes": "Any additional notes for this step"},
-                            ... 
-                          ], // Detailed steps involved in implementing the concept
-                          "tools_and_technologies": ["tool1", "tool2", ...], //  Tools or technologies used in implementation
-                          "example_projects": ["project1", "project2", ...], //  Real-world projects where this concept is used
-                          "best_practices": ["best practice 1", "best practice 2", ...], // Recommended practices for implementation
-                          "common_challenges": ["challenge1", "challenge2", ...], //  Potential difficulties encountered during implementation
-                          "debugging_tips": ["tip 1", "tip 2", ...], //  Tips for troubleshooting and debugging
-                          "related_concepts": ["concept1", "concept2", ...], 
-                          "resources": [
-                            {"type": "article", "url": "https://example.com/article", "title": "Article Title"},
-                            {"type": "book", "title": "Book Title", "author": "Author Name"}, 
-                            {"type": "video", "url": "https://example.com/video", "title": "Video Title"}
-                          ], 
-                          "code_examples": [ 
-                            {"name": "Example Name", "description": "A brief explanation of the code example", "code": "Code snippet", "notes": "Additional notes or explanations"} 
-                          ], // A section for dedicated code examples 
-                          "visualizations": ["diagram1", "diagram2", ...], //  Visual diagrams explaining the concept
-                          "tags": ["tag1", "tag2", ...], //  Additional tags for retrieval 
-                          "Memory Folder storage": ["Folder Name 1", "Folder Name 2", ...] //  Suggested folders for storage 
-                        }
+        print(f"{yellow}*****************************************************************************************************")
+        schema_for_chat2 = """   
+                                if  the memory  does  not  fit  into schema  you can  reduce  entries  and  focues  on most  important entries:
+                                but  always  use  "memory_folders_storage": as  suggestion  in what  folders  that   memor should be saved.
+                                         
+                                Template  to use:          
+                                         {
+                              "metadata": {
+                                "creation_date": "", // Date and time the memory was created.
+                                "source": "", // Origin of the memory (e.g., conversation, website, book).
+                                "author": "" // Author or source of the memory.
+                              },
+                              "type": "conversation" // OR "technical_concept"  (This field designates the memory type)
+                              "core": {
+                                "main_topic": "",  // Core theme or subject of the memory.
+                                "category": "",  // General category (e.g., "Technology", "History", "Science").
+                                "subcategory": "", // More specific category (e.g., "Programming", "World War II", "Biology").
+                                "memory_about": "" // Brief description of what the memory is about.
+                              },
+                              "summary": {
+                                "concise_summary": "", // Brief overview of the memory's content.
+                                "description": "" //  Detailed explanation of the memory.
+                              },
+                              "content": {
+                                "keywords": [], // Key terms related to the memory.
+                                "entities": [], // People, places, things mentioned.
+                                "tags": [], // User-defined tags for retrieval.
+                                "observations": [], //  Interesting observations or insights made.
+                                "facts": [], //  Statements of fact in the memory.
+                                "contradictions": [], //  Contradictions or conflicting statements. 
+                                "paradoxes": [], //  Paradoxes or seemingly contradictory ideas. 
+                                "scientific_data": [], //  Scientific data or observations.
+                                "visualizations": [], //  Visualizations or diagrams related to the memory.
+                              },
+                              "interaction": {
+                                "interaction_type": [], // Type of interaction that occurred (e.g., "Question-Answer", "Discussion", "Instruction-Following"). 
+                                "people": [], //  People involved in the memory.
+                                "objects": [], //  Objects involved in the memory.
+                                "animals": [], //  Animals involved in the memory. 
+                                "actions": [], // Actions or events described in the memory. 
+                                "observed_interactions": [], //  Additional interactions observed.
+                              },
+                              "impact": {
+                                "obtained_knowledge": "", //  New knowledge or insights gained.
+                                "positive_impact": "", // Positive outcomes of the memory.
+                                "negative_impact": "", //  Negative outcomes of the memory.
+                                "expectations": "", //  User expectations before the interaction.
+                                "strength_of_experience": "" // Significance of the memory for the user.
+                              },
+                              "importance": {
+                                "reason": "", //  Why this memory is significant or important. 
+                                "potential_uses": [] //  How this memory might be used or applied in the future.
+                              },
+                              "technical_details": { 
+                                 "problem_solved": "", // (For technical concepts)  The problem being addressed.
+                                 "concept_definition": "", // (For technical concepts) A clear definition of the term. 
+                                 "implementation_steps": [
+                                   {
+                                     "step": "",
+                                     "code_snippet": "",
+                                     "notes": ""
+                                   }
+                                 ], //  Implementation steps for a technical concept. 
+                                 "tools_and_technologies": [], //  Tools or technologies used for implementation.
+                                 "example_projects": [], //  Examples of real-world projects using the concept.
+                                 "best_practices": [], //  Best practices for implementation.
+                                 "common_challenges": [], //  Common difficulties encountered.
+                                 "debugging_tips": [], //  Tips for troubleshooting.
+                                 "related_concepts": [], //  Other related concepts. 
+                                 "resources": [
+                                   {
+                                     "type": "",
+                                     "url": "",
+                                     "title": ""
+                                   }
+                                 ], // Relevant resources (articles, books, videos).
+                                 "code_examples": [
+                                   {
+                                     "name": "",
+                                     "description": "",
+                                     "code": "",
+                                     "notes": ""
+                                   }
+                                 ], // Code examples relevant to the memory. 
+                              },
+                              "storage": {
+                                "storage_method": "", //  How the memory is stored (e.g., database, file system).
+                                "location": "", //  The location where the memory is stored.
+                                "memory_folders_storage": [] //  Suggested folders for storage.
+                              }
+                            }
 
             """
 
@@ -4275,7 +4541,8 @@ while True:
 
         response2 = chat_2.send_message(create_memory_prompt)
         print("-----------------------------------------------------------------------------------")
-        print(f"Memory Data: {response2.text}")
+        print(f"{blue} Memory Data: {response2.text}")
+        print(f"{white} ******---->STORE_MEMORY_Frame *******")
 
         # --- Function Execution ---
         response_interpreter_for_function_calling(response2)
