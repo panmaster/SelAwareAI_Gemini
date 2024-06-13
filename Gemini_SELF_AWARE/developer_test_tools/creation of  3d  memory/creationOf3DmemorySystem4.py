@@ -1,6 +1,35 @@
-import ursina.color
 from ursina import *
 import hashlib
+
+def hash_category(category):
+    """Hashes a category name to 3D coordinates (limited to 10x10x10 grid)."""
+    hash_object = hashlib.sha256(category.encode())
+    hex_digest = hash_object.hexdigest()
+    x = int(hex_digest[0:2], 16) % 10  # Modulo for creation of  3d  memory-coordinate
+    y = int(hex_digest[2:4], 16) % 10  # Modulo for y-coordinate
+    z = int(hex_digest[4:6], 16) % 10  # Modulo for z-coordinate
+    return x, y, z
+
+def create_category_node(category, color=color.blue):
+    """Creates a 3D node for a category with a text label."""
+    x, y, z = hash_category(category)
+    node = Entity(model='cube', color=color, scale=0.25, position=(x, y, z), collider='box')
+    # Create a text entity for the category name
+    text_entity = Text(text=category, origin=(0, 0), parent=node, scale=0.1, y=0.6, color=color.white)
+    return node
+
+def create_empty_node(x, y, z, color=color.brown):
+    """Creates a 3D node for empty grid spaces."""
+    node = Entity(model='cube', color=color, scale=0.25, position=(x, y, z), collider='box')
+    return node
+
+# Create the main Ursina application
+app = Ursina()
+
+# Create a dictionary to store category nodes
+category_nodes = {}
+
+# Define categories list
 categories = [
     "Events", "Actions", "Concepts", "People", "Places",
     "Emotions", "Relationships", "Objects", "Time", "Space",
@@ -458,96 +487,28 @@ categories = [
     "Types of Fashion", "Streetwear", "High Fashion", "Couture",
     "Types of Entertainment", "Movies", "TV Shows", "Video Games",
     "Types of Media", "News", "Social Media", "Advertising"]
-def hash_category(category):
-    """Hashes a category name to 3D coordinates (limited to 6x6x6 grid)."""
-    hash_object = hashlib.sha256(category.encode())
-    hex_digest = hash_object.hexdigest()
-    x = int(hex_digest[0:2], 16) % 6  # Modulo for x-coordinate
-    y = int(hex_digest[2:4], 16) % 6  # Modulo for y-coordinate
-    z = int(hex_digest[4:6], 16) % 6  # Modulo for z-coordinate
-    return x, y, z
 
-def create_category_node(category):
-    """Creates a 3D node for a category."""
-    x, y, z = hash_category(category)
-    node = Entity(model='cube', color=color.blue, scale=0.25, position=(x, y, z), name=category, collider='box')
-    node.opacity = 0.5  # Make the box transparent
-    return node
+# Choose a color for category nodes
+category_color = color.blue
 
-def create_no_category_node():
-    """Creates a 3D node for categories with no assignment."""
-    # Place the "Category_None" node at a unique position
-    node = Entity(model='cube', color=color.gray, scale=0.25, position=(3, 3, 3), name='Category_None', collider='box')
-    node.opacity = 0.5  # Make the box transparent
-    return node
-
-def create_empty_node(x, y, z):
-    """Creates a 3D node for empty grid spaces."""
-    node = Entity(model='cube', color=color.brown, scale=0.25, position=(x, y, z), collider='box')
-    node.opacity = 0.7  # Make the box transparent
-    return node
-
-def add_connection(start_node, end_node, direction, strength):
-    """Creates an arrow connection between two category nodes."""
-    # Use a pre-existing model or create your own arrow model
-    arrow = Entity(model='arrow', color=color.red, scale=(0.1, 0.1, 0.3))  # Use the 'arrow' model
-    arrow.position = start_node.position + (end_node.position - start_node.position) * 0.5
-    arrow.look_at(end_node, axis='forward')  # Align the arrow with the direction
-    return arrow
-
-# Create the main Ursina application
-app = Ursina(win_size=(864, 1536), background=color.black)  # Set background to black
-
-
-
-# Create a dictionary to store category nodes
-category_nodes = {}
-folder_nodes = {}  # Create a dictionary to store folders
-
-# Create 3D nodes for each category and organize into folders
+# Create 3D nodes for each category
 for category in categories:
-    node = create_category_node(category)
-    category_nodes[category] = node  # Store the node for easy access
-    folder_name = f"Folder_{category}"
-    if folder_name not in folder_nodes:
-        folder_nodes[folder_name] = Entity(name=folder_name, enabled=False)  # Create a disabled folder entity if it doesn't exist
-    node.parent = folder_nodes[folder_name]  # Set parent to the corresponding folder
+    category_nodes[category] = create_category_node(category, color=category_color)
 
-# Create nodes for categories with no assignment
-no_category_node = create_no_category_node()
-folder_nodes['Folder_Category_None'] = Entity(name='Folder_Category_None', enabled=False)  # Create the disabled folder
-no_category_node.parent = folder_nodes['Folder_Category_None']  # Assign the node to the folder
+# Create empty nodes for the remaining grid spaces
+for x in range(10):
+    for y in range(10):
+        for z in range(10):
+            # Check if the coordinates are already occupied by a category node
+            if (x, y, z) not in [node.position for node in category_nodes.values()]:
+                create_empty_node(x, y, z)
 
-# Create nodes to fill the remaining grid spaces
-for x in range(6):
-    for y in range(6):
-        for z in range(6):
-            position = (x, y, z)
-            if position not in [node.position for node in category_nodes.values()] and position != (3, 3, 3):
-                empty_node = create_empty_node(x, y, z)
-                folder_name = f"Folder_{x}_{y}_{z}"
-                if folder_name not in folder_nodes:
-                    folder_nodes[folder_name] = Entity(name=folder_name, enabled=False)  # Create a disabled folder entity
-                empty_node.parent = folder_nodes[folder_name]  # Assign the empty node to the corresponding folder
-
-# Example connections (customize these)
-connections = [
-    ("Events", "Actions"),
-    ("Actions", "Events"),
-    ("Concepts", "Science"),
-    ("Science", "Technology"),
-]
-ursina.color="black"
 # Add a camera
-camera.position = (0, 0, -10)  # Move the camera back a bit
-
-# Enable free flight
-EditorCamera()
+camera = EditorCamera()
 
 # Lighting
-directional_light = DirectionalLight(color=color.white, strength=0.8)
-ambient_light = AmbientLight(color=color.white, strength=0.3)  # Set ambient light strength to 0.3
-spotlight = SpotLight(parent=camera, color=color.white, range=20)  # Add a spotlight
+directional_light = DirectionalLight(color=color.white, direction=(1, 1, 1))
+ambient_light = AmbientLight(color=color.white)
 
 # Run the application
 app.run()
