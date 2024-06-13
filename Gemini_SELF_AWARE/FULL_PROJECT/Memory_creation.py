@@ -1,17 +1,5 @@
-print("wait. Loading........")
-import os
-import re
-import json
-
-
-import re  # Import the re module
-import json
 from collections import defaultdict
-from collections import defaultdict
-import  json
 from datetime import datetime
-import google.generativeai as genai
-from fuzzywuzzy import fuzz
 memory_templates = {
     "Base": {
         "structure": {
@@ -1345,7 +1333,7 @@ memory_templates = {
         ],
         "Significant Career Milestones": [
           {
-            "Type": "Promotion/Recognition",
+            "Type": "Promotion",
             "Description": ""
           },
           {
@@ -3860,31 +3848,392 @@ memory_templates = {
             }
         }
     },
-}
+    "Buildings & Structures": {"structure": {
+        "Residential": {
+            "Homes Lived In": [],
+            "Significant Features": [],
+            "Memories & Experiences": []
+        },
+        "Commercial": {
+            "Places Worked": [],
+            "Places Visited": [],
+            "Notable Structures": []
+        },
+        "Historical": {
+            "Landmarks": [],
+            "Museums & Galleries": [],
+            "Historical Sites": []
+        },
+        "Architectural Styles": {
+            "Favorites": [],
+            "Appreciation": [],
+            "Knowledge": []
+        },
+        "Engineering Marvels": {
+            "Bridges": [],
+            "Towers": [],
+            "Dams": [],
+            "Tunnels": []
+        },
 
-COLOR_CODES = {
-    "red": "\033[91m",
-    "green": "\033[92m",
-    "yellow": "\033[93m",
-    "blue": "\033[94m",
-    "magenta": "\033[95m",
-    "cyan": "\033[96m",
-    "white": "\033[97m",
-    "reset": "\033[0m",
-}
+        }, },
+     "Science & Technology": {"structure" : {
+                "Fields of Interest": {
+                    "Biology": {
+                        "Subfields": ["Botany", "Zoology", "Genetics", "Microbiology", "Ecology"],
+                        "Resources": []
+                    },
+                    "Chemistry": {
+                        "Subfields": ["Organic Chemistry", "Inorganic Chemistry", "Physical Chemistry", "Analytical Chemistry", "Biochemistry"],
+                        "Resources": []
+                    },
+                    "Physics": {
+                        "Subfields": ["Classical Mechanics", "Thermodynamics", "Electromagnetism", "Quantum Mechanics", "Relativity"],
+                        "Resources": []
+                    },
+                    "Computer Science": {
+                        "Subfields": ["Artificial Intelligence", "Data Science", "Software Engineering", "Cybersecurity", "Computer Graphics"],
+                        "Resources": []
+                    },
+                    "Mathematics": {
+                        "Subfields": ["Algebra", "Calculus", "Geometry", "Statistics", "Number Theory"],
+                        "Resources": []
+                    },
+                    "Earth Sciences": {
+                        "Subfields": ["Geology", "Meteorology", "Oceanography", "Climatology"],
+                        "Resources": []
+                    },
+                    "Space Science": {
+                        "Subfields": ["Astronomy", "Cosmology", "Astrobiology", "Planetary Science"],
+                        "Resources": []
+                    },
+                    "Social Sciences": {
+                        "Subfields": ["Psychology", "Sociology", "Anthropology", "Economics"],
+                        "Resources": []
+                    }
+                },
+                "Scientific Discoveries": {
+                    "Medical Advancements": {
+                        "Discoveries": ["Vaccines", "Antibiotics", "Organ Transplants", "Gene Therapy"],
+                        "Resources": []
+                    },
+                    "Technological Breakthroughs": {
+                        "Discoveries": ["Internet", "Smartphones", "Artificial Intelligence", "Space Exploration"],
+                        "Resources": []
+                    },
+                    "Scientific Theories": {
+                        "Discoveries": ["Theory of Relativity", "Theory of Evolution", "Big Bang Theory", "Quantum Mechanics"],
+                        "Resources": []
+                    },
+                    "Environmental Discoveries": {
+                        "Discoveries": ["Climate Change", "Ozone Depletion", "Biodiversity Loss", "Pollution"],
+                        "Resources": []
+                    }
+                },
+                "Technological Innovations": {
+                    "Artificial Intelligence": {
+                        "Innovations": ["Machine Learning", "Deep Learning", "Natural Language Processing", "Computer Vision"],
+                        "Resources": []
+                    },
+                    "Robotics": {
+                        "Innovations": ["Industrial Robots", "Service Robots", "Medical Robots"],
+                        "Resources": []
+                    },
+                    "Biotechnology": {
+                        "Innovations": ["Genetic Engineering", "Synthetic Biology", "Bioprinting", "Biofuels"],
+                        "Resources": []
+                    },
+                    "Nanotechnology": {
+                        "Innovations": ["Nanomaterials", "Nanodevices", "Nanomedicine"],
+                        "Resources": []
+                    },
+                    "Renewable Energy": {
+                        "Innovations": ["Solar Energy", "Wind Energy", "Hydroelectric Power", "Geothermal Energy"],
+                        "Resources": []
+                    }
+                },
+                "Experiences with Science & Tech": {
+                    "Personal Projects": {
+                        "Types": ["Science Fair Projects", "DIY Projects", "Coding Projects", "Research Projects"],
+                        "Resources": []
+                    },
+                    "Educational Experiences": {
+                        "Types": ["Science Classes", "Labs and Experiments", "Field Trips", "Science Camps"],
+                        "Resources": []
+                    },
+                    "Career Experiences": {
+                        "Types": ["Research Positions", "Engineering Jobs", "Technology Companies", "Science Communication"],
+                        "Resources": []
+                    }
+                },
+                "Scientific & Technological Resources": {
+                    "Books": {
+                        "Types": ["Textbooks", "Reference Books", "Popular Science Books", "Science Fiction Books"],
+                        "Resources": []
+                    },
+                    "Articles": {
+                        "Types": ["Scientific Journals", "News Articles", "Blog Posts", "Online Articles"],
+                        "Resources": []
+                    },
+                    "Websites": {
+                        "Types": ["Scientific Organizations", "Educational Websites", "News Websites", "Technology Websites"],
+                        "Resources": []
+                    },
+                    "Labs & Institutions": {
+                        "Types": ["Research Laboratories", "Universities", "Museums", "Science Centers"],
+                        "Resources": []
+                    },
+                    "Mentors": {
+                        "Types": ["Scientists", "Engineers", "Teachers", "Researchers"],
+                        "Resources": []
+                    }
+                },
+                "Future of Science & Tech": {
+                    "Thoughts & Predictions": {
+                        "Topics": ["Artificial Intelligence Advancements", "Space Exploration", "Climate Change Solutions", "Medical Innovations"],
+                        "Resources": []
+                    },
+                    "Hopes & Concerns": {
+                        "Topics": ["Ethical Considerations", "Environmental Impacts", "Social Inequality", "Job Displacement"],
+                        "Resources": []
+                    },
+                    "Potential Impacts": {
+                        "Topics": ["Economic Growth", "Healthcare Advancements", "Environmental Sustainability", "Social Change"],
+                        "Resources": []
+                    }
+                }
+            }, },
+    "Hobbies": {
+                "structure": {
+                    # ---  HOBBIES & INTERESTS ---
+                    "Hobbies & Interests": {
+                        "Categories": {
+                            "Creative": {
+                                "Hobbies": [],
+                                "Activities": [],
+                                "Projects & Creations": [],
+                                "Impact on Life": []
+                            },
+                            "Active & Outdoorsy": {
+                                "Hobbies": [],
+                                "Activities": [],
+                                "Locations & Experiences": [],
+                                "Impact on Life": []
+                            },
+                            "Mind & Body": {
+                                "Hobbies": [],
+                                "Activities": [],
+                                "Benefits & Outcomes": [],
+                                "Impact on Life": []
+                            },
+                            "Collecting & Learning": {
+                                "Collections": [],
+                                "Areas of Interest": [],
+                                "Knowledge Gained": [],
+                                "Impact on Life": []
+                            },
+                            "Social & Community": {
+                                "Hobbies": [],
+                                "Groups & Organizations": [],
+                                "Community Involvement": [],
+                                "Impact on Life": []
+                            },
+                            "Other Hobbies": []  # Add additional hobby categories as needed
+                        }
+                    },
 
-red = "\033[91m"
-green = "\033[92m"
-yellow = "\033[93m"
-blue = "\033[94m"
-magenta = "\033[95m"
-cyan = "\033[96m"
-white = "\033[97m"
-reset = "\033[0m"
+                    # ---  HOBBY EXPERIENCES & REFLECTIONS ---
+                    "Hobby Experiences & Reflections": {
+                        "Motivations & Reasons": [],
+                        "Key Moments & Memories": [],
+                        "Challenges & Obstacles": [],
+                        "Lessons Learned": [],
+                        "Impact on Life": [],
+                        "Future Hobby Goals & Aspirations": []
+                    }
+                }
+            },
+     "Travel": {
+                "structure": {
+                    # ---  TRAVEL EXPERIENCES ---
+                    "Travel Experiences": {
+                        "Destinations": {
+                            "Country 1": {
+                                "Cities Visited": [],
+                                "Key Experiences": [],
+                                "Memories": [],
+                                "Reflections": []
+                            },
+                            "Country 2": {
+                                # ... similar structure as Country 1
+                            },
+                            # ... add more countries as needed
+                        },
+                        "Types of Travel": {
+                            "Solo Travel": {
+                                "Experiences": [],
+                                "Reflections": []
+                            },
+                            "Group Travel": {
+                                "Experiences": [],
+                                "Reflections": []
+                            },
+                            "Family Travel": {
+                                "Experiences": [],
+                                "Reflections": []
+                            },
+                            "Adventure Travel": {
+                                "Experiences": [],
+                                "Reflections": []
+                            },
+                            "Other Travel Types": []  # Add more travel types
+                        },
+                        "Transportation": {
+                            "Modes of Travel": [],
+                            "Memorable Journeys": [],
+                            "Reflections": []
+                        },
+                        "Cultural Encounters": {
+                            "Language & Communication": [],
+                            "Food & Cuisine": [],
+                            "Arts & Culture": [],
+                            "Local Customs & Traditions": []
+                        },
+                        "Other Travel Experiences": []  # Add any other unique travel experiences
+                    },
+
+                    # --- TRAVEL REFLECTIONS & INSIGHTS ---
+                    "Travel Reflections & Insights": {
+                        "Personal Growth & Transformation": {
+                            "Lessons Learned": [],
+                            "Changes in Perspective": [],
+                            "Self-Discovery": []
+                        },
+                        "Impact on Life": {
+                            "Positive Impacts": [],
+                            "Negative Impacts": [],
+                            "Changes in Habits & Behaviors": []
+                        },
+                        "Travel Values & Beliefs": [],
+                        "Future Travel Goals & Aspirations": []
+                    }
+                }
+            },
+    "Planning": {
+        "structure": {
+            # ---  PLANNING & GOAL SETTING ---
+            "Goal Setting": {
+                "Planning Approaches": {
+                    "Short-Term Planning": {
+                        "Methods & Tools": [],
+                        "Planning Processes": [],
+                        "Effectiveness & Challenges": []
+                    },
+                    "Long-Term Planning": {
+                        "Methods & Tools": [],
+                        "Planning Processes": [],
+                        "Effectiveness & Challenges": []
+                    },
+                    "Goal Setting & Tracking": {
+                        "Goal Setting Strategies": [],
+                        "Goal Tracking Methods": [],
+                        "Effectiveness & Challenges": []
+                    }
+                },
+                "Time Management & Prioritization": {
+                    "Time Management Strategies": [],
+                    "Task Prioritization Techniques": [],
+                    "Effectiveness & Challenges": []
+                },
+                "Project Management & Execution": {
+                    "Project Planning Approaches": [],
+                    "Project Management Methodologies": [],
+                    "Project Execution Strategies": []
+                }
+            },
+
+            # ---  PLANNING EXPERIENCES & REFLECTIONS ---
+            "Planning Experiences & Reflections": {
+                "Key Planning Experiences": {
+                    "Personal Planning Successes": [],
+                    "Planning Challenges & Setbacks": [],
+                    "Lessons Learned from Planning": []
+                },
+                "Impact of Planning on Life": {
+                    "Positive Impacts": [],
+                    "Negative Impacts": [],
+                    "Changes in Habits & Behaviors": []
+                },
+                "Future Planning Goals & Aspirations": []
+            }
+        }
+    },
+    "Planning & Strategy": {
+        "structure": {
+            # --- PLANNING ---
+            "Planning": {
+                "How I Plan": {  # General approach
+                    "Short-Term": [],
+                    "Long-Term": [],
+                    "Tools & Techniques": []
+                },
+                "Goal Setting": {
+                    "Goals I've Set": [],
+                    "How I Track Progress": [],
+                    "What Helps Me Stay Motivated": []
+                },
+                "Biggest Planning Successes": [],
+                "Biggest Planning Challenges": []
+            },
+
+            # --- STRATEGY ---
+            "Strategy": {
+                "Strategic Thinking": {
+                    "How I Approach Problems": [],
+                    "How I Prioritize Goals": [],
+                    "How I Evaluate Options": [],
+                    "How I Manage Risks": []
+                },
+                "Strategic Experiences": {
+                    "Times I Used Strategy Successfully": [],
+                    "Times Strategy Didn't Work Out": [],
+                    "Lessons Learned": []
+                }
+            },
+
+            # --- DECISIONS ---
+            "Decisions": {
+                "Decision-Making Style": {
+                    "How I Typically Approach Decisions": [],
+                    "What Factors I Consider Most": [],
+                    "Strengths & Weaknesses of My Style": []
+                },
+                "Key Decisions I've Made": [],
+                "Decisions I'm Proud Of": [],
+                "Decisions I Regret": [],
+                "Lessons Learned from Decision-Making": []
+            },
+
+            # --- REFLECTIONS ---
+            "Reflections": {
+                "Planning & Strategy's Impact on My Life": [],
+                "Areas Where I Want to Improve": [],
+                "What I've Learned About Myself Through Planning & Decision-Making": []
+            }
+        }
+    },
 
 
 
-from collections import defaultdict
+        }
+
+import google.generativeai as genai
+import re
+import os
+import json
+from datetime import datetime
+from fuzzywuzzy import fuzz  # Import fuzzywuzzy for fuzzy string matching
+
 
 # ANSI color codes for terminal output
 class TerminalColors:
@@ -3897,71 +4246,39 @@ class TerminalColors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+    # Define color codes as dictionary
+    COLOR_CODES = {
+        "red": FAIL,
+        "green": OKGREEN,
+        "yellow": WARNING,
+        "blue": OKBLUE,
+        "magenta": HEADER,
+
+        "reset": ENDC
+    }
 
 
-
-
+# Configure the GenAI API
 genai.configure(api_key='AIzaSyCltjPhJwWRL3BufxCdz-B4mc-6QdmQKBs')
-
-
-
-
-
 
 
 def print_colored(text, color="white"):
     """Prints text with the specified color."""
-    print(f"{COLOR_CODES.get(color, '')}{text}{COLOR_CODES['reset']}")
+    print(f"{TerminalColors.COLOR_CODES.get(color, '')}{text}{TerminalColors.COLOR_CODES['reset']}")
+
 
 def create_folders_from_structure(structure, base_folder, folder_list):
-    """Tworzy foldery z podanej struktury."""
+    """Creates folders from the given structure."""
     for level1_key in structure:
-        print(f"    Tworzenie folderu poziomu 1: {level1_key}")
+        print(f"    Creating level 1 folder: {level1_key}")
         level1_folder = os.path.join(base_folder, level1_key)
         os.makedirs(level1_folder, exist_ok=True)
         folder_list.append((level1_key, level1_folder))
-
-        print(f"      Dodano folder {level1_key} do listy: {level1_folder}")
+        print(f"      Added folder {level1_key} to list: {level1_folder}")
 
         if isinstance(structure[level1_key], dict):
-            print(f"      Znaleziono zagnieżdżony słownik dla {level1_key}")
+            print(f"      Found nested dictionary for {level1_key}")
             create_folders_from_structure(structure[level1_key], level1_folder, folder_list)
-
-def create_file_structure(memory_templates):
-    """Tworzy strukturę plików do przechowywania wspomnień na podstawie podanych szablonów."""
-    script_path = os.path.abspath(os.path.dirname(__file__))
-    folder_list = []  # Lista do przechowywania nazw i ścieżek folderów
-
-    for template_name, template_data in memory_templates.items():
-        print(f"Przetwarzanie szablonu: {template_name}")
-
-        template_name_safe = template_name.replace(":", "_")
-        print(f"  Bezpieczna nazwa szablonu: {template_name_safe}")
-
-        base_folder = os.path.join(script_path, "memories")
-        print(f"  Tworzenie folderu bazowego: {base_folder}")
-        os.makedirs(base_folder, exist_ok=True)
-        folder_list.append((template_name_safe, base_folder))
-
-        template_folder = os.path.join(base_folder, template_name_safe)
-        print(f"  Tworzenie folderu szablonu: {template_folder}")
-        os.makedirs(template_folder, exist_ok=True)
-        folder_list.append((template_name_safe, template_folder))
-
-        create_folders_from_structure(template_data["structure"], template_folder, folder_list)
-
-    # Porównanie nazw folderów
-    similar_folders = find_similar_folders(folder_list)
-
-    # Zapisywanie do pliku "Memory_connecions_map.txt"
-    with open("memories/Memory_connecions_map", "w") as f:
-        for folder_name, paths in similar_folders.items():
-            f.write(f"**** {folder_name} ****\n")  # Dodanie separatora
-            for path in paths:
-                f.write(f"  Path: {path}\n")
-            f.write("\n")
-
-
 
 def find_similar_folders(folder_list):
     """Finds similar folder names in the list using Levenshtein distance."""
@@ -4015,8 +4332,45 @@ def compare_folder_names(name1, name2):
 
 
 
-# this
-"""create_file_structure(memory_templates)"""
+def create_file_structure(memory_templates):
+    """Creates the file structure for storing memories based on the provided templates."""
+    script_path = os.path.abspath(os.path.dirname(__file__))
+    folder_list = []  # List to store folder names and paths
+
+    for template_name, template_data in memory_templates.items():
+        print(f"Processing template: {template_name}")
+
+        template_name_safe = template_name.replace(":", "_")
+        print(f"  Safe template name: {template_name_safe}")
+
+        base_folder = os.path.join(script_path, "memories")
+        print(f"  Creating base folder: {base_folder}")
+        os.makedirs(base_folder, exist_ok=True)
+        folder_list.append((template_name_safe, base_folder))
+
+        template_folder = os.path.join(base_folder, template_name_safe)
+        print(f"  Creating template folder: {template_folder}")
+        os.makedirs(template_folder, exist_ok=True)
+        folder_list.append((template_name_safe, template_folder))
+
+        create_folders_from_structure(template_data["structure"], template_folder, folder_list)
+
+    # Compare folder names and create connection map
+    similar_folders = find_similar_folders(folder_list)
+
+    # Save connection map to "Memory_connecions_map.txt"
+    with open("memories/Memory_connecions_map.txt", "w") as f:
+        for folder_name, paths in similar_folders.items():
+            f.write(f"**** {folder_name} ****\n")  # Add separator
+            for path in paths:
+                f.write(f"  Path: {path}\n")
+            f.write("\n")
+reconstruct = str(input("reconstruct??"))
+
+if reconstruct ==  "reconstruct":
+    create_file_structure(memory_templates)
+
+
 
 
 
@@ -4029,6 +4383,8 @@ def categorize_memory(summary, categories):
                     return category, time_period, keyword
 
     return "uncategorized", "unknown", "unknown"
+
+
 def search_memories(query, category=None, time_period=None):
     """Searches for memories based on the given criteria."""
     matching_memories = []
@@ -4048,6 +4404,57 @@ def search_memories(query, category=None, time_period=None):
                     if query.lower() in content.lower():
                         matching_memories.append(filepath)
     return matching_memories
+
+
+def retrieve_memories(phrase, log_filepath):
+    """Retrieves memory frames based on phrase matching, folder traversal, and temporal sorting."""
+    phrase_parts = re.findall(r'\w+', phrase)  # Example: simple word splitting
+    candidate_frames = []
+
+    for root, _, files in os.walk("memories"):
+        for file in files:
+            if file.endswith(".json"):
+                filepath = os.path.join(root, file)
+                for part in phrase_parts:
+                    if part.lower() in filepath.lower():
+                        # Load the memory frame from the file
+                        with open(filepath, 'r') as f:
+                            frame_data = json.load(f)
+                            frame_data["Path"] = filepath  # Add filepath to data
+                            candidate_frames.append(frame_data)
+                        break  # Move to next file after finding a match
+
+    # Sort by timestamp and group by session
+    sorted_frames = sorted(candidate_frames, key=lambda x: x["Time"], reverse=True)
+    sessions = {}
+    for frame in sorted_frames:
+        session_id = frame["Session"]
+        if session_id not in sessions:
+            sessions[session_id] = []
+        sessions[session_id].append(frame)
+
+    # Create sets of frames based on the session and time
+    all_frames = sorted_frames  # All frames, sorted by time
+
+    # Example: Create a contextual set of frames
+    contextual_sets = {}  # Store multiple contextual sets
+    for session_id, frames in sessions.items():
+        for i, frame in enumerate(frames):
+            contextual_set = []
+            contextual_set.append(frame)
+
+            # Add frames before the current frame
+            for j in range(i - 1, -1, -1):
+                contextual_set.append(frames[j])
+
+            # Add frames after the current frame
+            for j in range(i + 1, len(frames)):
+                contextual_set.append(frames[j])
+
+            contextual_sets[f"{session_id}_{frame['Time']}"] = contextual_set
+
+
+
 def response_interpreter_for_function_calling(response):
     """Interprets the AI's response and executes function calls
        (excluding memory storage).
@@ -4078,24 +4485,23 @@ def response_interpreter_for_function_calling(response):
                     else:
                         print(response)
                         print_colored(
-
                             f"Error: Unknown function: {function_name}", "red"
                         )
                 else:
                     print_colored(
                         "No function call found in the response.", "blue"
                     )
-    except  Exception as E:
+    except Exception as E:
         print(E)
     if outcome is None:
         outcome = ""
     return outcome
 
+
 FUNCTION_MAPPING = {
     # Example:
     # "play_music": play_music,
 }
-
 
 def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memory_data):
     """Stores structured memory data and the conversation frame across multiple templates SIMULTANEOUSLY."""
@@ -4112,20 +4518,25 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
     from collections import defaultdict
     from typing import List, Dict
 
-    import json
-    from collections import defaultdict
+    # --- Load Connection Map ---
+    script_path = os.path.abspath(os.path.dirname(__file__))
+    connection_map_path = os.path.join(script_path, "memories", "Memory_connecions_map.txt")
+    with open(connection_map_path, 'r', encoding='utf-8') as f:
+        connection_map_data = f.read()
+
+    # --- Process Connection Map Data ---
+    connection_map = defaultdict(list)
+    for line in connection_map_data.splitlines():
+        if "****" in line:
+            current_folder_name = line.strip("****").strip()
+        elif "  Path:" in line:
+            path = line.strip("  Path:").strip()
+            connection_map[current_folder_name].append(path)
+
+    print(f"{yellow}Connection Map: {connection_map}{reset}")
 
     def extract_entries_smart(response_message):
-        """
-        Extracts entries from a response message containing a JSON block.
-        Prints extracted entries with colors for better readability.
 
-        Args:
-            response_message: The response message string.
-
-        Returns:
-            A list of dictionaries, each representing an extracted entry.
-        """
         entries = []
         print(f"{magenta}extract_entries_smart{reset}")
 
@@ -4152,7 +4563,7 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
                     "category",
                     "subcategory",
                     "memory_about",
-                    "interaction_type",
+                    "interaction_type",  # Handle potential lists
                     "positive_impact",
                     "negative_impact",
                     "expectations",
@@ -4182,24 +4593,29 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
                     "common_challenges",
                     "debugging_tips",
                     "related_concepts",
-                    "visualizations"
+                    "visualizations",
+                    "implementation_steps",  # Handle lists of dictionaries
+                    "resources",  # Handle lists of dictionaries
+                    "code_examples"  # Handle lists of dictionaries
                 }
 
                 # Direct Matching:
                 for key, value in response_data.items():
                     if key in single_value_fields:
-                        entry[key] = value
+                        if isinstance(value, list):
+                            entry[key].extend(value)  # Handle potential list values
+                        else:
+                            entry[key] = value
                         print(f"{blue}Direct match: {key} = {value}{reset}")
                     elif key in list_type_fields:
                         if isinstance(value, list):
-                            entry[key].extend(value)
-                            print(f"{blue}List match: {key} = {value}{reset}")
+                            if value and isinstance(value[0], dict):
+                                entry[key].extend(value)  # Handle lists of dictionaries
+                            else:
+                                entry[key].extend(value)  # Handle lists of simple values
                         else:
-                            entry[key].append(value)
-                            print(f"{blue}List match: {key} = {value}{reset}")
-                    elif isinstance(value, list) and value and isinstance(value[0], dict):
-                        entry[key].extend(value)
-                        print(f"{blue}List of dictionaries match: {key} = {value}{reset}")
+                            entry[key].append(value)  # Handle single value
+                        print(f"{blue}List match: {key} = {value}{reset}")
 
                 # Keyword-Based Mapping:
                 for key, value in response_data.items():
@@ -4227,12 +4643,20 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
                     if "interaction_type" in key.lower() and isinstance(value, list):
                         entry["interaction_type"].extend(value)
                         print(f"{blue}Interaction type match: {key} = {value}{reset}")
-                    if "category" in key.lower():
+                    elif "category" in key.lower():
                         entry["category"] = value
                         print(f"{blue}Category match: {key} = {value}{reset}")
-                    if "subcategory" in key.lower():
+                    elif "subcategory" in key.lower():
                         entry["subcategory"] = value
                         print(f"{blue}Subcategory match: {key} = {value}{reset}")
+
+                # --- Store 'storage' information ---
+                entry["storage"] = {
+                    "storage_method": "",  # Placeholder - You might extract this from the AI response
+                    "location": "",  # Placeholder - You might extract this from the AI response
+                    "memory_folders_storage": [],  # These will be set later
+                    "strenght of matching memory to given folder": []  # These will be set later
+                }
 
                 # Append the entry to the list
                 entries.append(dict(entry))  # Convert back to regular dict
@@ -4246,87 +4670,77 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
 
         return entries
 
-    extract_entries_smart(ai_response2)
+    extracted_entries = extract_entries_smart(ai_response2)
 
+    if extracted_entries:
+        # --- Analyze and Categorize ---
+        for entry in extracted_entries:
+            print(f"{yellow}Analyzing entry: {entry}{reset}")
+            # --- Find Matching Folders ---
+            matching_folders = []
+            print(f"{magenta}Matching Folders: {matching_folders}{reset}")
 
-    def extract_entries_smart(response_message):
-        """
-        Extracts entries from a response message containing a JSON block.
-        Prints extracted entries in a beautiful, color-coded format.
+            category, time_period, keyword = categorize_memory(entry["concise_summary"], connection_map)
 
-        Args:
-            response_message: The response message string.
+            if category and time_period:
+                print(f"{green}Memory categorized as {category} - {time_period} - {keyword}{reset}")
+                # Retrieve potential folders for the memory based on the connection map
+                matching_folders = connection_map.get(f"{category} - {time_period}", [])
+            else:
+                print(f"{yellow}Memory categorization: Uncategorized, Unknown, Unknown{reset}")
 
-        Returns:
-            A list of dictionaries, each representing an extracted entry.
-        """
-        entries = []
-        print("extract_entries_smart")
-        # Use regex to find the JSON block
-        json_match = re.search(r"```json\n(.*?)\n```", response_message, re.DOTALL)
+            if matching_folders:
+                print(f"{green}Matching Folders found: {matching_folders}{reset}")
 
-        # If JSON block is found, extract the JSON data
-        if json_match:
-            try:
-                json_data = json_match.group(1)  # Extract JSON string
-                response_data = json.loads(json_data)
-                print("\nSuccessfully loaded JSON data:\n")
-                print(json.dumps(response_data, indent=4))  # Print the loaded JSON data
+                # --- Calculate matching scores ---
+                matching_scores = []
+                for folder in matching_folders:
+                    # Extract category and time_period from the folder name
+                    parts = folder.split("\\")[-2:]  # Get last two parts of the path
+                    category = parts[0]
+                    time_period = parts[1]
 
-                # --- Extract data using matching rules ---
-                entry = defaultdict(list)
+                    # Calculate similarity scores
+                    similarity_score = fuzz.ratio(entry["concise_summary"], f"{category} {time_period}")
+                    matching_scores.append((folder, similarity_score))
 
-                # ... (rest of the code remains the same) ...
+                # --- Update memory frame ---
+                entry["storage"]["memory_folders_storage"] = matching_folders
+                entry["storage"]["strenght of matching memory to given folder"] = matching_scores
+                print(f"{green}Updated memory frame: {entry}{reset}")
 
-                # Append the entry to the list
-                entries.append(dict(entry))  # Convert back to regular dict
+                # --- Store Memory Frame ---
+                script_path = os.path.abspath(os.path.dirname(__file__))
+                memory_frame_number = memory_data.get('MEMORY_FRAME_NUMBER', 1)
+                edit_number = memory_data.get('EDIT_NUMBER', 0)
+                timestamp_format = "%Y-%m-%d_%H-%M-%S"
+                timestamp = current_time.strftime(timestamp_format)
+                for folder, similarity_score in matching_scores:  # Iterate using folder and score
+                    # Add strength score to file name if it's not "unknown"
+                    file_name_suffix = ""
+                    if similarity_score != "unknown":
+                        file_name_suffix = f"_strenght_{similarity_score}"
 
-                # Print the extracted entry in a beautiful format
-                print("\nExtracted entry:")
-                for key, value in entry.items():
-                    # Color the keys and values
-                    key_color = "\033[93m"  # Yellow
-                    value_color = "\033[95m"  # Magenta
-                    reset_color = "\033[0m"  # Reset to default color
+                    memory_frame_filepath = os.path.join(script_path, folder,
+                                                         f"MemoryFrame_{memory_frame_number}_{edit_number}_{timestamp}{file_name_suffix}.json")
+                    os.makedirs(os.path.join(script_path, folder), exist_ok=True)
+                    with open(memory_frame_filepath, "w") as f:
+                        json.dump(entry, f, indent=4)
 
-                    # Handle different data types
-                    if isinstance(value, list):
-                        print(f"{key_color}{key}{reset_color}:")
-                        for item in value:
-                            print(f"  {value_color}{item}{reset_color}")
-                    else:
-                        print(f"{key_color}{key}{reset_color}: {value_color}{value}{reset_color}")
+                    # --- Update Memory Frame Log ---
+                    os.makedirs(os.path.join(script_path, "memory_logs"), exist_ok=True)
+                    memory_log_filepath = os.path.join(script_path, "memory_logs", "MemoryFrames_log.txt")
+                    with open(memory_log_filepath, 'a', encoding='utf-8') as f:
+                        f.write(
+                            f"MemoryFrame: {memory_frame_number}, Edit: {edit_number}, Type: JSON, path: {memory_frame_filepath}, time: {timestamp}, session: {memory_frame_number}_{edit_number}\n"
+                        )  # Log the file path
+                    print(f"Memory frame log updated: {memory_log_filepath}")
+                    print(f"{green}Memory frame saved in: {memory_frame_filepath}{reset}")
 
-                print("-" * 30)  # Separator for better readability
-
-            except json.JSONDecodeError:
-                print("Error: Invalid JSON in response message.")
-            except Exception as e:
-                print(f"Error extracting entry: {e}")
-
-        return entries
-    memory_frame_number = memory_data.get('MEMORY_FRAME_NUMBER', 1)
-    edit_number = memory_data.get('EDIT_NUMBER', 0)
-    timestamp_format = "%Y-%m-%d_%H-%M-%S"
-    timestamp = current_time.strftime(timestamp_format)
-    script_path = os.path.abspath(os.path.dirname(__file__))
-
-    # Define the memory frame content based on the provided format
-    memory_frame_content = (
-        f"MEMORY_FRAME_NUMBER: {memory_frame_number}\n"
-        f"EDIT_NUMBER: {edit_number}\n"
-        f"TIMESTAMP: {timestamp}\n"
-        f"USER_INPUT: {user_input}\n"
-        f"AI_RESPONSE: {ai_response}\n"
-        f"AI_RESPONSE_SUMMARY: {ai_response2}\n"
-    )
-
-    # --- Store Memory Frames ---
-    memory_frame_filepath = os.path.join(script_path, "conversation_logs", f"MemoryFrame_{memory_frame_number}_{edit_number}_{timestamp}.txt")
-    os.makedirs(os.path.join(script_path, "conversation_logs"), exist_ok=True)
-
-
-
+            else:
+                print(f"{yellow}No matching folders found for this memory frame{reset}")
+    else:
+        print(f"{yellow}No JSON data found in the AI response{reset}")
 
     # --- Store Conversation Frame ---
     separator = "######$######"
@@ -4346,32 +4760,21 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
         f.write(frame_content)
     print(f"Conversation frame saved in: {conversation_filepath}")
 
-
-
+    # Increment memory frame number
+    memory_data['MEMORY_FRAME_NUMBER'] += 1
 
     # --- Update Memory Frame Log ---
     os.makedirs(os.path.join(script_path, "memory_logs"), exist_ok=True)
     memory_log_filepath = os.path.join(script_path, "memory_logs", "MemoryFrames_log.txt")
     with open(memory_log_filepath, 'a', encoding='utf-8') as f:
         f.write(
-            f"MemoryFrame: {memory_frame_number}, Edit: {edit_number}, Type: Text, path: {memory_frame_filepath}, time: {timestamp}, session: {memory_frame_number}_{edit_number}\n"
+            f"MemoryFrame: {memory_frame_number - 1}, Edit: {edit_number}, Type: Text, path: {memory_frame_filepath}, time: {timestamp}, session: {memory_frame_number - 1}_{edit_number}\n"
         )  # Log the file path
     print(f"Memory frame log updated: {memory_log_filepath}")
 
 
-
-
-
 def summarise_memory_folder_structure(folder_path, file_path="directory_structure.txt", include_files=True):
-    """
-    Creates a file that represents a flat directory structure of a given folder,
-    ignoring specific files.
 
-    Args:
-      folder_path: The path to the folder.
-      file_path: The path to the output file (default: "directory_structure.txt").
-      include_files: Whether to include file names in the output (default: True).
-    """
 
     ignore_files = [".\\directory_structure.txt", ".\\Memory_connecions_map.txt"]
 
@@ -4389,12 +4792,15 @@ def summarise_memory_folder_structure(folder_path, file_path="directory_structur
                         f.write(f"{full_path}\n")
 
 
-
-directory_structure=summarise_memory_folder_structure(folder_path="./memories", file_path="./memories/directory_structure.txt" )
+# --- Create File Structure and Connection Map ---
+create_file_structure(memory_templates)
+directory_structure = summarise_memory_folder_structure(folder_path="./memories",
+                                                        file_path="./memories/directory_structure.txt")
 memory_data = {
     'MEMORY_FRAME_NUMBER': 1,  # Initialize memory frame number
     'EDIT_NUMBER': 0  # Initialize edit number
 }
+
 while True:
     try:
         user_input = input("Enter input: ")
@@ -4405,7 +4811,7 @@ while True:
             system_instruction='You follow orders and generate creative text interactions'
         )
 
-        current_time =  datetime.now()
+        current_time = datetime.now()
 
         # Format timestamp outside the prompt
         formatted_timestamp = current_time.strftime('%Y-%m-%d_%H-%M-%S')
@@ -4421,8 +4827,6 @@ while True:
         except Exception as e:
             print(e)
 
-
-
         # --- Memory Processing with Gemini ---
         memory_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
@@ -4431,17 +4835,18 @@ while True:
                     Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate.
                     use provided schema  for  response
                     Provide the following information in a structured format using JSON:  you  have  2 Templates to choose form
-                    
+
                     you can also  cut  out entries  if  they  dont  seem  approparate for  memory storage and would be  empty
                     never  crose  out   "Memory Folder storage entry": 
                     """,
 
         )
-        print(f"{yellow}*****************************************************************************************************")
+        print(
+            f" *****************************************************************************************************")
         schema_for_chat2 = """   
                                 if  the memory  does  not  fit  into schema  you can  reduce  entries  and  focues  on most  important entries:
                                 but  always  use  "memory_folders_storage": as  suggestion  in what  folders  that   memor should be saved.
-                                         
+
                                 Template  to use:          
                                          {
                               "metadata": {
@@ -4526,6 +4931,7 @@ while True:
                                 "storage_method": "", //  How the memory is stored (e.g., database, file system).
                                 "location": "", //  The location where the memory is stored.
                                 "memory_folders_storage": [] //  Suggested folders for storage.
+                                "strenght of matching memory to given folder": [] //  from scale 0-10
                               }
                             }
 
@@ -4541,8 +4947,8 @@ while True:
 
         response2 = chat_2.send_message(create_memory_prompt)
         print("-----------------------------------------------------------------------------------")
-        print(f"{blue} Memory Data: {response2.text}")
-        print(f"{white} ******---->STORE_MEMORY_Frame *******")
+        print(f"  Memory Data: {response2.text}")
+        print(f"  ******---->STORE_MEMORY_Frame *******")
 
         # --- Function Execution ---
         response_interpreter_for_function_calling(response2)
