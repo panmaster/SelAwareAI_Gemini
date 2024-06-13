@@ -2,55 +2,26 @@ import os
 import json
 import re
 from datetime import datetime
-from fuzzywuzzy import fuzz
 from collections import defaultdict
+import google.generativeai as genai
+from termcolor import colored, cprint  # Import termcolor for colored printing
 
-def  print_ascii_smile():
+# Configure the Google Generative AI API
+genai.configure(api_key='AIzaSyCOaR8htDQH_kbQatacCksT60S26I_F-QU')  # Replace with your API key
+
+
+# Function to print an ASCII smile (for demonstration)
+def print_ascii_smile():
     print("print_ascii_smile")
+
+
+# Mapping of function names to functions for dynamic function calling
 FUNCTION_MAPPING = {
-    "print_ascii_smile": print_ascii_smile,  # Add the function mapping here
+    "print_ascii_smile": print_ascii_smile
 }
 
-def response_interpreter_for_function_calling(response):
-    outcome = []
-    try:
-        if response.candidates:
-            for part in response.candidates[0].content.parts:
-                if hasattr(part, 'function_call'):
-                    function_call = part.function_call
-                    function_name = function_call.name
-                    function_args = function_call.args
 
-                    if function_name in FUNCTION_MAPPING:
-                        function_to_call = FUNCTION_MAPPING[function_name]
-                        if function_args is not None:
-                            try:
-                                outcome = function_to_call(**function_args)
-                            except Exception as e:
-                                print_colored(
-                                    f"Error executing function {function_name}: {e}",
-                                    "blue"
-                                )
-                        else:
-                            print_colored(
-                                "Warning: Function call arguments are missing.", "red"
-                            )
-                    else:
-                        print(response)
-                        print_colored(
-                            f"Error: Unknown function: {function_name}", "red"
-                        )
-                else:
-                    print_colored(
-                        "No function call found in the response.", "blue"
-                    )
-    except Exception as E:
-        print(E)
-    if outcome is None:
-        outcome = ""
-    return outcome
-
-
+# Function to print colored text for improved readability
 def print_colored(text, color):
     """Prints text with the specified color."""
     colors = {
@@ -65,163 +36,128 @@ def print_colored(text, color):
     }
     print(f"{colors.get(color, '')}{text}{colors['reset']}")
 
-def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memory_data):
-    red = "\033[91m"
-    green = "\033[92m"
-    yellow = "\033[93m"
-    blue = "\033[94m"
-    magenta = "\033[95m"
-    cyan = "\033[96m"
-    white = "\033[97m"
-    reset = "\033[0m"
+
+# Function to interpret AI responses and execute function calls
+def response_interpreter_for_function_calling(response):
+    """Interprets the AI response and executes function calls if present."""
+    outcome = ""
+    try:
+        if response.candidates:
+            for part in response.candidates[0].content.parts:
+                if hasattr(part, 'function_call'):
+                    function_call = part.function_call
+                    function_name = function_call.name
+                    function_args = function_call.args
+
+                    if function_name in FUNCTION_MAPPING:
+                        function_to_call = FUNCTION_MAPPING[function_name]
+                        if function_args is not None:
+                            try:
+                                outcome = function_to_call(**function_args)
+                                cprint(f"Function Call Exit: {function_name}", 'cyan')
+                            except Exception as e:
+                                cprint(f"Error executing function {function_name}: {e}", "red")
+                        else:
+                            cprint("Warning: Function call arguments are missing.", "red")
+                    else:
+                        cprint(f"Error: Unknown function: {function_name}", "red")
+                else:
+                    cprint("No function call found in the response.", "blue")
+    except Exception as e:
+        cprint(f"Error in response interpreter: {e}", "red")
+    return outcome
+
+
+# Function to store memory frames based on AI responses
+def store_memory_frame(current_time, user_input, ai_response, ai_summary, memory_data):
+    """Stores a memory frame based on AI response and folder structure."""
+
+    # Get the current script's directory
     script_path = os.path.abspath(os.path.dirname(__file__))
-    connection_map_path = os.path.join(script_path, "memories", "Memory_connecions_map.txt")
-    with open(connection_map_path, 'r', encoding='utf-8') as f:
-        connection_map_data = f.read()
+
+    # Construct the relative path to the connection map file
+    connection_map_path = os.path.join(script_path, "memories", "Memory_connections_map.txt")
+
+    # Load the connection map (folder structure)
     connection_map = defaultdict(list)
-    for line in connection_map_data.splitlines():
-        if "****" in line:
-            current_folder_name = line.strip("****").strip()
-        elif "  Path:" in line:
-            path = line.strip("  Path:").strip()
-            connection_map[current_folder_name].append(path)
+    try:
+        with open(connection_map_path, 'r', encoding='utf-8') as f:
+            cprint(f"Reading Connection Map: {connection_map_path}", 'green')
+            for line in f:
+                if "****" in line:
+                    current_folder_name = line.strip("****").strip()
+                elif "Path:" in line:
+                    path = line.strip("Path:").strip()
+                    connection_map[current_folder_name].append(path)
+    except FileNotFoundError:
+        cprint(f"File not found. Creating: {connection_map_path}", 'yellow')
+        # Create an empty file
+        with open(connection_map_path, 'w', encoding='utf-8') as f:
+            f.write("")
+    except Exception as e:
+        cprint(f"Error reading file: {e}", "red")
 
-    def extract_entries_smart(response_message):
-        entries = []
-        json_match = re.search(r"```json\n(.*?)\n```", response_message, re.DOTALL)
-        if json_match:
-            try:
-                json_data = json_match.group(1)
-                response_data = json.loads(json_data)
-                entry = defaultdict(list)
-                single_value_fields = {
-                    "concise_summary",
-                    "main_topic",
-                    "problem_solved",
-                    "concept_definition",
-                    "category",
-                    "subcategory",
-                    "memory_about",
-                    "interaction_type",
-                    "positive_impact",
-                    "negative_impact",
-                    "expectations",
-                    "object_states",
-                    "short_description",
-                    "description",
-                    "strength_of_experience",
-                    "personal_information",
-                    "obtained_knowledge"
-                }
-                list_type_fields = {
-                    "keywords",
-                    "entities",
-                    "actions",
-                    "facts",
-                    "contradictions_paradoxes",
-                    "people",
-                    "objects",
-                    "animals",
-                    "scientific_data",
-                    "tags",
-                    "tools_and_technologies",
-                    "example_projects",
-                    "best_practices",
-                    "common_challenges",
-                    "debugging_tips",
-                    "related_concepts",
-                    "visualizations",
-                    "implementation_steps",
-                    "resources",
-                    "code_examples"
-                }
-                for key, value in response_data.items():
-                    if key in single_value_fields:
-                        if isinstance(value, list):
-                            entry[key].extend(value)
-                        else:
-                            entry[key] = value
-                    elif key in list_type_fields:
-                        if isinstance(value, list):
-                            if value and isinstance(value[0], dict):
-                                entry[key].extend(value)
-                            else:
-                                entry[key].extend(value)
-                        else:
-                            entry[key].append(value)
-                for key, value in response_data.items():
-                    if "keyword" in key.lower() and isinstance(value, list):
-                        entry["keywords"].extend(value)
-                    elif "description" in key.lower():
-                        entry["description"] = value
-                    elif "summary" in key.lower():
-                        entry["concise_summary"] = value
-                    elif "step" in key.lower() and isinstance(value, list) and value and isinstance(value[0], dict):
-                        entry["implementation_steps"].extend(value)
-                    elif "resource" in key.lower() and isinstance(value, list) and value and isinstance(value[0], dict):
-                        entry["resources"].extend(value)
-                    elif "code" in key.lower() and isinstance(value, list) and value and isinstance(value[0], dict):
-                        entry["code_examples"].extend(value)
-                for key, value in response_data.items():
-                    if "interaction_type" in key.lower() and isinstance(value, list):
-                        entry["interaction_type"].extend(value)
-                    elif "category" in key.lower():
-                        entry["category"] = value
-                    elif "subcategory" in key.lower():
-                        entry["subcategory"] = value
-                entry["storage"] = {
-                    "storage_method": "",
-                    "location": "",
-                    "memory_folders_storage": [],
-                    "strenght of matching memory to given folder": []
-                }
-                entries.append(dict(entry))
-            except json.JSONDecodeError:
-                print(f"{red}Error: Invalid JSON in response message.{reset}")
-            except Exception as e:
-                print(f"{red}Error extracting entry: {e}{reset}")
-        return entries
+    # Extract structured data from the AI summary
+    extracted_entries = extract_entries_smart(ai_summary)
 
-    extracted_entries = extract_entries_smart(ai_response2)
+    cprint("Extracted Entries:", 'blue')
+    cprint(f"{extracted_entries}", 'blue')
 
     if extracted_entries:
         for entry in extracted_entries:
-            matching_folders = []
-            category, time_period, keyword = categorize_memory(entry["concise_summary"], connection_map)
-            if category and time_period:
-                matching_folders = connection_map.get(f"{category} - {time_period}", [])
-            if matching_folders:
-                matching_scores = []
-                for folder in matching_folders:
-                    parts = folder.split("\\")[-2:]
-                    category = parts[0]
-                    time_period = parts[1]
-                    similarity_score = fuzz.ratio(entry["concise_summary"], f"{category} {time_period}")
-                    matching_scores.append((folder, similarity_score))
-                entry["storage"]["memory_folders_storage"] = matching_folders
-                entry["storage"]["strenght of matching memory to given folder"] = matching_scores
-                script_path = os.path.abspath(os.path.dirname(__file__))
-                memory_frame_number = memory_data.get('MEMORY_FRAME_NUMBER', 1)
-                edit_number = memory_data.get('EDIT_NUMBER', 0)
-                timestamp_format = "%Y-%m-%d_%H-%M-%S"
-                timestamp = current_time.strftime(timestamp_format)
-                for folder, similarity_score in matching_scores:
-                    file_name_suffix = ""
-                    if similarity_score != "unknown":
-                        file_name_suffix = f"_strenght_{similarity_score}"
-                    memory_frame_filepath = os.path.join(script_path, folder,
-                                                         f"MemoryFrame_{memory_frame_number}_{edit_number}_{timestamp}{file_name_suffix}.json")
-                    os.makedirs(os.path.join(script_path, folder), exist_ok=True)
-                    with open(memory_frame_filepath, "w") as f:
-                        json.dump(entry, f, indent=4)
-                    os.makedirs(os.path.join(script_path, "memory_logs"), exist_ok=True)
-                    memory_log_filepath = os.path.join(script_path, "memory_logs", "MemoryFrames_log.txt")
-                    with open(memory_log_filepath, 'a', encoding='utf-8') as f:
-                        f.write(
-                            f"MemoryFrame: {memory_frame_number}, Edit: {edit_number}, Type: JSON, path: {memory_frame_filepath}, time: {timestamp}, session: {memory_frame_number}_{edit_number}\n"
-                        )
-    else:
-        print(f"{yellow}No JSON data found in the AI response{reset}")
+            suggested_folders = entry["storage"].get("memory_folders_storage", [])
+            cprint(f"Suggested Folders:", 'magenta')
+            cprint(f"{suggested_folders}", 'magenta')
+
+            # Sort folders by probability, limiting to the top 6
+            suggested_folders.sort(key=lambda x: x.get("probability", 0), reverse=True)
+            suggested_folders = suggested_folders[:6]
+            cprint(f"Sorted Folders:", 'cyan')
+            cprint(f"{suggested_folders}", 'cyan')
+
+            for folder_info in suggested_folders:
+                folder_path = folder_info.get("folder_path")
+                probability = folder_info.get("probability", 0)  # Default probability to 0 if not provided
+                strength_of_matching_memory_to_given_folder = folder_info.get(
+                    'strength_of_matching_memory_to_given_folder', 0)
+
+                # Check if the folder exists in the connection map
+                matching_folders = connection_map.get(folder_path, [])
+                cprint(f"Matching Folders for {folder_path}:", 'yellow')
+                cprint(f"{matching_folders}", 'yellow')
+
+                if matching_folders:
+                    # Construct the file path for the memory frame
+                    memory_frame_number = memory_data.get('MEMORY_FRAME_NUMBER', 1)
+                    edit_number = memory_data.get('EDIT_NUMBER', 0)
+                    timestamp = current_time.strftime("%Y-%m-%d_%H-%M-%S")
+                    ai_suggested_name = entry.get("naming_suggestion", {}).get("memory_frame_name", "")
+                    file_name = f"MemoryFrame_{memory_frame_number}_{edit_number}_{timestamp}_{ai_suggested_name}_strength_{probability}_{strength_of_matching_memory_to_given_folder}.json"
+                    memory_frame_filepath = os.path.join(script_path, folder_path, file_name)
+
+                    cprint(f"Memory Frame Filepath: {memory_frame_filepath}", 'green')
+
+                    # Create the folder if it doesn't exist
+                    os.makedirs(os.path.join(script_path, folder_path), exist_ok=True)
+
+                    try:
+                        # Save the memory frame data to a JSON file
+                        with open(memory_frame_filepath, "w") as f:
+                            cprint(f"Saving Memory Frame to: {memory_frame_filepath}", 'green')
+                            json.dump(entry, f, indent=4)
+
+                        # Update the memory log file
+                        os.makedirs(os.path.join(script_path, "memory_logs"), exist_ok=True)
+                        memory_log_filepath = os.path.join(script_path, "memory_logs", "MemoryFrames_log.txt")
+                        with open(memory_log_filepath, 'a', encoding='utf-8') as f:
+                            f.write(
+                                f"MemoryFrame: {memory_frame_number}, Edit: {edit_number}, Type: JSON, path: {memory_frame_filepath}, time: {timestamp}, session: {memory_frame_number}_{edit_number}\n"
+                            )
+                        cprint(f"Memory Log Updated: {memory_log_filepath}", 'green')
+                    except Exception as e:
+                        cprint(f"Error saving memory frame: {e}", "red")
+
+    # Save the conversation log (user input and AI responses)
     separator = "######$######"
     conversation_filename = f"MemoryFrame_{timestamp}.txt"
     conversation_filepath = os.path.join(script_path, "conversation_logs", conversation_filename)
@@ -230,11 +166,15 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
         f"{separator} Memory Frame {memory_frame_number}, Edit {edit_number} - {readable_timestamp} {separator}\n"
         f"USER_INPUT: {user_input}\n"
         f"AI_RESPONSE: {ai_response}\n"
-        f"AI_RESPONSE_SUMMARY: {ai_response2}\n"
+        f"AI_SUMMARY: {ai_summary}\n"
         f"{separator} Memory Frame End {memory_frame_number}, Edit {edit_number} {separator}\n\n"
     )
+
     with open(conversation_filepath, 'a', encoding='utf-8') as f:
         f.write(frame_content)
+    cprint(f"Conversation Log Saved: {conversation_filepath}", 'green')
+
+    # Increment the memory frame number for the next interaction
     memory_data['MEMORY_FRAME_NUMBER'] += 1
     os.makedirs(os.path.join(script_path, "memory_logs"), exist_ok=True)
     memory_log_filepath = os.path.join(script_path, "memory_logs", "MemoryFrames_log.txt")
@@ -242,9 +182,70 @@ def STORE_MEMORY_Frame(current_time, user_input, ai_response, ai_response2, memo
         f.write(
             f"MemoryFrame: {memory_frame_number - 1}, Edit: {edit_number}, Type: Text, path: {conversation_filepath}, time: {timestamp}, session: {memory_frame_number - 1}_{edit_number}\n"
         )
+    cprint(f"Memory Log Updated: {memory_log_filepath}", 'green')
 
+
+# Function to extract structured entries from AI responses using regular expressions
+def extract_entries_smart(response_message):
+    """Extracts structured JSON data from the AI response."""
+    entries = []
+    json_match = re.search(r"```json\n(.*?)\n```", response_message, re.DOTALL)
+    if json_match:
+        try:
+            json_data = json_match.group(1)
+            response_data = json.loads(json_data)
+            entry = defaultdict(list)
+
+            # Define fields that should store a single value
+            single_value_fields = {
+                "concise_summary", "main_topic", "problem_solved", "concept_definition", "category",
+                "subcategory", "memory_about", "interaction_type", "positive_impact",
+                "negative_impact", "expectations", "object_states", "short_description",
+                "description", "strength_of_experience", "personal_information", "obtained_knowledge"
+            }
+
+            # Define fields that should store a list of values
+            list_type_fields = {
+                "keywords", "entities", "actions", "facts", "contradictions_paradoxes",
+                "people", "objects", "animals", "scientific_data", "tags",
+                "tools_and_technologies", "example_projects", "best_practices", "common_challenges",
+                "debugging_tips", "related_concepts", "visualizations", "implementation_steps",
+                "resources", "code_examples"
+            }
+
+            for key, value in response_data.items():
+                if key in single_value_fields:
+                    entry[key] = value if not isinstance(value, list) else (value[0] if value else "")
+                elif key in list_type_fields:
+                    entry[key].extend(value if isinstance(value, list) else [value])
+
+            # Handle the 'storage' field specifically
+            entry["storage"] = {
+                "storage_method": "",
+                "location": "",
+                "memory_folders_storage": response_data.get("storage", {}).get("memory_folders_storage", []),
+                "strength_of_matching_memory_to_given_folder": []
+            }
+
+            # Validate "probability" values in 'memory_folders_storage'
+            for folder_info in entry["storage"]["memory_folders_storage"]:
+                probability = folder_info.get("probability")
+                if probability is not None and not 0 <= probability <= 10:
+                    print(
+                        f"Warning: Invalid probability value '{probability}' found in memory_folders_storage. Valid range is 0 to 10."
+                    )
+
+            entries.append(dict(entry))
+        except json.JSONDecodeError:
+            cprint("Error: Invalid JSON in the AI response.", "red")
+        except Exception as e:
+            cprint(f"Error extracting entry: {e}", "red")
+    return entries
+
+
+# Function to categorize a memory based on its summary (not used in the current code)
 def categorize_memory(summary, connection_map):
-    """Categorizes a memory based on its summary."""
+    """Categorizes a memory based on its summary (not currently used)."""
     category = ""
     time_period = ""
     keyword = ""
@@ -260,184 +261,139 @@ def categorize_memory(summary, connection_map):
                 break
     return category, time_period, keyword
 
+
 # --- Main Loop (Memory Frame Creation) ---
 if __name__ == "__main__":
-    import google.generativeai as genai
-    genai.configure(api_key='YOUR_API_KEY')  # Replace with your API key
-
-    memory_data = {
-        'MEMORY_FRAME_NUMBER': 1,
-        'EDIT_NUMBER': 0
-    }
+    memory_data = {'MEMORY_FRAME_NUMBER': 1, 'EDIT_NUMBER': 0}
 
     while True:
         try:
             user_input = input("Enter input: ")
+            current_time = datetime.now()
+            timestamp = current_time.strftime('%Y-%m-%d_%H-%M-%S')
+
+            cprint(f"User Input: {user_input}", 'cyan')
+            cprint(f"Current Time: {current_time}", 'cyan')
+            cprint(f"Timestamp: {timestamp}", 'cyan')
+
+            # --- Interaction Model ---
             interaction_model = genai.GenerativeModel(
                 model_name='gemini-1.5-flash-latest',
                 safety_settings={'HARASSMENT': 'block_none'},
                 system_instruction='You follow orders and generate creative text interactions'
             )
-            current_time = datetime.now()
-            formatted_timestamp = current_time.strftime('%Y-%m-%d_%H-%M-%S')
             chat1 = interaction_model.start_chat(history=[])
-            prompt = f"currentTime:  {formatted_timestamp}  create {user_input} "
-            response1 = chat1.send_message(prompt)
-            try:
-                print_colored(f"AI Response: {response1.text}", "green")
-            except Exception as e:
-                print(e)
+            response1 = chat1.send_message(f"currentTime: {timestamp} create {user_input}")
+            cprint(f"AI Response: {response1.text}", 'green')
 
-
-            """
-             memory_model = genai.GenerativeModel(
-                model_name='gemini-1.5-flash-latest',
-                safety_settings={'HARASSMENT': 'block_none'},
-                system_instruction
-                tools=[]    <--  for  futre  integration passing  funcion  descriptions in specifid  Gemini   format  like 
-                {
-    'function_declarations': [
-        {
-            'name': 'save_to_file',
-            'description': 'Saves content to a file.',
-            'parameters': {
-                'type_': 'OBJECT',
-                'properties': {
-                    'content': {'type_': 'STRING'},
-                    'file_name': {'type_': 'STRING', 'description': 'The name of the file. Defaults to "NoName".'},
-                    'file_path': {'type_': 'STRING', 'description': 'The path to save the file. Defaults to the current working directory if not provided.'}
-                },
-                'required': ['content', 'file_name']
-            }
-        }
-    ]
-}
-                
-                
-                
-            
-            """
+            # --- Memory Model ---
             memory_model = genai.GenerativeModel(
                 model_name='gemini-1.5-flash-latest',
                 safety_settings={'HARASSMENT': 'block_none'},
                 system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
-                    Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate.
-                    use provided schema  for  response
-                    Provide the following information in a structured format using JSON:  you  have  2 Templates to choose form
+                    Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate. 
+                    Use the provided JSON schema for your response and fill in all fields with relevant information.
+                    You can omit entries if they don't seem appropriate for memory storage and would be empty.
+                    Never omit the "memory_folders_storage" entry.
 
-                    you can also  cut  out entries  if  they  dont  seem  approparate for  memory storage and would be  empty
-                    never  crose  out   "Memory Folder storage entry": 
-                    """,
+                    **JSON Schema:**
+
+                    ```json
+                    {
+                      "metadata": {
+                        "creation_date": "", // Date and time when the memory frame was created
+                        "source": "", // Source of the information (e.g., conversation, external resource)
+                        "author": "" // Author or source of the information (e.g., user, AI)
+                      },
+                      "type": "conversation", // OR "technical_concept" - Type of memory (e.g., conversation, technical concept, personal experience)
+                      "core": {
+                        "main_topic": "", // Primary subject or theme of the memory
+                        "category": "", // Broad category for the memory (e.g., Deep Learning, History, Personal Life)
+                        "subcategory": "", // More specific subcategory for the memory (e.g., Convolutional Neural Networks, 20th Century, Relationships)
+                        "memory_about": "" // A brief description of what the memory is about
+                      },
+                      "summary": {
+                        "concise_summary": "", // Short and to-the-point summary of the memory content
+                        "description": "" // More detailed description of the memory content
+                      },
+                      "content": {
+                        "keywords": [], // List of important keywords related to the memory
+                        "entities": [], // List of entities mentioned in the memory (e.g., people, places, organizations)
+                        "tags": [], // List of additional tags for organization and retrieval (e.g., "strength_10", "holiday_in_Greece", "AI_ethics")
+                        "observations": [], // List of key observations or insights from the memory
+                        "facts": [], // List of factual statements or data from the memory
+                        "contradictions": [], // List of identified contradictions or conflicting information
+                        "paradoxes": [], // List of identified paradoxes or contradictions
+                        "scientific_data": [], // List of scientific data or findings from the memory
+                        "visualizations": [] // List of visualizations or diagrams related to the memory
+                      },
+                      "interaction": {
+                        "interaction_type": [], // Type of interaction (e.g., conversation, observation, experiment)
+                        "people": [], // List of people involved in the memory
+                        "objects": [], // List of objects involved in the memory
+                        "animals": [], // List of animals involved in the memory
+                        "actions": [], // List of actions taken in the memory
+                        "observed_interactions": [] // List of observed interactions (e.g., conversations between others)
+                      },
+                      "impact": {
+                        "obtained_knowledge": "", // What new knowledge was gained from the memory
+                        "positive_impact": "", // Positive impact or benefits of the memory
+                        "negative_impact": "", // Negative impact or drawbacks of the memory
+                        "expectations": "", // Expectations or goals related to the memory
+                        "strength_of_experience": "" // Subjective strength or intensity of the memory
+                      },
+                      "importance": {
+                        "reason": "", // Reasons why the memory is important or significant
+                        "potential_uses": [] // Potential uses or applications of the memory
+                      },
+                      "technical_details": {
+                        "problem_solved": "", // The problem that was solved in the memory
+                        "concept_definition": "", // Definition of a concept or term from the memory
+                        "implementation_steps": [], // Steps taken to implement something in the memory
+                        "tools_and_technologies": [], // Tools or technologies used in the memory
+                        "example_projects": [], // Example projects related to the memory
+                        "best_practices": [], // Best practices identified in the memory
+                        "common_challenges": [], // Common challenges encountered in the memory
+                        "debugging_tips": [], // Debugging tips or strategies from the memory
+                        "related_concepts": [], // Related concepts or topics discussed in the memory
+                        "resources": [], // Resources (e.g., articles, websites, books) mentioned in the memory
+                        "code_examples": [] // Code examples from the memory
+                      },
+                      "storage": {
+                        "storage_method": "", // How the information should be stored (e.g., text, JSON, image)
+                        "location": "", // Location where the information should be stored (e.g., folder path)
+                        "memory_folders_storage": [
+                          {
+                            "folder_path": "", // Suggested folder path for storing the memory
+                            "probability": 0 // Probability score (0-10) indicating the likelihood of the memory belonging to the folder
+                          }
+                        ],
+                        "strength_of_matching_memory_to_given_folder": [] // List of strength scores for each folder
+                      },
+                      "naming_suggestion": {
+                        "memory_frame_name": "", // Proposed name for the memory frame
+                        "explanation": "" // Optional: Explanation of the reasoning behind the chosen name
+                      }
+                    }
+                    ```
+
+                    **Memory Storage Suggestions:**
+                    Provide your suggestions for where this memory frame should be stored using the following format within the "memory_folders_storage" field:
+
+                    * **"folder_path":** The relative path for storing the memory frame (use '/' as the path separator).
+                    * **"probability":** The strength of probability (from 0 to 10) that the memory frame should be stored in the suggested folder. Use a scale from 0 (least likely) to 10 (most likely) to express your confidence. 
+                """
             )
-            schema_for_chat2 = """   
-                                if  the memory  does  not  fit  into schema  you can  reduce  entries  and  focues  on most  important entries:
-                                but  always  use  "memory_folders_storage": as  suggestion  in what  folders  that   memor should be saved.
+            chat2 = memory_model.start_chat(history=[])
+            create_memory_prompt = f"User: {user_input}\nAI: {response1.text}"
+            response2 = chat2.send_message(create_memory_prompt)
+            cprint(f"Memory Model Response: {response2.text}", 'green')
 
-                                Template  to use:          
-                                         {
-                              "metadata": {
-                                "creation_date": "", // Date and time the memory was created.
-                                "source": "", // Origin of the memory (e.g., conversation, website, book).
-                                "author": "" // Author or source of the memory.
-                              },
-                              "type": "conversation" // OR "technical_concept"  (This field designates the memory type)
-                              "core": {
-                                "main_topic": "",  // Core theme or subject of the memory.
-                                "category": "",  // General category (e.g., "Technology", "History", "Science").
-                                "subcategory": "", // More specific category (e.g., "Programming", "World War II", "Biology").
-                                "memory_about": "" // Brief description of what the memory is about.
-                              },
-                              "summary": {
-                                "concise_summary": "", // Brief overview of the memory's content.
-                                "description": "" //  Detailed explanation of the memory.
-                              },
-                              "content": {
-                                "keywords": [], // Key terms related to the memory.
-                                "entities": [], // People, places, things mentioned.
-                                "tags": [], // User-defined tags for retrieval.
-                                "observations": [], //  Interesting observations or insights made.
-                                "facts": [], //  Statements of fact in the memory.
-                                "contradictions": [], //  Contradictions or conflicting statements. 
-                                "paradoxes": [], //  Paradoxes or seemingly contradictory ideas. 
-                                "scientific_data": [], //  Scientific data or observations.
-                                "visualizations": [], //  Visualizations or diagrams related to the memory.
-                              },
-                              "interaction": {
-                                "interaction_type": [], // Type of interaction that occurred (e.g., "Question-Answer", "Discussion", "Instruction-Following"). 
-                                "people": [], //  People involved in the memory.
-                                "objects": [], //  Objects involved in the memory.
-                                "animals": [], //  Animals involved in the memory. 
-                                "actions": [], // Actions or events described in the memory. 
-                                "observed_interactions": [], //  Additional interactions observed.
-                              },
-                              "impact": {
-                                "obtained_knowledge": "", //  New knowledge or insights gained.
-                                "positive_impact": "", // Positive outcomes of the memory.
-                                "negative_impact": "", //  Negative outcomes of the memory.
-                                "expectations": "", //  User expectations before the interaction.
-                                "strength_of_experience": "" // Significance of the memory for the user.
-                              },
-                              "importance": {
-                                "reason": "", //  Why this memory is significant or important. 
-                                "potential_uses": [] //  How this memory might be used or applied in the future.
-                              },
-                              "technical_details": { 
-                                 "problem_solved": "", // (For technical concepts)  The problem being addressed.
-                                 "concept_definition": "", // (For technical concepts) A clear definition of the term. 
-                                 "implementation_steps": [
-                                   {
-                                     "step": "",
-                                     "code_snippet": "",
-                                     "notes": ""
-                                   }
-                                 ], //  Implementation steps for a technical concept. 
-                                 "tools_and_technologies": [], //  Tools or technologies used for implementation.
-                                 "example_projects": [], //  Examples of real-world projects using the concept.
-                                 "best_practices": [], //  Best practices for implementation.
-                                 "common_challenges": [], //  Common difficulties encountered.
-                                 "debugging_tips": [], //  Tips for troubleshooting.
-                                 "related_concepts": [], //  Other related concepts. 
-                                 "resources": [
-                                   {
-                                     "type": "",
-                                     "url": "",
-                                     "title": ""
-                                   }
-                                 ], // Relevant resources (articles, books, videos).
-                                 "code_examples": [
-                                   {
-                                     "name": "",
-                                     "description": "",
-                                     "code": "",
-                                     "notes": ""
-                                   }
-                                 ], // Code examples relevant to the memory. 
-                              },
-                              "storage": {
-                                "storage_method": "", //  How the memory is stored (e.g., database, file system).
-                                "location": "", //  The location where the memory is stored.
-                                "memory_folders_storage": [] //  Suggested folders for storage.
-                                "strenght of matching memory to given folder": [] //  from scale 0-10
-                              }
-                            }
-
-            """
-            chat_2 = memory_model.start_chat(history=[])
-            create_memory_prompt = f"""User: {user_input}
-                                    AI: {response1.text}
-                                    Schema:
-                                    {schema_for_chat2}"""
-            response2 = chat_2.send_message(create_memory_prompt)
+            # Interpret the response for function calls
             response_interpreter_for_function_calling(response2)
-            try:
-                STORE_MEMORY_Frame(
-                    current_time,
-                    user_input,
-                    response1.text,
-                    response2.text,
-                    memory_data
-                )
-            except Exception as e:
-                print(e)
+
+            # Store the memory frame based on the AI's analysis
+            store_memory_frame(current_time, user_input, response1.text, response2.text, memory_data)
+
         except Exception as e:
-            print_colored(f"Error in the main loop: {e}", "red")
+            cprint(f"Error in the main loop: {e}", "red")
