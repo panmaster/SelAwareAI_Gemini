@@ -112,6 +112,7 @@ def call_memory_model(user_input, response1_text):
               "importance": {
                 "reason": "", 
                 "potential_uses": [] 
+                "importance_level": "0-100" 
               },
               "technical_details": {
                 "problem_solved": "", 
@@ -138,7 +139,7 @@ def call_memory_model(user_input, response1_text):
                 "strength_of_matching_memory_to_given_folder": [] 
               },
               "naming_suggestion": {
-                "memory_frame_name": "",
+                "memory_frame_name": "Give  Same  meaning full name for  Memory File",
                 "explanation": "" 
               }
             }
