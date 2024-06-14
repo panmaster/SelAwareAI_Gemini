@@ -4,7 +4,7 @@ import os
 import datetime
 from Tool_Manager import ToolManager  # Import the class
 # Configure the generative AI
-genai.configure(api_key='AIzaSyCOaR8htDQH_kbQatacCksT60S26I_F-QU')
+genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')
 
 # Define color codes for terminal output
 COLORS = {

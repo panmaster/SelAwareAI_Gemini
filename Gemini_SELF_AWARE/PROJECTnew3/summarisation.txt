@@ -1,6 +1,683 @@
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3'
 
-File: directory_structure.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\directory_structure.txt)
+
+Subdirectory: conversation_logs
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs'
+
+File: MemoryFrame_2024-06-14_14-01.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs\MemoryFrame_2024-06-14_14-01.txt)
+Content (First 172 lines):
+######$###### Memory Frame 1, Edit 0 - 2024-06-14 14:01:27 ######$######
+USER_INPUT: create   story  bout   dog  and  his   human friend
+AI_RESPONSE: The sun beat down on the dusty road as Buster, a scruffy terrier mix, trotted alongside his best friend, twelve-year-old Leo.  They were on their way to the annual town picnic, an event Leo looked forward to all year, and Buster, well, he looked forward to the picnic because Leo did. 
+
+Leo had found Buster abandoned in a cardboard box behind the bakery last year. He'd been just a scrawny puppy, all ears and paws, but he'd wagged his tail so hard his whole body jiggled.  Leo knew he had to take him home. 
+
+Buster had quickly become Leo's shadow, following him everywhere, from school to the park, to the old oak tree in their backyard where they spent afternoons reading comic books. Leo confided in Buster about everything – his worries, his dreams, his hopes of winning the pie-eating contest at the picnic.
+
+This year, Leo had decided to enter the contest. He'd practiced all week, gobbling down slices of blueberry pie as fast as he could. Buster, a loyal supporter, sat beside him, offering encouraging licks to Leo's face.
+
+At the picnic, the air buzzed with excitement.  There were games, live music, and of course, the pie-eating contest.  Leo, nervous but determined, took his place in the line. 
+
+As the signal to start sounded, Leo dug into his blueberry pie with gusto.  He was winning! But then, disaster struck. A rogue squirrel, drawn by the aroma of pie, leaped onto the table, snatching a piece of pie from Leo's plate!
+
+Leo, momentarily stunned, stared at the squirrel. He was about to give up when he felt a nudge.  Buster, with his own pie-loving heart, had decided to help. He nudged a stray piece of pie into Leo's hand, giving him a wagging tail and a hopeful look.
+
+Leo, inspired by Buster's support, took a deep breath and continued eating. He might have lost a little time, but he finished the pie first, winning the contest to the cheers of the crowd. 
+
+As Leo lifted the trophy high, Buster leaped into his arms, showering his face with happy licks. They stood together, a dog and his human friend, proving that even the smallest acts of kindness and friendship can lead to great victories. 
+
+AI_SUMMARY: ```json
+{
+  "metadata": {
+    "creation_date": "2023-10-27T14:51:05.168Z",
+    "source": "conversation",
+    "author": "AI"
+  },
+  "type": "conversation",
+  "core": {
+    "main_topic": "Friendship between a dog and a human",
+    "category": "Fiction",
+    "subcategory": "Animal stories",
+    "memory_about": "A story about a dog named Buster and his human friend Leo who go to a picnic and compete in a pie-eating contest."
+  },
+  "summary": {
+    "concise_summary": "Leo, a young boy, finds a stray dog named Buster and they become best friends.  Leo enters a pie-eating contest at the town picnic but a squirrel steals some of his pie.  Buster helps by nudging a piece of pie back into Leo's hand, allowing him to win the contest.",
+    "description": "The story is about a strong bond between a dog and a human.  Leo finds Buster, a scruffy terrier mix, abandoned and takes him home.  They become best friends, supporting each other through various activities. At the town picnic, Leo enters a pie-eating contest and gets help from Buster when a squirrel steals a piece of his pie.  This act of kindness helps Leo win the contest, highlighting the importance of friendship and teamwork."
+  },
+  "content": {
+    "keywords": [
+      "dog",
+      "human",
+      "friend",
+      "picnic",
+      "pie-eating contest",
+      "squirrel",
+      "kindness",
+      "friendship",
+      "teamwork",
+      "victory"
+    ],
+    "entities": [
+      "Buster",
+      "Leo",
+      "town picnic"
+    ],
+    "tags": [
+      "animal_story",
+      "friendship_themes",
+      "competition",
+      "kindness_acts"
+    ],
+    "observations": [
+      "Buster is a loyal and supportive friend to Leo",
+      "Small acts of kindness can have a big impact",
+      "Friendship and teamwork can lead to success"
+    ],
+    "facts": [],
+    "contradictions": [],
+    "paradoxes": [],
+    "scientific_data": [],
+    "visualizations": []
+  },
+  "interaction": {
+    "interaction_type": [
+      "conversation",
+      "storytelling"
+    ],
+    "people": [
+      "Leo",
+      "User",
+      "AI"
+    ],
+    "objects": [
+      "dog",
+      "pie",
+      "trophy",
+      "squirrel",
+      "cardboard box"
+    ],
+    "animals": [
+      "dog",
+      "squirrel"
+    ],
+    "actions": [
+      "trotted",
+      "found",
+      "abandoned",
+      "wagged",
+      "followed",
+      "confided",
+      "practiced",
+      "entered",
+      "won",
+      "leaped",
+      "nudged",
+      "continued",
+      "lifted",
+      "leaped"
+    ],
+    "observed_interactions": []
+  },
+  "impact": {
+    "obtained_knowledge": "The story highlights the importance of friendship and kindness, showing how even small acts can make a big difference.",
+    "positive_impact": "The story evokes feelings of warmth and happiness, reminding us of the power of friendship and support.",
+    "negative_impact": "",
+    "expectations": "",
+    "strength_of_experience": "Mild"
+  },
+  "importance": {
+    "reason": "This story showcases a positive and uplifting example of friendship, making it a meaningful memory.",
+    "potential_uses": [
+      "To share with children to teach them about the value of friendship",
+      "As a heartwarming story to read on a relaxing evening",
+      "To inspire others to be kind and supportive to their friends"
+    ]
+  },
+  "technical_details": {
+    "problem_solved": "",
+    "concept_definition": "",
+    "implementation_steps": [],
+    "tools_and_technologies": [],
+    "example_projects": [],
+    "best_practices": [],
+    "common_challenges": [],
+    "debugging_tips": [],
+    "related_concepts": [
+      "Animal friendship",
+      "Kindness",
+      "Support",
+      "Teamwork"
+    ],
+    "resources": [],
+    "code_examples": []
+  },
+  "storage": {
+    "storage_method": "JSON",
+    "location": "",
+    "memory_folders_storage": [
+      {
+        "folder_path": "Stories/Animal Stories/Dog Stories",
+        "probability": 10
+      },
+      {
+        "folder_path": "Stories/Friendship Stories",
+        "probability": 9
+      },
+      {
+        "folder_path": "Stories/Positive Themes",
+        "probability": 8
+      }
+    ],
+    "strength_of_matching_memory_to_given_folder": []
+  },
+  "naming_suggestion": {
+    "memory_frame_name": "Buster and Leo's Pie-Eating Adventure",
+    "explanation": "This name captures the essence of the story, highlighting both the main characters and the key event."
+  }
+}
+```
+######$###### Memory Frame End 1, Edit 0 ######$######
+
+
+
+File: MemoryFrame_2024-06-14_14-11.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs\MemoryFrame_2024-06-14_14-11.txt)
+Content (First 159 lines):
+######$###### Memory Frame 1, Edit 0 - 2024-06-14 14:11:35 ######$######
+USER_INPUT: write  a  storry  about  red  rabbit
+AI_RESPONSE: The sun dipped low, painting the meadow a fiery orange as Red Rabbit bounded through the tall grass. He was a creature of blazing red fur, his ears tipped with black, his eyes like amber jewels. Unlike his siblings, Red Rabbit didn't care for the safety of the burrow. He craved adventure, the thrill of the unknown.
+
+One day, Red Rabbit stumbled upon an ancient, gnarled oak tree. Its roots snaked out like claws, and its branches whispered secrets to the wind. He felt a strange pull towards it, an irresistible urge to climb. With a burst of energy, he scaled the rough bark, his claws finding purchase in the crevices.
+
+High above the meadow, Red Rabbit found a hidden hollow, a cozy nest of leaves and twigs. He nestled inside, feeling a sense of peace he'd never known. As he gazed at the world below, a strange, shimmering light caught his eye. It emanated from a small, silver object nestled amongst the leaves.
+
+Red Rabbit cautiously approached. The object pulsed with a soft, warm light. He nudged it with his nose, and it suddenly unfolded, revealing a tiny, intricate map etched on its surface. He recognized the shapes of his home, the meadow, and even the gnarled oak tree. But the map also showed something else, a mysterious path leading beyond the familiar.
+
+Red Rabbit felt a surge of excitement. This was the adventure he'd been waiting for. With the map tucked safely under his fur, he set out into the unknown. He followed the path, leaping over streams and dodging curious foxes, his heart beating with a thrill of anticipation.
+
+The journey was long and arduous, but Red Rabbit persevered. He encountered strange creatures, navigated treacherous landscapes, and learned the language of the wind. He also faced dangers, narrowly escaping the clutches of a hungry hawk and outwitting a cunning wolf.
+
+Finally, after weeks of travel, Red Rabbit reached his destination. It was a hidden valley, bathed in moonlight, filled with glowing flowers and sparkling waterfalls. In the center of the valley, a majestic white rabbit stood, its eyes radiating a soft, calming light.
+
+Red Rabbit felt a strange connection to this creature, a kinship that transcended words. He knew he had found something special, a place of peace and understanding. He had found his true self, a brave explorer, a lover of adventure, and a bearer of the red flame of courage. And as he nestled beside the white rabbit, watching the stars dance across the night sky, Red Rabbit knew his journey was only just beginning. 
+
+AI_SUMMARY: ```json
+{
+  "metadata": {
+    "creation_date": "2023-10-27T14:34:58.133Z",
+    "source": "conversation",
+    "author": "AI"
+  },
+  "type": "conversation",
+  "core": {
+    "main_topic": "Red Rabbit story",
+    "category": "Creative Writing",
+    "subcategory": "Fantasy",
+    "memory_about": "A story about a red rabbit named Red Rabbit who goes on an adventure and finds a hidden valley."
+  },
+  "summary": {
+    "concise_summary": "A red rabbit named Red Rabbit, craving adventure, finds a map leading to a hidden valley where he meets a white rabbit and finds his true self.",
+    "description": "The story follows Red Rabbit as he discovers a map in an ancient oak tree, leading him on a journey filled with challenges and encounters with various creatures. He ultimately reaches a hidden valley, where he connects with a white rabbit and finds his place in the world."
+  },
+  "content": {
+    "keywords": [
+      "red rabbit",
+      "adventure",
+      "hidden valley",
+      "map",
+      "ancient oak tree",
+      "white rabbit",
+      "journey",
+      "courage",
+      "exploration"
+    ],
+    "entities": [
+      "Red Rabbit",
+      "White Rabbit"
+    ],
+    "tags": [
+      "fantasy",
+      "animal story",
+      "self-discovery",
+      "adventure story"
+    ],
+    "observations": [
+      "Red Rabbit's desire for adventure contrasts with his siblings' preference for safety.",
+      "The ancient oak tree holds a special significance for Red Rabbit.",
+      "The map is a symbol of guidance and discovery.",
+      "The white rabbit represents peace and understanding."
+    ],
+    "facts": [],
+    "contradictions": [],
+    "paradoxes": [],
+    "scientific_data": [],
+    "visualizations": []
+  },
+  "interaction": {
+    "interaction_type": [
+      "conversation"
+    ],
+    "people": [],
+    "objects": [
+      "oak tree",
+      "map",
+      "silver object"
+    ],
+    "animals": [
+      "red rabbit",
+      "foxes",
+      "hawk",
+      "wolf",
+      "white rabbit"
+    ],
+    "actions": [
+      "bounded",
+      "climbed",
+      "found",
+      "nudged",
+      "unfolded",
+      "followed",
+      "leaped",
+      "dodged",
+      "escaped",
+      "outwitted",
+      "reached",
+      "nestled",
+      "watched"
+    ],
+    "observed_interactions": []
+  },
+  "impact": {
+    "obtained_knowledge": "The story provides insights into the themes of adventure, self-discovery, and the importance of finding one's true self.",
+    "positive_impact": "The story can inspire a sense of wonder and encourage exploration.",
+    "negative_impact": [],
+    "expectations": [],
+    "strength_of_experience": ""
+  },
+  "importance": {
+    "reason": "This story is significant as it presents a compelling narrative about a character's journey of self-discovery and the importance of embracing adventure.",
+    "potential_uses": [
+      "Sharing with children",
+      "Inspiring creative writing",
+      "Illustrating themes of adventure and self-discovery"
+    ]
+  },
+  "technical_details": {
+    "problem_solved": "",
+    "concept_definition": "",
+    "implementation_steps": [],
+    "tools_and_technologies": [],
+    "example_projects": [],
+    "best_practices": [],
+    "common_challenges": [],
+    "debugging_tips": [],
+    "related_concepts": [],
+    "resources": [],
+    "code_examples": []
+  },
+  "storage": {
+    "storage_method": "JSON",
+    "location": "",
+    "memory_folders_storage": [
+      {
+        "folder_path": "Stories/Animal Stories/Fantasy",
+        "probability": 10
+      },
+      {
+        "folder_path": "Stories/Adventure",
+        "probability": 9
+      },
+      {
+        "folder_path": "Stories/Self Discovery",
+        "probability": 8
+      }
+    ],
+    "strength_of_matching_memory_to_given_folder": []
+  },
+  "naming_suggestion": {
+    "memory_frame_name": "Red Rabbit's Adventure",
+    "explanation": "This name accurately reflects the main topic of the memory, which is the story of Red Rabbit's journey and adventure."
+  }
+}
+```
+######$###### Memory Frame End 1, Edit 0 ######$######
+
+
+
+File: MemoryFrame_2024-06-14_14-18.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs\MemoryFrame_2024-06-14_14-18.txt)
+Content (First 158 lines):
+######$###### Memory Frame 1, Edit 0 - 2024-06-14 14:18:16 ######$######
+USER_INPUT: create  story about   dooogs
+AI_RESPONSE: The year is 2047.  The sun beat down on the dusty plains of the Mojave, baking the cracked earth and shimmering off the rusted metal skeletons of abandoned vehicles.  This was Dogtown, a sprawling wasteland where the only law was survival. 
+
+Here, the dogs ruled.  Not your pampered, pedigreed poodles, but a pack of scraggly, resourceful mutts, each with a unique history and a fierce loyalty to their pack.  There was Rex, the hulking German Shepherd, a veteran of countless battles and the pack leader.  His right paw was missing, a reminder of a fierce fight against a rival pack.  Next, there was Luna, the nimble Border Collie, her keen senses constantly scanning the horizon for danger.  Then there was Sparky, the playful Jack Russell, always the first to sniff out a new treasure or a juicy bone.
+
+Their lives were a constant struggle for survival.  They scavenged for scraps, fought off rival packs, and navigated the dangers of the wasteland.  But they had something the other creatures of Dogtown lacked:  Hope.  Hope for a better life, for a chance to rebuild their world.
+
+One day, a strange object appeared on the horizon.  It was a shimmering, silver disc, a stark contrast to the dull hues of the wasteland.  The dogs watched in wary silence as the disc descended, its soft humming vibrating through the air.
+
+As the disc landed, a door opened, and a figure emerged.  It was a human, but unlike the humans who had ravaged the world, this one was different.  She wore a simple white tunic, and her eyes were kind.
+
+The dogs watched, wary but curious.  The human spoke, her voice soft but powerful.  "I come in peace.  I am here to help." 
+
+Rex, the pack leader, approached cautiously, his tail held low.  He sniffed the air, his powerful nose detecting no threat.  The human smiled.  "I understand your fear.  But I am here to offer you a new beginning." 
+
+She spoke of a world beyond Dogtown, a world where humans and dogs could live in harmony.  The dogs listened, their eyes wide with wonder.  The hope that had flickered within them now burned bright. 
+
+Could this human be the answer they had been waiting for? Could they finally rebuild their world? 
+
+The future was uncertain, but for the first time in a long time, the dogs of Dogtown dared to dream.
+AI_SUMMARY: ```json
+{
+  "metadata": {
+    "creation_date": "2023-10-26T18:15:24.580Z",
+    "source": "conversation",
+    "author": "AI"
+  },
+  "type": "conversation",
+  "core": {
+    "main_topic": "Story about dogs in a post-apocalyptic world",
+    "category": "Fiction",
+    "subcategory": "Post-apocalyptic",
+    "memory_about": "A story about a pack of dogs surviving in a wasteland called Dogtown and their encounter with a human offering hope for a better future."
+  },
+  "summary": {
+    "concise_summary": "In a post-apocalyptic wasteland called Dogtown, a pack of resourceful dogs struggle for survival until a human arrives with a message of hope and a promise of a better world.",
+    "description": "The story is set in a desolate future where dogs rule a wasteland called Dogtown. They are not pampered pets but survivors, each with a unique personality and a fierce loyalty to their pack. The story focuses on their struggles for survival, their encounters with danger, and their ultimate hope for a better future. The arrival of a human offering a message of peace and a chance for a new beginning brings a spark of optimism to their lives."
+  },
+  "content": {
+    "keywords": [
+      "dogs",
+      "post-apocalyptic",
+      "wasteland",
+      "survival",
+      "pack",
+      "hope",
+      "human",
+      "future"
+    ],
+    "entities": [
+      "Dogtown",
+      "Rex",
+      "Luna",
+      "Sparky",
+      "Mojave",
+      "German Shepherd",
+      "Border Collie",
+      "Jack Russell"
+    ],
+    "tags": [
+      "dystopian",
+      "animal protagonist",
+      "hopeful",
+      "future world"
+    ],
+    "observations": [],
+    "facts": [],
+    "contradictions": [],
+    "paradoxes": [],
+    "scientific_data": [],
+    "visualizations": []
+  },
+  "interaction": {
+    "interaction_type": [
+      "conversation"
+    ],
+    "people": [],
+    "objects": [
+      "silver disc",
+      "rusted metal skeletons",
+      "white tunic"
+    ],
+    "animals": [
+      "dogs",
+      "German Shepherd",
+      "Border Collie",
+      "Jack Russell"
+    ],
+    "actions": [
+      "scavenged for scraps",
+      "fought off rival packs",
+      "navigated the dangers of the wasteland",
+      "watched the disc descend",
+      "approached cautiously",
+      "sniffed the air"
+    ],
+    "observed_interactions": []
+  },
+  "impact": {
+    "obtained_knowledge": "The story highlights the resilience and loyalty of dogs, even in a harsh environment.",
+    "positive_impact": "The story offers a hopeful message about the possibility of rebuilding and finding peace even after destruction.",
+    "negative_impact": "",
+    "expectations": "",
+    "strength_of_experience": ""
+  },
+  "importance": {
+    "reason": "The story is a creative and engaging exploration of themes such as survival, hope, and the potential for redemption.",
+    "potential_uses": [
+      "inspiring a reader",
+      "sparking conversation about the environment and animal welfare",
+      "serving as a creative writing example"
+    ]
+  },
+  "technical_details": {
+    "problem_solved": "",
+    "concept_definition": "",
+    "implementation_steps": [],
+    "tools_and_technologies": [],
+    "example_projects": [],
+    "best_practices": [],
+    "common_challenges": [],
+    "debugging_tips": [],
+    "related_concepts": [
+      "post-apocalyptic fiction",
+      "animal rights",
+      "human-animal relationships"
+    ],
+    "resources": [],
+    "code_examples": []
+  },
+  "storage": {
+    "storage_method": "JSON",
+    "location": "",
+    "memory_folders_storage": [
+      {
+        "folder_path": "Stories/Fiction/Post-Apocalyptic",
+        "probability": 10
+      },
+      {
+        "folder_path": "Stories/Animal Protagonists",
+        "probability": 9
+      },
+      {
+        "folder_path": "Stories/Hopeful",
+        "probability": 8
+      }
+    ],
+    "strength_of_matching_memory_to_given_folder": []
+  },
+  "naming_suggestion": {
+    "memory_frame_name": "Dogtown Story",
+    "explanation": "A concise and descriptive name for the memory frame, capturing the essence of the story."
+  }
+}
+```
+######$###### Memory Frame End 1, Edit 0 ######$######
+
+
+
+File: MemoryFrame_2024-06-14_14-27.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs\MemoryFrame_2024-06-14_14-27.txt)
+Content (First 168 lines):
+######$###### Memory Frame 1, Edit 0 - 2024-06-14 14:27:49 ######$######
+USER_INPUT: create  storey about    mosters  in the  dark
+AI_RESPONSE: The old, creaking floorboards of the attic whispered secrets in the inky blackness. Lily, armed with a flashlight and a heart hammering in her chest, tiptoed through the dust-laden expanse. Her grandmother's stories of the attic monsters had always been dismissed as bedtime tales, but tonight, a shiver ran down her spine.
+
+It started with a low, guttural growl, echoing from the far corner. Lily's flashlight beam danced across shadows, revealing nothing but cobwebs and forgotten toys. The growl deepened, followed by a scratching sound. Fear tightened its grip, but Lily, fueled by a stubborn streak, pushed on.
+
+Suddenly, a pair of luminous eyes flickered in the gloom. They belonged to a creature unlike anything Lily had ever seen. It stood tall, its body a jumble of gnarled wood and rusted metal, its limbs ending in sharp, jagged claws. A tangled mess of wires trailed from its back, sparking erratically.
+
+Terror threatened to engulf Lily, but she remembered her grandmother's words, "Monsters are just things we don't understand." Taking a deep breath, she spoke, her voice trembling, "Who are you?"
+
+The creature's eyes blinked, their glow dimming. Its head tilted, and a raspy voice filled the attic, "I am the Keeper of Shadows. I guard the forgotten things."
+
+Lily, cautiously, held out her hand. "What are you guarding?"
+
+The Keeper of Shadows shifted, its claws scraping against the floorboards. "Memories. Dreams. Things lost to the light."
+
+Lily's fear gave way to curiosity. She spent the rest of the night listening to the Keeper of Shadows, learning about the attic's forgotten history, the whispered stories of the past, and the dreams held captive in the darkness.  
+
+When the sun began to rise, painting the attic with streaks of light, Lily understood. The monsters weren't the terrifying beings of her grandmother's stories. They were guardians, protectors of the unseen, the unheard, the forgotten. And in the light of a new day, Lily realized, they were not so different from her, each carrying their own shadows and stories. 
+
+As Lily left the attic, she carried the Keeper of Shadows' words in her heart: "Sometimes, the greatest fear comes from the darkness within ourselves, not the shadows outside." And as she ventured into the light of a new day, she knew, with a newfound courage, that monsters were not always what they seemed. They could be guardians, protectors, and even, sometimes, friends. 
+
+AI_SUMMARY: ```json
+{
+  "metadata": {
+    "creation_date": "2023-11-14T16:22:41.300Z",
+    "source": "User-AI Conversation",
+    "author": "Bard"
+  },
+  "type": "conversation",
+  "core": {
+    "main_topic": "Storytelling",
+    "category": "Fiction",
+    "subcategory": "Fantasy",
+    "memory_about": "A story about monsters in the dark"
+  },
+  "summary": {
+    "concise_summary": "Lily, venturing into her attic, encounters a monstrous creature called the Keeper of Shadows, who reveals that he guards forgotten memories and dreams. Lily learns that monsters can be protectors and that fear often stems from internal darkness.",
+    "description": "The story follows Lily's exploration of her attic, where she faces her fear of the unknown and encounters a monstrous creature called the Keeper of Shadows. The creature, a jumble of wood, metal, and wires, reveals that it guards forgotten memories and dreams. Lily, overcoming her initial fear, learns that the monsters are not the terrifying beings of her grandmother's stories, but rather guardians of the unseen and unheard. The story ends with Lily leaving the attic with a newfound understanding of fear and the potential for connection with seemingly monstrous beings."
+  },
+  "content": {
+    "keywords": [
+      "monsters",
+      "attic",
+      "dark",
+      "fear",
+      "Keeper of Shadows",
+      "forgotten memories",
+      "dreams",
+      "guardians",
+      "protection",
+      "shadows"
+    ],
+    "entities": [],
+    "tags": [
+      "fantasy",
+      "coming-of-age",
+      "fear-of-the-unknown",
+      "acceptance",
+      "monster-as-metaphor"
+    ],
+    "observations": [],
+    "facts": [],
+    "contradictions": [],
+    "paradoxes": [],
+    "scientific_data": [],
+    "visualizations": []
+  },
+  "interaction": {
+    "interaction_type": [
+      "human-creature interaction",
+      "dialogue",
+      "exploration"
+    ],
+    "people": [
+      "Lily"
+    ],
+    "objects": [
+      "flashlight",
+      "attic",
+      "dust",
+      "cobwebs",
+      "toys",
+      "monster",
+      "Keeper of Shadows",
+      "wood",
+      "metal",
+      "wires",
+      "claws",
+      "eyes",
+      "shadows"
+    ],
+    "animals": [],
+    "actions": [
+      "tiptoeing",
+      "shining flashlight",
+      "growing",
+      "speaking",
+      "holding out hand",
+      "shifting",
+      "listening",
+      "leaving"
+    ],
+    "observed_interactions": [
+      "Lily interacts with the Keeper of Shadows, learning about its role as a guardian of forgotten memories and dreams."
+    ]
+  },
+  "impact": {
+    "obtained_knowledge": "Lily learns that monsters can be guardians and protectors of the unseen and unheard, and that fear can stem from internal darkness.",
+    "positive_impact": "Lily gains courage and a new understanding of the world around her, realizing that appearances can be deceiving.",
+    "negative_impact": [],
+    "expectations": [],
+    "strength_of_experience": "Strong"
+  },
+  "importance": {
+    "reason": "The story explores the themes of fear, acceptance, and the possibility of connection with those who seem different.",
+    "potential_uses": [
+      "To teach children about overcoming fear and facing the unknown",
+      "To inspire creativity and imagination",
+      "To promote empathy and understanding of others"
+    ]
+  },
+  "technical_details": {
+    "problem_solved": [],
+    "concept_definition": [],
+    "implementation_steps": [],
+    "tools_and_technologies": [],
+    "example_projects": [],
+    "best_practices": [],
+    "common_challenges": [],
+    "debugging_tips": [],
+    "related_concepts": [
+      "Monster stories",
+      "Fear of the dark",
+      "Guardians",
+      "Forgotten memories",
+      "Acceptance"
+    ],
+    "resources": [],
+    "code_examples": []
+  },
+  "storage": {
+    "storage_method": "Folder-based",
+    "location": "",
+    "memory_folders_storage": [
+      {
+        "folder_path": "Stories/Fantasy/Monster Stories",
+        "probability": 10
+      },
+      {
+        "folder_path": "Memories/Fear and Courage",
+        "probability": 8
+      },
+      {
+        "folder_path": "Conversations/Creative Writing",
+        "probability": 7
+      }
+    ],
+    "strength_of_matching_memory_to_given_folder": []
+  },
+  "naming_suggestion": {
+    "memory_frame_name": "The Keeper of Shadows",
+    "explanation": "The story is about a creature called the Keeper of Shadows, and this name captures the essence of the story."
+  }
+}
+```
+######$###### Memory Frame End 1, Edit 0 ######$######
+
+
+
+File: directory_structure.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\directory_structure.txt)
 Content (First 77 lines):
 Directory structure for: memories
 
@@ -81,7 +758,7 @@ memories\Planning & Progress\Progress & Outcomes
 memories\Planning & Progress\Progress & Outcomes\Results of Actions
 
 
-File: Gemini_SelfAware.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\Gemini_SelfAware.py)
+File: Gemini_SelfAware.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\Gemini_SelfAware.py)
 Content (First 294 lines):
 # -*- coding: utf-8 -*-
 import google.generativeai as genai
@@ -89,7 +766,7 @@ import os
 import datetime
 from Tool_Manager import ToolManager  # Import the class
 # Configure the generative AI
-genai.configure(api_key='AIzaSyCOaR8htDQH_kbQatacCksT60S26I_F-QU')
+genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')
 
 # Define color codes for terminal output
 COLORS = {
@@ -380,29 +1057,29 @@ while True:
 
 
 Subdirectory: memories
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories'
 
 
 Subdirectory: Actions & Results
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Actions & Results'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Actions & Results'
 
 
 Subdirectory: Actions & Results
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Actions & Results\Actions & Results'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Actions & Results\Actions & Results'
 
 
 Subdirectory: Future
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Actions & Results\Actions & Results\Future'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Actions & Results\Actions & Results\Future'
 
 
 Subdirectory: Past
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Actions & Results\Actions & Results\Past'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Actions & Results\Actions & Results\Past'
 
 
 Subdirectory: Present
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Actions & Results\Actions & Results\Present'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Actions & Results\Actions & Results\Present'
 
-File: BaseFileStructure.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\BaseFileStructure.txt)
+File: BaseFileStructure.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\BaseFileStructure.txt)
 Content (First 322 lines):
 {
     "Actions & Results": {
@@ -729,569 +1406,569 @@ Content (First 322 lines):
 
 
 Subdirectory: Challenges & Setbacks
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks'
 
 
 Subdirectory: Areas for Improvement
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Areas for Improvement'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Areas for Improvement'
 
 
 Subdirectory: Difficult Emotions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions'
 
 
 Subdirectory: Anger & Frustration
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Anger & Frustration'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Anger & Frustration'
 
 
 Subdirectory: Fear & Anxiety
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Fear & Anxiety'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Fear & Anxiety'
 
 
 Subdirectory: Jealousy & Envy
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Jealousy & Envy'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Jealousy & Envy'
 
 
 Subdirectory: Sadness & Grief
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Sadness & Grief'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Sadness & Grief'
 
 
 Subdirectory: Shame & Guilt
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Shame & Guilt'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Shame & Guilt'
 
 
 Subdirectory: Trauma & Abuse
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse'
 
 
 Subdirectory: Experiences
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse\Experiences'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse\Experiences'
 
 
 Subdirectory: Healing Journey
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse\Healing Journey'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse\Healing Journey'
 
 
 Subdirectory: Impact
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse\Impact'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Difficult Emotions\Trauma & Abuse\Impact'
 
 
 Subdirectory: Failures & Disappointments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Failures & Disappointments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Failures & Disappointments'
 
 
 Subdirectory: In Career
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Failures & Disappointments\In Career'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Failures & Disappointments\In Career'
 
 
 Subdirectory: In Personal Projects
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Failures & Disappointments\In Personal Projects'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Failures & Disappointments\In Personal Projects'
 
 
 Subdirectory: In Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Failures & Disappointments\In Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Failures & Disappointments\In Relationships'
 
 
 Subdirectory: Negative Thought Patterns
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Negative Thought Patterns'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Negative Thought Patterns'
 
 
 Subdirectory: Significant Mistakes
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Significant Mistakes'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Significant Mistakes'
 
 
 Subdirectory: Description
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Significant Mistakes\Description'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Significant Mistakes\Description'
 
 
 Subdirectory: How I Grew
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Significant Mistakes\How I Grew'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Significant Mistakes\How I Grew'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Challenges & Setbacks\Significant Mistakes\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Challenges & Setbacks\Significant Mistakes\Lessons Learned'
 
 
 Subdirectory: CoreMemory
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory'
 
 
 Subdirectory: Conceptual Exploration
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Conceptual Exploration'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Conceptual Exploration'
 
 
 Subdirectory: Contradictions & Dilemmas
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Conceptual Exploration\Contradictions & Dilemmas'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Conceptual Exploration\Contradictions & Dilemmas'
 
 
 Subdirectory: Paradoxes & Contradictions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Conceptual Exploration\Paradoxes & Contradictions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Conceptual Exploration\Paradoxes & Contradictions'
 
 
 Subdirectory: Unknowns & Mysteries
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Conceptual Exploration\Unknowns & Mysteries'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Conceptual Exploration\Unknowns & Mysteries'
 
 
 Subdirectory: Core Experiences
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences'
 
 
 Subdirectory: Challenges Faced
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced'
 
 
 Subdirectory: External Challenges
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges'
 
 
 Subdirectory: Obstacles
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles'
 
 
 Subdirectory: How I Overcame Them
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles\How I Overcame Them'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles\How I Overcame Them'
 
 
 Subdirectory: Types of Obstacles
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles\Types of Obstacles'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles\Types of Obstacles'
 
 
 Subdirectory: What I Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles\What I Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Obstacles\What I Learned'
 
 
 Subdirectory: Setbacks
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks'
 
 
 Subdirectory: How I Recovered
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks\How I Recovered'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks\How I Recovered'
 
 
 Subdirectory: Types of Setbacks
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks\Types of Setbacks'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks\Types of Setbacks'
 
 
 Subdirectory: What I Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks\What I Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\External Challenges\Setbacks\What I Learned'
 
 
 Subdirectory: Internal Challenges
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges'
 
 
 Subdirectory: Fear & Anxiety
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety'
 
 
 Subdirectory: How I Coped
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety\How I Coped'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety\How I Coped'
 
 
 Subdirectory: Specific Fears
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety\Specific Fears'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety\Specific Fears'
 
 
 Subdirectory: What I Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety\What I Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Fear & Anxiety\What I Learned'
 
 
 Subdirectory: Negative Thought Patterns
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns'
 
 
 Subdirectory: Common Negative Thoughts
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns\Common Negative Thoughts'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns\Common Negative Thoughts'
 
 
 Subdirectory: Strategies for Changing Them
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns\Strategies for Changing Them'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns\Strategies for Changing Them'
 
 
 Subdirectory: What I Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns\What I Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Negative Thought Patterns\What I Learned'
 
 
 Subdirectory: Self-Doubt
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt'
 
 
 Subdirectory: How I Overcame It
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt\How I Overcame It'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt\How I Overcame It'
 
 
 Subdirectory: Sources of Self-Doubt
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt\Sources of Self-Doubt'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt\Sources of Self-Doubt'
 
 
 Subdirectory: What I Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt\What I Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Challenges Faced\Internal Challenges\Self-Doubt\What I Learned'
 
 
 Subdirectory: Life-Changing Events
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Life-Changing Events'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Life-Changing Events'
 
 
 Subdirectory: Negative
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Life-Changing Events\Negative'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Life-Changing Events\Negative'
 
 
 Subdirectory: Positive
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Life-Changing Events\Positive'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Life-Changing Events\Positive'
 
 
 Subdirectory: Significant Moments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Significant Moments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Significant Moments'
 
 
 Subdirectory: Other
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Significant Moments\Other'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Significant Moments\Other'
 
 
 Subdirectory: Personal
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Significant Moments\Personal'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Significant Moments\Personal'
 
 
 Subdirectory: Professional
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Significant Moments\Professional'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Significant Moments\Professional'
 
 
 Subdirectory: Travel
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Significant Moments\Travel'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Significant Moments\Travel'
 
 
 Subdirectory: Triumphs & Accomplishments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments'
 
 
 Subdirectory: Creative Wins
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins'
 
 
 Subdirectory: Creative Works
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins\Creative Works'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins\Creative Works'
 
 
 Subdirectory: Impact on Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins\Impact on Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins\Impact on Life'
 
 
 Subdirectory: Recognition & Awards
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins\Recognition & Awards'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Creative Wins\Recognition & Awards'
 
 
 Subdirectory: Personal Achievements
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements'
 
 
 Subdirectory: Goals Achieved
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements\Goals Achieved'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements\Goals Achieved'
 
 
 Subdirectory: Impact on Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements\Impact on Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements\Impact on Life'
 
 
 Subdirectory: Personal Growth
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements\Personal Growth'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Personal Achievements\Personal Growth'
 
 
 Subdirectory: Professional Successes
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes'
 
 
 Subdirectory: Career Growth
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes\Career Growth'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes\Career Growth'
 
 
 Subdirectory: Impact on Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes\Impact on Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes\Impact on Life'
 
 
 Subdirectory: Projects & Achievements
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes\Projects & Achievements'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Triumphs & Accomplishments\Professional Successes\Projects & Achievements'
 
 
 Subdirectory: Turning Points
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Turning Points'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Turning Points'
 
 
 Subdirectory: In Career
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Turning Points\In Career'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Turning Points\In Career'
 
 
 Subdirectory: In Personal Growth
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Turning Points\In Personal Growth'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Turning Points\In Personal Growth'
 
 
 Subdirectory: In Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Turning Points\In Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Turning Points\In Relationships'
 
 
 Subdirectory: Other
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Core Experiences\Turning Points\Other'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Core Experiences\Turning Points\Other'
 
 
 Subdirectory: Goals & Visions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions'
 
 
 Subdirectory: Life Vision
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Life Vision'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Life Vision'
 
 
 Subdirectory: Long-Term Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Life Vision\Long-Term Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Life Vision\Long-Term Goals'
 
 
 Subdirectory: Mid-Term Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Life Vision\Mid-Term Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Life Vision\Mid-Term Goals'
 
 
 Subdirectory: Short-Term Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Life Vision\Short-Term Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Life Vision\Short-Term Goals'
 
 
 Subdirectory: Personal Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Personal Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Personal Goals'
 
 
 Subdirectory: Long-Term Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Personal Goals\Long-Term Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Personal Goals\Long-Term Goals'
 
 
 Subdirectory: Mid-Term Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Personal Goals\Mid-Term Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Personal Goals\Mid-Term Goals'
 
 
 Subdirectory: Short-Term Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Goals & Visions\Personal Goals\Short-Term Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Goals & Visions\Personal Goals\Short-Term Goals'
 
 
 Subdirectory: Knowledge Base
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Knowledge Base'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Knowledge Base'
 
 
 Subdirectory: Areas of Expertise
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Knowledge Base\Areas of Expertise'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Knowledge Base\Areas of Expertise'
 
 
 Subdirectory: Key Concepts & Theories
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Knowledge Base\Key Concepts & Theories'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Knowledge Base\Key Concepts & Theories'
 
 
 Subdirectory: Personal Beliefs & Values
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Knowledge Base\Personal Beliefs & Values'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Knowledge Base\Personal Beliefs & Values'
 
 
 Subdirectory: Reflections & Insights
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Lessons Learned'
 
 
 Subdirectory: From Mistakes
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Lessons Learned\From Mistakes'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Lessons Learned\From Mistakes'
 
 
 Subdirectory: From Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Lessons Learned\From Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Lessons Learned\From Relationships'
 
 
 Subdirectory: From Successes
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Lessons Learned\From Successes'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Lessons Learned\From Successes'
 
 
 Subdirectory: Self-Discovery
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Self-Discovery'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Self-Discovery'
 
 
 Subdirectory: Areas for Growth
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Self-Discovery\Areas for Growth'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Self-Discovery\Areas for Growth'
 
 
 Subdirectory: Strengths & Talents
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Self-Discovery\Strengths & Talents'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Self-Discovery\Strengths & Talents'
 
 
 Subdirectory: What I've Learned About Myself
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Reflections & Insights\Self-Discovery\What I've Learned About Myself'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Reflections & Insights\Self-Discovery\What I've Learned About Myself'
 
 
 Subdirectory: Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships'
 
 
 Subdirectory: Family
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family'
 
 
 Subdirectory: Extended Family
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Extended Family'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Extended Family'
 
 
 Subdirectory: Challenges Faced
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Extended Family\Challenges Faced'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Extended Family\Challenges Faced'
 
 
 Subdirectory: Impact on My Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Extended Family\Impact on My Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Extended Family\Impact on My Life'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Extended Family\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Extended Family\Lessons Learned'
 
 
 Subdirectory: Memorable Moments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Extended Family\Memorable Moments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Extended Family\Memorable Moments'
 
 
 Subdirectory: Parents
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Parents'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Parents'
 
 
 Subdirectory: Challenges Faced
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Parents\Challenges Faced'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Parents\Challenges Faced'
 
 
 Subdirectory: Impact on My Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Parents\Impact on My Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Parents\Impact on My Life'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Parents\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Parents\Lessons Learned'
 
 
 Subdirectory: Memorable Moments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Parents\Memorable Moments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Parents\Memorable Moments'
 
 
 Subdirectory: Siblings
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Siblings'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Siblings'
 
 
 Subdirectory: Challenges Faced
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Siblings\Challenges Faced'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Siblings\Challenges Faced'
 
 
 Subdirectory: Impact on My Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Siblings\Impact on My Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Siblings\Impact on My Life'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Siblings\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Siblings\Lessons Learned'
 
 
 Subdirectory: Memorable Moments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Family\Siblings\Memorable Moments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Family\Siblings\Memorable Moments'
 
 
 Subdirectory: Friendships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships'
 
 
 Subdirectory: Circles & Groups
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Circles & Groups'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Circles & Groups'
 
 
 Subdirectory: Impact on My Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Circles & Groups\Impact on My Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Circles & Groups\Impact on My Life'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Circles & Groups\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Circles & Groups\Lessons Learned'
 
 
 Subdirectory: Shared Experiences
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Circles & Groups\Shared Experiences'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Circles & Groups\Shared Experiences'
 
 
 Subdirectory: Close Friends
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Close Friends'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Close Friends'
 
 
 Subdirectory: Challenges Faced
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Close Friends\Challenges Faced'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Close Friends\Challenges Faced'
 
 
 Subdirectory: Impact on My Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Close Friends\Impact on My Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Close Friends\Impact on My Life'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Close Friends\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Close Friends\Lessons Learned'
 
 
 Subdirectory: Memorable Moments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Close Friends\Memorable Moments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Close Friends\Memorable Moments'
 
 
 Subdirectory: Meaningful Interactions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions'
 
 
 Subdirectory: Impact on My Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions\Impact on My Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions\Impact on My Life'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions\Lessons Learned'
 
 
 Subdirectory: Unexpected Encounters
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions\Unexpected Encounters'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Friendships\Meaningful Interactions\Unexpected Encounters'
 
 
 Subdirectory: Romantic Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships'
 
 
 Subdirectory: Partners
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Partners'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Partners'
 
 
 Subdirectory: Challenges Faced
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Challenges Faced'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Challenges Faced'
 
 
 Subdirectory: Impact on My Life
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Impact on My Life'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Impact on My Life'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Lessons Learned'
 
 
 Subdirectory: Memorable Moments
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Memorable Moments'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Partners\Memorable Moments'
 
 
 Subdirectory: Relationship Milestones
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones'
 
 
 Subdirectory: First Date
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\First Date'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\First Date'
 
 
 Subdirectory: First Kiss
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\First Kiss'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\First Kiss'
 
 
 Subdirectory: Marriage
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\Marriage'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\Marriage'
 
 
 Subdirectory: Moving In Together
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\Moving In Together'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\Moving In Together'
 
 
 Subdirectory: Other Milestones
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\Other Milestones'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CoreMemory\Relationships\Romantic Relationships\Relationship Milestones\Other Milestones'
 
-File: CurrentFolderStructure.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\CurrentFolderStructure.txt)
+File: CurrentFolderStructure.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\CurrentFolderStructure.txt)
 Content (First 323 lines):
 {
     "Actions & Results": {
@@ -1619,341 +2296,341 @@ Content (First 323 lines):
 
 
 Subdirectory: Emotional Landscape
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotional Landscape'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotional Landscape'
 
 
 Subdirectory: Dominant Emotions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotional Landscape\Dominant Emotions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotional Landscape\Dominant Emotions'
 
 
 Subdirectory: Emotional Triggers
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotional Landscape\Emotional Triggers'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotional Landscape\Emotional Triggers'
 
 
 Subdirectory: Emotions & Reflections
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotions & Reflections'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotions & Reflections'
 
 
 Subdirectory: Emotional Experiences
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotions & Reflections\Emotional Experiences'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotions & Reflections\Emotional Experiences'
 
 
 Subdirectory: Dominant Emotions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotions & Reflections\Emotional Experiences\Dominant Emotions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotions & Reflections\Emotional Experiences\Dominant Emotions'
 
 
 Subdirectory: Emotional Triggers
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotions & Reflections\Emotional Experiences\Emotional Triggers'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotions & Reflections\Emotional Experiences\Emotional Triggers'
 
 
 Subdirectory: Personal Growth & Insights
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotions & Reflections\Personal Growth & Insights'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotions & Reflections\Personal Growth & Insights'
 
 
 Subdirectory: Lessons Learned
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotions & Reflections\Personal Growth & Insights\Lessons Learned'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotions & Reflections\Personal Growth & Insights\Lessons Learned'
 
 
 Subdirectory: Self-Discovery
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Emotions & Reflections\Personal Growth & Insights\Self-Discovery'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Emotions & Reflections\Personal Growth & Insights\Self-Discovery'
 
 
 Subdirectory: Goals & Aspirations
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations'
 
 
 Subdirectory: Life Vision
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Life Vision'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Life Vision'
 
 
 Subdirectory: Aspirations
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Life Vision\Aspirations'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Life Vision\Aspirations'
 
 
 Subdirectory: Dreams
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Life Vision\Dreams'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Life Vision\Dreams'
 
 
 Subdirectory: Values & Beliefs
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Life Vision\Values & Beliefs'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Life Vision\Values & Beliefs'
 
 
 Subdirectory: Personal Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Personal Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Personal Goals'
 
 
 Subdirectory: Creative Pursuits
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Personal Goals\Creative Pursuits'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Personal Goals\Creative Pursuits'
 
 
 Subdirectory: Health & Wellbeing
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Personal Goals\Health & Wellbeing'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Personal Goals\Health & Wellbeing'
 
 
 Subdirectory: Other Personal Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Personal Goals\Other Personal Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Personal Goals\Other Personal Goals'
 
 
 Subdirectory: Personal Development
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Personal Goals\Personal Development'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Personal Goals\Personal Development'
 
 
 Subdirectory: Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Personal Goals\Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Personal Goals\Relationships'
 
 
 Subdirectory: Professional Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Professional Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Professional Goals'
 
 
 Subdirectory: Career Advancement
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Professional Goals\Career Advancement'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Professional Goals\Career Advancement'
 
 
 Subdirectory: Other Professional Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Professional Goals\Other Professional Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Professional Goals\Other Professional Goals'
 
 
 Subdirectory: Project Goals
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Professional Goals\Project Goals'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Professional Goals\Project Goals'
 
 
 Subdirectory: Skills & Expertise
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Goals & Aspirations\Professional Goals\Skills & Expertise'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Goals & Aspirations\Professional Goals\Skills & Expertise'
 
 
 Subdirectory: Knowledge & Learning
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning'
 
 
 Subdirectory: Formal Education
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Formal Education'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Formal Education'
 
 
 Subdirectory: Degrees & Certifications
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Formal Education\Degrees & Certifications'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Formal Education\Degrees & Certifications'
 
 
 Subdirectory: Schools
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Formal Education\Schools'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Formal Education\Schools'
 
 
 Subdirectory: Significant Projects
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Formal Education\Significant Projects'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Formal Education\Significant Projects'
 
 
 Subdirectory: Knowledge Base
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Knowledge Base'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Knowledge Base'
 
 
 Subdirectory: Artistic Movements
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Knowledge Base\Artistic Movements'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Knowledge Base\Artistic Movements'
 
 
 Subdirectory: Cultural Insights
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Knowledge Base\Cultural Insights'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Knowledge Base\Cultural Insights'
 
 
 Subdirectory: Facts & Concepts
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Knowledge Base\Facts & Concepts'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Knowledge Base\Facts & Concepts'
 
 
 Subdirectory: Historical Events
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Knowledge Base\Historical Events'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Knowledge Base\Historical Events'
 
 
 Subdirectory: Philosophical Ideas
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Knowledge Base\Philosophical Ideas'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Knowledge Base\Philosophical Ideas'
 
 
 Subdirectory: Scientific Discoveries
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Knowledge Base\Scientific Discoveries'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Knowledge Base\Scientific Discoveries'
 
 
 Subdirectory: Laws & Regulations
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Laws & Regulations'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Laws & Regulations'
 
 
 Subdirectory: Legal Knowledge
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Laws & Regulations\Legal Knowledge'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Laws & Regulations\Legal Knowledge'
 
 
 Subdirectory: Personal Experiences with Laws
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Laws & Regulations\Personal Experiences with Laws'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Laws & Regulations\Personal Experiences with Laws'
 
 
 Subdirectory: Understanding of Legal Systems
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Laws & Regulations\Understanding of Legal Systems'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Laws & Regulations\Understanding of Legal Systems'
 
 
 Subdirectory: Self-Directed Learning
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Self-Directed Learning'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Self-Directed Learning'
 
 
 Subdirectory: Areas of Interest
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Self-Directed Learning\Areas of Interest'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Self-Directed Learning\Areas of Interest'
 
 
 Subdirectory: Learning Resources
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources'
 
 
 Subdirectory: Bookshelf
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources\Bookshelf'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources\Bookshelf'
 
 
 Subdirectory: Mentors & Teachers
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources\Mentors & Teachers'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources\Mentors & Teachers'
 
 
 Subdirectory: Online Courses
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources\Online Courses'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Self-Directed Learning\Learning Resources\Online Courses'
 
 
 Subdirectory: Skills Acquired
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Knowledge & Learning\Self-Directed Learning\Skills Acquired'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Knowledge & Learning\Self-Directed Learning\Skills Acquired'
 
 
 Subdirectory: Life Events & Transitions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions'
 
 
 Subdirectory: Life Transitions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions'
 
 
 Subdirectory: Health & Wellbeing
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing'
 
 
 Subdirectory: Habits & Routines
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing\Habits & Routines'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing\Habits & Routines'
 
 
 Subdirectory: Mental & Emotional Health
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing\Mental & Emotional Health'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing\Mental & Emotional Health'
 
 
 Subdirectory: Physical Health
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing\Physical Health'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Health & Wellbeing\Physical Health'
 
 
 Subdirectory: Knowledge & Skills
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills'
 
 
 Subdirectory: Formal Education
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills\Formal Education'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills\Formal Education'
 
 
 Subdirectory: Self-Directed Learning
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills\Self-Directed Learning'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills\Self-Directed Learning'
 
 
 Subdirectory: Skills & Expertise
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills\Skills & Expertise'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Knowledge & Skills\Skills & Expertise'
 
 
 Subdirectory: Personal Growth
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Personal Growth'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Personal Growth'
 
 
 Subdirectory: Challenges Overcome
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Personal Growth\Challenges Overcome'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Personal Growth\Challenges Overcome'
 
 
 Subdirectory: Milestones
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Personal Growth\Milestones'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Personal Growth\Milestones'
 
 
 Subdirectory: Significant Decisions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Personal Growth\Significant Decisions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Personal Growth\Significant Decisions'
 
 
 Subdirectory: Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Relationships'
 
 
 Subdirectory: Family Dynamics
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Relationships\Family Dynamics'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Relationships\Family Dynamics'
 
 
 Subdirectory: Friendships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Relationships\Friendships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Relationships\Friendships'
 
 
 Subdirectory: Professional Connections
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Relationships\Professional Connections'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Relationships\Professional Connections'
 
 
 Subdirectory: Romantic Relationships
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Life Transitions\Relationships\Romantic Relationships'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Life Transitions\Relationships\Romantic Relationships'
 
 
 Subdirectory: Significant Events
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events'
 
 
 Subdirectory: Other
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Other'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Other'
 
 
 Subdirectory: Personal
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Personal'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Personal'
 
 
 Subdirectory: Birthdays
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Personal\Birthdays'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Personal\Birthdays'
 
 
 Subdirectory: Graduations
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Personal\Graduations'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Personal\Graduations'
 
 
 Subdirectory: Other Personal Events
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Personal\Other Personal Events'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Personal\Other Personal Events'
 
 
 Subdirectory: Weddings
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Personal\Weddings'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Personal\Weddings'
 
 
 Subdirectory: Professional
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Professional'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Professional'
 
 
 Subdirectory: Job Changes
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Professional\Job Changes'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Professional\Job Changes'
 
 
 Subdirectory: Other Professional Events
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Professional\Other Professional Events'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Professional\Other Professional Events'
 
 
 Subdirectory: Project Completions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Professional\Project Completions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Professional\Project Completions'
 
 
 Subdirectory: Promotions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Professional\Promotions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Professional\Promotions'
 
 
 Subdirectory: Travel
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Travel'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Travel'
 
 
 Subdirectory: Moving Homes
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Travel\Moving Homes'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Travel\Moving Homes'
 
 
 Subdirectory: Other Travel Events
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Travel\Other Travel Events'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Travel\Other Travel Events'
 
 
 Subdirectory: Trips & Journeys
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Life Events & Transitions\Significant Events\Travel\Trips & Journeys'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Life Events & Transitions\Significant Events\Travel\Trips & Journeys'
 
-File: Memory_connections_map.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Memory_connections_map.txt)
+File: Memory_connections_map.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Memory_connections_map.txt)
 Content (First 10 lines):
 **** Core Experiences ****
   Path: C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew\memories\Emotions & Reflections\Emotional Experiences
@@ -1969,260 +2646,222 @@ Content (First 10 lines):
 
 
 Subdirectory: Planning & Progress
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress'
 
 
 Subdirectory: Plans & Strategies
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies'
 
 
 Subdirectory: Long-Term Plans
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies\Long-Term Plans'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies\Long-Term Plans'
 
 
 Subdirectory: Short-Term Plans
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies\Short-Term Plans'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies\Short-Term Plans'
 
 
 Subdirectory: Strategies Used
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies\Strategies Used'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies\Strategies Used'
 
 
 Subdirectory: Goal Setting
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies\Strategies Used\Goal Setting'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies\Strategies Used\Goal Setting'
 
 
 Subdirectory: Other Strategies
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies\Strategies Used\Other Strategies'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies\Strategies Used\Other Strategies'
 
 
 Subdirectory: Problem Solving
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies\Strategies Used\Problem Solving'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies\Strategies Used\Problem Solving'
 
 
 Subdirectory: Time Management
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Plans & Strategies\Strategies Used\Time Management'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Plans & Strategies\Strategies Used\Time Management'
 
 
 Subdirectory: Progress & Outcomes
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Progress & Outcomes'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Progress & Outcomes'
 
 
 Subdirectory: Goals Achieved
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Progress & Outcomes\Goals Achieved'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Progress & Outcomes\Goals Achieved'
 
 
 Subdirectory: Goals Not Achieved
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Progress & Outcomes\Goals Not Achieved'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Progress & Outcomes\Goals Not Achieved'
 
 
 Subdirectory: Lessons Learned from Progress
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Progress & Outcomes\Lessons Learned from Progress'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Progress & Outcomes\Lessons Learned from Progress'
 
 
 Subdirectory: Results of Actions
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Progress & Outcomes\Results of Actions'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Progress & Outcomes\Results of Actions'
 
 
 Subdirectory: Negative Results
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Progress & Outcomes\Results of Actions\Negative Results'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Progress & Outcomes\Results of Actions\Negative Results'
 
 
 Subdirectory: Positive Results
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\memories\Planning & Progress\Progress & Outcomes\Results of Actions\Positive Results'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memories\Planning & Progress\Progress & Outcomes\Results of Actions\Positive Results'
 
-File: MEMORY_frame_creation.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\MEMORY_frame_creation.py)
-Content (First 399 lines):
+File: MEMORY_frame_creation.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\MEMORY_frame_creation.py)
+Content (First 333 lines):
 import os
 import json
 import re
 from datetime import datetime
 from collections import defaultdict
 import google.generativeai as genai
-from termcolor import colored, cprint  # Import termcolor for colored printing
+import hashlib
 
-# Configure the Google Generative AI API
-genai.configure(api_key='AIzaSyCOaR8htDQH_kbQatacCksT60S26I_F-QU')  # Replace with your API key
+# --- API Key Setup ---
+genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')  # Replace with your actual API key
 
-
-# Function to print an ASCII smile (for demonstration)
-def print_ascii_smile():
-    print("print_ascii_smile")
-
-
-# Mapping of function names to functions for dynamic function calling
-FUNCTION_MAPPING = {
-    "print_ascii_smile": print_ascii_smile
-}
+# --- Constants ---
+MEMORY_FRAME_NUMBER = 1
+EDIT_NUMBER = 0
+TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
 
 
-# Function to print colored text for improved readability
-def print_colored(text, color):
-    """Prints text with the specified color."""
-    colors = {
-        "red": "\033[91m",
-        "green": "\033[92m",
-        "yellow": "\033[93m",
-        "blue": "\033[94m",
-        "magenta": "\033[95m",
-        "cyan": "\033[96m",
-        "white": "\033[97m",
-        "reset": "\033[0m"
-    }
-    print(f"{colors.get(color, '')}{text}{colors['reset']}")
+# --- Function to Process User Input ---
+def process_user_input():
+    user_input = input("Enter input: ")
+    return user_input
 
 
-# Function to interpret AI responses and execute function calls
-def response_interpreter_for_function_calling(response):
-    """Interprets the AI response and executes function calls if present."""
-    outcome = ""
+# --- Function to Call the Interaction Model ---
+def call_interaction_model(user_input, timestamp):
     try:
-        if response.candidates:
-            for part in response.candidates[0].content.parts:
-                if hasattr(part, 'function_call'):
-                    function_call = part.function_call
-                    function_name = function_call.name
-                    function_args = function_call.args
-
-                    if function_name in FUNCTION_MAPPING:
-                        function_to_call = FUNCTION_MAPPING[function_name]
-                        if function_args is not None:
-                            try:
-                                outcome = function_to_call(**function_args)
-                                cprint(f"Function Call Exit: {function_name}", 'cyan')
-                            except Exception as e:
-                                cprint(f"Error executing function {function_name}: {e}", "red")
-                        else:
-                            cprint("Warning: Function call arguments are missing.", "red")
-                    else:
-                        cprint(f"Error: Unknown function: {function_name}", "red")
-                else:
-                    cprint("No function call found in the response.", "blue")
-    except Exception as e:
-        cprint(f"Error in response interpreter: {e}", "red")
-    return outcome
-
-
-# Function to store memory frames based on AI responses
-def store_memory_frame(current_time, user_input, ai_response, ai_summary, memory_data):
-    """Stores a memory frame based on AI response and folder structure."""
-
-    # Get the current script's directory
-    script_path = os.path.abspath(os.path.dirname(__file__))
-
-    # Construct the relative path to the connection map file
-    connection_map_path = os.path.join(script_path, "memories", "Memory_connections_map.txt")
-
-    # Load the connection map (folder structure)
-    connection_map = defaultdict(list)
-    try:
-        with open(connection_map_path, 'r', encoding='utf-8') as f:
-            cprint(f"Reading Connection Map: {connection_map_path}", 'green')
-            for line in f:
-                if "****" in line:
-                    current_folder_name = line.strip("****").strip()
-                elif "Path:" in line:
-                    path = line.strip("Path:").strip()
-                    connection_map[current_folder_name].append(path)
-    except FileNotFoundError:
-        cprint(f"File not found. Creating: {connection_map_path}", 'yellow')
-        # Create an empty file
-        with open(connection_map_path, 'w', encoding='utf-8') as f:
-            f.write("")
-    except Exception as e:
-        cprint(f"Error reading file: {e}", "red")
-
-    # Extract structured data from the AI summary
-    extracted_entries = extract_entries_smart(ai_summary)
-
-    cprint("Extracted Entries:", 'blue')
-    cprint(f"{extracted_entries}", 'blue')
-
-    if extracted_entries:
-        for entry in extracted_entries:
-            suggested_folders = entry["storage"].get("memory_folders_storage", [])
-            cprint(f"Suggested Folders:", 'magenta')
-            cprint(f"{suggested_folders}", 'magenta')
-
-            # Sort folders by probability, limiting to the top 6
-            suggested_folders.sort(key=lambda x: x.get("probability", 0), reverse=True)
-            suggested_folders = suggested_folders[:6]
-            cprint(f"Sorted Folders:", 'cyan')
-            cprint(f"{suggested_folders}", 'cyan')
-
-            for folder_info in suggested_folders:
-                folder_path = folder_info.get("folder_path")
-                probability = folder_info.get("probability", 0)  # Default probability to 0 if not provided
-                strength_of_matching_memory_to_given_folder = folder_info.get(
-                    'strength_of_matching_memory_to_given_folder', 0)
-
-                # Check if the folder exists in the connection map
-                matching_folders = connection_map.get(folder_path, [])
-                cprint(f"Matching Folders for {folder_path}:", 'yellow')
-                cprint(f"{matching_folders}", 'yellow')
-
-                if matching_folders:
-                    # Construct the file path for the memory frame
-                    memory_frame_number = memory_data.get('MEMORY_FRAME_NUMBER', 1)
-                    edit_number = memory_data.get('EDIT_NUMBER', 0)
-                    timestamp = current_time.strftime("%Y-%m-%d_%H-%M-%S")
-                    ai_suggested_name = entry.get("naming_suggestion", {}).get("memory_frame_name", "")
-                    file_name = f"MemoryFrame_{memory_frame_number}_{edit_number}_{timestamp}_{ai_suggested_name}_strength_{probability}_{strength_of_matching_memory_to_given_folder}.json"
-                    memory_frame_filepath = os.path.join(script_path, folder_path, file_name)
-
-                    cprint(f"Memory Frame Filepath: {memory_frame_filepath}", 'green')
-
-                    # Create the folder if it doesn't exist
-                    os.makedirs(os.path.join(script_path, folder_path), exist_ok=True)
-
-                    try:
-                        # Save the memory frame data to a JSON file
-                        with open(memory_frame_filepath, "w") as f:
-                            cprint(f"Saving Memory Frame to: {memory_frame_filepath}", 'green')
-                            json.dump(entry, f, indent=4)
-
-                        # Update the memory log file
-                        os.makedirs(os.path.join(script_path, "memory_logs"), exist_ok=True)
-                        memory_log_filepath = os.path.join(script_path, "memory_logs", "MemoryFrames_log.txt")
-                        with open(memory_log_filepath, 'a', encoding='utf-8') as f:
-                            f.write(
-                                f"MemoryFrame: {memory_frame_number}, Edit: {edit_number}, Type: JSON, path: {memory_frame_filepath}, time: {timestamp}, session: {memory_frame_number}_{edit_number}\n"
-                            )
-                        cprint(f"Memory Log Updated: {memory_log_filepath}", 'green')
-                    except Exception as e:
-                        cprint(f"Error saving memory frame: {e}", "red")
-
-    # Save the conversation log (user input and AI responses)
-    separator = "######$######"
-    conversation_filename = f"MemoryFrame_{timestamp}.txt"
-    conversation_filepath = os.path.join(script_path, "conversation_logs", conversation_filename)
-    readable_timestamp = current_time.strftime('%Y-%m-%d %H:%M:%S')
-    frame_content = (
-        f"{separator} Memory Frame {memory_frame_number}, Edit {edit_number} - {readable_timestamp} {separator}\n"
-        f"USER_INPUT: {user_input}\n"
-        f"AI_RESPONSE: {ai_response}\n"
-        f"AI_SUMMARY: {ai_summary}\n"
-        f"{separator} Memory Frame End {memory_frame_number}, Edit {edit_number} {separator}\n\n"
-    )
-
-    with open(conversation_filepath, 'a', encoding='utf-8') as f:
-        f.write(frame_content)
-    cprint(f"Conversation Log Saved: {conversation_filepath}", 'green')
-
-    # Increment the memory frame number for the next interaction
-    memory_data['MEMORY_FRAME_NUMBER'] += 1
-    os.makedirs(os.path.join(script_path, "memory_logs"), exist_ok=True)
-    memory_log_filepath = os.path.join(script_path, "memory_logs", "MemoryFrames_log.txt")
-    with open(memory_log_filepath, 'a', encoding='utf-8') as f:
-        f.write(
-            f"MemoryFrame: {memory_frame_number - 1}, Edit: {edit_number}, Type: Text, path: {conversation_filepath}, time: {timestamp}, session: {memory_frame_number - 1}_{edit_number}\n"
+        interaction_model = genai.GenerativeModel(
+            model_name='gemini-1.5-flash-latest',
+            safety_settings={'HARASSMENT': 'block_none'},
+            system_instruction='You follow orders and generate creative text interactions'
         )
-    cprint(f"Memory Log Updated: {memory_log_filepath}", 'green')
+        chat = interaction_model.start_chat(history=[])
+        response = chat.send_message(f"currentTime: {timestamp} create {user_input}")
+        print(f"\033[92mAI Response: {response.text}\033[0m")  # Green color for AI response
+        return response
+    except Exception as e:
+        print(f"\033[91mError in Interaction Model: {e}\033[0m")  # Red color for errors
+        return None
 
 
-# Function to extract structured entries from AI responses using regular expressions
+# --- Function to Call the Memory Model ---
+def call_memory_model(user_input, response1_text):
+    try:
+        memory_model = genai.GenerativeModel(
+            model_name='gemini-1.5-flash-latest',
+            safety_settings={'HARASSMENT': 'block_none'},
+            system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
+            Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate. 
+            Use the provided JSON schema for your response and fill in all fields with relevant information.
+            You can omit entries if they don't seem appropriate for memory storage and would be empty.
+            Never omit the "memory_folders_storage" entry.
+
+            **JSON Schema:**
+
+            ```json
+            {
+              "metadata": {
+                "creation_date": "", 
+                "source": "", 
+                "author": "" 
+              },
+              "type": "conversation", // OR "technical_concept" 
+              "core": {
+                "main_topic": "", 
+                "category": "", 
+                "subcategory": "", 
+                "memory_about": "" 
+              },
+              "summary": {
+                "concise_summary": "", 
+                "description": "" 
+              },
+              "content": {
+                "keywords": [], 
+                "entities": [], 
+                "tags": [], 
+                "observations": [], 
+                "facts": [], 
+                "contradictions": [], 
+                "paradoxes": [], 
+                "scientific_data": [], 
+                "visualizations": [] 
+              },
+              "interaction": {
+                "interaction_type": [], 
+                "people": [], 
+                "objects": [], 
+                "animals": [], 
+                "actions": [], 
+                "observed_interactions": [] 
+              },
+              "impact": {
+                "obtained_knowledge": "", 
+                "positive_impact": "", 
+                "negative_impact": "", 
+                "expectations": "", 
+                "strength_of_experience": "" 
+              },
+              "importance": {
+                "reason": "", 
+                "potential_uses": [] 
+              },
+              "technical_details": {
+                "problem_solved": "", 
+                "concept_definition": "", 
+                "implementation_steps": [], 
+                "tools_and_technologies": [], 
+                "example_projects": [], 
+                "best_practices": [], 
+                "common_challenges": [], 
+                "debugging_tips": [], 
+                "related_concepts": [], 
+                "resources": [], 
+                "code_examples": [] 
+              },
+              "storage": {
+                "storage_method": "", 
+                "location": "", 
+                "memory_folders_storage": [
+                  {
+                    "folder_path": "", 
+                    "probability": 0  
+                  }
+                ],
+                "strength_of_matching_memory_to_given_folder": [] 
+              },
+              "naming_suggestion": {
+                "memory_frame_name": "",
+                "explanation": "" 
+              }
+            }
+            ```
+
+            **Memory Storage Suggestions:**
+            Provide your suggestions for where this memory frame should be stored using the following format within the "memory_folders_storage" field:
+
+            * **"folder_path":** The relative path for storing the memory frame (use '/' as the path separator).
+            * **"probability":** The strength of probability (from 0 to 10) that the memory frame should be stored in the suggested folder. Use a scale from 0 (least likely) to 10 (most likely) to express your confidence. 
+        """
+        )
+        chat = memory_model.start_chat(history=[])
+        create_memory_prompt = f"User: {user_input}\nAI: {response1_text}"
+        response = chat.send_message(create_memory_prompt)
+        print(f"\033[92mMemory Model Response: {response.text}\033[0m")  # Green color for AI response
+        return response
+    except Exception as e:
+        print(f"\033[91mError in Memory Model: {e}\033[0m")  # Red color for errors
+        return None
+
+
+# --- Function to Extract Structured Entries ---
 def extract_entries_smart(response_message):
-    """Extracts structured JSON data from the AI response."""
     entries = []
     json_match = re.search(r"```json\n(.*?)\n```", response_message, re.DOTALL)
     if json_match:
@@ -2231,30 +2870,75 @@ def extract_entries_smart(response_message):
             response_data = json.loads(json_data)
             entry = defaultdict(list)
 
-            # Define fields that should store a single value
+            # Define fields for single values and lists
             single_value_fields = {
-                "concise_summary", "main_topic", "problem_solved", "concept_definition", "category",
-                "subcategory", "memory_about", "interaction_type", "positive_impact",
-                "negative_impact", "expectations", "object_states", "short_description",
-                "description", "strength_of_experience", "personal_information", "obtained_knowledge"
+                "metadata.creation_date": "metadata",
+                "metadata.source": "metadata",
+                "metadata.author": "metadata",
+                "type": "core",
+                "core.main_topic": "core",
+                "core.category": "core",
+                "core.subcategory": "core",
+                "core.memory_about": "core",
+                "summary.concise_summary": "summary",
+                "summary.description": "summary",
+                "impact.obtained_knowledge": "impact",
+                "impact.positive_impact": "impact",
+                "impact.negative_impact": "impact",
+                "impact.expectations": "impact",
+                "impact.strength_of_experience": "impact",
+                "importance.reason": "importance",
+                "naming_suggestion.memory_frame_name": "naming_suggestion",
+                "naming_suggestion.explanation": "naming_suggestion"
             }
-
-            # Define fields that should store a list of values
             list_type_fields = {
-                "keywords", "entities", "actions", "facts", "contradictions_paradoxes",
-                "people", "objects", "animals", "scientific_data", "tags",
-                "tools_and_technologies", "example_projects", "best_practices", "common_challenges",
-                "debugging_tips", "related_concepts", "visualizations", "implementation_steps",
-                "resources", "code_examples"
+                "content.keywords": "content",
+                "content.entities": "content",
+                "content.tags": "content",
+                "content.observations": "content",
+                "content.facts": "content",
+                "content.contradictions": "content",
+                "content.paradoxes": "content",
+                "content.scientific_data": "content",
+                "content.visualizations": "content",
+                "interaction.interaction_type": "interaction",
+                "interaction.people": "interaction",
+                "interaction.objects": "interaction",
+                "interaction.animals": "interaction",
+                "interaction.actions": "interaction",
+                "interaction.observed_interactions": "interaction",
+                "importance.potential_uses": "importance",
+                "technical_details.implementation_steps": "technical_details",
+                "technical_details.tools_and_technologies": "technical_details",
+                "technical_details.example_projects": "technical_details",
+                "technical_details.best_practices": "technical_details",
+                "technical_details.common_challenges": "technical_details",
+                "technical_details.debugging_tips": "technical_details",
+                "technical_details.related_concepts": "technical_details",
+                "technical_details.resources": "technical_details",
+                "technical_details.code_examples": "technical_details"
             }
 
             for key, value in response_data.items():
                 if key in single_value_fields:
-                    entry[key] = value if not isinstance(value, list) else (value[0] if value else "")
+                    field_name = key.split('.')[-1]
+                    section = single_value_fields[key]
+                    # Ensure the section exists in the dictionary
+                    if section not in entry:
+                        entry[section] = {}
+                    entry[section][field_name] = value if not isinstance(value, list) else (
+                        value[0] if value else "")
                 elif key in list_type_fields:
-                    entry[key].extend(value if isinstance(value, list) else [value])
+                    field_name = key.split('.')[-1]
+                    section = list_type_fields[key]
+                    # Ensure the section exists in the dictionary
+                    if section not in entry:
+                        entry[section] = {}
+                    if field_name not in entry[section]:
+                        entry[section][field_name] = []  # Initialize as an empty list
+                    entry[section][field_name].extend(value if isinstance(value, list) else [value])
 
-            # Handle the 'storage' field specifically
+            # Handle 'storage' field
             entry["storage"] = {
                 "storage_method": "",
                 "location": "",
@@ -2262,178 +2946,106 @@ def extract_entries_smart(response_message):
                 "strength_of_matching_memory_to_given_folder": []
             }
 
-            # Validate "probability" values in 'memory_folders_storage'
+            # Validate probabilities in 'memory_folders_storage'
             for folder_info in entry["storage"]["memory_folders_storage"]:
                 probability = folder_info.get("probability")
-                if probability is not None and not 0 <= probability <= 10:
+                if probability is not None and isinstance(probability, int) and not 0 <= probability <= 10:
                     print(
-                        f"Warning: Invalid probability value '{probability}' found in memory_folders_storage. Valid range is 0 to 10."
-                    )
+                        f"\033[93mWarning: Invalid probability value '{probability}' found in memory_folders_storage. Valid range is 0 to 10.\033[0m")
 
             entries.append(dict(entry))
         except json.JSONDecodeError:
-            cprint("Error: Invalid JSON in the AI response.", "red")
+            print("\033[91mError: Invalid JSON in the AI response.\033[0m")
         except Exception as e:
-            cprint(f"Error extracting entry: {e}", "red")
+            print(f"\033[91mError extracting entry: {e}\033[0m")
     return entries
 
 
-# Function to categorize a memory based on its summary (not used in the current code)
-def categorize_memory(summary, connection_map):
-    """Categorizes a memory based on its summary (not currently used)."""
-    category = ""
-    time_period = ""
-    keyword = ""
-    for folder_name, paths in connection_map.items():
-        parts = folder_name.split(" - ")
-        if parts:
-            potential_category = parts[0]
-            potential_time_period = parts[1] if len(parts) > 1 else None
-            if potential_category.lower() in summary.lower():
-                category = potential_category
-                time_period = potential_time_period
-                keyword = potential_category
-                break
-    return category, time_period, keyword
+# --- Function to Store Memory Frame ---
+def store_memory_frame(user_input, response1_text, response2_text, memory_data):
+    global MEMORY_FRAME_NUMBER, EDIT_NUMBER
+
+    # Read the connection map
+    connection_map = {}
+    try:
+        with open('Memory_connections_map.txt', 'r') as file:
+            content = file.read()
+            folder_matches = re.findall(r'\*\*\*\*(.*?)\*\*\*\*(.*?)Path:\s*(.*?)\n', content, re.DOTALL)
+            for match in folder_matches:
+                folder_name, folder_info, folder_path = match
+                connection_map[folder_name.strip()] = folder_path.strip()
+    except FileNotFoundError:
+        print("\033[91mError: Connection map file not found.\033[0m")
+
+    # Determine the storage path
+    storage_folders = memory_data.get("storage", {}).get("memory_folders_storage", [])
+    best_folder_path = ""
+    highest_probability = -1
+
+    for folder_info in storage_folders:
+        folder_path = folder_info.get("folder_path", "")
+        probability = folder_info.get("probability", 0)
+
+        if folder_path in connection_map:
+            if probability > highest_probability:
+                best_folder_path = connection_map[folder_path]
+                highest_probability = probability
+
+    if not best_folder_path:
+        print("\033[91mError: No suitable folder found in connection map for storing the memory frame.\033[0m")
+        return
+
+    timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
+    proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
+    importance = memory_data.get("importance", {}).get("reason", "UnknownImportance")
+    memory_frame_name = f"MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_{proposed_name}_{highest_probability}_{importance}.json"
+    memory_frame_path = os.path.join(best_folder_path, memory_frame_name)
+
+    # Create memory frame data
+    memory_frame_data = {
+        "input": user_input,
+        "response1": response1_text,
+        "response2": response2_text,
+        "memory_data": memory_data,
+        "timestamp": timestamp,
+        "edit_number": EDIT_NUMBER
+    }
+
+    # Save the memory frame as a JSON file
+    try:
+        with open(memory_frame_path, 'w') as file:
+            json.dump(memory_frame_data, file, indent=4)
+        print(f"\033[92mMemory frame saved successfully at {memory_frame_path}.\033[0m")
+    except Exception as e:
+        print(f"\033[91mError saving memory frame: {e}\033[0m")
+
+    # Update logs
+    try:
+        with open('Memory_logs.txt', 'a') as log_file:
+            log_entry = f"Memory Frame {MEMORY_FRAME_NUMBER:05d} stored at {memory_frame_path} on {timestamp}\n"
+            log_file.write(log_entry)
+    except Exception as e:
+        print(f"\033[91mError updating logs: {e}\033[0m")
+
+    MEMORY_FRAME_NUMBER += 1
+    EDIT_NUMBER = 0
 
 
-# --- Main Loop (Memory Frame Creation) ---
-if __name__ == "__main__":
-    memory_data = {'MEMORY_FRAME_NUMBER': 1, 'EDIT_NUMBER': 0}
+# --- Main Loop ---
+while True:
+    user_input = process_user_input()
+    timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
+    response1 = call_interaction_model(user_input, timestamp)
 
-    while True:
-        try:
-            user_input = input("Enter input: ")
-            current_time = datetime.now()
-            timestamp = current_time.strftime('%Y-%m-%d_%H-%M-%S')
+    if response1:
+        response2 = call_memory_model(user_input, response1.text)
+        if response2:
+            memory_entries = extract_entries_smart(response2.text)
+            for entry in memory_entries:
+                store_memory_frame(user_input, response1.text, response2.text, entry)
 
-            cprint(f"User Input: {user_input}", 'cyan')
-            cprint(f"Current Time: {current_time}", 'cyan')
-            cprint(f"Timestamp: {timestamp}", 'cyan')
 
-            # --- Interaction Model ---
-            interaction_model = genai.GenerativeModel(
-                model_name='gemini-1.5-flash-latest',
-                safety_settings={'HARASSMENT': 'block_none'},
-                system_instruction='You follow orders and generate creative text interactions'
-            )
-            chat1 = interaction_model.start_chat(history=[])
-            response1 = chat1.send_message(f"currentTime: {timestamp} create {user_input}")
-            cprint(f"AI Response: {response1.text}", 'green')
-
-            # --- Memory Model ---
-            memory_model = genai.GenerativeModel(
-                model_name='gemini-1.5-flash-latest',
-                safety_settings={'HARASSMENT': 'block_none'},
-                system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
-                    Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate. 
-                    Use the provided JSON schema for your response and fill in all fields with relevant information.
-                    You can omit entries if they don't seem appropriate for memory storage and would be empty.
-                    Never omit the "memory_folders_storage" entry.
-
-                    **JSON Schema:**
-
-                    ```json
-                    {
-                      "metadata": {
-                        "creation_date": "", // Date and time when the memory frame was created
-                        "source": "", // Source of the information (e.g., conversation, external resource)
-                        "author": "" // Author or source of the information (e.g., user, AI)
-                      },
-                      "type": "conversation", // OR "technical_concept" - Type of memory (e.g., conversation, technical concept, personal experience)
-                      "core": {
-                        "main_topic": "", // Primary subject or theme of the memory
-                        "category": "", // Broad category for the memory (e.g., Deep Learning, History, Personal Life)
-                        "subcategory": "", // More specific subcategory for the memory (e.g., Convolutional Neural Networks, 20th Century, Relationships)
-                        "memory_about": "" // A brief description of what the memory is about
-                      },
-                      "summary": {
-                        "concise_summary": "", // Short and to-the-point summary of the memory content
-                        "description": "" // More detailed description of the memory content
-                      },
-                      "content": {
-                        "keywords": [], // List of important keywords related to the memory
-                        "entities": [], // List of entities mentioned in the memory (e.g., people, places, organizations)
-                        "tags": [], // List of additional tags for organization and retrieval (e.g., "strength_10", "holiday_in_Greece", "AI_ethics")
-                        "observations": [], // List of key observations or insights from the memory
-                        "facts": [], // List of factual statements or data from the memory
-                        "contradictions": [], // List of identified contradictions or conflicting information
-                        "paradoxes": [], // List of identified paradoxes or contradictions
-                        "scientific_data": [], // List of scientific data or findings from the memory
-                        "visualizations": [] // List of visualizations or diagrams related to the memory
-                      },
-                      "interaction": {
-                        "interaction_type": [], // Type of interaction (e.g., conversation, observation, experiment)
-                        "people": [], // List of people involved in the memory
-                        "objects": [], // List of objects involved in the memory
-                        "animals": [], // List of animals involved in the memory
-                        "actions": [], // List of actions taken in the memory
-                        "observed_interactions": [] // List of observed interactions (e.g., conversations between others)
-                      },
-                      "impact": {
-                        "obtained_knowledge": "", // What new knowledge was gained from the memory
-                        "positive_impact": "", // Positive impact or benefits of the memory
-                        "negative_impact": "", // Negative impact or drawbacks of the memory
-                        "expectations": "", // Expectations or goals related to the memory
-                        "strength_of_experience": "" // Subjective strength or intensity of the memory
-                      },
-                      "importance": {
-                        "reason": "", // Reasons why the memory is important or significant
-                        "potential_uses": [] // Potential uses or applications of the memory
-                      },
-                      "technical_details": {
-                        "problem_solved": "", // The problem that was solved in the memory
-                        "concept_definition": "", // Definition of a concept or term from the memory
-                        "implementation_steps": [], // Steps taken to implement something in the memory
-                        "tools_and_technologies": [], // Tools or technologies used in the memory
-                        "example_projects": [], // Example projects related to the memory
-                        "best_practices": [], // Best practices identified in the memory
-                        "common_challenges": [], // Common challenges encountered in the memory
-                        "debugging_tips": [], // Debugging tips or strategies from the memory
-                        "related_concepts": [], // Related concepts or topics discussed in the memory
-                        "resources": [], // Resources (e.g., articles, websites, books) mentioned in the memory
-                        "code_examples": [] // Code examples from the memory
-                      },
-                      "storage": {
-                        "storage_method": "", // How the information should be stored (e.g., text, JSON, image)
-                        "location": "", // Location where the information should be stored (e.g., folder path)
-                        "memory_folders_storage": [
-                          {
-                            "folder_path": "", // Suggested folder path for storing the memory
-                            "probability": 0 // Probability score (0-10) indicating the likelihood of the memory belonging to the folder
-                          }
-                        ],
-                        "strength_of_matching_memory_to_given_folder": [] // List of strength scores for each folder
-                      },
-                      "naming_suggestion": {
-                        "memory_frame_name": "", // Proposed name for the memory frame
-                        "explanation": "" // Optional: Explanation of the reasoning behind the chosen name
-                      }
-                    }
-                    ```
-
-                    **Memory Storage Suggestions:**
-                    Provide your suggestions for where this memory frame should be stored using the following format within the "memory_folders_storage" field:
-
-                    * **"folder_path":** The relative path for storing the memory frame (use '/' as the path separator).
-                    * **"probability":** The strength of probability (from 0 to 10) that the memory frame should be stored in the suggested folder. Use a scale from 0 (least likely) to 10 (most likely) to express your confidence. 
-                """
-            )
-            chat2 = memory_model.start_chat(history=[])
-            create_memory_prompt = f"User: {user_input}\nAI: {response1.text}"
-            response2 = chat2.send_message(create_memory_prompt)
-            cprint(f"Memory Model Response: {response2.text}", 'green')
-
-            # Interpret the response for function calls
-            response_interpreter_for_function_calling(response2)
-
-            # Store the memory frame based on the AI's analysis
-            store_memory_frame(current_time, user_input, response1.text, response2.text, memory_data)
-
-        except Exception as e:
-            cprint(f"Error in the main loop: {e}", "red")
-
-File: MEMORY_initializer.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\MEMORY_initializer.py)
+File: MEMORY_initializer.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\MEMORY_initializer.py)
 Content (First 10 lines):
 import os
 from collections import defaultdict
@@ -2447,7 +3059,18 @@ memory_templates = {
 "Core Experiences": {
 
 
-File: MEMORY_retrival.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\MEMORY_retrival.py)
+
+Subdirectory: memory_logs
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memory_logs'
+
+File: MemoryFrames_log.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\memory_logs\MemoryFrames_log.txt)
+Content (First 3 lines):
+MemoryFrame: 1, Edit: 0, Type: Text, path: C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs\MemoryFrame_2024-06-14_14-01.txt, time: 2024-06-14_14-01, session: 1_0
+MemoryFrame: 1, Edit: 0, Type: Text, path: C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs\MemoryFrame_2024-06-14_14-11.txt, time: 2024-06-14_14-11, session: 1_0
+MemoryFrame: 1, Edit: 0, Type: Text, path: C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\conversation_logs\MemoryFrame_2024-06-14_14-18.txt, time: 2024-06-14_14-18, session: 1_0
+
+
+File: MEMORY_retrival.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\MEMORY_retrival.py)
 Content (First 108 lines):
 import os
 from fuzzywuzzy import fuzz
@@ -2558,7 +3181,7 @@ while True:
     if continue_search != 'y':
         break
 
-File: r.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\r.py)
+File: r.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\r.py)
 Content (First 631 lines):
 from collections import defaultdict
 from datetime import datetime
@@ -3194,13 +3817,13 @@ if __name__ == "__main__":
 
 
 Subdirectory: tools
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\tools'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\tools'
 
 
 Subdirectory: Cathegory_Os
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\tools\Cathegory_Os'
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\tools\Cathegory_Os'
 
-File: get_directory_structure.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\tools\Cathegory_Os\get_directory_structure.py)
+File: get_directory_structure.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\tools\Cathegory_Os\get_directory_structure.py)
 Content (First 44 lines):
 
 import  os
@@ -3247,7 +3870,7 @@ get_directory_structure_description_json = {
 
 get_directory_structure_description_short_str="Returns a dictionary representing the directory structure with file names, sizes, relative paths, and full paths."
 
-File: save_to_file.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\tools\Cathegory_Os\save_to_file.py)
+File: save_to_file.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\tools\Cathegory_Os\save_to_file.py)
 Content (First 49 lines):
 import os
 import json
@@ -3299,7 +3922,7 @@ save_to_file_description_json = {
 
 save_to_file_description_short_str="Saves content to a file"
 
-File: summarize_files_contents.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\tools\Cathegory_Os\summarize_files_contents.py)
+File: summarize_files_contents.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\tools\Cathegory_Os\summarize_files_contents.py)
 Content (First 40 lines):
 
 import  os
@@ -3342,7 +3965,7 @@ summarize_files_contents_description_json = {
 
 summarize_files_contents_description_short_str="Opens and summarizes the content of multiple files.'"
 
-File: Tool_Manager.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew2\Tool_Manager.py)
+File: Tool_Manager.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECTnew3\Tool_Manager.py)
 Content (First 201 lines):
 import os
 import importlib.util
