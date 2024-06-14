@@ -11,7 +11,6 @@ import hashlib
 
 # --- API Key Setup ---
 genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')  # Replace with your actual API key
-
 BLACK = "\033[30m"
 RED = "\033[31m"
 GREEN = "\033[32m"
@@ -111,7 +110,7 @@ def call_memory_model(user_input, response1_text):
               },
               "importance": {
                 "reason": "", 
-                "potential_uses": [] 
+                "potential_uses": [], 
                 "importance_level": "0-100" 
               },
               "technical_details": {
@@ -172,14 +171,55 @@ def extract_entries_smart(response_message):
             print("Parsing JSON data...")
             response_data = json.loads(json_data)
             print("JSON data parsed successfully.")
-
             single_value_fields = {
-                # ...
+                "metadata.creation_date": "metadata",
+                "metadata.source": "metadata",
+                "metadata.author": "metadata",
+                "type": "core",
+                "core.main_topic": "core",
+                "core.category": "core",
+                "core.subcategory": "core",
+                "core.memory_about": "core",
+                "summary.concise_summary": "summary",
+                "summary.description": "summary",
+                "impact.obtained_knowledge": "impact",
+                "impact.positive_impact": "impact",
+                "impact.negative_impact": "impact",
+                "impact.expectations": "impact",
+                "impact.strength_of_experience": "impact",
+                "importance.reason": "importance",
+                "importance.importance_level": "importance",
+                "technical_details.problem_solved": "technical_details",
+                "naming_suggestion.memory_frame_name": "naming_suggestion",
+                "naming_suggestion.explanation": "naming_suggestion"
             }
             list_type_fields = {
-                # ...
+                "content.keywords": "content",
+                "content.entities": "content",
+                "content.tags": "content",
+                "content.observations": "content",
+                "content.facts": "content",
+                "content.contradictions": "content",
+                "content.paradoxes": "content",
+                "content.scientific_data": "content",
+                "content.visualizations": "content",
+                "interaction.interaction_type": "interaction",
+                "interaction.people": "interaction",
+                "interaction.objects": "interaction",
+                "interaction.animals": "interaction",
+                "interaction.actions": "interaction",
+                "interaction.observed_interactions": "interaction",
+                "importance.potential_uses": "importance",
+                "technical_details.implementation_steps": "technical_details",
+                "technical_details.tools_and_technologies": "technical_details",
+                "technical_details.example_projects": "technical_details",
+                "technical_details.best_practices": "technical_details",
+                "technical_details.common_challenges": "technical_details",
+                "technical_details.debugging_tips": "technical_details",
+                "technical_details.related_concepts": "technical_details",
+                "technical_details.resources": "technical_details",
+                "technical_details.code_examples": "technical_details"
             }
-
             print("Extracting entries from JSON data...")
             for key, value in response_data.items():
                 entry = defaultdict(list)
@@ -241,19 +281,17 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
         print(f"Connection map path: {connection_map_path}")
         with open(connection_map_path, 'r') as file:
             content = file.read()
-            """print(f"Connection map content:\n{content}")"""
             folder_matches = re.findall(r'\*\*\*\*(.*?)\*\*\*\*(.*?)Path:\s*(.*?)\n', content, re.DOTALL)
             for match in folder_matches:
                 folder_name, folder_info, folder_path = match
                 connection_map[folder_name.strip()] = folder_path.strip()
-                """print(f"Added to connection map: {folder_name.strip()} -> {folder_path.strip()}") """
     except FileNotFoundError:
         print("Error: Connection map file not found.")
     storage_folders = memory_data.get("storage", {}).get("memory_folders_storage", [])
     print(f"Suggested storage folders: {storage_folders}")
     timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
     proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
-    importance = memory_data.get("importance", {}).get("reason", "UnknownImportance")
+    importance = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
     user_prompt = memory_data.get("user_prompt", {}).get("prompt_text", "No prompt provided.")
     user_intent = memory_data.get("user_intent", {}).get("intent", "Unknown Intent.")
     response1_topic = memory_data.get("response1_topic", {}).get("topic", "No topic provided.")
@@ -269,7 +307,8 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
             print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
             target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
             os.makedirs(target_folder_path, exist_ok=True)
-        memory_frame_name = f"MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_{proposed_name}_{probability}_{importance}.json"
+        highest_probability = max([folder.get("probability", 0) for folder in storage_folders], default=0)
+        memory_frame_name = f"MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_ProbabilityOfMatchingFolder_{highest_probability}_Importance_{importance}_{proposed_name}.json"
         memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
         print(f"Memory frame name: {memory_frame_name}")
         print(f"Memory frame path: {memory_frame_path}")
