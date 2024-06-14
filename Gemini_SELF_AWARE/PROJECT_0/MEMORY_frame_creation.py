@@ -270,6 +270,7 @@ def extract_entries_smart(response_message):
             print(f"Error extracting entry: {e}")
     return entries
 
+
 def store_memory_frame(user_input, response1_text, response2_text, memory_data):
     global MEMORY_FRAME_NUMBER, EDIT_NUMBER
     print(f"\n{YELLOW}--- Storing Memory Frame ---{RESET}")
@@ -292,10 +293,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
     timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
     proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
     importance = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
-    user_prompt = memory_data.get("user_prompt", {}).get("prompt_text", "No prompt provided.")
-    user_intent = memory_data.get("user_intent", {}).get("intent", "Unknown Intent.")
-    response1_topic = memory_data.get("response1_topic", {}).get("topic", "No topic provided.")
-    response2_topic = memory_data.get("response2_topic", {}).get("topic", "No topic provided.")
+
     for folder_info in storage_folders:
         folder_path = folder_info.get("folder_path", "")
         probability = folder_info.get("probability", 0)
@@ -308,7 +306,9 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
             target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
             os.makedirs(target_folder_path, exist_ok=True)
         highest_probability = max([folder.get("probability", 0) for folder in storage_folders], default=0)
-        memory_frame_name = f"MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_ProbabilityOfMatchingFolder_{highest_probability}_Importance_{importance}_{proposed_name}.json"
+
+        # Improved filename structure
+        memory_frame_name = f"{proposed_name}_MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_Probability_{highest_probability}_Importance_{importance}.json"
         memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
         print(f"Memory frame name: {memory_frame_name}")
         print(f"Memory frame path: {memory_frame_path}")
@@ -318,11 +318,8 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
             "response2": response2_text,
             "memory_data": memory_data,
             "timestamp": timestamp,
-            "edit_number": EDIT_NUMBER,
-            "user_prompt": user_prompt,
-            "user_intent": user_intent,
-            "response1_topic": response1_topic,
-            "response2_topic": response2_topic
+            "edit_number": EDIT_NUMBER
+            # ... (Add other fields as needed) ...
         }
         try:
             with open(memory_frame_path, 'w') as file:
