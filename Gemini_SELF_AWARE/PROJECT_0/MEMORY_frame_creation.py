@@ -1,16 +1,17 @@
+
+import google.generativeai as genai
+
+
+
+genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')  # Replace with your actual API key
 import os
-import json
 import re
+import json
+import pathlib
 from datetime import datetime
 from collections import defaultdict
-import google.generativeai as genai
-import hashlib
 
 
-
-
-# --- API Key Setup ---
-genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')  # Replace with your actual API key
 BLACK = "\033[30m"
 RED = "\033[31m"
 GREEN = "\033[32m"
@@ -20,7 +21,6 @@ MAGENTA = "\033[35m"
 CYAN = "\033[36m"
 WHITE = "\033[37m"
 RESET = "\033[0m"
-
 BOLD = "\033[1m"
 UNDERLINE = "\033[4m"
 REVERSE = "\033[7m"
@@ -28,6 +28,56 @@ REVERSE = "\033[7m"
 MEMORY_FRAME_NUMBER = 1
 EDIT_NUMBER = 0
 TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
+
+def sanitize_href(href, memories_folder_path):
+    """Sanitizes a given href string by replacing spaces with %20."""
+    href = href.replace(" ", "%20")
+    return href
+
+def update_html_logs(memory_frame_number, proposed_name, timestamp, memory_frame_paths, memories_folder_path):
+    """Updates the HTML log file with CORRECT absolute paths for href links."""
+    try:
+        log_file_path = os.path.join(memories_folder_path, 'Memory_logs.html')
+
+        if not os.path.exists(log_file_path):
+            with open(log_file_path, 'w') as log_file:
+                log_file.write("""
+                   <!DOCTYPE html>
+                   <html>
+                   <head>
+                       <title>Memory Logs</title>
+                   </head>
+                   <body>
+                       <h1>Memory Logs</h1>
+                       <ul>
+                   """)
+
+        html_insertion = f"""
+               <li><h2>Memory Frame {memory_frame_number:05d} - {proposed_name} ({timestamp})</h2></li>
+               <ul>
+           """
+
+        for memory_frame_path in memory_frame_paths:
+            relative_path = os.path.relpath(memory_frame_path, memories_folder_path)
+            href = sanitize_href(relative_path, memories_folder_path)
+            html_insertion += f"""
+                       <li><a href='{href}'>{os.path.basename(href)}</a></li> 
+                   """
+
+        html_insertion += "</ul>"
+
+        with open(log_file_path, 'a') as log_file:
+            log_file.write(html_insertion)
+
+        print(f"{GREEN}HTML logs updated successfully.{RESET}")
+    except Exception as e:
+        print(f"Error updating HTML logs: {e}")
+
+def Get_path_of_memories_folder():
+    """Returns the absolute path to the 'memories' folder."""
+    current = pathlib.Path.cwd()
+    memories_path = current / "memories"
+    return memories_path.absolute()
 
 def process_user_input():
     user_input = input(f"{GREEN}Enter input: {RESET}")
@@ -275,11 +325,12 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
     global MEMORY_FRAME_NUMBER, EDIT_NUMBER
     print(f"\n{YELLOW}--- Storing Memory Frame ---{RESET}")
     connection_map = {}
+    memories_folder_path = Get_path_of_memories_folder()
+    memory_frame_paths = []
+
     try:
         script_path = os.path.abspath(os.path.dirname(__file__))
-        print(f"Script path: {script_path}")
         connection_map_path = os.path.join(script_path, "memories", "Memory_connections_map.txt")
-        print(f"Connection map path: {connection_map_path}")
         with open(connection_map_path, 'r') as file:
             content = file.read()
             folder_matches = re.findall(r'\*\*\*\*(.*?)\*\*\*\*(.*?)Path:\s*(.*?)\n', content, re.DOTALL)
@@ -288,6 +339,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
                 connection_map[folder_name.strip()] = folder_path.strip()
     except FileNotFoundError:
         print("Error: Connection map file not found.")
+
     storage_folders = memory_data.get("storage", {}).get("memory_folders_storage", [])
     print(f"Suggested storage folders: {storage_folders}")
     timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
@@ -325,14 +377,12 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
             with open(memory_frame_path, 'w') as file:
                 json.dump(memory_frame_data, file, indent=4)
             print(f"{YELLOW}Memory frame saved successfully at: {memory_frame_path}{RESET}")
+            memory_frame_paths.append(memory_frame_path)
         except Exception as e:
             print(f"Error saving memory frame: {e}")
-    try:
-        with open('Memory_logs.txt', 'a') as log_file:
-            log_entry = f"Memory Frame {MEMORY_FRAME_NUMBER:05d} stored in multiple locations on {timestamp}\n"
-            log_file.write(log_entry)
-    except Exception as e:
-        print(f"Error updating logs: {e}")
+
+    update_html_logs(MEMORY_FRAME_NUMBER, proposed_name, timestamp, memory_frame_paths, memories_folder_path)
+
     MEMORY_FRAME_NUMBER += 1
     EDIT_NUMBER = 0
 
