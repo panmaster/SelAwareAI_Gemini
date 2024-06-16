@@ -10,6 +10,7 @@ BASE_FILE_LIMIT = 100
 CURRENT_FOLDER_LIMIT = 100
 MEMORY_MAP_LIMIT = 10
 FLAT_MODE = True
+INCLUDE_MEMORY_FRAMES = False  # Set to True to include files with 'MemoryFrames' in their names
 
 # Exclude files from the summary
 EXCLUDED_FILES = [
@@ -41,6 +42,8 @@ def write_summary_to_file(summary_file, directory, limit=100):
         item_path = os.path.join(directory, item)
 
         if os.path.isfile(item_path) and item not in EXCLUDED_FILES:
+            if not INCLUDE_MEMORY_FRAMES and 'MemoryFrames' in item:
+                continue
             # Write file info to file
             summary_file.write(f"File: {item} ({item_path})\n")
 
