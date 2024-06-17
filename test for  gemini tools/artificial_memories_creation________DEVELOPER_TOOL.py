@@ -8,7 +8,9 @@ import time
 import random
 import pathlib
 
-
+categories = [
+   "coding","ai","agi", "code base","deep learning", "back propagation", "examples", "knowlage base", "jepa", "transfromres","openai"
+]
 
 genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')  # Replace with your actual API key
 BLACK = "\033[30m"
@@ -95,18 +97,6 @@ memories_folder = Get_path_of_memories_folder()
 print(f"Memories folder path: {memories_folder}")
 
 
-
-
-
-
-
-
-
-
-
-categories = [
-  "animals"
-]
 def process_user_input():
     global counter
     global categories
@@ -117,7 +107,7 @@ def process_user_input():
     randomiser = random_number * random_number - counter + counter * counter
     randomiser_str = str(randomiser)
 
-    prompt_construction = f"{counter} Important  information and  description  of {categories}    randomiser={randomiser_str} random  animal: dont aks  questions, choose only 1  animal "
+    prompt_construction = f"{counter} Create  information  base: categories {categories}    randomiser={randomiser_str}   create  exampke code  for  knowlagebase"
 
     user_input = prompt_construction
 
@@ -142,7 +132,7 @@ def call_interaction_model(user_input, timestamp):
         interaction_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
             safety_settings={'HARASSMENT': 'block_none'},
-            system_instruction=""" you fallow user  orders"""
+            system_instruction=""" you fallow user  orders ,Technology adn  CodeBases"""
         )
         chat = interaction_model.start_chat(history=[])
         response = chat.send_message(f"currentTime: {timestamp} create {user_input}")
