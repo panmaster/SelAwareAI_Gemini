@@ -1,4 +1,4 @@
-
+""
 import google.generativeai as genai
 
 import  threading
@@ -676,8 +676,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
     proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
     importance = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
 
-    # Create a lock for safe and atomic operations on the connection map file
-    connection_map_lock = threading.Lock()
+
 
     for folder_info in storage_folders:
         folder_path = folder_info.get("folder_path", "")
@@ -685,15 +684,11 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
         print(f"Processing folder: {folder_path} (Probability: {probability})")
 
         # Check if the folder is in the connection map
-        if folder_path in connection_map:
-            print(f"Folder '{folder_path}' found in connection map.")
-            target_folder_path = connection_map[folder_path]
-        else:
-            print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
-            target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
-            os.makedirs(target_folder_path, exist_ok=True)
+
+        target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
+        os.makedirs(target_folder_path, exist_ok=True)
             # Add the new folder to the connection map
-            connection_map[folder_path] = target_folder_path
+
 
         # Improved filename structure with accurate probability
         memory_frame_name = f"{proposed_name}_MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_Probability_{probability}_Importance_{importance}.json"
@@ -732,13 +727,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
     update_html_logs(MEMORY_FRAME_NUMBER, proposed_name, timestamp, memory_frame_paths, memories_folder_path)
 
     # Save the updated connection map with thread-safe lock
-    try:
-        with connection_map_lock:
-            with open(connection_map_path, 'w') as f:
-                json.dump(connection_map, f, indent=4)
-            print("Connection map saved successfully.")
-    except Exception as e:
-        print(f"Error saving connection map: {e}")
+
 
     MEMORY_FRAME_NUMBER += 1
     EDIT_NUMBER = 0
@@ -761,12 +750,12 @@ def CREATE_MEMORY_FRAME(conversationInput):
         store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation, memory_data=entry)
 
 
-
+"""          
 
 conversationInput="i  am  a  big  dinosaur"
 
 CREATE_MEMORY_FRAME(conversationInput)
-
+"""
 
 """
 
@@ -784,3 +773,4 @@ while True:
 
 """
 
+""

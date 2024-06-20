@@ -7,7 +7,7 @@ import google.generativeai as genai
 # --- Import your custom modules ---
 # Replace these with the actual import paths
 from Tool_Manager import ToolManager
-from MEMORY______________frame_creation import CREATE_MEMORY_FRAME____
+from MEMORY______________frame_creation import CREATE_MEMORY_FRAME
 from SomeMemoryScript______MemoryRetrival import RETRIEVE_RELEVANT_FRAMES
 
 RETRIVE_RELEVANT_FRAMES_json_description = {
@@ -29,7 +29,7 @@ RETRIVE_RELEVANT_FRAMES_json_description = {
     ]
 }
 
-genai.configure(api_key='AIzaSyAgYj1wgAHNPmbfQvRZHuVjkVH6F1jKDig')  # Replace with your actual API key
+genai.configure(api_key='AIzaSyBgbgM1fqYrxksJGBFl9IYhjfsbNNHV01c')  # Replace with your actual API key
 
 SESSION_FOLDER = "sessions"
 MEMORY_FOLDER = "memories"
@@ -223,7 +223,7 @@ def store_conversation_frame(
         f"Action Plan:\n{action_plan}\n"
         f"Function Call Results:\n{function_call_results}\n"
     )
-    CREATE_MEMORY_FRAME____(current_conversation_frame)
+    CREATE_MEMORY_FRAME(current_conversation_frame)
 
 
 def log_conversation(
@@ -370,7 +370,7 @@ def main():
                 f"Function Call Results:\n{function_call_results}\n"
             )
 
-            CREATE_MEMORY_FRAME____(current_conversation_frame)
+            CREATE_MEMORY_FRAME(current_conversation_frame)
 
             log_conversation(conversation_log_path, iteration_count, current_conversation_frame)
 
