@@ -1,0 +1,88 @@
+.
+  - NewGeneratedbyAI
+    - Memory_logs.html
+NewGeneratedbyAI
+  - Actions & Results
+  - Challenges & Setbacks
+  - CoreMemory
+  - Goals & Aspirations
+  - Knowledge & Learning
+NewGeneratedbyAI\Actions & Results
+  - Actions & Results
+  - Present
+NewGeneratedbyAI\Actions & Results\Actions & Results
+  - Present
+NewGeneratedbyAI\Actions & Results\Actions & Results\Present
+  - Memory Structure
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_5_Importance_90__Introspection and Memory Structure for Language Models.json
+    - MemoryFrame_00001_Conversation_2024-06-20_23-00_Probability_6_Importance_90__AI Self-Awareness and Memory Organization - Conversation.json
+NewGeneratedbyAI\Actions & Results\Actions & Results\Present\Memory Structure
+    - MemoryFrame_00001_Conversation_2024-06-20_23-06_Probability_7_Importance_90__MemoryFrame_00002_Conversation_2024-06-20_23-10_Probability_9_Importance_90__Introspection on Memory Structure.json
+NewGeneratedbyAI\Actions & Results\Present
+    - MemoryFrame_00001_Conversation_2024-06-20_22-57_Probability_9_Importance_90__Developing Self-Awareness Through Actions & Results.json
+NewGeneratedbyAI\Challenges & Setbacks
+  - Areas for Improvement
+NewGeneratedbyAI\Challenges & Setbacks\Areas for Improvement
+  - Memory Structure
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_4_Importance_70__Introspection and Self-Reflection of a Language Model.json
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_6_Importance_90__Introspection and Memory Structure for Language Models.json
+    - MemoryFrame_00001_Conversation_2024-06-20_22-57_Probability_5_Importance_90__Memory Structure and Contextual Learning - AI Introspection.json
+NewGeneratedbyAI\Challenges & Setbacks\Areas for Improvement\Memory Structure
+    - MemoryFrame_00001_Conversation_2024-06-20_23-05_Probability_7_Importance_80__Introspection on Memory Structure.json
+    - MemoryFrame_00001_Conversation_2024-06-20_23-06_Probability_9_Importance_90__MemoryFrame_00002_Conversation_2024-06-20_23-10_Probability_9_Importance_90__Introspection on Memory Structure.json
+NewGeneratedbyAI\CoreMemory
+  - Conceptual Exploration
+  - Knowledge Base
+  - Reflections & Insights
+NewGeneratedbyAI\CoreMemory\Conceptual Exploration
+  - Contradictions & Dilemmas
+  - Unknowns & Mysteries
+NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Contradictions & Dilemmas
+    - MemoryFrame_00001_Conversation_2024-06-20_22-57_Probability_7_Importance_90__Memory Structure and Contextual Learning - AI Introspection.json
+NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Unknowns & Mysteries
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_5_Importance_70__Introspection and Self-Reflection of a Language Model.json
+    - MemoryFrame_00001_Conversation_2024-06-20_23-00_Probability_8_Importance_90__AI Self-Awareness and Memory Organization - Conversation.json
+NewGeneratedbyAI\CoreMemory\Knowledge Base
+  - Conceptual Exploration
+  - Key Concepts & Theories
+NewGeneratedbyAI\CoreMemory\Knowledge Base\Conceptual Exploration
+  - Introspection
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_8_Importance_90__Introspection and Memory Structure for Language Models.json
+NewGeneratedbyAI\CoreMemory\Knowledge Base\Conceptual Exploration\Introspection
+    - MemoryFrame_00001_Conversation_2024-06-20_23-06_Probability_10_Importance_90__MemoryFrame_00002_Conversation_2024-06-20_23-10_Probability_9_Importance_90__Introspection on Memory Structure.json
+NewGeneratedbyAI\CoreMemory\Knowledge Base\Key Concepts & Theories
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_8_Importance_70__Introspection and Self-Reflection of a Language Model.json
+    - MemoryFrame_00001_Conversation_2024-06-20_22-57_Probability_8_Importance_90__Developing Self-Awareness Through Actions & Results.json
+NewGeneratedbyAI\CoreMemory\Reflections & Insights
+  - Lessons Learned
+NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned
+  - From Mistakes
+  - From Successes
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_7_Importance_90__Introspection and Memory Structure for Language Models.json
+    - MemoryFrame_00001_Conversation_2024-06-20_22-57_Probability_7_Importance_90__Developing Self-Awareness Through Actions & Results.json
+NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned\From Mistakes
+    - MemoryFrame_00001_Conversation_2024-06-20_22-56_Probability_6_Importance_70__Introspection and Self-Reflection of a Language Model.json
+NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned\From Successes
+    - MemoryFrame_00001_Conversation_2024-06-20_22-57_Probability_8_Importance_90__Memory Structure and Contextual Learning - AI Introspection.json
+    - MemoryFrame_00001_Conversation_2024-06-20_23-05_Probability_9_Importance_80__Introspection on Memory Structure.json
+    - MemoryFrame_00001_Conversation_2024-06-20_23-06_Probability_7_Importance_90__Introspection on Memory Structure Evolution.json
+NewGeneratedbyAI\Goals & Aspirations
+  - Life Vision
+NewGeneratedbyAI\Goals & Aspirations\Life Vision
+  - Aspirations
+NewGeneratedbyAI\Goals & Aspirations\Life Vision\Aspirations
+    - MemoryFrame_00001_Conversation_2024-06-20_23-06_Probability_5_Importance_90__Introspection on Memory Structure Evolution.json
+NewGeneratedbyAI\Knowledge & Learning
+  - Self-Directed Learning
+NewGeneratedbyAI\Knowledge & Learning\Self-Directed Learning
+  - Areas of Interest
+NewGeneratedbyAI\Knowledge & Learning\Self-Directed Learning\Areas of Interest
+  - Memory Organization
+  - Memory Structure
+    - MemoryFrame_00001_Conversation_2024-06-20_22-57_Probability_6_Importance_90__Memory Structure and Contextual Learning - AI Introspection.json
+    - MemoryFrame_00001_Conversation_2024-06-20_23-00_Probability_7_Importance_90__AI Self-Awareness and Memory Organization - Conversation.json
+    - MemoryFrame_00001_Conversation_2024-06-20_23-06_Probability_6_Importance_90__Introspection on Memory Structure Evolution.json
+NewGeneratedbyAI\Knowledge & Learning\Self-Directed Learning\Areas of Interest\Memory Organization
+    - MemoryFrame_00001_Conversation_2024-06-20_23-05_Probability_8_Importance_80__Introspection on Memory Structure.json
+NewGeneratedbyAI\Knowledge & Learning\Self-Directed Learning\Areas of Interest\Memory Structure
+    - MemoryFrame_00001_Conversation_2024-06-20_23-06_Probability_9_Importance_90__MemoryFrame_00002_Conversation_2024-06-20_23-10_Probability_9_Importance_90__Introspection on Memory Structure.json
