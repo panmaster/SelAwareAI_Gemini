@@ -18,7 +18,7 @@ def RETRIVE_RELEVANT_FRAMES(query,Essentials="all"):
 RETRIVE_RELEVANT_FRAMES_description_json = {
     "function_declarations": [
         {
-            "name": "RETRIEVE_RELEVANT_FRAMES",
+            "name": "RETRIVE_RELEVANT_FRAMES",
             "description": "Retrieves relevant frames from memory based on a query. It loads memory frames, computes embeddings if needed, performs the search, and returns the results with detailed information.",
             "parameters": {
                 "type_": "OBJECT",

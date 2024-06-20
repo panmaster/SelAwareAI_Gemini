@@ -159,7 +159,6 @@ class AiToolSelector:
     def _initialize_model(self):
         """Initializes the generative AI model with the ToolSelector function."""
         tools_structure = self.tool_manager.get_tools_structure()
-        print("initialisation of generative AI model with the ToolSelector function")
         tools = {
             "ToolSelector": {
                 "description": "This tool analyzes user input and selects another tool from the available options, ensuring the selected tool returns JSON descriptions.",
