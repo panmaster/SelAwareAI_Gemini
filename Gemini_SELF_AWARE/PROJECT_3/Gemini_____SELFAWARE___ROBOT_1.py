@@ -190,7 +190,7 @@ def gather_introspection_data(
 ) -> List[str]:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     introspection_data = [
-        f"{current_time} {COLORS['bold']}User Input:{COLORS['reset']} {user_input}",
+        f"{current_time}   Inputs:  {user_input}",
         f"{COLORS['bold']}Current Memory Structure:{COLORS['reset']}\n{memory_summary}",
         f"{COLORS['bold']}Results from Previous Loop:{COLORS['reset']}\n{previous_loop_results}",
         "What are my available tools and resources?",
@@ -440,14 +440,12 @@ def main():
                 print(E)
 
             if user_input_count > 0:  # Only log after user input
-                log_conversation(
-                    conversation_log_path, iteration_count, current_conversation_frame
-                )
+                log_conversation(conversation_log_path, iteration_count, current_conversation_frame)
 
-            print(
-                f"{COLORS['bold']}{COLORS['green']}*************************************************{COLORS['reset']}\n"
-            )
-
+            print("Passing results of  funcino call")
+            print("results:")
+            print( f" {COLORS['light_magenta']}   {str_function_call_results} ")
+            print(f"{COLORS['bold']}{COLORS['green']}******************************************************{COLORS['reset']}\n")
         except Exception as e:
             print(f"{COLORS['red']}Error: {e}{COLORS['reset']}")
             break
