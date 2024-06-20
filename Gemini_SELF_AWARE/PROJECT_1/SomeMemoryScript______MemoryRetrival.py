@@ -168,27 +168,24 @@ def main():
 
 
 def RETRIVE_RELEVANT_FRAMES(query):
-    # Load memory frames and embeddings
     memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
-    memory_embeddings = np.load(EMBEDDINGS_FILE)
+    if os.path.exists(EMBEDDINGS_FILE):
+        memory_embeddings = np.load(EMBEDDINGS_FILE)
+    else:
+        cprint("Embeddings file not found. Generating embeddings...", color="yellow")
+        memory_embeddings = generate_memory_embeddings(memory_frames)
+        if memory_embeddings.size > 0:
+            np.save(EMBEDDINGS_FILE, memory_embeddings)
+        else:
+            cprint("No memory frames found to generate embeddings.", color="red")
+            return ""
 
+    if not memory_frames:
+        cprint("No memory frames found. Cannot retrieve relevant frames.", color="red")
+        return ""
     if len(memory_embeddings) == 0:
         cprint("No valid memory embeddings found.", color="red")
         return ""
-
-    query_embedding = get_bert_embedding(query)
-    query_embedding = query_embedding.reshape(1, -1)
-
-    similarities = cosine_similarity(query_embedding, memory_embeddings)[0]
-    ranked_frames = sorted(zip(similarities, memory_frames), reverse=True, key=lambda x: x[0])
-
-    # Convert the top 5 relevant frames to a single string
-    result_string = ""
-    for score, frame in ranked_frames[:5]:
-        result_string += f"Similarity Score: {score:.4f}\n"
-        result_string += json.dumps(frame, indent=2) + "\n"
-
-    return result_string
 
 if __name__ == "__main__":
     main()

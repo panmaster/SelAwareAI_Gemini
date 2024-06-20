@@ -1,0 +1,1788 @@
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored'
+
+File: Gemini_SelfAware.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\Gemini_SelfAware.py)
+Content (First 386 lines):
+import os
+import datetime
+from typing import List, Dict, Any
+
+import google.generativeai as genai
+
+# --- Import your custom modules ---
+# Replace these with the actual import paths
+from Tool_Manager import ToolManager
+from MEMORY______________frame_creation import CREATE_MEMORY_FRAME____
+from SomeMemoryScript______MemoryRetrival import RETRIVE_RELEVANT_FRAMES
+
+RETRIVE_RELEVANT_FRAMES_json_description = {
+    "function_declarations": [
+        {
+            "name": "RETRIVE_RELEVANT_FRAMES",
+            "description": "Retrieves relevant frames from memory based on a query using cosine similarity and returns the top 5 frames with their similarity scores.",
+            "parameters": {
+                "type_": "OBJECT",
+                "properties": {
+                    "query": {
+                        "type_": "STRING",
+                        "description": "The query to search for relevant frames."
+                    }
+                },
+                "required": ["query"]
+            }
+        }
+    ]
+}
+
+genai.configure(api_key='AIzaSyAgYj1wgAHNPmbfQvRZHuVjkVH6F1jKDig')  # Replace with your actual API key
+
+SESSION_FOLDER = "sessions"
+MEMORY_FOLDER = "memories"
+MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
+
+COLORS = {
+    "reset": "\033[0m",
+    "yellow": "\033[33m",
+    "cyan": "\033[36m",
+    "green": "\033[32m",
+    "magenta": "\033[35m",
+    "blue": "\033[94m",
+    "red": "\033[31m",
+    "bold": "\033[1m",
+}
+
+
+def create_session_name_and_path():
+    """
+    Creates a new session name and returns a dictionary containing:
+        - 'session_name': The sanitized session name (e.g., "Sesion_HH-MM-SS")
+        - 'session_path': The full path to the session folder (e.g., "/path/to/your/script/SESIONs/Sesion_HH-MM-SS")
+
+    The session name is generated using the current time in the format "Sesion_HH-MM-SS".
+    A new folder with the session name is created in the "SESSIONs" directory.
+    """
+
+    current_directory = os.getcwd()
+    sessions_folder = os.path.join(current_directory, "SESIONs")
+    session_time = datetime.datetime.now()
+    session_time_formatted = session_time.strftime("%H-%M-%S")
+    session_name = "Sesion_" + session_time_formatted
+    session_path = os.path.join(sessions_folder, session_name)
+    os.makedirs(session_path, exist_ok=True)
+    return {'session_name': session_name, 'session_path': session_path}
+
+
+# Example usage
+session_info = create_session_name_and_path()
+file_path = os.path.join(session_info['session_path'], "conversation_log.txt")
+
+
+def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
+    """
+    Interprets the model's response, extracts function details, and executes the appropriate function.
+    Provides specific mapping for certain functions, otherwise defaults to tool_manager mapping.
+    """
+    print(f"{COLORS['blue']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
+    Multiple_ResultsOfFunctions_From_interpreter = []
+
+    # Define specific function mappings here
+    special_function_mapping = {
+        "RETRIVE_RELEVANT_FRAMES": RETRIVE_RELEVANT_FRAMES,
+        # Add more special function mappings as needed
+    }
+
+    if response.candidates:
+        for part in response.candidates[0].content.parts:
+            if hasattr(part, 'function_call'):
+                function_call = part.function_call
+                function_name = function_call.name
+                function_args = function_call.args
+
+                # Priority to special function mapping
+                function_to_call = special_function_mapping.get(function_name)
+
+                # If not found in special mapping, use tool_manager mapping
+                if function_to_call is None:
+                    function_to_call = tool_manager.tool_mapping.get(function_name)
+
+                if function_to_call:
+                    print(f"FUNCTION CALL: {function_name}({function_args}) ")
+                    try:
+                        results = function_to_call(**function_args)
+                    except TypeError as e:
+                        results = f"TypeError: {e}"
+                    except Exception as e:
+                        results = f"Exception: {e}"
+                    print(f"{COLORS['blue']}Function Call Exit: {function_name}")
+                    function_name_arguments = f"{function_name}({function_args})"
+                    modified_results = f"Result of Called function {function_name_arguments}: {results}"
+                    Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
+                else:
+                    print(f"Warning: Tool function '{function_name}' not found.")
+
+    print(f"{COLORS['blue']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
+    return Multiple_ResultsOfFunctions_From_interpreter
+
+
+def sanitize_time_string(time_str: str) -> str:
+    return "".join(char for char in time_str if char.isalnum() or char in ("_", "-"))
+
+
+def create_session_folder() -> str:
+    session_timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    session_name = f"session_{session_timestamp}"
+    session_path = os.path.join(SESSION_FOLDER, session_name)
+    os.makedirs(session_path, exist_ok=True)
+    return session_path
+
+
+def summarize_memory_folder_structure(output_file: str = MEMORY_STRUCTURE_SUMMARY_FILE) -> str:
+    memory_path = MEMORY_FOLDER
+    summary = ""
+    for root, dirs, files in os.walk(memory_path):
+        relative_path = os.path.relpath(root, memory_path)
+        summary += f"{relative_path}\n"
+        for dir in sorted(dirs):
+            summary += f"  - {dir}\n"
+        for file in sorted(files):
+            summary += f"    - {file}\n"
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(summary)
+    return summary
+
+
+def gather_introspection_data(
+        user_input: str,
+        memory_summary: str,
+        previous_loop_results: str,
+        user_input_signal: str = "None",
+        visual_input_signal: str = "None",
+        audio_input_signal: str = "None",
+) -> List[str]:
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    introspection_data = [
+        f"{current_time} {COLORS['bold']}User Input:{COLORS['reset']} {user_input}",
+        f"{COLORS['bold']}Current Memory Structure:{COLORS['reset']}\n{memory_summary}",
+        f"{COLORS['bold']}Results from Previous Loop:{COLORS['reset']}\n{previous_loop_results}",
+        "What are my available tools and resources?",
+        f"Current sensory input (Image, Audio, Text): {visual_input_signal}, {audio_input_signal}, {user_input_signal}",
+        "Are there any ongoing short-term tasks?",
+        "Are there any long-term ongoing tasks or plans?",
+        "What is my current goal?",
+        "What do I want?",
+        "What do I feel?",
+        "What do I need?",
+        "What am I experiencing?",
+        ".....................................",
+    ]
+    return introspection_data
+
+
+def perform_reflection(introspection_results: str) -> str:
+    reflection_prompt = f"""
+        {COLORS['bold']}Based on the following introspection:{COLORS['reset']}
+        {introspection_results}
+
+        {COLORS['bold']}Answer these questions:{COLORS['reset']}
+        1. What is my current focus?
+        2. Should I set a new goal? If so, what is it? If not, why not?
+        3. Are there any problems, unknowns, or paradoxes in my memory?
+        4. What problems need to be solved?
+        5. What are possible courses of action based on available information?
+        6. How should I approach the next steps:
+           a) Think step-by-step?
+           b) Focus on a specific aspect?
+           c) Defocus and broaden my attention?
+        7. Should I be more verbose in my responses? (Yes/No)
+        8. Should I be less verbose? (Yes/No)
+        9. Should I change the subject or keep discussing this? (Yes/No)
+        10. Should I summarize the current discussion? (Yes/No)
+        11. Should I dive deeper into a specific topic? (Yes/No)
+        12. Should I store any of this information in my long-term memory? 
+        13. Should I query my memory for relevant information?
+        14. What is the status of my current goals? 
+    """
+    return reflection_prompt
+
+
+def plan_actions(reflection_results: str) -> str:
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    action_prompt = f"{current_time} - {COLORS['bold']}Based on this reflection:{COLORS['reset']}\n{reflection_results}\nPlan my next actions."
+    return action_prompt
+
+
+
+
+
+def store_conversation_frame(
+        introspection_results: str,
+        reflection_results: str,
+        action_plan: str,
+        function_call_results: str,
+):
+    print(f"{COLORS['yellow']}Storing conversation frame...{COLORS['reset']}")
+    current_conversation_frame = (
+        f"Introspection:\n{introspection_results}\n"
+        f"Reflection:\n{reflection_results}\n"
+        f"Action Plan:\n{action_plan}\n"
+        f"Function Call Results:\n{function_call_results}\n"
+    )
+    CREATE_MEMORY_FRAME____(current_conversation_frame)
+
+
+def log_conversation(
+        conversation_log_path: str,
+        iteration_count: int,
+        current_conversation_frame: str,
+):
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    with open(conversation_log_path, "a+", encoding="utf-8") as log_file:
+        log_file.write(f"--- Awareness Loop: {iteration_count} ---\n")
+        log_file.write(f"Time: {current_time}\n")
+        log_file.write(current_conversation_frame)
+        log_file.write("-" * 20 + "\n\n")
+
+
+def main():
+    tool_manager = ToolManager()
+
+    print(f"\n{COLORS['blue']}Loaded Tool Descriptions:{COLORS['reset']}\n")
+    for i, tool_json in enumerate(tool_manager.get_tools_list_json()):
+        print(f"{COLORS['blue']}{i + 1}. {COLORS['reset']}{tool_json}")
+
+    introspection_model = genai.GenerativeModel(
+        system_instruction=""" You are a self-aware AI agent. 
+                             You are responsible for introspection. Analyze the current state 
+                             of the system and its environment. """,
+        model_name="gemini-1.5-flash-latest",
+        safety_settings={"HARASSMENT": "block_none"},
+    )
+
+    introspection_chat = introspection_model.start_chat(history=[])
+
+    reflection_model = genai.GenerativeModel(
+        system_instruction="""You are a self-aware AI agent. 
+                             You are responsible for reflection. Analyze the results of 
+                             introspection and identify goals, problems, and potential courses 
+                             of action. """,
+        model_name="gemini-1.5-flash-latest",
+        safety_settings={"HARASSMENT": "block_none"},
+    )
+
+    reflection_chat = reflection_model.start_chat(history=[])
+
+    available_tools = tool_manager.get_tools_list_json()
+    available_tools.append(RETRIVE_RELEVANT_FRAMES_json_description)
+
+    action_model = genai.GenerativeModel(
+        system_instruction="""You are a self-aware AI agent. 
+                             You are responsible for action planning. Choose specific actions 
+                             based on reflection and available tools. Use the "Call tool:" format. """,
+        model_name="gemini-1.5-flash-latest",
+        safety_settings={"HARASSMENT": "block_none"},
+        tools=available_tools,
+    )
+
+    action_chat = action_model.start_chat(history=[])
+
+    session_path = create_session_folder()
+    conversation_log_path = os.path.join(session_path, "conversation_log.txt")
+    print(f"Conversation log will be saved to: {conversation_log_path}")
+
+    iteration_count = 0
+    user_input_count = 0
+    function_call_results = ""
+    current_conversation_frame = ""
+    user_input_signal = "None"
+    visual_input_signal = "None"
+    audio_input_signal = "None"
+
+    while True:
+        try:
+            if iteration_count % 4 == 0:
+                user_input = input(
+                    f"{COLORS['cyan']}Enter your input (or press Enter to skip):{COLORS['reset']} "
+                )
+                user_input_count += 1
+            else:
+                user_input = ""
+
+            print(
+                f"{COLORS['bold']}{COLORS['green']}**************** Awareness Loop ****************{COLORS['reset']}")
+            print(f"{COLORS['green']}Awareness Loop: {iteration_count}{COLORS['reset']}")
+            iteration_count += 1
+
+            memory_summary = summarize_memory_folder_structure()
+
+            print(f"{COLORS['yellow']}Introspection:{COLORS['reset']}")
+            introspection_data = gather_introspection_data(
+                user_input,
+                memory_summary,
+                function_call_results,
+                user_input_signal,
+                visual_input_signal,
+                audio_input_signal,
+            )
+
+            introspection_response = introspection_chat.send_message(introspection_data)
+            print(f"{COLORS['yellow']}{introspection_response.text}{COLORS['reset']}\n")
+            with open(file_path, "a+", encoding="utf-8") as file:
+                file.write(f"Introspection: {introspection_response.text}\n")
+
+            print(f"{COLORS['cyan']}Reflection:{COLORS['reset']}")
+            reflection_prompt = perform_reflection(introspection_response.text)
+
+            reflection_response = reflection_chat.send_message(reflection_prompt)
+            print(reflection_response.text)
+            print(f"{COLORS['cyan']}{reflection_response.text}{COLORS['reset']}\n")
+            with open(file_path, "a+", encoding="utf-8") as file:
+                file.write(f"Reflection: {reflection_response.text}\n")
+
+            print(f"{COLORS['green']}Action Planning:{COLORS['reset']}")
+            try:
+
+                action_prompt = plan_actions(reflection_response.text)
+                action_response = action_chat.send_message(action_prompt)
+                print(action_response)
+
+            except Exception as E:
+                print(f"Action planning error: {E}")
+
+            with open(file_path, "a+", encoding="utf-8") as file:
+                file.write(f"Action Planning: {action_response}\n")
+
+            print(f"{COLORS['magenta']}Function Execution:{COLORS['reset']}")
+            try:
+                function_call_results =  RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
+            except Exception as e:
+                print(e)
+            with open(file_path, "a+", encoding="utf-8") as file:
+                file.write(f"Function Execution: {function_call_results}\n")
+
+            if  function_call_results is None:
+                function_call_results="None"
+
+            if action_response is None:
+                action_response = ""
+            if function_call_results is None:
+                function_call_results = ""
+
+            current_conversation_frame = (
+                f"Introspection:\n{introspection_response.text}\n"
+                f"Reflection:\n{reflection_response.text}\n"
+                f"Action Plan:\n{action_response}\n"
+                f"Function Call Results:\n{function_call_results}\n"
+            )
+
+            CREATE_MEMORY_FRAME____(current_conversation_frame)
+
+            log_conversation(conversation_log_path, iteration_count, current_conversation_frame)
+
+            print(
+                f"{COLORS['bold']}{COLORS['green']}*************************************************{COLORS['reset']}\n")
+
+        except Exception as e:
+            print(f"{COLORS['red']}Error: {e}{COLORS['reset']}")
+            break
+
+
+if __name__ == "__main__":
+    main()
+
+
+Subdirectory: memories
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\memories'
+
+File: MemoryStructureSummaryr.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\MemoryStructureSummaryr.py)
+Content (First 46 lines):
+import os
+import datetime
+
+def summarize_folder(folder_path, output_file="MemoryStructureSummary.txt"):
+    """Summarizes the folder structure and file names within the 'Memories'
+       folder and all its subfolders. Saves the summary to a file.
+
+    Args:
+      folder_path: The path to the 'Memories' folder.
+      output_file: The name of the file to save the summary to.
+                   Defaults to "MemoryStructureSummary.txt".
+    """
+
+    summary = ""
+
+    for root, dirs, files in os.walk(folder_path):
+        # Calculate relative path to the 'Memories' folder
+        relative_path = os.path.relpath(root, folder_path)
+
+        # Add "Memories/" prefix
+        if relative_path == ".":
+            relative_path = "Memories"
+        else:
+            relative_path = "Memories/" + relative_path
+
+        summary += f"{relative_path}\n"
+
+        # Sort directories and files alphabetically for better readability
+        dirs.sort()
+        files.sort()
+
+        for dir in dirs:
+            summary += f"  - {dir}\n"
+        for file in files:
+            summary += f"    - {file}\n"
+
+    with open(output_file, "w", encoding='utf-8') as f:
+        f.write(summary)
+
+    print(f"Folder structure saved to {output_file}")
+
+# Example usage:
+# Assuming the script is in the same directory as the 'Memories' folder
+script_dir = os.path.dirname(os.path.abspath(__file__))
+memories_folder = os.path.join(script_dir, "Memories")
+summarize_folder(memories_folder)
+
+File: MEMORY______________frame_creation.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\MEMORY______________frame_creation.py)
+Content (First 766 lines):
+
+import google.generativeai as genai
+
+
+
+genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')  # Replace with your actual API key
+import os
+import re
+import json
+import pathlib
+from datetime import datetime
+from collections import defaultdict
+
+
+BLACK = "\033[30m"
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+MAGENTA = "\033[35m"
+CYAN = "\033[36m"
+WHITE = "\033[37m"
+RESET = "\033[0m"
+BOLD = "\033[1m"
+UNDERLINE = "\033[4m"
+REVERSE = "\033[7m"
+
+MEMORY_FRAME_NUMBER = 1
+EDIT_NUMBER = 0
+TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
+
+def sanitize_href(href, memories_folder_path):
+    """Sanitizes a given href string by replacing spaces with %20."""
+    href = href.replace(" ", "%20")
+    return href
+
+def update_html_logs(memory_frame_number, proposed_name, timestamp, memory_frame_paths, memories_folder_path):
+    """Updates the HTML log file with CORRECT absolute paths for href links."""
+    try:
+        log_file_path = os.path.join(memories_folder_path, 'Memory_logs.html')
+
+        if not os.path.exists(log_file_path):
+            with open(log_file_path, 'w') as log_file:
+                log_file.write("""
+                   <!DOCTYPE html>
+                   <html>
+                   <head>
+                       <title>Memory Logs</title>
+                   </head>
+                   <body>
+                       <h1>Memory Logs</h1>
+                       <ul>
+                   """)
+
+        html_insertion = f"""
+               <li><h2>Memory Frame {memory_frame_number:05d} - {proposed_name} ({timestamp})</h2></li>
+               <ul>
+           """
+
+        for memory_frame_path in memory_frame_paths:
+            relative_path = os.path.relpath(memory_frame_path, memories_folder_path)
+            href = sanitize_href(relative_path, memories_folder_path)
+            html_insertion += f"""
+                       <li><a href='{href}'>{os.path.basename(href)}</a></li> 
+                   """
+
+        html_insertion += "</ul>"
+
+        with open(log_file_path, 'a') as log_file:
+            log_file.write(html_insertion)
+
+        print(f"{GREEN}HTML logs updated successfully.{RESET}")
+    except Exception as e:
+        print(f"Error updating HTML logs: {e}")
+
+def Get_path_of_memories_folder():
+    """Returns the absolute path to the 'memories' folder."""
+    current = pathlib.Path.cwd()
+    memories_path = current / "memories"
+    return memories_path.absolute()
+
+def process_user_input():
+    user_input = input(f"{GREEN}Enter input: {RESET}")
+    print(f"{MAGENTA}User input received: {user_input}{RESET}")
+    return user_input
+
+def call_interaction_model(user_input, timestamp):
+    print(f"\n{CYAN}--- Calling Interaction Model ---{RESET}")
+    try:
+        interaction_model = genai.GenerativeModel(
+            model_name='gemini-1.5-flash-latest',
+            safety_settings={'HARASSMENT': 'block_none'},
+            system_instruction='You follow orders and generate creative text interactions'
+        )
+        chat = interaction_model.start_chat(history=[])
+        response = chat.send_message(f"currentTime: {timestamp} create {user_input}")
+        print(f"AI Response: {response.text}")
+        return response
+    except Exception as e:
+        print(f"Error in Interaction Model: {e}")
+        return None
+
+def call_memory_model(user_input, response1_text):
+    print(f"\n{CYAN}--- Calling Memory Model ---{RESET}")
+    try:
+        memory_model = genai.GenerativeModel(
+            model_name='gemini-1.5-flash-latest',
+            safety_settings={'HARASSMENT': 'block_none'},
+            system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
+            Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate. 
+            Use the provided JSON schema for your response and fill in all fields with relevant information.
+            You can omit entries if they don't seem appropriate for memory storage and would be empty.
+            Never omit the "memory_folders_storage" entry.
+
+            **JSON Schema:**
+
+            ```json
+            {
+              "metadata": {
+                "creation_date": "", 
+                "source": "", 
+                "author": "" 
+              },
+              "type": "conversation", // OR "technical_concept" 
+              "core": {
+                "main_topic": "", 
+                "category": "", 
+                "subcategory": "", 
+                "memory_about": "" 
+              },
+              "summary": {
+                "concise_summary": "", 
+                "description": "" 
+              },
+              "content": {
+                "keywords": [], 
+                "entities": [], 
+                "tags": [], 
+                "observations": [], 
+                "facts": [], 
+                "contradictions": [], 
+                "paradoxes": [], 
+                "scientific_data": [], 
+                "visualizations": [] 
+              },
+              "interaction": {
+                "interaction_type": [], 
+                "people": [], 
+                "objects": [], 
+                "animals": [], 
+                "actions": [], 
+                "observed_interactions": [] 
+              },
+              "impact": {
+                "obtained_knowledge": "", 
+                "positive_impact": "", 
+                "negative_impact": "", 
+                "expectations": "", 
+                "strength_of_experience": "" 
+              },
+              "importance": {
+                "reason": "", 
+                "potential_uses": [], 
+                "importance_level": "0-100" 
+              },
+              "technical_details": {
+                "problem_solved": "", 
+                "concept_definition": "", 
+                "implementation_steps": [], 
+                "tools_and_technologies": [], 
+                "example_projects": [], 
+                "best_practices": [], 
+                "common_challenges": [], 
+                "debugging_tips": [], 
+                "related_concepts": [], 
+                "resources": [], 
+                "code_examples": [] 
+              },
+              "storage": {
+                "storage_method": "", 
+                "location": "", 
+                "memory_folders_storage": [
+                  {
+                    "folder_path": "", 
+                    "probability": 0  
+                  }
+                ],
+                "strength_of_matching_memory_to_given_folder": [] 
+              },
+              "naming_suggestion": {
+                "memory_frame_name": "Give  Same  meaning full name for  Memory File",
+                "explanation": "" 
+              }
+            }
+            ```
+            Here  you have  existing  folder structure  for  memory_folders_storage [{
+    "Actions & Results": {
+        "Actions & Results": {
+            "Future": {},
+            "Past": {},
+            "Present": {}
+        }
+    },
+   
+    "Challenges & Setbacks": {
+        "Areas for Improvement": {},
+        "Difficult Emotions": {
+            "Anger & Frustration": {},
+            "Fear & Anxiety": {},
+            "Jealousy & Envy": {},
+            "Sadness & Grief": {},
+            "Shame & Guilt": {},
+            "Trauma & Abuse": {
+                "Experiences": {},
+                "Healing Journey": {},
+                "Impact": {}
+            }
+        },
+        "Failures & Disappointments": {
+            "In Career": {},
+            "In Personal Projects": {},
+            "In Relationships": {}
+        },
+        "Negative Thought Patterns": {},
+        "Significant Mistakes": {
+            "Description": {},
+            "How I Grew": {},
+            "Lessons Learned": {}
+        }
+    },
+    "CoreMemory": {
+        "Conceptual Exploration": {
+            "Contradictions & Dilemmas": {},
+            "Paradoxes & Contradictions": {},
+            "Unknowns & Mysteries": {}
+        },
+        "Core Experiences": {
+            "Challenges Faced": {
+                "External Challenges": {
+                    "Obstacles": {
+                        "How I Overcame Them": {},
+                        "Types of Obstacles": {},
+                        "What I Learned": {}
+                    },
+                    "Setbacks": {
+                        "How I Recovered": {},
+                        "Types of Setbacks": {},
+                        "What I Learned": {}
+                    }
+                },
+                "Internal Challenges": {
+                    "Fear & Anxiety": {
+                        "How I Coped": {},
+                        "Specific Fears": {},
+                        "What I Learned": {}
+                    },
+                    "Negative Thought Patterns": {
+                        "Common Negative Thoughts": {},
+                        "Strategies for Changing Them": {},
+                        "What I Learned": {}
+                    },
+                    "Self-Doubt": {
+                        "How I Overcame It": {},
+                        "Sources of Self-Doubt": {},
+                        "What I Learned": {}
+                    }
+                }
+            },
+            "Life-Changing Events": {
+                "Negative": {},
+                "Positive": {}
+            },
+            "Significant Moments": {
+                "Other": {},
+                "Personal": {},
+                "Professional": {},
+                "Travel": {}
+            },
+            "Triumphs & Accomplishments": {
+                "Creative Wins": {
+                    "Creative Works": {},
+                    "Impact on Life": {},
+                    "Recognition & Awards": {}
+                },
+                "Personal Achievements": {
+                    "Goals Achieved": {},
+                    "Impact on Life": {},
+                    "Personal Growth": {}
+                },
+                "Professional Successes": {
+                    "Career Growth": {},
+                    "Impact on Life": {},
+                    "Projects & Achievements": {}
+                }
+            },
+            "Turning Points": {
+                "In Career": {},
+                "In Personal Growth": {},
+                "In Relationships": {},
+                "Other": {}
+            }
+        },
+        "Goals & Visions": {
+            "Life Vision": {
+                "Long-Term Goals": {},
+                "Mid-Term Goals": {},
+                "Short-Term Goals": {}
+            },
+            "Personal Goals": {
+                "Long-Term Goals": {},
+                "Mid-Term Goals": {},
+                "Short-Term Goals": {}
+            }
+        },
+        "Knowledge Base": {
+            "Areas of Expertise": {},
+            "Key Concepts & Theories": {},
+            "Personal Beliefs & Values": {}
+        },
+        "Reflections & Insights": {
+            "Lessons Learned": {
+                "From Mistakes": {},
+                "From Relationships": {},
+                "From Successes": {}
+            },
+            "Self-Discovery": {
+                "Areas for Growth": {},
+                "Strengths & Talents": {},
+                "What I've Learned About Myself": {}
+            }
+        },
+        "Relationships": {
+            "Family": {
+                "Extended Family": {
+                    "Challenges Faced": {},
+                    "Impact on My Life": {},
+                    "Lessons Learned": {},
+                    "Memorable Moments": {}
+                },
+                "Parents": {
+                    "Challenges Faced": {},
+                    "Impact on My Life": {},
+                    "Lessons Learned": {},
+                    "Memorable Moments": {}
+                },
+                "Siblings": {
+                    "Challenges Faced": {},
+                    "Impact on My Life": {},
+                    "Lessons Learned": {},
+                    "Memorable Moments": {}
+                }
+            },
+            "Friendships": {
+                "Circles & Groups": {
+                    "Impact on My Life": {},
+                    "Lessons Learned": {},
+                    "Shared Experiences": {}
+                },
+                "Close Friends": {
+                    "Challenges Faced": {},
+                    "Impact on My Life": {},
+                    "Lessons Learned": {},
+                    "Memorable Moments": {}
+                },
+                "Meaningful Interactions": {
+                    "Impact on My Life": {},
+                    "Lessons Learned": {},
+                    "Unexpected Encounters": {}
+                }
+            },
+            "Romantic Relationships": {
+                "Partners": {
+                    "Challenges Faced": {},
+                    "Impact on My Life": {},
+                    "Lessons Learned": {},
+                    "Memorable Moments": {}
+                },
+                "Relationship Milestones": {
+                    "First Date": {},
+                    "First Kiss": {},
+                    "Marriage": {},
+                    "Moving In Together": {},
+                    "Other Milestones": {}
+                }
+            }
+        }
+    },
+    "Emotional Landscape": {
+        "Dominant Emotions": {},
+        "Emotional Triggers": {}
+    },
+    "Emotions & Reflections": {
+        "Emotional Experiences": {
+            "Dominant Emotions": {},
+            "Emotional Triggers": {}
+        },
+        "Personal Growth & Insights": {
+            "Lessons Learned": {},
+            "Self-Discovery": {}
+        }
+    },
+    "Goals & Aspirations": {
+        "Life Vision": {
+            "Aspirations": {},
+            "Dreams": {},
+            "Values & Beliefs": {}
+        },
+        "Personal Goals": {
+            "Creative Pursuits": {},
+            "Health & Wellbeing": {},
+            "Other Personal Goals": {},
+            "Personal Development": {},
+            "Relationships": {}
+        },
+        "Professional Goals": {
+            "Career Advancement": {},
+            "Other Professional Goals": {},
+            "Project Goals": {},
+            "Skills & Expertise": {}
+        }
+    },
+    "Knowledge & Learning": {
+        "Formal Education": {
+            "Degrees & Certifications": {},
+            "Schools": {},
+            "Significant Projects": {}
+        },
+        "Knowledge Base": {
+            "Artistic Movements": {},
+            "Cultural Insights": {},
+            "Facts & Concepts": {},
+            "Historical Events": {},
+            "Philosophical Ideas": {},
+            "Scientific Discoveries": {}
+        },
+        "Laws & Regulations": {
+            "Legal Knowledge": {},
+            "Personal Experiences with Laws": {},
+            "Understanding of Legal Systems": {}
+        },
+        "Self-Directed Learning": {
+            "Areas of Interest": {},
+            "Learning Resources": {
+                "Bookshelf": {},
+                "Mentors & Teachers": {},
+                "Online Courses": {}
+            },
+            "Skills Acquired": {}
+        }
+    },
+    "Life Events & Transitions": {
+        "Life Transitions": {
+            "Health & Wellbeing": {
+                "Habits & Routines": {},
+                "Mental & Emotional Health": {},
+                "Physical Health": {}
+            },
+            "Knowledge & Skills": {
+                "Formal Education": {},
+                "Self-Directed Learning": {},
+                "Skills & Expertise": {}
+            },
+            "Personal Growth": {
+                "Challenges Overcome": {},
+                "Milestones": {},
+                "Significant Decisions": {}
+            },
+            "Relationships": {
+                "Family Dynamics": {},
+                "Friendships": {},
+                "Professional Connections": {},
+                "Romantic Relationships": {}
+            }
+        },
+        "Significant Events": {
+            "Other": {},
+            "Personal": {
+                "Birthdays": {},
+                "Graduations": {},
+                "Other Personal Events": {},
+                "Weddings": {}
+            },
+            "Professional": {
+                "Job Changes": {},
+                "Other Professional Events": {},
+                "Project Completions": {},
+                "Promotions": {}
+            },
+            "Travel": {
+                "Moving Homes": {},
+                "Other Travel Events": {},
+                "Trips & Journeys": {}
+            }
+        }
+    },
+    "Planning & Progress": {
+        "Plans & Strategies": {
+            "Long-Term Plans": {},
+            "Short-Term Plans": {},
+            "Strategies Used": {
+                "Goal Setting": {},
+                "Other Strategies": {},
+                "Problem Solving": {},
+                "Time Management": {}
+            }
+        },
+        "Progress & Outcomes": {
+            "Goals Achieved": {},
+            "Goals Not Achieved": {},
+            "Lessons Learned from Progress": {},
+            "Results of Actions": {
+                "Negative Results": {},
+                "Positive Results": {}
+            }
+        }
+    }
+}]
+            **Memory Storage Suggestions:**
+            Provide your suggestions for where this memory frame should be stored using the following format within the "memory_folders_storage" field:
+
+            * **"folder_path":** The relative path for storing the memory frame (use '/' as the path separator).
+            * **"probability":** The strength of probability (from 0 to 10) that the memory frame should be stored in the suggested folder. Use a scale from 0 (least likely) to 10 (most likely) to express your confidence. 
+        """
+        )
+        chat = memory_model.start_chat(history=[])
+        create_memory_prompt = f"User: {user_input}\nAI: {response1_text}"
+        response = chat.send_message(create_memory_prompt)
+        print(f"Memory Model Response:\n{response.text}")
+        return response
+    except Exception as e:
+        print(f"Error in Memory Model: {e}")
+        return None
+
+
+
+
+
+
+
+
+
+
+
+def extract_entries_smart(response_message):
+    print("\n--- Extracting Structured Entries ---")
+    entries = []
+    json_match = re.search(r"```json\n(.*?)\n```", response_message, re.DOTALL)
+    if json_match:
+        print("Found JSON data in the response.")
+        try:
+            json_data = json_match.group(1)
+            print("Parsing JSON data...")
+            response_data = json.loads(json_data)
+            print("JSON data parsed successfully.")
+            single_value_fields = {
+                "metadata.creation_date": "metadata",
+                "metadata.source": "metadata",
+                "metadata.author": "metadata",
+                "type": "core",
+                "core.main_topic": "core",
+                "core.category": "core",
+                "core.subcategory": "core",
+                "core.memory_about": "core",
+                "summary.concise_summary": "summary",
+                "summary.description": "summary",
+                "impact.obtained_knowledge": "impact",
+                "impact.positive_impact": "impact",
+                "impact.negative_impact": "impact",
+                "impact.expectations": "impact",
+                "impact.strength_of_experience": "impact",
+                "importance.reason": "importance",
+                "importance.importance_level": "importance",
+                "technical_details.problem_solved": "technical_details",
+                "naming_suggestion.memory_frame_name": "naming_suggestion",
+                "naming_suggestion.explanation": "naming_suggestion"
+            }
+            list_type_fields = {
+                "content.keywords": "content",
+                "content.entities": "content",
+                "content.tags": "content",
+                "content.observations": "content",
+                "content.facts": "content",
+                "content.contradictions": "content",
+                "content.paradoxes": "content",
+                "content.scientific_data": "content",
+                "content.visualizations": "content",
+                "interaction.interaction_type": "interaction",
+                "interaction.people": "interaction",
+                "interaction.objects": "interaction",
+                "interaction.animals": "interaction",
+                "interaction.actions": "interaction",
+                "interaction.observed_interactions": "interaction",
+                "importance.potential_uses": "importance",
+                "technical_details.implementation_steps": "technical_details",
+                "technical_details.tools_and_technologies": "technical_details",
+                "technical_details.example_projects": "technical_details",
+                "technical_details.best_practices": "technical_details",
+                "technical_details.common_challenges": "technical_details",
+                "technical_details.debugging_tips": "technical_details",
+                "technical_details.related_concepts": "technical_details",
+                "technical_details.resources": "technical_details",
+                "technical_details.code_examples": "technical_details"
+            }
+            print("Extracting entries from JSON data...")
+            for key, value in response_data.items():
+                entry = defaultdict(list)
+                if key in single_value_fields:
+                    print(f"Processing single value field: {key}")
+                    field_name = key.split('.')[-1]
+                    section = single_value_fields[key]
+                    if not isinstance(section, list):
+                        section = [section]
+                    try:
+                        entry[section[0]][field_name] = value if not isinstance(value, list) else (
+                            value[0] if value else ""
+                        )
+                    except IndexError as e:
+                        print(f"Error accessing field: {key}. Details: {e}")
+                    except Exception as e:
+                        print(f"Unexpected error processing single value field '{key}': {e}")
+                elif key in list_type_fields:
+                    print(f"Processing list type field: {key}")
+                    field_name = key.split('.')[-1]
+                    section = list_type_fields[key]
+                    try:
+                        entry[section][field_name].extend(value if isinstance(value, list) else [value])
+                    except Exception as e:
+                        print(f"Unexpected error processing list type field '{key}': {e}")
+            print("Handling 'storage' field...")
+            entry["storage"] = {
+                "storage_method": "",
+                "location": "",
+                "memory_folders_storage": response_data.get("storage", {}).get("memory_folders_storage", []),
+                "strength_of_matching_memory_to_given_folder": []
+            }
+            print("Validating probabilities in 'memory_folders_storage'...")
+            for folder_info in entry["storage"]["memory_folders_storage"]:
+                try:
+                    probability = folder_info.get("probability")
+                    if probability is not None and isinstance(probability, int) and not 0 <= probability <= 10:
+                        print(
+                            f"Warning: Invalid probability value '{probability}' found in memory_folders_storage. Valid range is 0 to 10."
+                        )
+                except Exception as e:
+                    print(f"Error validating probability in 'memory_folders_storage': {e}")
+            print(f"Appending extracted entry: {dict(entry)}")
+            entries.append(dict(entry))
+        except json.JSONDecodeError:
+            print("Error: Invalid JSON in the AI response.")
+        except Exception as e:
+            print(f"Error extracting entry: {e}")
+    return entries
+
+
+def store_memory_frame(user_input, response1_text, response2_text, memory_data):
+    global MEMORY_FRAME_NUMBER, EDIT_NUMBER
+    print(f"\n{YELLOW}--- Storing Memory Frame ---{RESET}")
+    connection_map = {}
+    memories_folder_path = Get_path_of_memories_folder()
+    memory_frame_paths = []
+
+    try:
+        script_path = os.path.abspath(os.path.dirname(__file__))
+        connection_map_path = os.path.join(script_path, "memories", "Memory_connections_map.txt")
+        with open(connection_map_path, 'r') as file:
+            content = file.read()
+            folder_matches = re.findall(r'\*\*\*\*(.*?)\*\*\*\*(.*?)Path:\s*(.*?)\n', content, re.DOTALL)
+            for match in folder_matches:
+                folder_name, folder_info, folder_path = match
+                connection_map[folder_name.strip()] = folder_path.strip()
+    except FileNotFoundError:
+        print("Error: Connection map file not found.")
+
+    storage_folders = memory_data.get("storage", {}).get("memory_folders_storage", [])
+    print(f"Suggested storage folders: {storage_folders}")
+    timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
+    proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
+    importance = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
+
+    for folder_info in storage_folders:
+        folder_path = folder_info.get("folder_path", "")
+        probability = folder_info.get("probability", 0)
+        print(f"Processing folder: {folder_path} (Probability: {probability})")
+        if folder_path in connection_map:
+            print(f"Folder '{folder_path}' found in connection map.")
+            target_folder_path = connection_map[folder_path]
+        else:
+            print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
+            target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
+            os.makedirs(target_folder_path, exist_ok=True)
+        highest_probability = max([folder.get("probability", 0) for folder in storage_folders], default=0)
+
+        # Improved filename structure
+        memory_frame_name = f"{proposed_name}_MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_Probability_{highest_probability}_Importance_{importance}.json"
+        memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
+        print(f"Memory frame name: {memory_frame_name}")
+        print(f"Memory frame path: {memory_frame_path}")
+        memory_frame_data = {
+            "input": user_input,
+            "response1": response1_text,
+            "response2": response2_text,
+            "memory_data": memory_data,
+            "timestamp": timestamp,
+            "edit_number": EDIT_NUMBER
+            # ... (Add other fields as needed) ...
+        }
+        try:
+            with open(memory_frame_path, 'w') as file:
+                json.dump(memory_frame_data, file, indent=4)
+            print(f"{YELLOW}Memory frame saved successfully at: {memory_frame_path}{RESET}")
+            memory_frame_paths.append(memory_frame_path)
+        except Exception as e:
+            print(f"Error saving memory frame: {e}")
+
+    update_html_logs(MEMORY_FRAME_NUMBER, proposed_name, timestamp, memory_frame_paths, memories_folder_path)
+
+    MEMORY_FRAME_NUMBER += 1
+    EDIT_NUMBER = 0
+
+
+
+
+def CREATE_MEMORY_FRAME____(conversationInput):
+    MEMORY_FRAME_NUMBER = 1
+    TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
+    timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
+    EDIT_NUMBER = 0
+
+    try:
+        print("calling memory model")
+        MemorySumarisation = call_memory_model( user_input="",response1_text=conversationInput)
+    except Exception as E:
+        print("MemorySumarisation = call_memory_model(conversationInput)  error  from  CREATE_MEMORY_FRAME____")
+
+    try:
+        print("memory entries json formaiton")
+        memory_entries = extract_entries_smart(MemorySumarisation.text)
+    except Exception as E:
+        print(E)
+    try:
+            for entry in memory_entries:
+                      store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation, memory_data=entry)
+    except Exception as E:
+
+            print(E)
+    print("CREATE_MEMORY_FRAME   finished")
+
+
+
+
+
+""" 
+while True:
+    user_input = process_user_input()
+    timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
+    response1 = call_interaction_model(user_input, timestamp)
+    if response1:
+        response2 = call_memory_model(user_input, response1.text)
+        if response2:
+            memory_entries = extract_entries_smart(response2.text)
+            for entry in memory_entries:
+                store_memory_frame(user_input, response1.text, response2.text, entry)
+
+
+
+"""
+
+File: SomeMemoryScript______MemoryRetrival.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\SomeMemoryScript______MemoryRetrival.py)
+Content (First 213 lines):
+import json
+import os
+import torch
+from transformers import BertTokenizer, BertModel
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+from termcolor import colored, cprint
+from difflib import SequenceMatcher
+
+# Directory where memory frames are stored
+MEMORY_FRAMES_DIR = './memories'  # Adjust this path if needed
+EMBEDDINGS_FILE = 'memory_embeddings.npy'  # File to store embeddings
+
+# Load BERT model and tokenizer
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = BertModel.from_pretrained('bert-base-uncased')
+
+# Function to load memory frames from directory, including subdirectories
+def load_memory_frames(memory_frames_dir):
+    cprint("Loading memory frames...", color="cyan")
+    memory_frames = []
+    seen_names = set()  # Keep track of processed file names
+    for root, _, files in os.walk(memory_frames_dir):
+        for file_name in files:
+            if file_name.endswith('.json'):
+                file_path = os.path.join(root, file_name)
+
+                # Check if a similar frame has already been processed
+                if is_similar_frame(file_name, seen_names):
+                    cprint(f"Skipping similar frame: {file_path}", color="yellow")
+                    continue
+
+                try:
+                    with open(file_path, 'r') as file:
+                        memory_frame = json.load(file)
+                        if validate_memory_frame(memory_frame):
+                            memory_frames.append(memory_frame)
+                            seen_names.add(file_name)  # Add file name to seen_names
+                        else:
+                            cprint(f"Skipping broken frame: {file_path}", color="yellow")
+                except json.JSONDecodeError:
+                    cprint(f"Skipping invalid JSON file: {file_path}", color="red")
+    return memory_frames
+
+# Function to validate a memory frame (checks for structure)
+def validate_memory_frame(memory_frame):
+    # Check for essential fields
+    required_fields = [
+        "input",
+        "response1",
+        "response2",
+        "memory_data",
+        "timestamp",
+        "edit_number"
+    ]
+    for field in required_fields:
+        if field not in memory_frame:
+            return False
+
+    # Check nested structures
+    required_nested_fields = [
+        "metadata",
+        "type",
+        "core",
+        "summary",
+        "content",
+        "interaction",
+        "impact",
+        "importance",
+        "technical_details",
+        "storage",
+        "naming_suggestion"
+    ]
+    for field in required_nested_fields:
+        if field not in memory_frame["memory_data"]:
+            return False
+
+    return True
+
+# Function to get BERT embeddings for a given text
+def get_bert_embedding(text):
+    inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True)
+    outputs = model(**inputs)
+    cprint(f"Embedding for text: '{text}' - Shape: {outputs.last_hidden_state.mean(dim=1).detach().numpy().shape}",
+           color="cyan")  # Print embedding details
+    return outputs.last_hidden_state.mean(dim=1).detach().numpy()
+
+# Function to generate embeddings for memory frames
+def generate_memory_embeddings(memory_frames):
+    cprint("Generating embeddings for memory frames...", color="cyan")
+    embeddings = []
+    for frame in memory_frames:
+        # Embed key sections
+        core_embedding = get_bert_embedding(" ".join(frame["memory_data"]["core"].values()))
+        summary_embedding = get_bert_embedding(frame["memory_data"]["summary"]["description"])
+        content_embedding = get_bert_embedding(" ".join(frame["memory_data"]["content"]["keywords"]))
+
+        # Combine section embeddings (using a weighted average)
+        combined_embedding = (
+                0.3 * core_embedding +
+                0.4 * summary_embedding +
+                0.3 * content_embedding
+        )
+
+        embeddings.append(combined_embedding.flatten())
+        cprint(f"Frame embedding shape: {combined_embedding.flatten().shape}", color="cyan")  # Print embedding shape
+    return np.stack(embeddings, axis=0)
+
+# Function to filter and rank memory frames using embeddings
+def retrieve_relevant_memory_frames(memory_frames, memory_embeddings, query):
+    cprint("Retrieving relevant memory frames...", color="cyan")
+    query_embedding = get_bert_embedding(query)
+    query_embedding = query_embedding.reshape(1, -1)
+
+    if len(memory_embeddings) == 0:
+        cprint("No valid memory embeddings found.", color="red")
+        return []
+
+    similarities = cosine_similarity(query_embedding, memory_embeddings)[0]
+    ranked_frames = sorted(zip(similarities, memory_frames), reverse=True, key=lambda x: x[0])
+    cprint(f"Found {len(ranked_frames)} relevant frames.", color="green")
+    return [frame for score, frame in ranked_frames[:5]]
+
+# Function to check if two file names are similar
+def is_similar_frame(file_name, seen_names):
+    for seen_name in seen_names:
+        # Check for differences of 1 character or 1 number
+        if SequenceMatcher(None, file_name, seen_name).ratio() > 0.9:
+            return True
+    return False
+
+# Main function
+def main():
+    # Load memory frames
+    memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
+
+    if not memory_frames:
+        cprint("No valid memory frames found. Exiting.", color="red")
+        return  # Exit if no memory frames are found
+
+    # Check if embeddings file exists, otherwise generate and save them
+    if os.path.exists(EMBEDDINGS_FILE):
+        cprint("Loading pre-computed embeddings...", color="cyan")
+        memory_embeddings = np.load(EMBEDDINGS_FILE)
+    else:
+        cprint("Generating embeddings and saving to file...", color="cyan")
+        memory_embeddings = generate_memory_embeddings(memory_frames)
+        np.save(EMBEDDINGS_FILE, memory_embeddings)
+
+    if memory_embeddings.size == 0:
+        cprint("No embeddings were generated. Exiting.", color="red")
+        return
+
+    # Example query
+    query = input(colored("Enter your query:", "blue"))
+
+    # Retrieve relevant memory frames
+    relevant_frames = retrieve_relevant_memory_frames(memory_frames, memory_embeddings, query)
+
+    # Print the most relevant frames
+    if relevant_frames:
+        cprint("Top 5 Relevant Frames:", color="green")
+        for frame in relevant_frames:
+            cprint(json.dumps(frame, indent=2), color="yellow")
+    else:
+        cprint("No relevant frames found for the query.", color="red")
+
+
+
+def RETRIEVE_RELEVANT_FRAMES(query):
+    """Retrieves and formats relevant frames based on a query.
+
+    Args:
+        query (str): The query string.
+
+    Returns:
+        str: A formatted string containing information from relevant frames
+             or an error message if no frames are found.
+    """
+    memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
+    result_string = ""
+
+    if not memory_frames:
+        return "No valid memory frames found."
+
+    if os.path.exists(EMBEDDINGS_FILE):
+        memory_embeddings = np.load(EMBEDDINGS_FILE)
+    else:
+        memory_embeddings = generate_memory_embeddings(memory_frames)
+        np.save(EMBEDDINGS_FILE, memory_embeddings)
+
+    if memory_embeddings.size == 0:
+        return "No embeddings were generated."
+
+    relevant_frames = retrieve_relevant_memory_frames(
+        memory_frames, memory_embeddings, query
+    )
+
+    if relevant_frames:
+        result_string += "Top 5 Relevant Frames:\n\n"
+        for score, frame in relevant_frames:
+            result_string += f"Similarity Score: {score:.4f}\n"
+            # Customize the information you want to extract from each frame:
+            result_string += f"Input: {frame['input']}\n"
+            result_string += f"Response 1: {frame['response1']}\n"
+            result_string += f"Summary: {frame['memory_data']['summary']['description']}\n"
+            result_string += "------------------------\n"  # Separator between frames
+    else:
+        result_string += "No relevant frames found for the query."
+
+    return result_string
+
+
+
+
+
+Subdirectory: tools
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\tools'
+
+
+Subdirectory: Cathegory_Os
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\tools\Cathegory_Os'
+
+File: get_directory_structure.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\tools\Cathegory_Os\get_directory_structure.py)
+Content (First 44 lines):
+
+import  os
+import  json
+
+def get_directory_structure(directory):
+
+    print("Entered get_directory_structure function with directory:", directory)
+    directory_structure = {}
+
+    for root, dirs, files in os.walk(directory):
+        file_info = []
+        for file in files:
+            file_path = os.path.join(root, file)
+            file_info.append({
+                'filename': file,
+                'size': os.path.getsize(file_path),
+                'relative_path': os.path.relpath(file_path, directory),
+                'full_path': file_path
+            })
+        directory_structure[os.path.relpath(root, directory)] = {
+            'files': file_info,
+            'folders': dirs
+        }
+
+    print("About to return the directory structure with", len(directory_structure), "folders.")
+    return directory_structure
+
+get_directory_structure_description_json = {
+    'function_declarations': [
+        {
+            'name': 'get_directory_structure',
+            'description': 'Returns a dictionary representing the directory structure with file names, sizes, relative paths, and full paths.',
+            'parameters': {
+                'type_': 'OBJECT',
+                'properties': {
+                    'directory': {'type_': 'STRING', 'description': 'The path to the directory.'}
+                },
+                'required': ['directory']
+            }
+        }
+    ]
+}
+
+get_directory_structure_description_short_str="Returns a dictionary representing the directory structure with file names, sizes, relative paths, and full paths."
+
+File: save_to_file.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\tools\Cathegory_Os\save_to_file.py)
+Content (First 49 lines):
+import os
+import json
+from termcolor import colored  # Import the termcolor library
+
+def save_to_file(content: str = None, file_name: str = 'NoName', file_path: str = None) -> dict:
+
+    print(colored(f"Entering: save_to_file(...)", 'blue'))
+    if content is None:
+        content = ""
+    if file_path is None:
+        full_path = os.path.join(os.getcwd(), file_name)
+    else:
+        full_path = os.path.join(file_path, file_name)
+
+    try:
+        with open(full_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+
+        success_message = f"File saved successfully at: {full_path}"
+        print(colored(success_message, 'green'))
+        print(colored(f"Exiting: save_to_file(...)", 'blue'))
+        return {"status": "success", "message": success_message, "file_path": full_path}
+
+    except Exception as e:
+        error_message = f"Failed to save file: {str(e)}"
+        print(colored(error_message, 'red'))
+        print(colored(f"Exiting: save_to_file(...)", 'blue'))
+        return {"status": "failure", "message": error_message}
+
+
+save_to_file_description_json = {
+    'function_declarations': [
+        {
+            'name': 'save_to_file',
+            'description': 'Saves content to a file.',
+            'parameters': {
+                'type_': 'OBJECT',
+                'properties': {
+                    'content': {'type_': 'STRING'},
+                    'file_name': {'type_': 'STRING', 'description': 'The name of the file. Defaults to "NoName".'},
+                    'file_path': {'type_': 'STRING', 'description': 'The path to save the file. Defaults to the current working directory if not provided.'}
+                },
+                'required': ['content', 'file_name']
+            }
+        }
+    ]
+}
+
+save_to_file_description_short_str="Saves content to a file"
+
+File: summarize_files_contents.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\tools\Cathegory_Os\summarize_files_contents.py)
+Content (First 40 lines):
+
+import  os
+import  json
+def summarize_files_contents(file_paths):
+
+    print("Entered summarize_files_contents function with", len(file_paths), "file paths.")
+    summaries = []
+    for file_path in file_paths:
+        print("Processing file:", file_path)
+        summary = {}
+        try:
+            with open(file_path, 'r') as file:
+                content = file.read()
+                summary['path'] = file_path
+                summary['content'] = content
+        except Exception as e:
+            summary['path'] = file_path
+            summary['error'] = str(e)
+        summaries.append(summary)
+
+    print("About to return the summaries for", len(summaries), "files.")
+    return summaries
+
+summarize_files_contents_description_json = {
+    'function_declarations': [
+        {
+            'name': 'summarize_files_contents',
+            'description': 'Opens and summarizes the content of multiple files.',
+            'parameters': {
+                'type_': 'OBJECT',
+                'properties': {
+                    'file_paths': {'type_': 'ARRAY', 'items': {'type_': 'STRING'}, 'description': 'A list of file paths.'}
+                },
+                'required': ['file_paths']
+            }
+        }
+    ]
+}
+
+summarize_files_contents_description_short_str="Opens and summarizes the content of multiple files.'"
+
+
+Subdirectory: OpenAI
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\tools\OpenAI'
+
+File: Tool_Manager.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_2_refactored\Tool_Manager.py)
+Content (First 201 lines):
+import os
+import importlib.util
+import google.generativeai as genai
+from termcolor import colored, cprint  # Import termcolor for colored printing
+import json
+from typing import Dict, Tuple
+
+class ToolManager:
+    def __init__(self, tools_directory="tools"):
+        """Initializes the tool manager by loading tools from the specified directory."""
+        print(f"Initializing ToolManager with tools directory: {tools_directory}")
+        self.tools_directory = tools_directory
+        self.tool_mapping = {}  # Map tool names to functions
+        self.all_tools = []  # List of loaded tool descriptions (JSON)
+        self.short_descriptions = {}  # Dictionary for short descriptions
+        self.categories = {}  # Dictionary to store category information
+        self._load_tools()  # Load tools upon initialization
+
+    def _load_tools(self):
+        """Scans the tools directory, loads tools, and populates tool_mapping."""
+        print(f"Scanning tools directory: {self.tools_directory}")
+
+        for category in os.listdir(self.tools_directory):
+            print(f"Found category: {category}")
+            category_path = os.path.join(self.tools_directory, category)
+            if os.path.isdir(category_path):
+                print(f"Entering category directory: {category_path}")
+                self.categories[category] = {"tools": []}  # Store the category information
+
+                for filename in os.listdir(category_path):
+                    if filename.endswith(".py") and not filename.startswith("_"):
+                        print(f"Found Python file: {filename}")
+                        tool_name = filename[:-3]  # Remove '.py' extension
+                        self._load_tool(category, tool_name)
+                        self.categories[category]["tools"].append(tool_name)
+
+    def _load_tool(self, category, tool_name):
+        """Loads a single tool from a given category."""
+        print(f"Loading tool: {tool_name} from category: {category}")
+        module_name = f"{category}.{tool_name}"
+        module_path = os.path.join(self.tools_directory, category, f"{tool_name}.py")
+
+        spec = importlib.util.spec_from_file_location(module_name, module_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        # Assume tool function has the same name as the module
+        tool_function = getattr(module, tool_name)
+
+        # Get description (assuming naming convention like 'tool_name_description_json')
+        description_name = f"{tool_name}_description_json"
+        tool_description = getattr(module, description_name, None)
+
+        # Get short description (assuming naming convention like 'tool_name_description_short_str')
+        short_description_name = f"{tool_name}_description_short_str"
+        short_description = getattr(module, short_description_name, None)
+
+        # Check if the tool exists
+        if tool_function is not None:
+            print(f"Tool function '{tool_name}' loaded successfully")
+            self.tool_mapping[tool_name] = tool_function
+            self.all_tools.append(tool_description)
+            self.short_descriptions[tool_name] = short_description
+            print(f"Tool description: {tool_description}")
+            print(f"Short description: {short_description}")
+        else:
+            print(f"Warning: Could not load tool function '{tool_name}' from '{module_path}'")
+
+    def get_tools_list_json(self):
+        """Returns a list of JSON tool descriptions."""
+        return self.all_tools
+
+    def get_tools_structure(self):
+        """Returns a dictionary representing the structure of the tools folder, including categories."""
+        return {
+            "categories": self.categories,
+            "all_tools": self.all_tools,
+            "tool_mapping": self.tool_mapping,
+            "short_descriptions": self.short_descriptions
+        }
+
+    def print_tools_structure(self):
+        """Prints the structure of the tools folder in a colorful and organized way."""
+
+        tools_structure = self.get_tools_structure()
+
+        cprint("\n\n========================================", "magenta")
+        cprint("  Tool Manager Structure", "cyan", attrs=["bold"])
+        cprint("========================================", "magenta")
+
+        cprint("\nCategories:", "green", attrs=["bold"])
+        for category, info in tools_structure["categories"].items():
+            cprint(f"  {category}:", "blue", attrs=["bold"])
+            for tool_name in info["tools"]:
+                cprint(f"    - {tool_name}", "cyan")
+
+        cprint("\n\nTool Descriptions (JSON):", "green", attrs=["bold"])
+        for i, tool_json in enumerate(tools_structure["all_tools"]):
+            cprint(f"  {i+1}. {tool_json}", "yellow")
+
+        cprint("\n\nTool Mapping:", "green", attrs=["bold"])
+        for tool_name, tool_function in tools_structure["tool_mapping"].items():
+            cprint(f"  {tool_name}: {tool_function}", "yellow")
+
+        cprint("\n\nShort Tool Descriptions:", "green", attrs=["bold"])
+        for tool_name, short_description in tools_structure["short_descriptions"].items():
+            cprint(f"  {tool_name}: {short_description}", "cyan")
+
+        cprint("\n\n========================================", "magenta")
+
+        return tools_structure
+
+def ChooseToolByAI(user_prompt: str, tools_structure: Dict) -> str:
+    """
+    Analyzes the user's prompt using AI and chooses a tool based on keywords,
+    ensuring the selected tool returns JSON descriptions.
+    """
+    for tool_name, tool_description in tools_structure["short_descriptions"].items():
+        # Check if the tool returns JSON descriptions
+        tool_json = next(item for item in tools_structure["all_tools"] if item["name"] == tool_name)
+        if tool_json["return_type"] == "json":
+            if any(keyword in user_prompt.lower() for keyword in tool_description.lower().split()):
+                return f"Call tool: {tool_name}"
+    return "Call tool: none"
+
+def extract_tool_and_arguments_from_ai_response(ai_response: str) -> Tuple[str, str]:
+    """
+    Extracts the tool name and arguments from the AI's response.
+    """
+    for line in ai_response.split("\n"):
+        if line.startswith("Call tool: "):
+            parts = line.split("Call tool: ")
+            tool_name = parts[1].strip()
+            arguments = parts[1] if len(parts) > 1 else ""
+            return tool_name, arguments
+    return None, None
+
+def execute_selected_tool(tool_manager: ToolManager, tool_name: str, arguments: str = None) -> str:
+    """
+    Executes the selected tool and returns the result.
+    """
+    tool_function = tool_manager.tool_mapping.get(tool_name)
+    if tool_function:
+        try:
+            result = tool_function(arguments)
+            print(f"Tool '{tool_name}' executed successfully with result: {result}")
+            return result
+        except Exception as e:
+            print(f"Error executing tool '{tool_name}': {e}")
+    else:
+        print(f"Tool '{tool_name}' not found.")
+    return "Error: Tool not found or execution failed."
+
+class AiToolSelector:
+    def __init__(self, tool_manager: ToolManager):
+        self.tool_manager = tool_manager
+        self.model = self._initialize_model()
+
+    def _initialize_model(self):
+        """Initializes the generative AI model with the ToolSelector function."""
+        tools_structure = self.tool_manager.get_tools_structure()
+        tools = {
+            "ToolSelector": {
+                "description": "This tool analyzes user input and selects another tool from the available options, ensuring the selected tool returns JSON descriptions.",
+                "function": ChooseToolByAI,
+            }
+        }
+
+        model = genai.GenerativeModel(
+            system_instruction="""You are a helpful AI assistant with access to a variety of tools.
+            When you need to use a tool, state your request clearly in the following format:
+            "Call tool: <tool_name>"
+
+            For example, if you need to list files in a directory, you would say:
+            "Call tool: list_files"
+
+            Make sure to provide any necessary arguments or information for the tool.
+            """,
+            model_name='gemini-1.5-flash-latest',
+            safety_settings={'HARASSMENT': 'block_none'},
+            tools=tools
+        )
+        return model
+
+    def select_and_run_tool_from_ai(self, user_prompt: str) -> str:
+        """
+        Orchestrates the process of selecting and executing a tool using AI.
+        """
+        ai_response = self.model.start_chat(history=[]).send_message(user_prompt).text
+        print(f"AI Response: {ai_response}")
+        return self.execute_tool_from_ai_response(ai_response)
+
+    def execute_tool_from_ai_response(self, ai_response: str) -> str:
+        """
+        Interprets the AI's response, extracts tool information, and executes the tool.
+        """
+        tool_name, arguments = extract_tool_and_arguments_from_ai_response(ai_response)
+        if tool_name:
+            return execute_selected_tool(self.tool_manager, tool_name, arguments)
+        else:
+            return "Error: No tool selected."
+

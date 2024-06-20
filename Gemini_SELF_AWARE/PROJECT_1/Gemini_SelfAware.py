@@ -38,7 +38,7 @@ RETRIVE_RELEVANT_FRAMES_json_description={
 
 
 # --- Configuration ---
-genai.configure(api_key='YOUR_API_KEY_HERE')  # Replace with your API key
+genai.configure(api_key='AIzaSyAooQD_7oIxYUin_kFyjoWs8f-Tbx5sbMo')  # Replace with your API key
 
 SESSION_FOLDER = "sessions"
 MEMORY_FOLDER = "memories"

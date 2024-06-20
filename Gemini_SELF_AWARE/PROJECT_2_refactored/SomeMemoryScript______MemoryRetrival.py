@@ -167,80 +167,47 @@ def main():
 
 
 
-def RETRIVE_RELEVANT_FRAMES(query):
+def RETRIEVE_RELEVANT_FRAMES(query):
+    """Retrieves and formats relevant frames based on a query.
+
+    Args:
+        query (str): The query string.
+
+    Returns:
+        str: A formatted string containing information from relevant frames
+             or an error message if no frames are found.
+    """
     memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
     result_string = ""
-    if not memory_frames:
-        cprint("No valid memory frames found. Exiting.", color="red")
-        return  # Exit if no memory frames are found
 
-    # Check if embeddings file exists, otherwise generate and save them
+    if not memory_frames:
+        return "No valid memory frames found."
+
     if os.path.exists(EMBEDDINGS_FILE):
-        cprint("Loading pre-computed embeddings...", color="cyan")
         memory_embeddings = np.load(EMBEDDINGS_FILE)
     else:
-        cprint("Generating embeddings and saving to file...", color="cyan")
         memory_embeddings = generate_memory_embeddings(memory_frames)
         np.save(EMBEDDINGS_FILE, memory_embeddings)
 
     if memory_embeddings.size == 0:
-        cprint("No embeddings were generated. Exiting.", color="red")
-        return
+        return "No embeddings were generated."
 
-    # Example query
-    queryInput = query
+    relevant_frames = retrieve_relevant_memory_frames(
+        memory_frames, memory_embeddings, query
+    )
 
-    # Retrieve relevant memory frames
-    relevant_frames = retrieve_relevant_memory_frames(memory_frames, memory_embeddings, queryInput)
-
-    # Print the most relevant frames
     if relevant_frames:
-        cprint("Top 5 Relevant Frames:", color="green")
-        for frame in relevant_frames:
-            cprint(json.dumps(frame, indent=2), color="yellow")
-    else:
-        cprint("No relevant frames found for the query.", color="red")
-
-
-    return result_string
-
-
-def RETRIVE_RELEVANT_FRAMES_base(query):
-    """
-    Retrieves relevant frames from memory based on a query using cosine similarity.
-    Returns a string containing the top 5 frames with their similarity scores.
-    """
-    result_string = ""
-    try:
-        memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
-        memory_embeddings = np.load(EMBEDDINGS_FILE)
-
-        if not memory_frames:
-            cprint("No memory frames found. Cannot retrieve relevant frames.", color="red")
-            return result_string  # Return empty string if no frames found
-
-        if len(memory_embeddings) == 0:
-            cprint("No valid memory embeddings found.", color="red")
-            return result_string  # Return empty string if no embeddings found
-
-        query_embedding = get_bert_embedding(query)
-        query_embedding = query_embedding.reshape(1, -1)
-
-        similarities = cosine_similarity(query_embedding, memory_embeddings)[0]
-        ranked_frames = sorted(zip(similarities, memory_frames), reverse=True, key=lambda x: x[0])
-
-        # Convert the top 5 relevant frames to a single string
-        for score, frame in ranked_frames[:5]:
+        result_string += "Top 5 Relevant Frames:\n\n"
+        for score, frame in relevant_frames:
             result_string += f"Similarity Score: {score:.4f}\n"
-            result_string += json.dumps(frame, indent=2) + "\n"
-
-    except Exception as e:
-        print(f"RETRIVE_RELEVANT_FRAMES failed retrieval: {e}")  # Print the actual error message
-
-    return result_string  # Return the result string even if an error occurred
-
+            # Customize the information you want to extract from each frame:
+            result_string += f"Input: {frame['input']}\n"
+            result_string += f"Response 1: {frame['response1']}\n"
+            result_string += f"Summary: {frame['memory_data']['summary']['description']}\n"
+            result_string += "------------------------\n"  # Separator between frames
+    else:
+        result_string += "No relevant frames found for the query."
 
     return result_string
 
-if __name__ == "__main__":
-    main()
+

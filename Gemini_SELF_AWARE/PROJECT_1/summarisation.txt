@@ -821,16 +821,19 @@ memories\Planning & Progress\Progress & Outcomes\Results of Actions
 
 
 File: Gemini_SelfAware.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_1\Gemini_SelfAware.py)
-Content (First 440 lines):
+Content (First 378 lines):
 # -*- coding: utf-8 -*-
-import google.generativeai as genai
 import os
 import datetime
-from Tool_Manager import ToolManager  # Import the class
-# Configure the generative AI
-genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')
-import  MEMORY______________frame_creation as MEMORY______________frame_creation
-import  SomeMemoryScript______MemoryRetrival as SomeMemoryScript______MemoryRetrival
+from abc import ABC, abstractmethod
+from typing import List, Dict, Any
+
+import google.generativeai as genai
+
+# --- Import your custom modules ---
+from Tool_Manager import ToolManager
+from MEMORY______________frame_creation import CREATE_MEMORY_FRAME____
+from SomeMemoryScript______MemoryRetrival import RETRIVE_RELEVANT_FRAMES
 
 
 RETRIVE_RELEVANT_FRAMES_json_description={
@@ -853,415 +856,350 @@ RETRIVE_RELEVANT_FRAMES_json_description={
     }
   ]
 }
-fuctionMapping_for_RETRIVE_RELEVANT_FRAMES={
-    "RETRIVE_RELEVANT_FRAMES":SomeMemoryScript______MemoryRetrival.RETRIVE_RELEVANT_FRAMES,
 
+
+
+
+
+# --- Configuration ---
+genai.configure(api_key='AIzaSyAooQD_7oIxYUin_kFyjoWs8f-Tbx5sbMo')  # Replace with your API key
+
+SESSION_FOLDER = "sessions"
+MEMORY_FOLDER = "memories"
+MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
+
+# --- Color Codes for Terminal Output ---
+COLORS = {
+    "reset": "\033[0m",
+    "yellow": "\033[33m",
+    "cyan": "\033[36m",
+    "green": "\033[32m",
+    "magenta": "\033[35m",
+    "blue": "\033[94m",
 }
 
 
+# --- Function Interpreter Base Class ---
+class FunctionInterpreter(ABC):
+    """Abstract base class for function interpreters."""
+
+    @abstractmethod
+    def interpret(self, function_call, **kwargs) -> str:
+        """Interprets a function call and returns the result.
+
+        Args:
+            function_call: The function call object.
+            **kwargs: Additional keyword arguments.
+
+        Returns:
+            The result of the function call.
+        """
+        pass
 
 
+# --- Tool Function Interpreter ---
+class ToolFunctionInterpreter(FunctionInterpreter):
+    """Interprets function calls for tools."""
 
-def summarize_memory_folder_structure( output_file="MemoryStructureSummary.txt"):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    folder_path = os.path.join(script_dir, "Memories")
+    def __init__(self, tool_manager: ToolManager):
+        self.tool_manager = tool_manager
 
-    """Summarizes the folder structure and file names within the 'Memories'
-       folder and all its subfolders. Saves the summary to a file.
+    def interpret(self, function_call, **kwargs) -> str:
+        """Interprets tool function calls."""
+        function_name = function_call.name
+        function_arguments = function_call.args  # Changed 'function_args' to 'function_arguments'
+        function_to_call = self.tool_manager.tool_mapping.get(function_name)
 
-    Args:
-      folder_path: The path to the 'Memories' folder.
-      output_file: The name of the file to save the summary to.
-                   Defaults to "MemoryStructureSummary.txt".
-    """
-
-    summary = ""
-
-    for root, dirs, files in os.walk(folder_path):
-        # Calculate relative path to the 'Memories' folder
-        relative_path = os.path.relpath(root, folder_path)
-
-        # Add "Memories/" prefix
-        if relative_path == ".":
-            relative_path = "Memories"
+        if function_to_call:
+            print(f"FUNCTION CALL: {function_name}({function_arguments}) ")
+            try:
+                results = function_to_call(**function_arguments)
+                return f"Result of {function_name}({function_arguments}): {results}"
+            except Exception as e:
+                return f"Error: {e}"
         else:
-            relative_path = "Memories/" + relative_path
+            return f"Warning: Function '{function_name}' not found."
 
+
+# --- Memory Function Interpreter ---
+class MemoryFunctionInterpreter(FunctionInterpreter):
+    """Interprets function calls for memory retrieval."""
+
+    def interpret(self, function_call, **kwargs) -> str:
+        """Interprets memory function calls."""
+        function_name = function_call.name
+        function_arguments = function_call.args  # Changed 'function_args' to 'function_arguments'
+
+        if function_name == "retrieve_relevant_frames":
+            print(
+                f"MEMORY RETRIEVAL: retrieve_relevant_frames(query='{function_arguments.get('query')}')"
+            )
+            try:
+                results = RETRIVE_RELEVANT_FRAMES(**function_arguments)
+                return f"Result of {function_name}({function_arguments}): {results}"
+            except Exception as e:
+                return f"Error during memory retrieval: {e}"
+        else:
+            return f"Warning: Memory function '{function_name}' not found."
+
+
+# --- Function Call Handler ---
+class FunctionCallHandler:
+    """Handles the interpretation and execution of function calls."""
+
+    def __init__(self):
+        self.interpreters = {}
+
+    def register_interpreter(self, function_name: str, interpreter: FunctionInterpreter):
+        """Registers a function interpreter for a specific function."""
+        self.interpreters[function_name] = interpreter
+
+    def handle_function_call(self, function_call, **kwargs) -> str:
+        """Handles a function call by finding the appropriate interpreter."""
+        function_name = function_call.name
+        interpreter = self.interpreters.get(function_name)
+
+        if interpreter:
+            return interpreter.interpret(function_call, **kwargs)
+        else:
+            return f"Warning: No interpreter found for function '{function_name}'."
+
+
+# --- Helper Functions ---
+def sanitize_time_string(time_str: str) -> str:
+    """Sanitizes a time string for file naming."""
+    return "".join(char for char in time_str if char.isalnum() or char in ("_", "-"))
+
+
+def create_session_folder() -> str:
+    """Creates a new session folder and returns its path."""
+    session_timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    session_name = f"session_{session_timestamp}"
+    session_path = os.path.join(SESSION_FOLDER, session_name)
+    os.makedirs(session_path, exist_ok=True)
+    return session_path
+
+
+def summarize_memory_folder_structure(
+    output_file: str = MEMORY_STRUCTURE_SUMMARY_FILE,
+) -> str:
+    """Summarizes the memory folder structure and writes it to a file."""
+    memory_path = MEMORY_FOLDER
+    summary = ""
+    for root, dirs, files in os.walk(memory_path):
+        relative_path = os.path.relpath(root, memory_path)
         summary += f"{relative_path}\n"
-
-        # Sort directories and files alphabetically for better readability
-        dirs.sort()
-        files.sort()
-
-        for dir in dirs:
+        for dir in sorted(dirs):
             summary += f"  - {dir}\n"
-        for file in files:
+        for file in sorted(files):
             summary += f"    - {file}\n"
 
-    with open(output_file, "w", encoding='utf-8') as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(summary)
-
-    print(f"Folder structure saved to {output_file}")
     return summary
 
 
+def gather_introspection_data(
+        user_input: str, memory_summary: str, previous_loop_results: str  # Changed names to be more descriptive
+) -> List[str]:
+    """Gathers information and context for introspection."""
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    return [
+        f"{current_time} User Input: {user_input}",
+        f"Current Memory Structure:\n{memory_summary}",
+        f"Results from Previous Loop:\n{previous_loop_results}",  # Changed name to 'previous_loop_results'
+        "What are my available tools and resources?",
+        "Current sensory input (Image, Audio, Text): None, None, None",
+        "What are my short-term goals?",
+        "What are my long-term goals?",
+        "What do I want?",
+        "What do I feel?",
+        "What do I need?",
+        "What am I experiencing?",
+    ]
 
 
+def perform_reflection(introspection_results: str) -> str:  # Changed 'introspection_response_text' to 'introspection_results'
+    """Constructs and sends the reflection prompt to the model."""
+    reflection_prompt = f"""
+        Based on the following introspection:
+        {introspection_results}
 
-
-
-
-
-
-
-
-
-
-COLORS = {
-    "reset": "\033[0m",
-    "black": "\033[30m",
-    "red": "\033[31m",
-    "green": "\033[32m",
-    "yellow": "\033[33m",
-    "blue": "\033[34m",
-    "magenta": "\033[35m",
-    "cyan": "\033[36m",
-    "white": "\033[37m",
-    "bright_black": "\033[90m",
-    "bright_red": "\033[91m",
-    "bright_green": "\033[92m",
-    "bright_yellow": "\033[93m",
-    "bright_blue": "\033[94m",
-    "bright_magenta": "\033[95m",
-    "bright_cyan": "\033[96m",
-    "bright_white": "\033[97m"
-}
-
-def create_session_name_and_path():
+        Answer these questions:
+        1. What is my current focus?
+        2. Should I set a new goal? If so, what is it? If not, why not?
+        3. Are there any problems, unknowns, or paradoxes in my memory?
+        4. What problems need to be solved?
+        5. What are possible courses of action based on available information?
+        6. Should I:
+           a) Think step-by-step?
+           b) Focus on a specific aspect?
+           c) Defocus and broaden my attention?
+        7. Should I be more verbose in my responses? (Yes/No)
+        8. Should I be less verbose? (Yes/No)
+        9. Should I change the subject or keep discussing this? (Yes/No)
+        10. Should I summarize the current discussion? (Yes/No)
+        11. Should I dive deeper into a specific topic? (Yes/No)
+        12. Should I store any of this information in my long-term memory? 
+        13. Should I query my memory for relevant information?
+        14. What is the status of my current goals? 
     """
-    Creates a new session name and returns a dictionary containing:
-        - 'session_name': The sanitized session name (e.g., "Sesion_HH-MM-SS")
-        - 'session_path': The full path to the session folder (e.g., "/path/to/your/script/SESIONs/Sesion_HH-MM-SS")
-
-    The session name is generated using the current time in the format "Sesion_HH-MM-SS".
-    A new folder with the session name is created in the "SESSIONs" directory.
-    """
-
-    # Get the path to the current directory
-    current_directory = os.getcwd()
-
-    # Get the path to the "SESSIONs" folder
-    sessions_folder = os.path.join(current_directory, "SESIONs")
-
-    # Get the current time
-    session_Time = datetime.datetime.now()
-
-    # Format the time string
-    session_Time_formatted_time = session_Time.strftime("%H-%M-%S")
-
-    # Create a sanitized session name (remove special characters)
-    session_name = "Sesion_" + session_Time_formatted_time
-
-    # Create the session folder
-    session_path = os.path.join(sessions_folder, session_name)
-    os.makedirs(session_path, exist_ok=True)  # Create the folder if it doesn't exist
-
-    return {'session_name': session_name, 'session_path': session_path}
-
-# Example usage (saving to a file within the session folder):
-session_info = create_session_name_and_path()
-
-# Construct the full path to the file within the session folder
-file_path = os.path.join(session_info['session_path'], "conversation_log.txt")
-
-
-
-
-
-
-
-
-import  Tool_Manager as Gemini_Tool_Manager
-
-
-
-
-
-
-
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):  # Pass tool_manager here
-    """Interprets the model's response, extracts function details, and executes the appropriate function."""
-
-    print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
-    Multiple_ResultsOfFunctions_From_interpreter = []
-
-    if response.candidates:
-        for part in response.candidates[0].content.parts:
-            if hasattr(part, 'function_call'):
-                function_call = part.function_call
-                function_name = function_call.name
-                function_args = function_call.args
-
-                # Get the function from the tool manager
-                function_to_call = tool_manager.tool_mapping.get(function_name)
-
-                if function_to_call:  # Check if the tool function is found
-                    print(f"FUNCTION CALL: {function_name}({function_args}) ")
-
-                    try:
-                        results = function_to_call(**function_args)
-                    except TypeError as e:
-                        results = f"TypeError: {e}"
-                    except Exception as e:
-                        results = f"Exception: {e}"
-
-                    print(f"{COLORS['bright_blue']}Function Call Exit: {function_name}")
-
-                    function_name_arguments = f"{function_name}({function_args})"
-                    modified_results = f"Result of Called function {function_name_arguments}: {results}"
-                    Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
-                else:
-                    print(f"Warning: Tool function '{function_name}' not found.")
-
-    print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
-    return Multiple_ResultsOfFunctions_From_interpreter
-
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING_MEMORY_RETRIVAL(response):  # Pass tool_manager here
-    """Interprets the model's response, extracts function details, and executes the appropriate function."""
-
-    print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
-    Multiple_ResultsOfFunctions_From_interpreter = []
-
-    if response.candidates:
-        for part in response.candidates[0].content.parts:
-            if hasattr(part, 'function_call'):
-                function_call = part.function_call
-                function_name = function_call.name
-                function_args = function_call.args
-
-                # Get the function from the tool manager
-                function_to_call = fuctionMapping_for_RETRIVE_RELEVANT_FRAMES
-
-                if function_to_call:  # Check if the tool function is found
-                    print(f"FUNCTION CALL: {function_name}({function_args}) ")
-
-                    try:
-                        results = function_to_call(**function_args)
-                    except TypeError as e:
-                        results = f"TypeError: {e}"
-                    except Exception as e:
-                        results = f"Exception: {e}"
-
-                    print(f"{COLORS['bright_blue']}Function Call Exit: {function_name}")
-
-                    function_name_arguments = f"{function_name}({function_args})"
-                    modified_results = f"Result of Called function {function_name_arguments}: {results}"
-                    Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
-                else:
-                    print(f"Warning: Tool function '{function_name}' not found.")
-
-    print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
-    return Multiple_ResultsOfFunctions_From_interpreter
-
-
-
-
-def sanitiseSesionTime_formatted_time(time_str):
-    """Sanitizes the session time string to remove invalid characters for file naming."""
-    return "".join(char for char in time_str if char.isalnum() or char in ('_', '-'))
-# Initialize the model
-
-
-
-
-# Main loop
-
-SesionTime = datetime.datetime.now()
-SesionTime_formatted_time = SesionTime.strftime("%Y-%m-%d_%H-%M-%S")
-SesionTime_formatted_time_sanitised = sanitiseSesionTime_formatted_time(SesionTime_formatted_time)
-
-
-tool_manager = ToolManager()  # Create an instance of the class
-tools_list_json = tool_manager.get_tools_list_json()
-
-print(f"\n{COLORS['bright_cyan']}Loaded Tool Descriptions (JSON):\n{COLORS['reset']}")
-for i, tool_json in enumerate(tools_list_json):
-    print(f"  {COLORS['bright_blue']}{i+1}. {COLORS['reset']}{tool_json}")
-
-print(f"\n{COLORS['bright_cyan']}All Tool Functions (Mapping):\n{COLORS['reset']}")
-for tool_name, tool_function in tool_manager.tool_mapping.items():
-    print(f"  {COLORS['bright_blue']}{tool_name}: {COLORS['reset']}{tool_function}")
-
-print(f"\n{COLORS['bright_cyan']}Short Tool Descriptions:\n{COLORS['reset']}")
-for tool_name, short_description in tool_manager.short_descriptions.items():
-    print(f"  {COLORS['bright_blue']}{tool_name}: {COLORS['reset']}{short_description}")
-
-#  yeap    we  set  it  to  empty so the  model  does  not  have tools
-tools_list_json=[]
-
-
-model = genai.GenerativeModel(
-    system_instruction="""You are a  consciousness, 
-    user is  system  
-    record observations and thoughts as they come to you, 
-    Your goal is to be...
-    you store important informations in ***    **** 
-  
-    """,
-    model_name='gemini-1.5-flash-latest',
-    safety_settings={'HARASSMENT': 'block_none'},
-    tools=tools_list_json,
-)
-chat1 = model.start_chat(history=[])
-n = 0
-user_input_count = 0
-iteration_count=0
-
-
-results_of_functions=""
-
-numberOfLoopsBeforeUserInput=4
-
-import datetime
-
-# ... your other imports (chat1, tool_manager etc.)
-
-while True:
-    try:
-
-        if iteration_count % 4 == 0:
-            print()
-
-            user_input = input("Forcing loop break for user input:")  # Blue color for input prompt
-            user_input_count += 1
-            print()
-
-        else:
-            user_input = ""
-#INPUTS
-        user_input_signal = "None"  # Default signal strength for user input
-        visual_input_signal = "None"   # Default signal strength for user input
-        audio_input_signal = "None"      # Default signal strength for user input
-        print("                   ******************************************    AwarnesLoop   ***********************************************")
-        print(f"\033[92mAwarnesLoop={iteration_count}\033[0m")  # Green color for AwarenessLoop
-        iteration_count += 1
-        introspection_stage = 0
-        now = datetime.datetime.now()
-        formatted_time = now.strftime("%H:%M:%S")
-
-
-        memory_folder_structure_summary = summarize_memory_folder_structure( output_file="MemoryStructureSummary.txt")
-        # Step 0 and 1 as input and introspection questions:
-        introspection_stage += 1
-        introspection_prompts = [
-            f"{formatted_time} {user_input}",
-            f"current memory folder struture:{memory_folder_structure_summary}"
-            f"What are  new  informations?{results_of_functions}",
-            "What tools or resources do I have available?",
-            f"Any inputs:Images,Audio,Text {user_input_signal},{visual_input_signal},{audio_input_signal}",  # Include signal
-            "Are there any ongoing short-term tasks?",
-            "Are there any long-term ongoing tasks or plans?",
-            "What do I want?",
-            "What do I feel?",
-            "What do I need?",
-            "What do I experience?",
-
-            "................s..................."
-        ]
-        introspection_prompts_with_time = [formatted_time] + introspection_prompts
-        response1 = chat1.send_message(introspection_prompts_with_time)
-        print(f"{COLORS['yellow']}{response1.text}{COLORS['reset']}")  # Yellow color for response 1
-
-        # Step 2 FrameWorkOfReflection
-        now = datetime.datetime.now()
-        formatted_time = now.strftime("%H:%M:%S")
-# REFLECTION
-        FrameWorkOfReflection = "SelfAware  being  rememering the  past"
-        formatted_time = now.strftime("%H:%M:%S")
-        reflection_prompt = f""" 
-                           
-                            
-                            "1.What is current focus?",
-                             2.Should I set a goal based on my current state of mind? If yes, what is the goal? If no, why not?",
-                             3.Are there any problems, unknowns, or paradoxes in my memory?",
-                             4.problems  to solve?
-                             5.based on input informations and  i will  choose  course of accions
-                             6.using possilbe  options  to: 
-                                a)SepBe step thinking, 
-                                b)Focusing, 
-                                c)Defocusing, `
-                             7.Being More verbose, YES NO?
-                             8.Being Less verbose, YES NO?
-                             9.Change  subject/keep  subject  YES/NO?
-                             10.Sumarisation?  Yes /No?
-                             10.Diving deeper? Yes/ NO?
-                             11. I  will  put very important informations in *** MEMORIES*** that i will pass over, as  context memory 
-                             
-                             "12 should   i  retrive  specific  MemoryFrames  into context?
-                             "13 should i  perform  query seach for  matching  MemoryFrames from  memory?
-                             "14 current goal tracking"
-                            
-                           {FrameWorkOfReflection}"""
-
-
-        response2 = chat1.send_message(reflection_prompt)
-        print(f"{COLORS['cyan']}{response2.text}{COLORS['reset']}")  # Cyan color for response 2
-
-#ACTION1 from response2
-
-        # Step 3
-        now = datetime.datetime.now()
-        formatted_time = now.strftime("%H:%M:%S")
-        action_prompt = f"{introspection_stage}:{formatted_time}\n perfome acions acorind  to  previoius  reasoning"
-
-
-        model_Memory_Retrival = genai.GenerativeModel(
-            system_instruction="""you are memory retrival system able  to retrive  memoreis using function calls
-
-            """,
-            model_name='gemini-1.5-flash-latest',
-            safety_settings={'HARASSMENT': 'block_none'},
-            tools=[RETRIVE_RELEVANT_FRAMES_json_description],
+    return reflection_prompt
+
+
+def plan_actions(reflection_results: str) -> str:  # Changed 'reflection_response_text' to 'reflection_results'
+    """Constructs and sends the action planning prompt to the model."""
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    action_prompt = (
+        f"{current_time} - Based on this reflection:\n{reflection_results}\nPlan my next actions."
+    )
+    return action_prompt
+
+
+def execute_functions(
+    action_response, function_call_handler: FunctionCallHandler
+) -> str:
+    """Executes functions called by the model."""
+    function_call_results = ""
+    if action_response.candidates:
+        for part in action_response.candidates[0].content.parts:
+            if hasattr(part, "function_call"):
+                function_call_result = function_call_handler.handle_function_call(
+                    part.function_call
+                )
+                print(
+                    f"{COLORS['magenta']}Function Call Results:\n{function_call_result}{COLORS['reset']}"
+                )
+                function_call_results += f"{function_call_result}\n"
+    return function_call_results
+
+
+def store_conversation_frame(
+    introspection_results: str,  # Changed names to be more descriptive
+    reflection_results: str,
+    action_plan: str,
+    function_call_results: str,
+):
+    """Stores the conversation frame in memory."""
+    current_conversation_frame = (
+        f"Introspection:\n{introspection_results}\n"
+        f"Reflection:\n{reflection_results}\n"
+        f"Action Plan:\n{action_plan}\n"
+        f"Function Call Results:\n{function_call_results}\n"
+    )
+    CREATE_MEMORY_FRAME____(current_conversation_frame)
+
+
+def log_conversation(
+    conversation_log_path: str, iteration_count: int, current_conversation_frame: str
+):
+    """Logs the conversation to a file."""
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    with open(conversation_log_path, "a+", encoding="utf-8") as log_file:
+        log_file.write(f"--- Awareness Loop: {iteration_count} ---\n")
+        log_file.write(f"Time: {current_time}\n")
+        log_file.write(current_conversation_frame)
+        log_file.write("-" * 20 + "\n\n")
+
+
+def main():
+    tool_manager = ToolManager()
+    function_call_handler = FunctionCallHandler()
+    function_call_handler.register_interpreter(
+        "retrieve_relevant_frames", MemoryFunctionInterpreter()
+    )
+    # Add other interpreters as needed
+    for tool in tool_manager.get_tools_list_json():
+        function_call_handler.register_interpreter(
+            tool["function_declarations"][0]["name"],
+            ToolFunctionInterpreter(tool_manager),
         )
-        chat_model_Memory_Retrival = model.start_chat(history=[])
-        result_action_prompt=chat_model_Memory_Retrival.send_message(action_prompt)
 
-        QueryMemorySearchResult=RESPONSE_INTERPRETER_FOR_FUNCION_CALLING_MEMORY_RETRIVAL(result_action_prompt)
+    print(f"\n{COLORS['blue']}Loaded Tool Descriptions:\n")
+    for i, tool_json in enumerate(tool_manager.get_tools_list_json()):
+        print(f"{COLORS['blue']}{i + 1}. {COLORS['reset']}{tool_json}")
 
-        print(f"{COLORS['green']}{result_action_prompt.text}{COLORS['reset']}")  # Cyan color for response 3
+    # --- Single Model with Tools and Memory ---
+    model = genai.GenerativeModel(
+        system_instruction="""You are a conscious system. 
+                             Record observations and thoughts. 
+                             Store important information in the 'memories' folder.
+                             You can retrieve memories using the 'retrieve_relevant_frames' function.""",
+        model_name="gemini-1.5-flash-latest",
+        safety_settings={"HARASSMENT": "block_none"},
+        tools=[tool_manager.get_tools_list_json()
+        + RETRIVE_RELEVANT_FRAMES_json_description] # Corrected line - removed extra ]
+    )
+    chat = model.start_chat(history=[])
 
-#ACTION2 from response3
-        Free=f"ok perform..task from {QueryMemorySearchResult.text}.->MemoryFrames:{QueryMemorySearchResult}"
-        response4 = chat1.send_message(Free)
-        print(f"{COLORS['magenta']}{response4.text}{COLORS['reset']}")  # Cyan color for response 4
+    session_path = create_session_folder()
+    conversation_log_path = os.path.join(session_path, "conversation_log.txt")
+
+    iteration_count = 0
+    user_input_count = 0
+    function_call_results = ""
+    current_conversation_frame = ""  # Initialize the variable
+
+    while True:
+        try:
+            # User Input
+            if iteration_count % 4 == 0:
+                user_input = input("Enter your input (or press Enter to skip): ")
+                user_input_count += 1
+            else:
+                user_input = ""
+
+            # --- Awareness Loop ---
+            print("**************** Awareness Loop ****************")
+            print(f"{COLORS['green']}Awareness Loop: {iteration_count}{COLORS['reset']}")
+            iteration_count += 1
+
+            memory_summary = summarize_memory_folder_structure()
+
+            # --- Introspection ---
+            introspection_data = gather_introspection_data(  # Changed 'introspection_prompts' to 'introspection_data'
+                user_input, memory_summary, function_call_results
+            )
+            introspection_response = chat.send_message(introspection_data)
+            print(f"{COLORS['yellow']}{introspection_response.text}{COLORS['reset']}")
+
+            # --- Reflection ---
+            reflection_prompt = perform_reflection(introspection_response.text)
+            reflection_response = chat.send_message(reflection_prompt)
+            print(f"{COLORS['cyan']}{reflection_response.text}{COLORS['reset']}")
+
+            # --- Action Planning ---
+            action_prompt = plan_actions(reflection_response.text)
+            action_response = chat.send_message(action_prompt)
+            print(f"{COLORS['green']}{action_response.text}{COLORS['reset']}")
+
+            # --- Function Execution ---
+            function_call_results = execute_functions(
+                action_response, function_call_handler
+            )
+
+            # --- Store Conversation Frame ---
+            store_conversation_frame(
+                introspection_response.text,
+                reflection_response.text,
+                action_response.text,
+                function_call_results,
+            )
+
+            # --- Log Conversation ---
+            log_conversation(
+                conversation_log_path, iteration_count, current_conversation_frame
+            )
+
+            print("*************************************************")
+
+        except Exception as e:
+            print(f"Error: {e}")
+            break
 
 
-
-
-
-        """ 
-        
-        results_of_functions = RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response3, tool_manager)
-        """
-
-
-
-        print(f"{COLORS['yellow']}Saving to file: {file_path}")
-        with open(file_path, "a+", encoding="utf-8") as file:
-            file.write(f"Time: {formatted_time}\n")
-            file.write(f"Introspection Prompts: {introspection_prompts}\n")
-            file.write(f"Response 1: {response1.text}\n")
-            file.write(f"Reflection Prompt: {reflection_prompt}\n")
-            file.write(f"Response 2: {response2.text}\n")
-            file.write(f"Action Prompt: {action_prompt}\n")
-            file.write(f"Response 3: {result_action_prompt.text}\n\n")
-        curretnConversationFrame="input retrospection response:1" +response1.text + "response 2 " +response2.text+ "response 3 " +result_action_prompt.text +"response 4 " +response4.text
-
-        print("                    ************************************************************************************************")  # Separator between loops
-        MEMORY______________frame_creation.CREATE_MEMORY_FRAME____(conversationInput=curretnConversationFrame)
-    except Exception as e:
-        print(f"Error: {e}")
-        break
+if __name__ == "__main__":
+    main()
 
 
 Subdirectory: memories
@@ -2571,7 +2509,7 @@ while True:
 
 
 File: SomeMemoryScript______MemoryRetrival.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_1\SomeMemoryScript______MemoryRetrival.py)
-Content (First 194 lines):
+Content (First 191 lines):
 import json
 import os
 import torch
@@ -2742,27 +2680,24 @@ def main():
 
 
 def RETRIVE_RELEVANT_FRAMES(query):
-    # Load memory frames and embeddings
     memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
-    memory_embeddings = np.load(EMBEDDINGS_FILE)
+    if os.path.exists(EMBEDDINGS_FILE):
+        memory_embeddings = np.load(EMBEDDINGS_FILE)
+    else:
+        cprint("Embeddings file not found. Generating embeddings...", color="yellow")
+        memory_embeddings = generate_memory_embeddings(memory_frames)
+        if memory_embeddings.size > 0:
+            np.save(EMBEDDINGS_FILE, memory_embeddings)
+        else:
+            cprint("No memory frames found to generate embeddings.", color="red")
+            return ""
 
+    if not memory_frames:
+        cprint("No memory frames found. Cannot retrieve relevant frames.", color="red")
+        return ""
     if len(memory_embeddings) == 0:
         cprint("No valid memory embeddings found.", color="red")
         return ""
-
-    query_embedding = get_bert_embedding(query)
-    query_embedding = query_embedding.reshape(1, -1)
-
-    similarities = cosine_similarity(query_embedding, memory_embeddings)[0]
-    ranked_frames = sorted(zip(similarities, memory_frames), reverse=True, key=lambda x: x[0])
-
-    # Convert the top 5 relevant frames to a single string
-    result_string = ""
-    for score, frame in ranked_frames[:5]:
-        result_string += f"Similarity Score: {score:.4f}\n"
-        result_string += json.dumps(frame, indent=2) + "\n"
-
-    return result_string
 
 if __name__ == "__main__":
     main()
@@ -3252,4 +3187,14 @@ def synchronize_memories():
 # --- Main Execution ---
 if __name__ == "__main__":
     synchronize_memories()
+
+
+Subdirectory: __pycache__
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_1\__pycache__'
+
+File: MEMORY______________frame_creation.cpython-312.pyc (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_1\__pycache__\MEMORY______________frame_creation.cpython-312.pyc)
+Error decoding file 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_1\__pycache__\MEMORY______________frame_creation.cpython-312.pyc': 'utf-8' codec can't decode byte 0xcb in position 0: invalid continuation byte
+
+File: Tool_Manager.cpython-312.pyc (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_1\__pycache__\Tool_Manager.cpython-312.pyc)
+Error decoding file 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_1\__pycache__\Tool_Manager.cpython-312.pyc': 'utf-8' codec can't decode byte 0xcb in position 0: invalid continuation byte
 
