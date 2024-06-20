@@ -1,9 +1,9 @@
 
 import google.generativeai as genai
 
+import  threading
 
-
-genai.configure(api_key='AIzaSyDRJJmMsB7WQXQ8P0mKTCHf9VIx5uprTw8')  # Replace with your actual API key
+genai.configure(api_key='AIzaSyBgbgM1fqYrxksJGBFl9IYhjfsbNNHV01c')  # Replace with your actual API key
 import os
 import re
 import json
@@ -201,7 +201,7 @@ def call_memory_model(user_input, response1_text):
             "Present": {}
         }
     },
-   
+    "BaseFileStructure.txt": [],
     "Challenges & Setbacks": {
         "Areas for Improvement": {},
         "Difficult Emotions": {
@@ -531,16 +531,6 @@ def call_memory_model(user_input, response1_text):
         print(f"Error in Memory Model: {e}")
         return None
 
-
-
-
-
-
-
-
-
-
-
 def extract_entries_smart(response_message):
     print("\n--- Extracting Structured Entries ---")
     entries = []
@@ -649,10 +639,19 @@ def extract_entries_smart(response_message):
             print("Error: Invalid JSON in the AI response.")
         except Exception as e:
             print(f"Error extracting entry: {e}")
+    print("Returning entries")
     return entries
 
 
 def store_memory_frame(user_input, response1_text, response2_text, memory_data):
+    """Stores a memory frame in the appropriate folder based on the memory model's suggestion.
+
+    Args:
+        user_input (str): The user's input that triggered the interaction.
+        response1_text (str): The text of the first response from the interaction model.
+        response2_text (str): The text of the second response from the memory model.
+        memory_data (dict): The structured memory data extracted from response2_text.
+    """
     global MEMORY_FRAME_NUMBER, EDIT_NUMBER
     print(f"\n{YELLOW}--- Storing Memory Frame ---{RESET}")
     connection_map = {}
@@ -661,15 +660,15 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
 
     try:
         script_path = os.path.abspath(os.path.dirname(__file__))
-        connection_map_path = os.path.join(script_path, "memories", "Memory_connections_map.txt")
-        with open(connection_map_path, 'r') as file:
-            content = file.read()
-            folder_matches = re.findall(r'\*\*\*\*(.*?)\*\*\*\*(.*?)Path:\s*(.*?)\n', content, re.DOTALL)
-            for match in folder_matches:
-                folder_name, folder_info, folder_path = match
-                connection_map[folder_name.strip()] = folder_path.strip()
+        connection_map_path = os.path.join(script_path, "memories", "connection_map.json")
+        with open(connection_map_path, 'r') as f:
+            connection_map = json.load(f)
+        print("Connection map loaded successfully.")
     except FileNotFoundError:
-        print("Error: Connection map file not found.")
+        print("Warning: Connection map file not found. Creating a new one.")
+        connection_map = {}
+    except Exception as e:
+        print(f"Error loading connection map: {e}")
 
     storage_folders = memory_data.get("storage", {}).get("memory_folders_storage", [])
     print(f"Suggested storage folders: {storage_folders}")
@@ -677,10 +676,15 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
     proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
     importance = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
 
+    # Create a lock for safe and atomic operations on the connection map file
+    connection_map_lock = threading.Lock()
+
     for folder_info in storage_folders:
         folder_path = folder_info.get("folder_path", "")
         probability = folder_info.get("probability", 0)
         print(f"Processing folder: {folder_path} (Probability: {probability})")
+
+        # Check if the folder is in the connection map
         if folder_path in connection_map:
             print(f"Folder '{folder_path}' found in connection map.")
             target_folder_path = connection_map[folder_path]
@@ -688,21 +692,34 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
             print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
             target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
             os.makedirs(target_folder_path, exist_ok=True)
-        highest_probability = max([folder.get("probability", 0) for folder in storage_folders], default=0)
+            # Add the new folder to the connection map
+            connection_map[folder_path] = target_folder_path
 
-        # Improved filename structure
-        memory_frame_name = f"{proposed_name}_MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_Probability_{highest_probability}_Importance_{importance}.json"
+        # Improved filename structure with accurate probability
+        memory_frame_name = f"{proposed_name}_MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_Probability_{probability}_Importance_{importance}.json"
         memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
         print(f"Memory frame name: {memory_frame_name}")
         print(f"Memory frame path: {memory_frame_path}")
+
+        # Extract the JSON data from response2_text.text
+        json_match = re.search(r"```json\n(.*?)\n```", response2_text.text, re.DOTALL)
+        if json_match:
+            try:
+                response2_json = json.loads(json_match.group(1))
+            except json.JSONDecodeError:
+                print("Error: Invalid JSON in the AI response.")
+                response2_json = {}
+        else:
+            print("Error: No JSON data found in AI response.")
+            response2_json = {}
+
         memory_frame_data = {
             "input": user_input,
             "response1": response1_text,
-            "response2": response2_text,
+            "response2": response2_json,
             "memory_data": memory_data,
             "timestamp": timestamp,
             "edit_number": EDIT_NUMBER
-            # ... (Add other fields as needed) ...
         }
         try:
             with open(memory_frame_path, 'w') as file:
@@ -714,42 +731,46 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
 
     update_html_logs(MEMORY_FRAME_NUMBER, proposed_name, timestamp, memory_frame_paths, memories_folder_path)
 
+    # Save the updated connection map with thread-safe lock
+    try:
+        with connection_map_lock:
+            with open(connection_map_path, 'w') as f:
+                json.dump(connection_map, f, indent=4)
+            print("Connection map saved successfully.")
+    except Exception as e:
+        print(f"Error saving connection map: {e}")
+
     MEMORY_FRAME_NUMBER += 1
     EDIT_NUMBER = 0
 
 
 
 
-def CREATE_MEMORY_FRAME____(conversationInput):
-    MEMORY_FRAME_NUMBER = 1
+
+def CREATE_MEMORY_FRAME(conversationInput):
+    global MEMORY_FRAME_NUMBER
+    MEMORY_FRAME_NUMBER = 1 # Reset Memory Frame number for each new memory frame creation
     TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
     timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
     EDIT_NUMBER = 0
 
-    try:
-        print("calling memory model")
-        MemorySumarisation = call_memory_model( user_input="",response1_text=conversationInput)
-    except Exception as E:
-        print("MemorySumarisation = call_memory_model(conversationInput)  error  from  CREATE_MEMORY_FRAME____")
+    MemorySumarisation = call_memory_model(user_input="None",response1_text= conversationInput)
 
-    try:
-        print("memory entries json formaiton")
-        memory_entries = extract_entries_smart(MemorySumarisation.text)
-    except Exception as E:
-        print(E)
-    try:
-            for entry in memory_entries:
-                      store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation, memory_data=entry)
-    except Exception as E:
-
-            print(E)
-    print("CREATE_MEMORY_FRAME   finished")
+    memory_entries = extract_entries_smart(MemorySumarisation.text)
+    for entry in memory_entries: # Iterate through the list of entries
+        store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation, memory_data=entry)
 
 
 
 
+conversationInput="i  am  a  big  dinosaur"
 
-""" 
+CREATE_MEMORY_FRAME(conversationInput)
+
+
+"""
+
+
 while True:
     user_input = process_user_input()
     timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
@@ -761,6 +782,5 @@ while True:
             for entry in memory_entries:
                 store_memory_frame(user_input, response1.text, response2.text, entry)
 
-
-
 """
+
