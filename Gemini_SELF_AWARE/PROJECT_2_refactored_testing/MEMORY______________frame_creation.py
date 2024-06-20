@@ -531,6 +531,7 @@ def call_memory_model(user_input, response1_text):
         print(f"Error in Memory Model: {e}")
         return None
 
+
 def extract_entries_smart(response_message):
     print("\n--- Extracting Structured Entries ---")
     entries = []
@@ -542,180 +543,70 @@ def extract_entries_smart(response_message):
             print("Parsing JSON data...")
             response_data = json.loads(json_data)
             print("JSON data parsed successfully.")
-            single_value_fields = {
-                "metadata.creation_date": "metadata",
-                "metadata.source": "metadata",
-                "metadata.author": "metadata",
-                "type": "core",
-                "core.main_topic": "core",
-                "core.category": "core",
-                "core.subcategory": "core",
-                "core.memory_about": "core",
-                "summary.concise_summary": "summary",
-                "summary.description": "summary",
-                "impact.obtained_knowledge": "impact",
-                "impact.positive_impact": "impact",
-                "impact.negative_impact": "impact",
-                "impact.expectations": "impact",
-                "impact.strength_of_experience": "impact",
-                "importance.reason": "importance",
-                "importance.importance_level": "importance",
-                "technical_details.problem_solved": "technical_details",
-                "naming_suggestion.memory_frame_name": "naming_suggestion",
-                "naming_suggestion.explanation": "naming_suggestion"
-            }
-            list_type_fields = {
-                "content.keywords": "content",
-                "content.entities": "content",
-                "content.tags": "content",
-                "content.observations": "content",
-                "content.facts": "content",
-                "content.contradictions": "content",
-                "content.paradoxes": "content",
-                "content.scientific_data": "content",
-                "content.visualizations": "content",
-                "interaction.interaction_type": "interaction",
-                "interaction.people": "interaction",
-                "interaction.objects": "interaction",
-                "interaction.animals": "interaction",
-                "interaction.actions": "interaction",
-                "interaction.observed_interactions": "interaction",
-                "importance.potential_uses": "importance",
-                "technical_details.implementation_steps": "technical_details",
-                "technical_details.tools_and_technologies": "technical_details",
-                "technical_details.example_projects": "technical_details",
-                "technical_details.best_practices": "technical_details",
-                "technical_details.common_challenges": "technical_details",
-                "technical_details.debugging_tips": "technical_details",
-                "technical_details.related_concepts": "technical_details",
-                "technical_details.resources": "technical_details",
-                "technical_details.code_examples": "technical_details"
-            }
-            print("Extracting entries from JSON data...")
-            for key, value in response_data.items():
-                entry = defaultdict(list)
-                if key in single_value_fields:
-                    print(f"Processing single value field: {key}")
-                    field_name = key.split('.')[-1]
-                    section = single_value_fields[key]
-                    if not isinstance(section, list):
-                        section = [section]
-                    try:
-                        entry[section[0]][field_name] = value if not isinstance(value, list) else (
-                            value[0] if value else ""
-                        )
-                    except IndexError as e:
-                        print(f"Error accessing field: {key}. Details: {e}")
-                    except Exception as e:
-                        print(f"Unexpected error processing single value field '{key}': {e}")
-                elif key in list_type_fields:
-                    print(f"Processing list type field: {key}")
-                    field_name = key.split('.')[-1]
-                    section = list_type_fields[key]
-                    try:
-                        entry[section][field_name].extend(value if isinstance(value, list) else [value])
-                    except Exception as e:
-                        print(f"Unexpected error processing list type field '{key}': {e}")
-            print("Handling 'storage' field...")
-            entry["storage"] = {
-                "storage_method": "",
-                "location": "",
-                "memory_folders_storage": response_data.get("storage", {}).get("memory_folders_storage", []),
-                "strength_of_matching_memory_to_given_folder": []
-            }
-            print("Validating probabilities in 'memory_folders_storage'...")
-            for folder_info in entry["storage"]["memory_folders_storage"]:
-                try:
-                    probability = folder_info.get("probability")
-                    if probability is not None and isinstance(probability, int) and not 0 <= probability <= 10:
-                        print(
-                            f"Warning: Invalid probability value '{probability}' found in memory_folders_storage. Valid range is 0 to 10."
-                        )
-                except Exception as e:
-                    print(f"Error validating probability in 'memory_folders_storage': {e}")
-            print(f"Appending extracted entry: {dict(entry)}")
-            entries.append(dict(entry))
+
+            # Check if response_data is a list or a dictionary
+            if isinstance(response_data, list):
+                # Iterate through the list
+                for entry in response_data:
+                    entries.append(entry)
+            elif isinstance(response_data, dict):
+                # Append the single entry
+                entries.append(response_data)
+            else:
+                print(f"Warning: Unexpected data type: {type(response_data)}")
+                print("Skipping data.")
+
         except json.JSONDecodeError:
             print("Error: Invalid JSON in the AI response.")
         except Exception as e:
             print(f"Error extracting entry: {e}")
-    print("Returning entries")
     return entries
-
-
-def store_memory_frame(user_input, response1_text, response2_text, memory_data):
-    """Stores a memory frame in the appropriate folder based on the memory model's suggestion.
-
-    Args:
-        user_input (str): The user's input that triggered the interaction.
-        response1_text (str): The text of the first response from the interaction model.
-        response2_text (str): The text of the second response from the memory model.
-        memory_data (dict): The structured memory data extracted from response2_text.
-    """
+def store_memory_frame(user_input, response1_text, response2_text, memory_data, SESION_INFO):
+    """Stores a memory frame based on provided information and updates the HTML logs."""
     global MEMORY_FRAME_NUMBER, EDIT_NUMBER
+
     print(f"\n{YELLOW}--- Storing Memory Frame ---{RESET}")
     connection_map = {}
     memories_folder_path = Get_path_of_memories_folder()
     memory_frame_paths = []
 
-    try:
-        script_path = os.path.abspath(os.path.dirname(__file__))
-        connection_map_path = os.path.join(script_path, "memories", "connection_map.json")
-        with open(connection_map_path, 'r') as f:
-            connection_map = json.load(f)
-        print("Connection map loaded successfully.")
-    except FileNotFoundError:
-        print("Warning: Connection map file not found. Creating a new one.")
-        connection_map = {}
-    except Exception as e:
-        print(f"Error loading connection map: {e}")
+    script_path = os.path.abspath(os.path.dirname(__file__))
 
     storage_folders = memory_data.get("storage", {}).get("memory_folders_storage", [])
     print(f"Suggested storage folders: {storage_folders}")
+
     timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
     proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
-    importance = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
-
-
+    importance_level = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
 
     for folder_info in storage_folders:
         folder_path = folder_info.get("folder_path", "")
         probability = folder_info.get("probability", 0)
         print(f"Processing folder: {folder_path} (Probability: {probability})")
 
-        # Check if the folder is in the connection map
+        if folder_path in connection_map:
+            print(f"Folder '{folder_path}' found in connection map.")
+            target_folder_path = connection_map[folder_path]
+        else:
+            print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
+            target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
+            os.makedirs(target_folder_path, exist_ok=True)
 
-        target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
-        os.makedirs(target_folder_path, exist_ok=True)
-            # Add the new folder to the connection map
-
-
-        # Improved filename structure with accurate probability
-        memory_frame_name = f"{proposed_name}_MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{timestamp}_Probability_{probability}_Importance_{importance}.json"
+        # Construct the filename using the current folder's probability
+        memory_frame_name = f"MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{SESION_INFO}_{timestamp}_Probability_{probability}_Importance_{importance_level}__{proposed_name}.json"
         memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
         print(f"Memory frame name: {memory_frame_name}")
         print(f"Memory frame path: {memory_frame_path}")
 
-        # Extract the JSON data from response2_text.text
-        json_match = re.search(r"```json\n(.*?)\n```", response2_text.text, re.DOTALL)
-        if json_match:
-            try:
-                response2_json = json.loads(json_match.group(1))
-            except json.JSONDecodeError:
-                print("Error: Invalid JSON in the AI response.")
-                response2_json = {}
-        else:
-            print("Error: No JSON data found in AI response.")
-            response2_json = {}
-
         memory_frame_data = {
             "input": user_input,
             "response1": response1_text,
-            "response2": response2_json,
+            "response2": response2_text,
             "memory_data": memory_data,
             "timestamp": timestamp,
             "edit_number": EDIT_NUMBER
         }
+
         try:
             with open(memory_frame_path, 'w') as file:
                 json.dump(memory_frame_data, file, indent=4)
@@ -725,37 +616,46 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
             print(f"Error saving memory frame: {e}")
 
     update_html_logs(MEMORY_FRAME_NUMBER, proposed_name, timestamp, memory_frame_paths, memories_folder_path)
-
-    # Save the updated connection map with thread-safe lock
-
-
     MEMORY_FRAME_NUMBER += 1
     EDIT_NUMBER = 0
 
 
-
-
-
 def CREATE_MEMORY_FRAME(conversationInput):
-    global MEMORY_FRAME_NUMBER
-    MEMORY_FRAME_NUMBER = 1 # Reset Memory Frame number for each new memory frame creation
+    global MEMORY_FRAME_NUMBER, EDIT_NUMBER
+    MEMORY_FRAME_NUMBER = 1
     TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
     timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
     EDIT_NUMBER = 0
 
-    MemorySumarisation = call_memory_model(user_input="None",response1_text= conversationInput)
+    try:
+        print("Calling memory model")
+        MemorySumarisation = call_memory_model(user_input="", response1_text=conversationInput)
+    except Exception as E:
+        print("MemorySumarisation = call_memory_model(conversationInput)  error  from  CREATE_MEMORY_FRAME____")
+        return
 
-    memory_entries = extract_entries_smart(MemorySumarisation.text)
-    for entry in memory_entries: # Iterate through the list of entries
-        store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation, memory_data=entry)
+    try:
+        print("Memory entries JSON formation")
+        memory_entries = extract_entries_smart(MemorySumarisation.text)
+    except Exception as E:
+        print(E)
+        return
+
+    try:
+        for entry in memory_entries:
+            # Store the memory frame with dummy user input and response1 (as it's only conversationInput)
+            store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation.text, memory_data=entry, SESION_INFO="Conversation")
+    except Exception as E:
+        print(E)
+
+    print("CREATE_MEMORY_FRAME   finished")
 
 
-"""          
 
 conversationInput="i  am  a  big  dinosaur"
 
 CREATE_MEMORY_FRAME(conversationInput)
-"""
+
 
 """
 

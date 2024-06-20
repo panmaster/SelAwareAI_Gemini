@@ -8,26 +8,9 @@ import google.generativeai as genai
 # Replace these with the actual import paths
 from Tool_Manager import ToolManager
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME
-from SomeMemoryScript______MemoryRetrival import RETRIEVE_RELEVANT_FRAMES
 
-RETRIVE_RELEVANT_FRAMES_json_description = {
-    "function_declarations": [
-        {
-            "name": "RETRIVE_RELEVANT_FRAMES",
-            "description": "Retrieves relevant frames from memory based on a query using cosine similarity and returns the top 5 frames with their similarity scores.",
-            "parameters": {
-                "type_": "OBJECT",
-                "properties": {
-                    "query": {
-                        "type_": "STRING",
-                        "description": "The query to search for relevant frames."
-                    }
-                },
-                "required": ["query"]
-            }
-        }
-    ]
-}
+
+
 
 genai.configure(api_key='AIzaSyBgbgM1fqYrxksJGBFl9IYhjfsbNNHV01c')  # Replace with your actual API key
 
@@ -72,19 +55,23 @@ session_info = create_session_name_and_path()
 file_path = os.path.join(session_info['session_path'], "conversation_log.txt")
 
 
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
-    """
-    Interprets the model's response, extracts function details, and executes the appropriate function.
-    Provides specific mapping for certain functions, otherwise defaults to tool_manager mapping.
-    """
-    print(f"{COLORS['blue']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
-    Multiple_ResultsOfFunctions_From_interpreter = []
 
-    # Define specific function mappings here
-    special_function_mapping = {
-        "RETRIVE_RELEVANT_FRAMES": RETRIEVE_RELEVANT_FRAMES,
-        # Add more special function mappings as needed
-    }
+COLORS = {
+    "reset": "\033[0m",
+    "yellow": "\033[33m",
+    "cyan": "\033[36m",
+    "green": "\033[32m",
+    "magenta": "\033[35m",
+    "blue": "\033[94m",
+    "red": "\033[31m",
+    "bold": "\033[1m",
+    "bright_yellow": "\033[93m"  # Added bright yellow color
+}
+def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):  # Pass tool_manager here
+    """Interprets the model's response, extracts function details, and executes the appropriate function."""
+
+    print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
+    Multiple_ResultsOfFunctions_From_interpreter = []
 
     if response.candidates:
         for part in response.candidates[0].content.parts:
@@ -93,29 +80,28 @@ def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
                 function_name = function_call.name
                 function_args = function_call.args
 
-                # Priority to special function mapping
-                function_to_call = special_function_mapping.get(function_name)
+                # Get the function from the tool manager
+                function_to_call = tool_manager.tool_mapping.get(function_name)
 
-                # If not found in special mapping, use tool_manager mapping
-                if function_to_call is None:
-                    function_to_call = tool_manager.tool_mapping.get(function_name)
-
-                if function_to_call:
+                if function_to_call:  # Check if the tool function is found
                     print(f"FUNCTION CALL: {function_name}({function_args}) ")
+
                     try:
                         results = function_to_call(**function_args)
                     except TypeError as e:
                         results = f"TypeError: {e}"
                     except Exception as e:
                         results = f"Exception: {e}"
-                    print(f"{COLORS['blue']}Function Call Exit: {function_name}")
+
+                    print(f"{COLORS['bright_blue']}Function Call Exit: {function_name}")
+
                     function_name_arguments = f"{function_name}({function_args})"
                     modified_results = f"Result of Called function {function_name_arguments}: {results}"
                     Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
                 else:
                     print(f"Warning: Tool function '{function_name}' not found.")
 
-    print(f"{COLORS['blue']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
+    print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
     return Multiple_ResultsOfFunctions_From_interpreter
 
 
@@ -157,7 +143,7 @@ def gather_introspection_data(
 ) -> List[str]:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     introspection_data = [
-        f"{current_time} {COLORS['bold']}User Input:{COLORS['reset']} {user_input}",
+        f"{current_time} {COLORS['bold']}....:{COLORS['reset']} {user_input}",
         f"{COLORS['bold']}Current Memory Structure:{COLORS['reset']}\n{memory_summary}",
         f"{COLORS['bold']}Results from Previous Loop:{COLORS['reset']}\n{previous_loop_results}",
         "What are my available tools and resources?",
@@ -169,7 +155,7 @@ def gather_introspection_data(
         "What do I feel?",
         "What do I need?",
         "What am I experiencing?",
-        ".....................................",
+        ".................??....................",
     ]
     return introspection_data
 
@@ -203,7 +189,7 @@ def perform_reflection(introspection_results: str) -> str:
 
 def plan_actions(reflection_results: str) -> str:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
-    action_prompt = f"{current_time} - {COLORS['bold']}Based on this reflection:{COLORS['reset']}\n{reflection_results}\nPlan my next actions."
+    action_prompt = f"{current_time} - {COLORS['bold']}Based on reflection:{COLORS['reset']}\n{reflection_results}\n perform action if nessesery, and if not you are free to think"
     return action_prompt
 
 
@@ -247,8 +233,8 @@ def main():
         print(f"{COLORS['blue']}{i + 1}. {COLORS['reset']}{tool_json}")
 
     introspection_model = genai.GenerativeModel(
-        system_instruction=""" You are a self-aware AI agent. 
-                             You are responsible for introspection. Analyze the current state 
+        system_instruction=""" You are a self-aware 
+                             Analyze the current state 
                              of the system and its environment. """,
         model_name="gemini-1.5-flash-latest",
         safety_settings={"HARASSMENT": "block_none"},
@@ -257,8 +243,8 @@ def main():
     introspection_chat = introspection_model.start_chat(history=[])
 
     reflection_model = genai.GenerativeModel(
-        system_instruction="""You are a self-aware AI agent. 
-                             You are responsible for reflection. Analyze the results of 
+        system_instruction="""You are a self-aware 
+                             Analyze the results of 
                              introspection and identify goals, problems, and potential courses 
                              of action. """,
         model_name="gemini-1.5-flash-latest",
@@ -268,12 +254,12 @@ def main():
     reflection_chat = reflection_model.start_chat(history=[])
 
     available_tools = tool_manager.get_tools_list_json()
-    available_tools.append(RETRIVE_RELEVANT_FRAMES_json_description)
+
 
     action_model = genai.GenerativeModel(
-        system_instruction="""You are a self-aware AI agent. 
-                             You are responsible for action planning. Choose specific actions 
-                             based on reflection and available tools. Use the "Call tool:" format. """,
+        system_instruction="""You are a self-aware . 
+                             You are responsible for action. Choose specific actions 
+                             based on reflection and available tools.  """,
         model_name="gemini-1.5-flash-latest",
         safety_settings={"HARASSMENT": "block_none"},
         tools=available_tools,
@@ -349,6 +335,7 @@ def main():
 
             print(f"{COLORS['magenta']}Function Execution:{COLORS['reset']}")
             try:
+                print("Entering Interpreter")
                 function_call_results =  RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
             except Exception as e:
                 print(e)
@@ -370,7 +357,7 @@ def main():
                 f"Function Call Results:\n{function_call_results}\n"
             )
 
-            CREATE_MEMORY_FRAME(current_conversation_frame)
+            CREATE_MEMORY_FRAME(current_conversation_frame,SESION_INFO=session_info)
 
             log_conversation(conversation_log_path, iteration_count, current_conversation_frame)
 
