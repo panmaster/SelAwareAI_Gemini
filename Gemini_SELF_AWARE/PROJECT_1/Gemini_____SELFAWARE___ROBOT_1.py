@@ -26,6 +26,7 @@ COLORS = {
     "magenta": "\033[35m",
     "blue": "\033[94m",
     "red": "\033[31m",
+<<<<<<< HEAD
     "bold": "\033[1m",
     "bright_yellow": "\033[93m",
     "bright_cyan": "\033[96m",
@@ -56,6 +57,9 @@ COLORS = {
     "reverse": "\033[7m",
     "concealed": "\033[8m",
     "strikethrough": "\033[9m",
+=======
+     "bold": "\033[1m",
+>>>>>>> origin/master
 }
 
 
@@ -77,12 +81,26 @@ session_info = create_session_name_and_path()
 file_path = os.path.join(session_info['session_path'], "conversation_log.txt")
 
 
+<<<<<<< HEAD
 def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):  # Pass tool_manager here
     """Interprets the model's response, extracts function details, and executes the appropriate function."""
 
     print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
     Multiple_ResultsOfFunctions_From_interpreter = []
 
+=======
+def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
+
+    print(f"{COLORS['blue']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
+    Multiple_ResultsOfFunctions_From_interpreter = []
+
+    # Define specific function mappings here
+    special_function_mapping = {
+        "RETRIVE_RELEVANT_FRAMES": RETRIEVE_RELEVANT_FRAMES,
+        # Add more special function mappings as needed
+    }
+
+>>>>>>> origin/master
     if response.candidates:
         for part in response.candidates[0].content.parts:
             if hasattr(part, 'function_call'):
@@ -90,28 +108,48 @@ def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):  # Pass to
                 function_name = function_call.name
                 function_args = function_call.args
 
+<<<<<<< HEAD
                 # Get the function from the tool manager
                 function_to_call = tool_manager.tool_mapping.get(function_name)
 
                 if function_to_call:  # Check if the tool function is found
                     print(f"FUNCTION CALL: {function_name}({function_args}) ")
 
+=======
+                # Priority to special function mapping
+                function_to_call = special_function_mapping.get(function_name)
+
+                # If not found in special mapping, use tool_manager mapping
+                if function_to_call is None:
+                    function_to_call = tool_manager.tool_mapping.get(function_name)
+
+                if function_to_call:
+                    print(f"FUNCTION CALL: {function_name}({function_args}) ")
+>>>>>>> origin/master
                     try:
                         results = function_to_call(**function_args)
                     except TypeError as e:
                         results = f"TypeError: {e}"
                     except Exception as e:
                         results = f"Exception: {e}"
+<<<<<<< HEAD
 
                     print(f"{COLORS['bright_blue']}Function Call Exit: {function_name}")
 
+=======
+                    print(f"{COLORS['blue']}Function Call Exit: {function_name}")
+>>>>>>> origin/master
                     function_name_arguments = f"{function_name}({function_args})"
                     modified_results = f"Result of Called function {function_name_arguments}: {results}"
                     Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
                 else:
                     print(f"Warning: Tool function '{function_name}' not found.")
 
+<<<<<<< HEAD
     print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
+=======
+    print(f"{COLORS['blue']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
+>>>>>>> origin/master
     return Multiple_ResultsOfFunctions_From_interpreter
 
 
@@ -173,7 +211,11 @@ def gather_introspection_data(
 
 def perform_reflection(introspection_results: str) -> str:
     reflection_prompt = f"""
+<<<<<<< HEAD
         {COLORS['bold']}Based on the following introspection should  think of:{COLORS['reset']}
+=======
+        {COLORS['bold']}Based on the following introspection:{COLORS['reset']}
+>>>>>>> origin/master
         {introspection_results}
 
         {COLORS['bold']}Answer these questions:{COLORS['reset']}
@@ -243,8 +285,13 @@ def main():
         print(f"{COLORS['blue']}{i + 1}. {COLORS['reset']}{tool_json}")
 
     introspection_model = genai.GenerativeModel(
+<<<<<<< HEAD
         system_instruction=""" you are new awarnes,: user is system
                                user is you:
+=======
+        system_instruction=""" you are new awarnes, you are  being  driven by propmts: user is system
+                               user is  you
+>>>>>>> origin/master
                                prompts  are  your  thoughts
                                """,
         model_name="gemini-1.5-flash-latest",
@@ -255,7 +302,11 @@ def main():
 
     reflection_model = genai.GenerativeModel(
         system_instruction="""user is system, user is  you
+<<<<<<< HEAD
                              Analyze the results of  user interspection that is system
+=======
+                             I will Analyze the results of 
+>>>>>>> origin/master
                              introspection and identify goals, problems, and potential courses 
                              of action. """,
         model_name="gemini-1.5-flash-latest",
@@ -290,7 +341,11 @@ def main():
     user_input_signal = "None"
     visual_input_signal = "None"
     audio_input_signal = "None"
+<<<<<<< HEAD
     str_function_call_results=""
+=======
+
+>>>>>>> origin/master
     while True:
         try:
             if iteration_count % 4 == 0:
@@ -309,8 +364,11 @@ def main():
             memory_summary = summarize_memory_folder_structure()
 
 #introspection
+<<<<<<< HEAD
 
             function_call_results = str_function_call_results
+=======
+>>>>>>> origin/master
             print(f"{COLORS['yellow']}Introspection:{COLORS['reset']}")
             introspection_data = gather_introspection_data(
                 user_input,
@@ -344,6 +402,7 @@ def main():
 
             except Exception as E:
                 print(f"Action planning error: {E}")
+<<<<<<< HEAD
             try:
                 with open(file_path, "a+", encoding="utf-8") as file:
                     file.write(f"Action Planning: {action_response}\n")
@@ -363,6 +422,18 @@ def main():
                 str_function_call_results=str(function_call_results)
 
                 print("========================Interpreter  end=========================")
+=======
+
+            with open(file_path, "a+", encoding="utf-8") as file:
+                file.write(f"Action Planning: {action_response}\n")
+
+            print(f"{COLORS['magenta']}Function Execution:{COLORS['reset']}")
+            try:
+
+
+                function_call_results =  RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
+
+>>>>>>> origin/master
             except Exception as e:
                 print(e)
             with open(file_path, "a+", encoding="utf-8") as file:
@@ -373,6 +444,7 @@ def main():
 
             if action_response is None:
                 action_response = ""
+<<<<<<< HEAD
                 str_function_call_results = ""
             if function_call_results is None:
                 function_call_results = ""
@@ -388,6 +460,19 @@ def main():
                 CREATE_MEMORY_FRAME(current_conversation_frame)
             except Exception as E:
                 print(E)
+=======
+            if function_call_results is None:
+                function_call_results = ""
+
+            current_conversation_frame = (
+                f"Introspection:\n{introspection_response.text}\n"
+                f"Reflection:\n{reflection_response.text}\n"
+                f"Action Plan:\n{action_response}\n"
+                f"Function Call Results:\n{function_call_results}\n"
+            )
+
+            CREATE_MEMORY_FRAME(current_conversation_frame)
+>>>>>>> origin/master
 
             if user_input_count > 0:  # Only log after user input
                 log_conversation(conversation_log_path, iteration_count, current_conversation_frame)
