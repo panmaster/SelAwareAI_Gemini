@@ -718,6 +718,7 @@ def CREATE_MEMORY_FRAME____(conversationInput = "None"):
 
 
     MemorySumarisation = call_memory_model(user_input, conversationInput)
+
     memory_entries = extract_entries_smart(MemorySumarisation.text)
     for entry in memory_entries:
         store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation, memory_data=entry)
