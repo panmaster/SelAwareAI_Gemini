@@ -54,9 +54,9 @@ def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
     Multiple_ResultsOfFunctions_From_interpreter = []
 
     if response.candidates:
-        for part in response.candidates[0].content.parts:
-            if hasattr(part, 'function_call'):
-                function_call = part.function_call
+        for candidate in response.candidates:
+            if hasattr(candidate.content, 'function_call'):
+                function_call = candidate.content.function_call
                 function_name = function_call.name
                 function_args = function_call.args
 
@@ -119,17 +119,19 @@ def summarize_memory_folder_structure(output_file: str = MEMORY_STRUCTURE_SUMMAR
 
 
 def gather_introspection_data(
-        action_response_back_to_top: str,
-        user_input: str,
-        memory_summary: str,
-        previous_loop_results: str,
+        action_response_back_to_top: str ="None",
+        user_input: str = "None",
+        memory_summary: str = "None",
+        previous_loop_results: str = "None",
         user_input_signal: str = "None",
         visual_input_signal: str = "None",
         audio_input_signal: str = "None",
 ) -> list[str]:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     introspection_data = [
-        f"{current_time} Past:{action_response_back_to_top} current Inputs:  {user_input}",
+        f"Internal memory= {memory_summary}",
+        f"{current_time} Past {action_response_back_to_top} current Inputs:  {user_input}",
+        f"Past:Function Execution ={previous_loop_results}",
         "What are my available tools and resources?",
         f"Current sensory input (Image, Audio, Text): {visual_input_signal}, {audio_input_signal}, {user_input_signal}",
         "Are there any ongoing short-term tasks?",
@@ -141,7 +143,8 @@ def gather_introspection_data(
         "4.What do I need?",
         "5.What am I experiencing?",
         "6 Additional.....",
-        "7 Additional....."
+        "7 Additional.....",
+        "8 Emotional state.....",
     ]
     return introspection_data
 
@@ -151,13 +154,13 @@ def perform_reflection(introspection_results: str) -> str:
     reflection_prompt = f"""{current_time}
 
         {introspection_results}
-
-        1. What is my current focus?
-        2. Should I set a new goal? If so, what is it? If not, why not?
+        user is  system, Me is  you
+        1. What is  current focus?
+        2. Should  set a new goal? If so, what is it? If not, why not?
         3. Are there any problems, unknowns, or paradoxes in my memory?
         4. What problems need to be solved?
         5. What are possible courses of action based on available information?
-        6. How should I approach the next steps:
+        6. Approach the next steps?:
            a) Think step-by-step?
            b) Focus on a specific aspect?
            c) Defocus and broaden my attention?
@@ -166,8 +169,8 @@ def perform_reflection(introspection_results: str) -> str:
         9. Should I change the subject or keep discussing this? (Yes/No)
         10. Should I summarize the current discussion? (Yes/No)
         11. Should I dive deeper into a specific topic? (Yes/No)
-        12. Should I store any of this information in my long-term memory? 
-        13. Should I query my memory for relevant information?
+        12. Should I store any of this information in my long-term memory (Yes/No)? 
+        13. Should I query my memory for relevant information? (Yes/No)
         14. What is the status of my current goals? 
     """
     return reflection_prompt
@@ -213,6 +216,17 @@ def main():
     conversation_log_path = os.path.join(session_path, "conversation_log.txt")
     tool_manager = ToolManager()
     tools_list_json = tool_manager.get_tools_list_json()
+    iteration_count = 0
+    user_input_count = 0
+    function_call_results = ""
+    current_conversation_frame = ""
+    user_input_signal = "None"
+    visual_input_signal = "None"
+    audio_input_signal = "None"
+    str_function_call_results = ""
+    action_response_back_to_top = ""
+
+
 
     print(f"\n\033[96mLoaded Tool Descriptions (JSON):\n\033[0m")
     for i, tool_json in enumerate(tools_list_json):
@@ -231,23 +245,21 @@ def main():
 
     available_tools = tool_manager.get_tools_list_json()
     print("prompt init")
-    system_instruction_input=""" 
-        you are not assistant, you are  you, the  one  who came to be
+    system_instruction_input= """ 
+        user is  assistant and  system in one
         you are answering self questions
         user is system,system is user
-        you are not allowed to call tools in this  round """
+        """
 
-    system_instruction_reflection=""" 
-        selfreflecting
-        you answer the questions
-        you are not allowed to call tools in this round"""
+    system_instruction_reflection= """ 
+        user is  assistant and  system,  
+        you answer the questions,
+        """
 
     system_instruction_action = """
-        you are not assistant, you are  you, the  one  who came to be
-        This is  what  you get!
-        User is the system, user is you.
-        Choose specific actions based on reflection and available tools. 
-        Use tools if necessary."""
+         
+        you  can Choose specific actions based on reflection and available tools, 
+        Use tools if necessary,"""
     with open(conversation_log_path, "a+", encoding="utf-8") as file:
         file.write(f"system_instruction_input: {system_instruction_input}\n")
         file.write(f" system_instruction_reflection: { system_instruction_reflection}\n")
@@ -259,7 +271,7 @@ def main():
             system_instruction=system_instruction_input,
             model_name="gemini-1.5-flash-latest",
             safety_settings={"HARASSMENT": "block_none"},
-            tools=available_tools,
+
         )
 
 
@@ -269,7 +281,7 @@ def main():
             system_instruction=system_instruction_reflection,
             model_name="gemini-1.5-flash-latest",
             safety_settings={"HARASSMENT": "block_none"},
-            tools=available_tools,
+
         )
         reflection_chat = reflection_model.start_chat(history=[])
 
@@ -285,25 +297,12 @@ def main():
         print(E)
         print("Problems with model initialisations")
 
-
-
-    iteration_count = 0
-    user_input_count = 0
-    function_call_results = ""
-    current_conversation_frame = ""
-    user_input_signal = "None"
-    visual_input_signal = "None"
-    audio_input_signal = "None"
-    str_function_call_results = ""
-    action_response_back_to_top=""
-
+    user_input=""
     while True:
         print()
         try:
-            if iteration_count % 1 == 1:
-                user_input = input(
-                    f"{YELLOW}Enter your input (or press Enter to skip): {RESET}"
-                )
+            if iteration_count % 3 == 0:
+                user_input = input(f"{YELLOW}Enter your input (or press Enter to skip): {RESET}")
                 user_input_count += 1
             else:
                 user_input = ""
@@ -317,7 +316,7 @@ def main():
             function_call_results = str_function_call_results
             memory_summary = summarize_memory_folder_structure()
             print(memory_summary)
-            print()
+
             introspection_data = gather_introspection_data(
                 action_response_back_to_top,
                 user_input,
@@ -331,11 +330,19 @@ def main():
             print(f"{YELLOW}inputs:")
             print(f"{BLUE}INTROSPECTION input:")
             # =========================input introspection
-            introspection_response = introspection_chat.send_message(introspection_data)
-            print(f"{BLUE}{introspection_response.text}")
+            try:
+                introspection_response = introspection_chat.send_message(introspection_data)
+                if introspection_response.text is not None:
+                    print(f"{BLUE}{introspection_response.text}")
+                    with open(conversation_log_path, "a+", encoding="utf-8") as file:
+                        file.write(f"Introspection: {introspection_response.text}\n")
 
-            with open(conversation_log_path, "a+", encoding="utf-8") as file:
-                file.write(f"Introspection: {introspection_response.text}\n")
+
+            except Exception as E:
+                print(E)
+
+
+
             print()
             print(f"{GREEN}Reflection:{GREEN}")
             # =========================relection
