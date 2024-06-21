@@ -47,43 +47,43 @@ def create_session_name_and_path():
     return {'session_name': session_name, 'session_path': session_path}
 
 
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
-    """Interprets the response, extracts function details, and executes the function."""
+def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):  # Pass tool_manager here
+    """Interprets the model's response, extracts function details, and executes the appropriate function."""
 
     print(f"{BRIGHT_BLUE}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
     Multiple_ResultsOfFunctions_From_interpreter = []
 
     if response.candidates:
-        for candidate in response.candidates:
-            if hasattr(candidate.content, 'function_call'):
-                function_call = candidate.content.function_call
+        for part in response.candidates[0].content.parts:
+            if hasattr(part, 'function_call'):
+                function_call = part.function_call
                 function_name = function_call.name
                 function_args = function_call.args
 
+                # Get the function from the tool manager
                 function_to_call = tool_manager.tool_mapping.get(function_name)
 
-                if function_to_call:
-                    print(f"FUNCTION CALL: {function_name} ")
-                    for item in function_args:
-                        print(f"argument: {item}")
+                if function_to_call:  # Check if the tool function is found
+                    print(f"FUNCTION CALL: {function_name}({function_args}) ")
 
                     try:
-                        # Pass the function_args dictionary directly
                         results = function_to_call(**function_args)
+                        if results is not None:
+                            Multiple_ResultsOfFunctions_From_interpreter.append(results)
+                            print("function return:")
+                            print(f"{MAGENTA}  {results}")
                     except TypeError as e:
                         results = f"TypeError: {e}"
                     except Exception as e:
                         results = f"Exception: {e}"
 
-                    Multiple_ResultsOfFunctions_From_interpreter.append(results)
+
+
                 else:
                     print(f"Warning: Tool function '{function_name}' not found.")
 
-
-    if Multiple_ResultsOfFunctions_From_interpreter is not  None:
-        for result in  Multiple_ResultsOfFunctions_From_interpreter:
-            print(result)
     print(f"{BRIGHT_BLUE}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
+
     return Multiple_ResultsOfFunctions_From_interpreter
 
 
@@ -129,7 +129,7 @@ def gather_introspection_data(
 ) -> list[str]:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     introspection_data = [
-        f"Internal memory= {memory_summary}",
+
         f"{current_time} Past {action_response_back_to_top} current Inputs:  {user_input}",
         f"Past:Function Execution ={previous_loop_results}",
         "What are my available tools and resources?",
@@ -271,19 +271,28 @@ def main():
             system_instruction=system_instruction_input,
             model_name="gemini-1.5-flash-latest",
             safety_settings={"HARASSMENT": "block_none"},
-
+            tools=available_tools,
+            tool_config={'function_calling_config': 'NONE'}
         )
 
+        introspection_chat = introspection_model.start_chat(history=[] )
 
-        introspection_chat = introspection_model.start_chat(history=[])
+
+
         time.sleep(0.5)
         reflection_model = genai.GenerativeModel(
             system_instruction=system_instruction_reflection,
             model_name="gemini-1.5-flash-latest",
             safety_settings={"HARASSMENT": "block_none"},
 
+            tools=available_tools,
+            tool_config={'function_calling_config': 'NONE'}
+
         )
-        reflection_chat = reflection_model.start_chat(history=[])
+
+        reflection_chat = reflection_model.start_chat(history=[] )
+
+
 
         time.sleep(0.5)
         action_model = genai.GenerativeModel(
@@ -293,6 +302,9 @@ def main():
             tools=available_tools,
         )
         action_chat = action_model.start_chat(history=[])
+
+
+
     except Exception as E:
         print(E)
         print("Problems with model initialisations")
@@ -332,6 +344,7 @@ def main():
             # =========================input introspection
             try:
                 introspection_response = introspection_chat.send_message(introspection_data)
+
                 if introspection_response.text is not None:
                     print(f"{BLUE}{introspection_response.text}")
                     with open(conversation_log_path, "a+", encoding="utf-8") as file:
@@ -364,24 +377,21 @@ def main():
                     action_response_back_to_top=action_response.text
                 else:
                     action_response_back_to_top=""
-
-
             except Exception as E:
-                action_response = ''
+                print(E)
 
-            try:
-                with open(conversation_log_path, "a+", encoding="utf-8") as file:
+
+            with open(conversation_log_path, "a+", encoding="utf-8") as file:
                     file.write(f"Action Planning: {action_response}\n")
-            except Exception as E:
-                action_response = ''
 
-            print(f"{BLUE}Function Execution:{RESET}")
+
             #interpteter
             try:
                 #------------------INTERPRETER---------------------
+                print(f"{BRIGHT_BLUE}---------------------------START-INTERPRETER---------------------------------------------")
                 function_call_results = RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
                 str_function_call_results = dict_to_pretty_string(function_call_results)
-
+                print("----------------------------INTERPRETER-END--------------------------------------------")
                 with open(conversation_log_path, "a+", encoding="utf-8") as file:
                     file.write(f"Function Execution: {function_call_results}\n")
             except Exception as e:
@@ -399,8 +409,10 @@ def main():
             if function_call_results is None:
                 function_call_results = ""
                 str_function_call_results = ""
-
+            #creating MEMORY FRAME
             try:
+                print()
+                print()
                 print("CREATE MEMORY FRAME FROM LOOP")
                 current_conversation_frame = (
                     f"Introspection:\n{introspection_response.text}\n"
