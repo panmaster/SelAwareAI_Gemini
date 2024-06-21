@@ -101,7 +101,7 @@ def call_interaction_model(user_input, timestamp):
         return None
 
 def call_memory_model(user_input, response1_text):
-    print(f"\n{CYAN}--- Calling Memory Model ---{RESET}")
+    print(f"\n{CYAN}---------------- Calling Memory Model ----------------{RESET}")
     try:
         memory_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
@@ -592,8 +592,11 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data, 
             target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
             os.makedirs(target_folder_path, exist_ok=True)
 
+
+        if SESION_INFO is None:
+            SESION_INFO="Unknown"
         # Construct the filename using the current folder's probability
-        memory_frame_name = f"MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{SESION_INFO}_{timestamp}_Probability_{probability}_Importance_{importance_level}__{proposed_name}.json"
+        memory_frame_name = f"MemoryFrame__session_{SESION_INFO}___{timestamp}___Probability_{probability}___Importance_{importance_level}___{proposed_name}.json"
         memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
         print(f"Memory frame name: {memory_frame_name}")
         print(f"Memory frame path: {memory_frame_path}")
@@ -620,7 +623,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data, 
     EDIT_NUMBER = 0
 
 
-def CREATE_MEMORY_FRAME(conversationInput):
+def CREATE_MEMORY_FRAME(conversationInput,SESION_INFO=None):
     global MEMORY_FRAME_NUMBER, EDIT_NUMBER
     MEMORY_FRAME_NUMBER = 1
     TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
@@ -644,11 +647,11 @@ def CREATE_MEMORY_FRAME(conversationInput):
     try:
         for entry in memory_entries:
             # Store the memory frame with dummy user input and response1 (as it's only conversationInput)
-            store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation.text, memory_data=entry, SESION_INFO="Conversation")
+            store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation.text, memory_data=entry, SESION_INFO=SESION_INFO)
     except Exception as E:
         print(E)
 
-    print("CREATE_MEMORY_FRAME   finished")
+    print("-----------CREATE_MEMORY_FRAME FINISHED-----------------")
 
 
 """"

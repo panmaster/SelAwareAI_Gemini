@@ -1,9 +1,9 @@
 
 import sys
 from  SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_4 import  SomeMemoryScript______MemoryRetrival as M
-def RETRIVE_RELEVANT_FRAMES(query,Essentials="all"):
+def RETRIVE_RELEVANT_FRAMES(query,Essentials="all",JSON=False):
    print("RETRIVE_RELEVANT_FRAMES entered")
-   result= M.RETRIEVE_RELEVANT_FRAMES(query,Essentials)
+   result= M.RETRIVE_RELEVANT_FRAMES(query,Essentials)
    if result is not None:
         return  result
    else:
@@ -16,29 +16,34 @@ def RETRIVE_RELEVANT_FRAMES(query,Essentials="all"):
 
 
 RETRIVE_RELEVANT_FRAMES_description_json = {
-    "function_declarations": [
-        {
-            "name": "RETRIVE_RELEVANT_FRAMES",
-            "description": "Retrieves relevant frames from memory based on a query. It loads memory frames, computes embeddings if needed, performs the search, and returns the results with detailed information.",
-            "parameters": {
-                "type_": "OBJECT",
-                "properties": {
-                    "query": {
-                        "type_": "STRING",
-                        "description": "The query to search for relevant frames."
-                    },
-                    "Essentials": {
-                        "type_": "STRING",
-                        "description": "Specifies the level of detail to return in the results. \n\n - \"all\": Returns all available information about the relevant frames.\n - \"sumarisation\": Returns a summarised version of the frame data, including metadata, type, core, summary, content, interaction, impact, importance, and technical details.\n - \"sumarisation_OnlyExistingEntries\": Returns a summarised version of the frame data, but only includes entries that have a non-empty value.\n Defaults to \"all\". best to use :  sumarisation_OnlyExistingEntries",
+  "function_declarations": [
+    {
+      "name": "RETRIVE_RELEVANT_FRAMES",
+      "description": "Core function to retrieve relevant frames based on a query. It loads memory frames, computes embeddings if needed, performs the search, and returns the results with detailed information.",
+      "parameters": {
+        "type_": "OBJECT",
+        "properties": {
+          "query": {
+            "type_": "STRING",
+            "description": "The query string to search for."
+          },
+          "Essentials": {
+            "type_": "STRING",
+            "description": "Specifies the level of detail to return. Options are: 'all', 'sumarisation', 'sumarisation_OnlyExistingEntries'. Defaults to 'sumarisation_OnlyExistingEntrie'.",
+            "enum": [
+              "all",
+              "sumarisation",
+              "sumarisation_OnlyExistingEntries"
+            ]
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
 
-                    }
-                },
-                "required": ["query"]
-            },
-
-
-        }
-    ]
+    }
+  ]
 }
 
 

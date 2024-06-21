@@ -188,111 +188,12 @@ def update_memory_embeddings(memory_embeddings: Dict[str, np.ndarray],
         return memory_embeddings
 
 
-def RETRIEVE_RELEVANT_FRAMES_X(query: str) -> Dict:
-    """
-    Core function to retrieve relevant frames based on a query. It loads
-    memory frames, computes embeddings if needed, performs the search, and
-    returns the results with detailed information.
-    """
-    print(f"\n{BLUE}🚀 Processing Query: '{query}' 🚀\n{ENDC}")
-    memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
-    result_data = {
-        "relevant_frames": [],
-        "error": None
-    }
 
-    if not memory_frames:
-        result_data["error"] = "No valid memory frames found."
-        return result_data
-
-    if os.path.exists(EMBEDDINGS_FILE):
-        try:
-            memory_embeddings = np.load(EMBEDDINGS_FILE, allow_pickle=True).item()
-            print(f"{GREEN}  ✅ Loaded existing embeddings.{ENDC}")
-        except Exception as e:
-            logging.error(f"Error loading embeddings: {e}. Generating new embeddings.")
-            print(f"{YELLOW}  ⚠️ Error loading embeddings: {e}. Generating new embeddings.{ENDC}")
-            memory_embeddings = {}
-    else:
-        memory_embeddings = {}
-        print(f"{YELLOW}  ➡️ No pre-computed embeddings found. Generating...{ENDC}")
-
-    # Compute embeddings for new frames
-    new_frames = False
-    for frame in memory_frames:
-        if frame['id'] not in memory_embeddings:
-            print(f"{CYAN}  ➡️ Computing embedding for new frame: {frame['id']}{ENDC}")
-            memory_embeddings.update(generate_memory_embeddings([frame]))
-            new_frames = True
-
-    # Save updated embeddings
-    if new_frames:
-        try:
-            np.save(EMBEDDINGS_FILE, memory_embeddings)
-            print(f"{GREEN}  ✅ Embeddings updated and saved.{ENDC}")
-        except Exception as e:
-            logging.error(f"Error saving embeddings: {e}")
-            print(f"{RED}  ❌ Error saving embeddings: {e}{ENDC}")
-
-    try:
-        memory_embeddings_array = np.array(list(memory_embeddings.values()))
-        ranked_frames = retrieve_relevant_memory_frames(
-            memory_frames, memory_embeddings_array, query
-        )
-
-        if ranked_frames:
-            for score, frame in ranked_frames:
-                frame_data = {
-                    "similarity_score": float(score),  # Add similarity score
-
-                    "timestamp": frame.get("timestamp", ""),
-                    "edit_number": frame.get("edit_number", 0),
-                    "metadata": frame.get("metadata", {}),
-                    "type": frame.get("type", ""),
-                    "core": frame.get("core", {}),
-                    "summary": frame.get("summary", {}),
-                    "content": frame.get("content", {}),
-                    "interaction": frame.get("interaction", {}),
-                    "impact": frame.get("impact", {}),
-                    "importance": frame.get("importance", {}),
-                    "technical_details": frame.get("technical_details", {}),
-
-                    # Access nested values in 'memory_data'
-                    "memory_data_metadata": frame.get("memory_data", {}).get("metadata", {}),
-                    "memory_data_type": frame.get("memory_data", {}).get("type", ""),
-                    "memory_data_core": frame.get("memory_data", {}).get("core", {}),
-                    "memory_data_summary": frame.get("memory_data", {}).get("summary", {}),
-                    "memory_data_content": frame.get("memory_data", {}).get("content", {}),
-                    "memory_data_interaction": frame.get("memory_data", {}).get("interaction", {}),
-                    "memory_data_impact": frame.get("memory_data", {}).get("impact", {}),
-                    "memory_data_importance": frame.get("memory_data", {}).get("importance", {}),
-                    "memory_data_technical_details": frame.get("memory_data", {}).get("technical_details", {}),
-                    "memory_data_storage": frame.get("memory_data", {}).get("storage", {}),
-                    "memory_data_naming_suggestion": frame.get("memory_data", {}).get("naming_suggestion", {}),
-                }
-                result_data["relevant_frames"].append(frame_data)
-
-            print(f"{MAGENTA}\n✨ Top Relevant Frames: ✨\n{ENDC}")
-            for i, frame_data in enumerate(result_data["relevant_frames"]):
-                print(f"{YELLOW}  🌟 Frame {i + 1} (Similarity: {frame_data['similarity_score']:.4f}):{ENDC}")
-                print(json.dumps(frame_data, indent=4))
-                print("-" * 30)
-
-        else:
-            result_data["error"] = "No relevant frames found for the query."
-            print(f"{YELLOW}  😔 No relevant frames found for: '{query}' 😔{ENDC}")
-
-    except Exception as e:
-        logging.error(f"Error during embedding or retrieval: {e}")
-        result_data["error"] = "An error occurred during processing."
-        print(f"{RED}  ❌ An error occurred: {e}{ENDC}")
-
-    return result_data
 
 
 """    """
 
-def RETRIEVE_RELEVANT_FRAMES(query: str, Essentials="all") -> Dict:
+def RETRIVE_RELEVANT_FRAMES(query: str, Essentials="sumarisation_OnlyExistingEntrie") -> Dict:
     """
     Core function to retrieve relevant frames based on a query. It loads
     memory frames, computes embeddings if needed, performs the search, and
@@ -450,8 +351,12 @@ def RETRIEVE_RELEVANT_FRAMES(query: str, Essentials="all") -> Dict:
     print(f"\n{GREEN}  ✅ Returning: \n{ENDC}{json.dumps(return_data, indent=4)}")
     return return_data
 
-"""   
-# Example usage:
-RETRIEVE_RELEVANT_FRAMES(query="What is deep learning?",Essentials="sumarisation")
 
-"""
+# Example usage:
+value = RETRIVE_RELEVANT_FRAMES(query="What is deep learning?",Essentials="sumarisation_OnlyExistingEntrie")
+
+print()
+print()
+print()
+print("===============================================================================")
+print(value)

@@ -1,15 +1,34 @@
 import os
 import datetime
 from typing import List, Dict, Any
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+import json
+from rich import print
+from rich.panel import Panel
+from rich.table import Table
+from rich.syntax import Syntax
+from rich.panel import Panel
+from rich.table import Table
+from rich.syntax import Syntax
+from rich.console import Console
+from rich.text import Text
+from rich.panel import Panel
+from rich.table import Table
+from rich.syntax import Syntax
+import json
+from IPython.display import display, Markdown, clear_output
 
+
+
+import json
 import google.generativeai as genai
 
 # --- Import your custom modules ---
 # Replace these with the actual import paths
 from Tool_Manager import ToolManager
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME
-from SomeMemoryScript______MemoryRetrival import RETRIEVE_RELEVANT_FRAMES
-
 
 
 genai.configure(api_key='AIzaSyDGD_89tT5S5KLzSPkKWlRmwgv5cXZRTKA')  # Replace with your actual API key
@@ -58,14 +77,12 @@ COLORS = {
     "concealed": "\033[8m",
     "strikethrough": "\033[9m",
 
-     "bold": "\033[1m",
+    "bold": "\033[1m",
 
 }
 
 
 def create_session_name_and_path():
-
-
     current_directory = os.getcwd()
     sessions_folder = os.path.join(current_directory, "SESIONS")
     session_time = datetime.datetime.now()
@@ -79,83 +96,89 @@ def create_session_name_and_path():
 # Example usage
 session_info = create_session_name_and_path()
 file_path = os.path.join(session_info['session_path'], "conversation_log.txt")
+print(f"sesion_info: {session_info}")
 
-
-
+print(f"session: {session_info['session_name']}")
 
 
 def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
-    """
-    Interprets the response from the LLM and executes function calls if present.
+    """Interprets the model's response, extracts function details, and executes the appropriate function."""
 
-    Args:
-        response (dict): The response from the LLM, containing potential function calls.
-        tool_manager (ToolManager): The tool manager to retrieve and execute functions.
+    results = []
+    function_count = 0
 
-    Returns:
-        list: A list of results from executed functions, formatted for display.
-    """
+    print("-" * 30)
+    print("Function Calls:")
+    print("-" * 30)
 
-    rprint(f"[blue]----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------[/]")
-    Multiple_ResultsOfFunctions_From_interpreter = []
+    for candidate in response.candidates:
+        if hasattr(candidate.content, 'parts'):
+            for part in candidate.content.parts:
+                if hasattr(part, 'function_call'):
+                    function_call = part.function_call
+                    function_name = function_call.name
 
-    # Define specific function mappings here
-    special_function_mapping = {
-        "RETRIVE_RELEVANT_FRAMES": RETRIEVE_RELEVANT_FRAMES,
-        # Add more special function mappings as needed
-    }
+                    # Access arguments as a dictionary
+                    function_args = function_call.args
 
-    if response.candidates:
-        for part in response.candidates[0].content.parts:
-            if hasattr(part, 'function_call'):
-                function_call = part.function_call
-                function_name = function_call.name
-                function_args = function_call.args
+                    function_to_call = tool_manager.tool_mapping.get(function_name)
 
-                # Pretty-print the function call
-                rprint(f"[bold blue]Function Call:[/] {function_name}({function_args})")
+                    if function_to_call:
+                        function_count += 1
+                        print(f"Found Function: {function_name}({function_args})")
+                        try:
+                            # Call the function with keyword arguments from the dictionary
+                            results_from_function = function_to_call(**function_args)
+                            results.append({
+                                'function_name': function_name,
+                                'arguments': function_args,
+                                'result': results_from_function,
+                                'error': None
+                            })
+                        except TypeError as e:
+                            results.append({
+                                'function_name': function_name,
+                                'arguments': function_args,
+                                'result': None,
+                                'error': f"TypeError: {e}"
+                            })
+                        except Exception as e:
+                            results.append({
+                                'function_name': function_name,
+                                'arguments': function_args,
+                                'result': None,
+                                'error': f"Exception: {e}"
+                            })
+                    else:
+                        results.append({
+                            'function_name': function_name,
+                            'arguments': function_args,
+                            'result': None,
+                            'error': "Warning: Tool function '{}' not found.".format(function_name)
+                        })
 
-                # Build a table to display function arguments
-                table = Table(title=f"[bold blue]Function Arguments[/]")
-                table.add_column("Argument", style="cyan", no_wrap=True)
-                table.add_column("Value", style="magenta", no_wrap=True)
+    print("-" * 30)
+    print(f"Total Functions Found: {function_count}")
+    print("-" * 30)
 
-                # Iterate through function arguments and add them to the table
-                for arg_name, arg_value in function_args.items():
-                    table.add_row(arg_name, json.dumps(arg_value, indent=4))
+    # Print the results using Markdown for better formatting
+    for result in results:
+        print(f"Function: {result['function_name']}({result['arguments']})")
+        if result['error']:
+            print(f"Error: {result['error']}")
+        else:
+            print(f"Result: {result['result']}")
 
-                rprint(table)
+    # You can also display the results in a more visual way in your UI
+    clear_output(wait=True)
+    for result in results:
+        display(Markdown(f"### {result['function_name']}({result['arguments']})"))
+        if result['error']:
+            display(Markdown(f"**Error:** {result['error']}"))
+        else:
+            display(Markdown(f"**Result:** {result['result']}"))
 
-                # Get the function from the tool manager
-                function_to_call = tool_manager.tool_mapping.get(function_name)
-
-                # Priority to special function mapping
-                function_to_call = special_function_mapping.get(function_name, function_to_call)
-
-                if function_to_call:
-                    rprint(f"[bold blue]Function to Call:[/] {function_name}")
-                    rprint(f"[bold blue]Function Body:[/]")
-                    rprint(Panel(function_to_call.__doc__, title="[bold blue]Function Docstring[/]"))
-
-                    try:
-                        results = function_to_call(**function_args)
-                    except TypeError as e:
-                        results = f"TypeError: {e}"
-                    except Exception as e:
-                        results = f"Exception: {e}"
-
-                    rprint(f"[bold blue]Function Call Exit:[/] {function_name}")
-
-                    function_name_arguments = f"{function_name}({function_args})"
-                    modified_results = f"Result of Called function {function_name_arguments}: {results}"
-                    Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
-                else:
-                    rprint(f"[yellow]Warning: Tool function '{function_name}' not found.[/]")
-
-    rprint(f"[bold yellow]----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------[/]\n")
-
-    return Multiple_ResultsOfFunctions_From_interpreter
-
+    return results
 
 def sanitize_time_string(time_str: str) -> str:
     return "".join(char for char in time_str if char.isalnum() or char in ("_", "-"))
@@ -215,11 +238,11 @@ def gather_introspection_data(
 
 def perform_reflection(introspection_results: str) -> str:
     reflection_prompt = f"""
- 
+
         {COLORS['bold']}Based on the following introspection should  think of:{COLORS['reset']}
- 
+
         {COLORS['bold']}Based on the following introspection:{COLORS['reset']}
- 
+
         {introspection_results}
 
         {COLORS['bold']}Answer these questions:{COLORS['reset']}
@@ -250,9 +273,6 @@ def plan_actions(reflection_results: str) -> str:
     return action_prompt
 
 
-
-
-
 def store_conversation_frame(
         introspection_results: str,
         reflection_results: str,
@@ -266,7 +286,7 @@ def store_conversation_frame(
         f"Action Plan:\n{action_plan}\n"
         f"Function Call Results:\n{function_call_results}\n"
     )
-    CREATE_MEMORY_FRAME (current_conversation_frame)
+    CREATE_MEMORY_FRAME(current_conversation_frame)
 
 
 def log_conversation(
@@ -339,7 +359,7 @@ def main():
     user_input_signal = "None"
     visual_input_signal = "None"
     audio_input_signal = "None"
-    str_function_call_results = ""
+    str_function_call_results = ""     #this  is  outside  of  loop  it  can hold  result of  function
 
     while True:
         try:
@@ -373,6 +393,7 @@ def main():
             # Introspection
             introspection_response = introspection_chat.send_message(introspection_data)
             print(f"{COLORS['yellow']}{introspection_response.text}{COLORS['reset']}\n")
+
             with open(conversation_log_path, "a+", encoding="utf-8") as file:
                 file.write(f"Introspection: {introspection_response.text}\n")
 
@@ -407,18 +428,23 @@ def main():
                 print("No text in action_response.text")
 
             # Function Execution (Tool Usage)
-            print("========================Interpreter start=========================")
+            print(f"{COLORS['blue']}========================Interpreter start=========================")
             print(f"{COLORS['magenta']}Function Execution:{COLORS['reset']}")
             try:
                 function_call_results = RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
                 str_function_call_results = str(function_call_results)
-                print("========================Interpreter  end=========================")
+
 
                 with open(conversation_log_path, "a+", encoding="utf-8") as file:
                     file.write(f"Function Execution: {function_call_results}\n")
+
+                print(f"{COLORS['light_magenta']} Result Return from Function call")
+                print(f" {COLORS['light_magenta']}   {str_function_call_results} ")
             except Exception as e:
                 print(e)
 
+
+            print(f"{COLORS['blue']}========================Interpreter  end=========================")
             # Update conversation frame and create memory
             if function_call_results is None:
                 function_call_results = "None"
@@ -435,26 +461,23 @@ def main():
                 current_conversation_frame = (
                     f"Introspection:\n{introspection_response.text}\n"
                     f"Reflection:\n{reflection_response.text}\n"
-                    f"Action Plan:\n{action_response}\n"
-                    f"Function Call Results:\n{str_function_call_results}\n"
-                )
-                CREATE_MEMORY_FRAME(current_conversation_frame)
+                    f"Action:\n{action_response}\n"
+                    f"Function Call Results:\n{str_function_call_results}\n")
+                CREATE_MEMORY_FRAME(current_conversation_frame, SESION_INFO=session_info['session_name'])
             except Exception as E:
                 print(E)
 
             if user_input_count > 0:  # Only log after user input
                 log_conversation(conversation_log_path, iteration_count, current_conversation_frame)
 
-            print("Passing results of  funcino call")
-            print("results:")
-            print( f" {COLORS['light_magenta']}   {str_function_call_results} ")
+
             print(f"{COLORS['bold']}{COLORS['green']}******************************************************{COLORS['reset']}\n")
         except Exception as e:
             print(f"{COLORS['red']}Error: {e}{COLORS['reset']}")
             break
 
 
+
 if __name__ == "__main__":
     print("Going into main()")
     main()
-
