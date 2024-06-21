@@ -101,7 +101,7 @@ def call_interaction_model(user_input, timestamp):
         return None
 
 def call_memory_model(user_input, response1_text):
-    print(f"\n{CYAN}---------------- Calling Memory Model ----------------{RESET}")
+    print(f"\n{CYAN}--- Calling Memory Model ---{RESET}")
     try:
         memory_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
@@ -579,52 +579,48 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data, 
     proposed_name = memory_data.get("naming_suggestion", {}).get("memory_frame_name", "UnnamedMemory")
     importance_level = memory_data.get("importance", {}).get("importance_level", "UnknownImportance")
 
-    for i, folder_info in  enumerate(storage_folders):
-        if i<1:
-            folder_path = folder_info.get("folder_path", "")
-            probability = folder_info.get("probability", 0)
-            print(f"Processing folder: {folder_path} (Probability: {probability})")
+    for folder_info in storage_folders:
+        folder_path = folder_info.get("folder_path", "")
+        probability = folder_info.get("probability", 0)
+        print(f"Processing folder: {folder_path} (Probability: {probability})")
 
-            if folder_path in connection_map:
-                print(f"Folder '{folder_path}' found in connection map.")
-                target_folder_path = connection_map[folder_path]
-            else:
-                print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
-                target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
-                os.makedirs(target_folder_path, exist_ok=True)
+        if folder_path in connection_map:
+            print(f"Folder '{folder_path}' found in connection map.")
+            target_folder_path = connection_map[folder_path]
+        else:
+            print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
+            target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
+            os.makedirs(target_folder_path, exist_ok=True)
 
+        # Construct the filename using the current folder's probability
+        memory_frame_name = f"MemoryFrame_{MEMORY_FRAME_NUMBER:05d}_{SESION_INFO}_{timestamp}_Probability_{probability}_Importance_{importance_level}__{proposed_name}.json"
+        memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
+        print(f"Memory frame name: {memory_frame_name}")
+        print(f"Memory frame path: {memory_frame_path}")
 
-            if SESION_INFO is None:
-                SESION_INFO="Unknown"
-            # Construct the filename using the current folder's probability
-            memory_frame_name = f"MemoryFrame__session_{SESION_INFO}___{timestamp}___Probability_{probability}___Importance_{importance_level}___{proposed_name}.json"
-            memory_frame_path = os.path.join(target_folder_path, memory_frame_name)
-            print(f"Memory frame name: {memory_frame_name}")
-            print(f"Memory frame path: {memory_frame_path}")
+        memory_frame_data = {
+            "input": user_input,
+            "response1": response1_text,
+            "response2": response2_text,
+            "memory_data": memory_data,
+            "timestamp": timestamp,
+            "edit_number": EDIT_NUMBER
+        }
 
-            memory_frame_data = {
-                "input": user_input,
-                "response1": response1_text,
-                "response2": response2_text,
-                "memory_data": memory_data,
-                "timestamp": timestamp,
-                "edit_number": EDIT_NUMBER
-            }
-
-            try:
-                with open(memory_frame_path, 'w') as file:
-                    json.dump(memory_frame_data, file, indent=4)
-                print(f"{YELLOW}Memory frame saved successfully at: {memory_frame_path}{RESET}")
-                memory_frame_paths.append(memory_frame_path)
-            except Exception as e:
-                print(f"Error saving memory frame: {e}")
+        try:
+            with open(memory_frame_path, 'w') as file:
+                json.dump(memory_frame_data, file, indent=4)
+            print(f"{YELLOW}Memory frame saved successfully at: {memory_frame_path}{RESET}")
+            memory_frame_paths.append(memory_frame_path)
+        except Exception as e:
+            print(f"Error saving memory frame: {e}")
 
     update_html_logs(MEMORY_FRAME_NUMBER, proposed_name, timestamp, memory_frame_paths, memories_folder_path)
     MEMORY_FRAME_NUMBER += 1
     EDIT_NUMBER = 0
 
 
-def CREATE_MEMORY_FRAME(conversationInput,SESION_INFO=None):
+def CREATE_MEMORY_FRAME(conversationInput):
     global MEMORY_FRAME_NUMBER, EDIT_NUMBER
     MEMORY_FRAME_NUMBER = 1
     TIMESTAMP_FORMAT = '%Y-%m-%d_%H-%M'
@@ -648,11 +644,11 @@ def CREATE_MEMORY_FRAME(conversationInput,SESION_INFO=None):
     try:
         for entry in memory_entries:
             # Store the memory frame with dummy user input and response1 (as it's only conversationInput)
-            store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation.text, memory_data=entry, SESION_INFO=SESION_INFO)
+            store_memory_frame(user_input="None", response1_text=conversationInput, response2_text=MemorySumarisation.text, memory_data=entry, SESION_INFO="Conversation")
     except Exception as E:
         print(E)
 
-    print("-----------CREATE_MEMORY_FRAME FINISHED-----------------")
+    print("CREATE_MEMORY_FRAME   finished")
 
 
 """"
