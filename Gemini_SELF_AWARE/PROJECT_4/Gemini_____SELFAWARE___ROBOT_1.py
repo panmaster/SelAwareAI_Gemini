@@ -8,7 +8,7 @@ from rich.console import Console
 import google.generativeai as genai
 from prettytable import PrettyTable
 import json
-from MEMORY______________frame_creation import CREATE_MEMORY_FRAME
+from MEMORY______________frame_creation import CREATE_MEMORY_FRAME as CREATE_MEMORY_FRAME
 from Tool_Manager import ToolManager
 
 
@@ -296,7 +296,7 @@ def main():
     while True:
         print()
         try:
-            if iteration_count % 4 == 0:
+            if iteration_count % 1 == 0:
                 user_input = input(
                     f"{YELLOW}Enter your input (or press Enter to skip): {RESET}"
                 )
@@ -355,7 +355,7 @@ def main():
             #interpteter
             try:
                 function_call_results = RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
-                str_function_call_results = dict_to_pretty_string( function_call_results)
+                str_function_call_results = dict_to_pretty_string(function_call_results)
 
                 with open(conversation_log_path, "a+", encoding="utf-8") as file:
                     file.write(f"Function Execution: {function_call_results}\n")
@@ -375,6 +375,7 @@ def main():
                 str_function_call_results = ""
 
             try:
+                print("CREATE MEMORY FRAME FROM LOOP")
                 current_conversation_frame = (
                     f"Introspection:\n{introspection_response.text}\n"
                     f"Reflection:\n{reflection_response.text}\n"
