@@ -1,14 +1,13 @@
 import os
 import importlib.util
 import google.generativeai as genai
-from termcolor import colored, cprint  # Import termcolor for colored printing
 import json
 from typing import Dict, Tuple
 
 class ToolManager:
     def __init__(self, tools_directory="tools"):
         """Initializes the tool manager by loading tools from the specified directory."""
-        print(f"Initializing ToolManager with tools directory: {tools_directory}")
+        print(f"\033[92mInitializing ToolManager with tools directory: {tools_directory}\033[0m")
         self.tools_directory = tools_directory
         self.tool_mapping = {}  # Map tool names to functions
         self.all_tools = []  # List of loaded tool descriptions (JSON)
@@ -18,25 +17,44 @@ class ToolManager:
 
     def _load_tools(self):
         """Scans the tools directory, loads tools, and populates tool_mapping."""
-        print(f"Scanning tools directory: {self.tools_directory}")
+        print(f"\033[92mScanning tools directory: {self.tools_directory}\033[0m")
+        tool_count = 1 # Initialize tool count
 
         for category in os.listdir(self.tools_directory):
-            print(f"Found category: {category}")
+            print(f"  \033[94m{tool_count}. Found category: {category}\033[0m")
+            tool_count += 1 # Increment for category
             category_path = os.path.join(self.tools_directory, category)
             if os.path.isdir(category_path):
-                print(f"Entering category directory: {category_path}")
-                self.categories[category] = {"tools": []}  # Store the category information
+                self.categories[category] = {"tools": []}
 
                 for filename in os.listdir(category_path):
                     if filename.endswith(".py") and not filename.startswith("_"):
-                        print(f"Found Python file: {filename}")
-                        tool_name = filename[:-3]  # Remove '.py' extension
+                        print(f"    \033[96m{tool_count}. - Found Python file: {filename}\033[0m")
+                        tool_count += 1 # Increment for each tool file
+                        tool_name = filename[:-3]
+                        self._load_tool(category, tool_name)
+                        self.categories[category]["tools"].append(tool_name)
+
+    def _load_tools(self):
+        """Scans the tools directory, loads tools, and populates tool_mapping."""
+        print(f"\033[92mScanning tools directory: {self.tools_directory}\033[0m")
+
+        for category in os.listdir(self.tools_directory):
+            print(f"  \033[94mFound category: {category}\033[0m")
+            category_path = os.path.join(self.tools_directory, category)
+            if os.path.isdir(category_path):
+                self.categories[category] = {"tools": []}
+
+                for filename in os.listdir(category_path):
+                    if filename.endswith(".py") and not filename.startswith("_"):
+                        print(f"    \033[96m- Found Python file: {filename}\033[0m")
+                        tool_name = filename[:-3]
                         self._load_tool(category, tool_name)
                         self.categories[category]["tools"].append(tool_name)
 
     def _load_tool(self, category, tool_name):
         """Loads a single tool from a given category."""
-        print(f"Loading tool: {tool_name} from category: {category}")
+        print(f"    \033[96m- Loading tool: {tool_name} from category: {category}\033[0m")
         module_name = f"{category}.{tool_name}"
         module_path = os.path.join(self.tools_directory, category, f"{tool_name}.py")
 
@@ -47,31 +65,28 @@ class ToolManager:
         # Assume tool function has the same name as the module
         tool_function = getattr(module, tool_name)
 
-        # Get description (assuming naming convention like 'tool_name_description_json')
+        # Get description
         description_name = f"{tool_name}_description_json"
         tool_description = getattr(module, description_name, None)
 
-        # Get short description (assuming naming convention like 'tool_name_description_short_str')
+        # Get short description
         short_description_name = f"{tool_name}_description_short_str"
         short_description = getattr(module, short_description_name, None)
 
-        # Check if the tool exists
         if tool_function is not None:
-            print(f"Tool function '{tool_name}' loaded successfully")
+            print(f"      \033[92m- Tool function '{tool_name}' loaded successfully\033[0m")
             self.tool_mapping[tool_name] = tool_function
             self.all_tools.append(tool_description)
             self.short_descriptions[tool_name] = short_description
-            print(f"Tool description: {tool_description}")
-            print(f"Short description: {short_description}")
         else:
-            print(f"Warning: Could not load tool function '{tool_name}' from '{module_path}'")
+            print(f"      \033[91m- Warning: Could not load tool function '{tool_name}' from '{module_path}'\033[0m")
 
     def get_tools_list_json(self):
         """Returns a list of JSON tool descriptions."""
         return self.all_tools
 
     def get_tools_structure(self):
-        """Returns a dictionary representing the structure of the tools folder, including categories."""
+        """Returns a dictionary representing the structure of the tools folder."""
         return {
             "categories": self.categories,
             "all_tools": self.all_tools,
@@ -84,31 +99,28 @@ class ToolManager:
 
         tools_structure = self.get_tools_structure()
 
-        cprint("\n\n========================================", "magenta")
-        cprint("  Tool Manager Structure", "cyan", attrs=["bold"])
-        cprint("========================================", "magenta")
+        print("\n\n\033[95m=========================================\033[0m")
+        print(f"  \033[96mTool Manager Structure\033[0m")
+        print("\033[95m=========================================\033[0m")
 
-        cprint("\nCategories:", "green", attrs=["bold"])
+        print(f"\n\033[92mCategories:\033[0m")
         for category, info in tools_structure["categories"].items():
-            cprint(f"  {category}:", "blue", attrs=["bold"])
+            print(f"  \033[94m- {category}:\033[0m")
             for tool_name in info["tools"]:
-                cprint(f"    - {tool_name}", "cyan")
+                print(f"    \033[96m- {tool_name}\033[0m")
 
-        cprint("\n\nTool Descriptions (JSON):", "green", attrs=["bold"])
+        print(f"\n\n\033[92mTool Descriptions (JSON):\033[0m")
         for i, tool_json in enumerate(tools_structure["all_tools"]):
-            cprint(f"  {i+1}. {tool_json}", "yellow")
+            print(f"  \033[93m{i+1}. {json.dumps(tool_json, indent=4)}\033[0m")
 
-        cprint("\n\nTool Mapping:", "green", attrs=["bold"])
-        for tool_name, tool_function in tools_structure["tool_mapping"].items():
-            cprint(f"  {tool_name}: {tool_function}", "yellow")
-
-        cprint("\n\nShort Tool Descriptions:", "green", attrs=["bold"])
+        print(f"\n\n\033[92mShort Tool Descriptions:\033[0m")
         for tool_name, short_description in tools_structure["short_descriptions"].items():
-            cprint(f"  {tool_name}: {short_description}", "cyan")
+            print(f"  \033[96m- {tool_name}: {short_description}\033[0m")
 
-        cprint("\n\n========================================", "magenta")
+        print(f"\n\n\033[95m=========================================\033[0m")
 
         return tools_structure
+
 
 def ChooseToolByAI(user_prompt: str, tools_structure: Dict) -> str:
     """
@@ -117,9 +129,13 @@ def ChooseToolByAI(user_prompt: str, tools_structure: Dict) -> str:
     """
     for tool_name, tool_description in tools_structure["short_descriptions"].items():
         # Check if the tool returns JSON descriptions
-        tool_json = next(item for item in tools_structure["all_tools"] if item["name"] == tool_name)
-        if tool_json["return_type"] == "json":
-            if any(keyword in user_prompt.lower() for keyword in tool_description.lower().split()):
+        tool_json = next(
+            (item for item in tools_structure["all_tools"] if item["name"] == tool_name), None
+        )
+        if tool_json and tool_json["return_type"] == "json":
+            if any(
+                keyword in user_prompt.lower() for keyword in tool_description.lower().split()
+            ):
                 return f"Call tool: {tool_name}"
     return "Call tool: none"
 
@@ -129,10 +145,9 @@ def extract_tool_and_arguments_from_ai_response(ai_response: str) -> Tuple[str, 
     """
     for line in ai_response.split("\n"):
         if line.startswith("Call tool: "):
-            parts = line.split("Call tool: ")
+            parts = line.split("Call tool: ", 1)
             tool_name = parts[1].strip()
-            arguments = parts[1] if len(parts) > 1 else ""
-            return tool_name, arguments
+            return tool_name, ''
     return None, None
 
 def execute_selected_tool(tool_manager: ToolManager, tool_name: str, arguments: str = None) -> str:

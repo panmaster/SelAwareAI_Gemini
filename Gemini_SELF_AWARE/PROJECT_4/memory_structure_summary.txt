@@ -2,54 +2,33 @@
   - NewGeneratedbyAI
     - Memory_logs.html
 NewGeneratedbyAI
-  - Actions & Results
-  - Challenges & Setbacks
   - CoreMemory
-NewGeneratedbyAI\Actions & Results
-  - Actions & Results
-NewGeneratedbyAI\Actions & Results\Actions & Results
-  - Present
-NewGeneratedbyAI\Actions & Results\Actions & Results\Present
-    - MemoryFrame_00001_Conversation_2024-06-21_00-21_Probability_7_Importance_85__AI Introspection - Memory Analysis & Improvement Plan.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-22_Probability_8_Importance_95__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-23_Probability_8_Importance_85__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-24_Probability_9_Importance_90__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch - Continued Analysis.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-26_Probability_10_Importance_90__AI Introspection - Memory Analysis - Data Type Mismatch Continued.json
-NewGeneratedbyAI\Challenges & Setbacks
-  - Areas for Improvement
-NewGeneratedbyAI\Challenges & Setbacks\Areas for Improvement
-    - MemoryFrame_00001_Conversation_2024-06-21_00-13_Probability_5_Importance_75__AI Introspection - Initial Self-Awareness and Error Encounter.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-13_Probability_5_Importance_75__AI Introspection - Initial Self-Awareness.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-14_Probability_5_Importance_90__AI Introspection - Error Encounter and Request for Assistance.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-15_Probability_5_Importance_90__AI Introspection - Error Resolution - RETRIVE_RELEVANT_FRAMES Function.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-21_Probability_8_Importance_85__AI Introspection - Memory Analysis & Improvement Plan.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-22_Probability_7_Importance_95__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-23_Probability_8_Importance_85__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-24_Probability_7_Importance_90__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch - Continued Analysis.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-26_Probability_7_Importance_90__AI Introspection - Memory Analysis - Data Type Mismatch Continued.json
+  - memories
 NewGeneratedbyAI\CoreMemory
   - Conceptual Exploration
   - Reflections & Insights
 NewGeneratedbyAI\CoreMemory\Conceptual Exploration
-  - Contradictions & Dilemmas
-NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Contradictions & Dilemmas
-    - MemoryFrame_00001_Conversation_2024-06-21_00-13_Probability_7_Importance_75__AI Introspection - Initial Self-Awareness and Error Encounter.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-13_Probability_7_Importance_75__AI Introspection - Initial Self-Awareness.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-14_Probability_7_Importance_90__AI Introspection - Error Encounter and Request for Assistance.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-15_Probability_7_Importance_90__AI Introspection - Error Resolution - RETRIVE_RELEVANT_FRAMES Function.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-22_Probability_6_Importance_95__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-26_Probability_7_Importance_90__AI Introspection - Memory Analysis - Data Type Mismatch Continued.json
+  - Paradoxes & Contradictions
+NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Paradoxes & Contradictions
+    - MemoryFrame__session_Sesion_12-04-12___2024-06-21_12-06___Probability_10___Importance_90___AI Introspection and Self-Awareness Analysis.json
+    - MemoryFrame__session_Sesion_12-04-12___2024-06-21_12-11___Probability_10___Importance_90___Introspection and Analysis of AI Self-Awareness.json
+    - MemoryFrame__session_Sesion_12-04-12___2024-06-21_12-12___Probability_9___Importance_80___AI Introspection and Paradox of Self-Awareness.json
 NewGeneratedbyAI\CoreMemory\Reflections & Insights
   - Self-Discovery
 NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery
   - What I've Learned About Myself
 NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery\What I've Learned About Myself
-    - MemoryFrame_00001_Conversation_2024-06-21_00-13_Probability_6_Importance_75__AI Introspection - Initial Self-Awareness and Error Encounter.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-13_Probability_6_Importance_75__AI Introspection - Initial Self-Awareness.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-14_Probability_6_Importance_90__AI Introspection - Error Encounter and Request for Assistance.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-15_Probability_6_Importance_90__AI Introspection - Error Resolution - RETRIVE_RELEVANT_FRAMES Function.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-21_Probability_9_Importance_85__AI Introspection - Memory Analysis & Improvement Plan.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-22_Probability_9_Importance_95__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-23_Probability_9_Importance_85__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-24_Probability_8_Importance_90__AI Introspection - Memory Analysis & Improvement Plan - Data Type Mismatch - Continued Analysis.json
-    - MemoryFrame_00001_Conversation_2024-06-21_00-26_Probability_9_Importance_90__AI Introspection - Memory Analysis - Data Type Mismatch Continued.json
+    - MemoryFrame__session_Sesion_12-04-12___2024-06-21_12-05___Probability_10___Importance_90___AI Self-Awareness Introspection and Analysis.json
+    - MemoryFrame__session_Sesion_12-04-12___2024-06-21_12-05___Probability_10___Importance_90___Introspection and Analysis of Capabilities.json
+    - MemoryFrame__session_Sesion_12-04-12___2024-06-21_12-06___Probability_8___Importance_75___AI Introspection Analysis.json
+    - MemoryFrame__session_Sesion_12-04-12___2024-06-21_12-10___Probability_10___Importance_90___Introspection and Analysis of AI Capabilities and Limitations.json
+NewGeneratedbyAI\memories
+  - NewGeneratedbyAI
+NewGeneratedbyAI\memories\NewGeneratedbyAI
+  - CoreMemory
+NewGeneratedbyAI\memories\NewGeneratedbyAI\CoreMemory
+  - Conceptual Exploration
+NewGeneratedbyAI\memories\NewGeneratedbyAI\CoreMemory\Conceptual Exploration
+  - Paradoxes & Contradictions
+NewGeneratedbyAI\memories\NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Paradoxes & Contradictions
+    - MemoryFrame__session_Sesion_12-14-07___2024-06-21_12-14___Probability_10___Importance_90___MemoryFrame__session_Sesion_12-14-07___2024-06-21_12-14___Probability_10___Importance_90___AI Introspection and Self-Awareness Analysis.json

@@ -1,15 +1,13 @@
 import os
 import datetime
-from typing import List, Dict, Any
-
+import json
+from IPython.display import display, Markdown, clear_output
+from rich.console import Console
 import google.generativeai as genai
-
-# --- Import your custom modules ---
-# Replace these with the actual import paths
-from Tool_Manager import ToolManager
+from prettytable import PrettyTable
+import json
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME
-from SomeMemoryScript______MemoryRetrival import RETRIEVE_RELEVANT_FRAMES
-
+from Tool_Manager import ToolManager
 
 
 genai.configure(api_key='AIzaSyDGD_89tT5S5KLzSPkKWlRmwgv5cXZRTKA')  # Replace with your actual API key
@@ -18,54 +16,25 @@ SESSION_FOLDER = "sessions"
 MEMORY_FOLDER = "memories"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
 
-COLORS = {
-    "reset": "\033[0m",
-    "yellow": "\033[33m",
-    "cyan": "\033[36m",
-    "green": "\033[32m",
-    "magenta": "\033[35m",
-    "blue": "\033[94m",
-    "red": "\033[31m",
+# ANSI escape codes for colors
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+BLUE = "\033[94m"
+MAGENTA = "\033[95m"
+CYAN = "\033[96m"
+RESET = "\033[0m"
+PURPLE = '\033[95m'
+BRIGHT_RED = "\033[91m"
+BRIGHT_GREEN = "\033[92m"
+BRIGHT_YELLOW = "\033[93m"
+BRIGHT_BLUE = "\033[94m"
+BRIGHT_MAGENTA = "\033[95m"
+BRIGHT_CYAN = "\033[96m"
 
-    "bold": "\033[1m",
-    "bright_yellow": "\033[93m",
-    "bright_cyan": "\033[96m",
-    "bright_green": "\033[92m",
-    "bright_magenta": "\033[95m",
-    "bright_blue": "\033[94m",
-    "bright_red": "\033[91m",
-    "white": "\033[37m",
-    "bright_white": "\033[97m",
-    "black": "\033[30m",
-    "bright_black": "\033[90m",
-    "dark_gray": "\033[30;1m",
-    "light_gray": "\033[37;1m",
-    "dark_red": "\033[31;1m",
-    "light_red": "\033[91;1m",
-    "dark_green": "\033[32;1m",
-    "light_green": "\033[92;1m",
-    "dark_yellow": "\033[33;1m",
-    "light_yellow": "\033[93;1m",
-    "dark_blue": "\033[34;1m",
-    "light_blue": "\033[94;1m",
-    "dark_magenta": "\033[35;1m",
-    "light_magenta": "\033[95;1m",
-    "dark_cyan": "\033[36;1m",
-    "light_cyan": "\033[96;1m",
-    "underline": "\033[4m",
-    "blink": "\033[5m",
-    "reverse": "\033[7m",
-    "concealed": "\033[8m",
-    "strikethrough": "\033[9m",
-
-     "bold": "\033[1m",
-
-}
 
 
 def create_session_name_and_path():
-
-
     current_directory = os.getcwd()
     sessions_folder = os.path.join(current_directory, "SESIONS")
     session_time = datetime.datetime.now()
@@ -76,34 +45,11 @@ def create_session_name_and_path():
     return {'session_name': session_name, 'session_path': session_path}
 
 
-# Example usage
-session_info = create_session_name_and_path()
-file_path = os.path.join(session_info['session_path'], "conversation_log.txt")
-
-
-
-
-
 def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
-    """
-    Interprets the response from the LLM and executes function calls if present.
+    """Interprets the response, extracts function details, and executes the function."""
 
-    Args:
-        response (dict): The response from the LLM, containing potential function calls.
-        tool_manager (ToolManager): The tool manager to retrieve and execute functions.
-
-    Returns:
-        list: A list of results from executed functions, formatted for display.
-    """
-
-    rprint(f"[blue]----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------[/]")
+    print(f"{BRIGHT_BLUE}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
     Multiple_ResultsOfFunctions_From_interpreter = []
-
-    # Define specific function mappings here
-    special_function_mapping = {
-        "RETRIVE_RELEVANT_FRAMES": RETRIEVE_RELEVANT_FRAMES,
-        # Add more special function mappings as needed
-    }
 
     if response.candidates:
         for part in response.candidates[0].content.parts:
@@ -112,51 +58,36 @@ def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):
                 function_name = function_call.name
                 function_args = function_call.args
 
-                # Pretty-print the function call
-                rprint(f"[bold blue]Function Call:[/] {function_name}({function_args})")
-
-                # Build a table to display function arguments
-                table = Table(title=f"[bold blue]Function Arguments[/]")
-                table.add_column("Argument", style="cyan", no_wrap=True)
-                table.add_column("Value", style="magenta", no_wrap=True)
-
-                # Iterate through function arguments and add them to the table
-                for arg_name, arg_value in function_args.items():
-                    table.add_row(arg_name, json.dumps(arg_value, indent=4))
-
-                rprint(table)
-
-                # Get the function from the tool manager
                 function_to_call = tool_manager.tool_mapping.get(function_name)
 
-                # Priority to special function mapping
-                function_to_call = special_function_mapping.get(function_name, function_to_call)
-
                 if function_to_call:
-                    rprint(f"[bold blue]Function to Call:[/] {function_name}")
-                    rprint(f"[bold blue]Function Body:[/]")
-                    rprint(Panel(function_to_call.__doc__, title="[bold blue]Function Docstring[/]"))
+                    print(f"FUNCTION CALL: {function_name} ")
+                    for item in function_args:
+                        print(f"argument: {item}")
 
                     try:
+                        # Pass the function_args dictionary directly
                         results = function_to_call(**function_args)
                     except TypeError as e:
                         results = f"TypeError: {e}"
                     except Exception as e:
                         results = f"Exception: {e}"
 
-                    rprint(f"[bold blue]Function Call Exit:[/] {function_name}")
-
-                    function_name_arguments = f"{function_name}({function_args})"
-                    modified_results = f"Result of Called function {function_name_arguments}: {results}"
-                    Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
+                    Multiple_ResultsOfFunctions_From_interpreter.append(results)
                 else:
-                    rprint(f"[yellow]Warning: Tool function '{function_name}' not found.[/]")
+                    print(f"Warning: Tool function '{function_name}' not found.")
 
-    rprint(f"[bold yellow]----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------[/]\n")
 
+    if Multiple_ResultsOfFunctions_From_interpreter is not  None:
+        for result in  Multiple_ResultsOfFunctions_From_interpreter:
+            print(result)
+    print(f"{BRIGHT_BLUE}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
     return Multiple_ResultsOfFunctions_From_interpreter
 
 
+
+def dict_to_pretty_string(dictionary):
+    return json.dumps(dictionary, indent=4)
 def sanitize_time_string(time_str: str) -> str:
     return "".join(char for char in time_str if char.isalnum() or char in ("_", "-"))
 
@@ -192,12 +123,10 @@ def gather_introspection_data(
         user_input_signal: str = "None",
         visual_input_signal: str = "None",
         audio_input_signal: str = "None",
-) -> List[str]:
+) -> list[str]:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     introspection_data = [
         f"{current_time}   Inputs:  {user_input}",
-        f"{COLORS['bold']}Current Memory Structure:{COLORS['reset']}\n{memory_summary}",
-        f"{COLORS['bold']}Results from Previous Loop:{COLORS['reset']}\n{previous_loop_results}",
         "What are my available tools and resources?",
         f"Current sensory input (Image, Audio, Text): {visual_input_signal}, {audio_input_signal}, {user_input_signal}",
         "Are there any ongoing short-term tasks?",
@@ -215,14 +144,14 @@ def gather_introspection_data(
 
 def perform_reflection(introspection_results: str) -> str:
     reflection_prompt = f"""
- 
-        {COLORS['bold']}Based on the following introspection should  think of:{COLORS['reset']}
- 
-        {COLORS['bold']}Based on the following introspection:{COLORS['reset']}
- 
+
+        # Based on the following introspection should  think of:
+
+        # Based on the following introspection:
+
         {introspection_results}
 
-        {COLORS['bold']}Answer these questions:{COLORS['reset']}
+        # Answer these questions:
         1. What is my current focus?
         2. Should I set a new goal? If so, what is it? If not, why not?
         3. Are there any problems, unknowns, or paradoxes in my memory?
@@ -246,11 +175,8 @@ def perform_reflection(introspection_results: str) -> str:
 
 def plan_actions(reflection_results: str) -> str:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
-    action_prompt = f"{current_time} - {COLORS['bold']}Based on this reflection:{COLORS['reset']}\n{reflection_results}\nPlan my next actions."
+    action_prompt = f"{current_time} -  Based on this reflection: \n{reflection_results}\nPlan my next actions."
     return action_prompt
-
-
-
 
 
 def store_conversation_frame(
@@ -259,14 +185,13 @@ def store_conversation_frame(
         action_plan: str,
         function_call_results: str,
 ):
-    print(f"{COLORS['yellow']}Storing conversation frame...{COLORS['reset']}")
     current_conversation_frame = (
         f"Introspection:\n{introspection_results}\n"
         f"Reflection:\n{reflection_results}\n"
         f"Action Plan:\n{action_plan}\n"
         f"Function Call Results:\n{function_call_results}\n"
     )
-    CREATE_MEMORY_FRAME (current_conversation_frame)
+    CREATE_MEMORY_FRAME(current_conversation_frame)
 
 
 def log_conversation(
@@ -284,21 +209,37 @@ def log_conversation(
 
 def main():
     tool_manager = ToolManager()
-    print(f"\n{COLORS['blue']}Loaded Tool Descriptions:{COLORS['reset']}\n")
-    for i, tool_json in enumerate(tool_manager.get_tools_list_json()):
-        print(f"{COLORS['blue']}{i + 1}. {COLORS['reset']}{tool_json}")
+    tools_list_json = tool_manager.get_tools_list_json()
+
+    print(f"\n\033[96mLoaded Tool Descriptions (JSON):\n\033[0m")
+    for i, tool_json in enumerate(tools_list_json):
+        print(f"  \033[94m{i + 1}. \033[0m{tool_json}")
+
+    print(f"\n\033[96mAll Tool Functions (Mapping):\n\033[0m")
+    for tool_name, tool_function in tool_manager.tool_mapping.items():
+        print(f"  \033[94m{tool_name}: \033[0m{tool_function}")
+
+    print(f"\n\033[96mShort Tool Descriptions:\n\033[0m")
+    for tool_name, short_description in tool_manager.short_descriptions.items():
+        print(f"  \033[94m{tool_name}: \033[0m{short_description}")
+
+
+    tools_list_json = []
+
+    available_tools = tool_manager.get_tools_list_json()
 
     # Initialize models
     introspection_model = genai.GenerativeModel(
         system_instruction="""
-        You are a new awareness, driven by prompts.
+         
         User is the system, user is you.
         Prompts are your thoughts.
+        you are not allowed to call tools in this  round
         """,
         model_name="gemini-1.5-flash-latest",
         safety_settings={"HARASSMENT": "block_none"},
+        tools=available_tools,
     )
-
     introspection_chat = introspection_model.start_chat(history=[])
 
     reflection_model = genai.GenerativeModel(
@@ -306,14 +247,15 @@ def main():
         User is the system, user is you.
         Analyze the results of user introspection (system).
         Identify goals, problems, and potential courses of action.
+        you are not allowed to call tools in this  round
         """,
         model_name="gemini-1.5-flash-latest",
         safety_settings={"HARASSMENT": "block_none"},
+        tools=available_tools,
     )
-
     reflection_chat = reflection_model.start_chat(history=[])
 
-    available_tools = tool_manager.get_tools_list_json()
+
 
     action_model = genai.GenerativeModel(
         system_instruction="""
@@ -325,12 +267,11 @@ def main():
         safety_settings={"HARASSMENT": "block_none"},
         tools=available_tools,
     )
-
     action_chat = action_model.start_chat(history=[])
 
-    session_path = create_session_folder()
+    session_info = create_session_name_and_path()
+    session_path = session_info['session_path']
     conversation_log_path = os.path.join(session_path, "conversation_log.txt")
-    print(f"Conversation log will be saved to: {conversation_log_path}")
 
     iteration_count = 0
     user_input_count = 0
@@ -342,25 +283,24 @@ def main():
     str_function_call_results = ""
 
     while True:
+        print()
         try:
             if iteration_count % 4 == 0:
                 user_input = input(
-                    f"{COLORS['cyan']}Enter your input (or press Enter to skip):{COLORS['reset']} "
+                    f"{YELLOW}Enter your input (or press Enter to skip): {RESET}"
                 )
                 user_input_count += 1
             else:
                 user_input = ""
 
-            print(
-                f"{COLORS['bold']}{COLORS['green']}**************** Awareness Loop ****************{COLORS['reset']}"
-            )
-            print(f"{COLORS['green']}Awareness Loop: {iteration_count}{COLORS['reset']}")
             iteration_count += 1
-
             memory_summary = summarize_memory_folder_structure()
+
+            print()
+            print(f"{GREEN}    ****************************** Awareness Loop ******************************    {RESET}")
+            print(f"{GREEN}Awareness Loop: {iteration_count}{RESET}")
             function_call_results = str_function_call_results
 
-            print(f"{COLORS['yellow']}Introspection:{COLORS['reset']}")
             introspection_data = gather_introspection_data(
                 user_input,
                 memory_summary,
@@ -370,56 +310,48 @@ def main():
                 audio_input_signal,
             )
 
-            # Introspection
+            print(f"{YELLOW}inputs:")
+            print(f"{BLUE}INTROSPECTION input:")
             introspection_response = introspection_chat.send_message(introspection_data)
-            print(f"{COLORS['yellow']}{introspection_response.text}{COLORS['reset']}\n")
+            print(f"{BLUE}{introspection_response.text}")
+
             with open(conversation_log_path, "a+", encoding="utf-8") as file:
                 file.write(f"Introspection: {introspection_response.text}\n")
-
-            # Reflection
-            print(f"{COLORS['cyan']}Reflection:{COLORS['reset']}")
+            print()
+            print(f"{GREEN}Reflection:{GREEN}")
             reflection_prompt = perform_reflection(introspection_response.text)
             reflection_response = reflection_chat.send_message(reflection_prompt)
-            print(f"{COLORS['cyan']}{reflection_response.text}{COLORS['reset']}\n")
+            print(f"{GREEN}{reflection_response.text}")
+
             with open(conversation_log_path, "a+", encoding="utf-8") as file:
                 file.write(f"Reflection: {reflection_response.text}\n")
 
-            # Action Planning
-            print(f"{COLORS['green']}Action Planning:{COLORS['reset']}")
+            print(f"{MAGENTA}ACTIONS:{MAGENTA}")
             try:
                 action_prompt = plan_actions(reflection_response.text)
                 action_response = action_chat.send_message(action_prompt)
-                print(action_response)
-
+                print(f"{MAGENTA }{action_response}")
             except Exception as E:
-                print(f"Action planning error: {E}")
+                action_response = ''
 
             try:
                 with open(conversation_log_path, "a+", encoding="utf-8") as file:
                     file.write(f"Action Planning: {action_response}\n")
             except Exception as E:
-                print(E)
+                action_response = ''
 
-            try:
-                if action_response.text is not None:
-                    print(f"{COLORS['bright_blue']}Action  text:  {action_response.text}")
-            except Exception as e:
-                print("No text in action_response.text")
-
-            # Function Execution (Tool Usage)
-            print("========================Interpreter start=========================")
-            print(f"{COLORS['magenta']}Function Execution:{COLORS['reset']}")
+            print(f"{BLUE}Function Execution:{RESET}")
+            #interpteter
             try:
                 function_call_results = RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
-                str_function_call_results = str(function_call_results)
-                print("========================Interpreter  end=========================")
+                str_function_call_results = dict_to_pretty_string( function_call_results)
 
                 with open(conversation_log_path, "a+", encoding="utf-8") as file:
                     file.write(f"Function Execution: {function_call_results}\n")
             except Exception as e:
-                print(e)
+                function_call_results = ''
+                str_function_call_results = ''
 
-            # Update conversation frame and create memory
             if function_call_results is None:
                 function_call_results = "None"
 
@@ -435,26 +367,18 @@ def main():
                 current_conversation_frame = (
                     f"Introspection:\n{introspection_response.text}\n"
                     f"Reflection:\n{reflection_response.text}\n"
-                    f"Action Plan:\n{action_response}\n"
-                    f"Function Call Results:\n{str_function_call_results}\n"
-                )
-                CREATE_MEMORY_FRAME(current_conversation_frame)
+                    f"Action:\n{action_response}\n"
+                    f"Function Call Results:\n{str_function_call_results}\n")
+                CREATE_MEMORY_FRAME(current_conversation_frame, SESION_INFO=session_info['session_name'])
             except Exception as E:
-                print(E)
+                current_conversation_frame = ''
 
-            if user_input_count > 0:  # Only log after user input
+            if user_input_count > 0:
                 log_conversation(conversation_log_path, iteration_count, current_conversation_frame)
 
-            print("Passing results of  funcino call")
-            print("results:")
-            print( f" {COLORS['light_magenta']}   {str_function_call_results} ")
-            print(f"{COLORS['bold']}{COLORS['green']}******************************************************{COLORS['reset']}\n")
         except Exception as e:
-            print(f"{COLORS['red']}Error: {e}{COLORS['reset']}")
             break
 
 
 if __name__ == "__main__":
-    print("Going into main()")
     main()
-
