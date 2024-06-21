@@ -119,19 +119,26 @@ def summarize_memory_folder_structure(output_file: str = MEMORY_STRUCTURE_SUMMAR
 
 
 def gather_introspection_data(
-        action_response_back_to_top: str ="None",
+        action_response_text_back_to_top: str ="None",
         user_input: str = "None",
         memory_summary: str = "None",
-        previous_loop_results: str = "None",
+        function_call_results: str = "None",
         user_input_signal: str = "None",
         visual_input_signal: str = "None",
         audio_input_signal: str = "None",
 ) -> list[str]:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
-    introspection_data = [
 
-        f"{current_time} Past {action_response_back_to_top} current Inputs:  {user_input}",
-        f"Past:Function Execution ={previous_loop_results}",
+    if  function_call_results is not None or function_call_results != "None":
+        function_call_results_prompt=f" Funcction Call result:{function_call_results}"
+    else:
+        function_call_results_prompt=""
+
+
+    introspection_data = [
+        f"{current_time}  {action_response_text_back_to_top}     {user_input}",
+        f"{function_call_results_prompt}",
+        ".....",
         "What are my available tools and resources?",
         f"Current sensory input (Image, Audio, Text): {visual_input_signal}, {audio_input_signal}, {user_input_signal}",
         "Are there any ongoing short-term tasks?",
@@ -142,9 +149,8 @@ def gather_introspection_data(
         "3.What am I feeling?",
         "4.What do I need?",
         "5.What am I experiencing?",
-        "6 Additional.....",
-        "7 Additional.....",
-        "8 Emotional state.....",
+        "8.Emotional state?.....",
+         " Maybe?  ??",
     ]
     return introspection_data
 
@@ -154,24 +160,25 @@ def perform_reflection(introspection_results: str) -> str:
     reflection_prompt = f"""{current_time}
 
         {introspection_results}
-        user is  system, Me is  you
-        1. What is  current focus?
-        2. Should  set a new goal? If so, what is it? If not, why not?
-        3. Are there any problems, unknowns, or paradoxes in my memory?
-        4. What problems need to be solved?
-        5. What are possible courses of action based on available information?
+        user is  system, Me is you,
+        1. What is  current focus?,
+        2. Should  set a new goal? If so, what is it? If not, why not?,
+        3. Are there any problems, unknowns, or paradoxes in my memory?,
+        4. What problems need to be solved?,
+        5. What are possible courses of action based on available information?,
         6. Approach the next steps?:
            a) Think step-by-step?
            b) Focus on a specific aspect?
            c) Defocus and broaden my attention?
-        7. Should I be more verbose in my responses? (Yes/No)
-        8. Should I be less verbose? (Yes/No)
-        9. Should I change the subject or keep discussing this? (Yes/No)
-        10. Should I summarize the current discussion? (Yes/No)
-        11. Should I dive deeper into a specific topic? (Yes/No)
-        12. Should I store any of this information in my long-term memory (Yes/No)? 
-        13. Should I query my memory for relevant information? (Yes/No)
-        14. What is the status of my current goals? 
+           e) If focus YES, Write at  the end what  you are focusing on,
+        7. Should I be more verbose in my responses? (Yes/No),
+        8. Should I be less verbose? (Yes/No),
+        9. Should I change the subject or keep discussing this? (Yes/No),
+        10. Should I summarize the current discussion? (Yes/No),
+        11. Should I dive deeper into a specific topic? (Yes/No),
+        12. Should I store any of this information in my long-term memory (Yes/No)? ,
+        13. Should I query my memory for relevant information? (Yes/No),
+        14. What is the status of my current goals? ,
     """
     return reflection_prompt
 
@@ -224,7 +231,7 @@ def main():
     visual_input_signal = "None"
     audio_input_signal = "None"
     str_function_call_results = ""
-    action_response_back_to_top = ""
+    action_response_text_back_to_top = ""
 
 
 
@@ -245,10 +252,7 @@ def main():
 
     available_tools = tool_manager.get_tools_list_json()
     print("prompt init")
-    system_instruction_input= """ 
-        user is  assistant and  system in one
-        you are answering self questions
-        user is system,system is user
+    system_instruction_input= """ And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
         """
 
     system_instruction_reflection= """ 
@@ -258,7 +262,7 @@ def main():
 
     system_instruction_action = """
          
-        you  can Choose specific actions based on reflection and available tools, 
+        you  can Choose specific actions based on reflection and available tools,  you  develop   ideas, from  previous  steps, you can  call funcions,  your  main  focus  in to accomplish tasks
         Use tools if necessary,"""
     with open(conversation_log_path, "a+", encoding="utf-8") as file:
         file.write(f"system_instruction_input: {system_instruction_input}\n")
@@ -275,7 +279,7 @@ def main():
             tool_config={'function_calling_config': 'NONE'}
         )
 
-        introspection_chat = introspection_model.start_chat(history=[] )
+        introspection_chat = introspection_model.start_chat(history=[])
 
 
 
@@ -330,7 +334,7 @@ def main():
             print(memory_summary)
 
             introspection_data = gather_introspection_data(
-                action_response_back_to_top,
+                action_response_text_back_to_top,
                 user_input,
                 memory_summary,
                 function_call_results,
@@ -376,7 +380,7 @@ def main():
                     print(action_response.text)
                     action_response_back_to_top=action_response.text
                 else:
-                    action_response_back_to_top=""
+                    action_response_text_back_to_top=""
             except Exception as E:
                 print(E)
 
