@@ -9,7 +9,20 @@ import logging
 import colorama
 from colorama import Fore, Style
 import re
-
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+BLUE = "\033[94m"
+MAGENTA = "\033[95m"
+CYAN = "\033[96m"
+RESET = "\033[0m"
+PURPLE = '\033[95m'
+BRIGHT_RED = "\033[91m"
+BRIGHT_GREEN = "\033[92m"
+BRIGHT_YELLOW = "\033[93m"
+BRIGHT_BLUE = "\033[94m"
+BRIGHT_MAGENTA = "\033[95m"
+BRIGHT_CYAN = "\033[96m"
 # Initialize colorama
 colorama.init(autoreset=True)
 
@@ -104,6 +117,7 @@ def generate_memory_embeddings(memory_frames: List[MemoryFrame]) -> Dict[str, np
     embeddings = load_embeddings()
 
     for i, frame in enumerate(memory_frames):
+        print(f"generate_memory_embeddings for  frame {i}")
         if frame.frame_name not in embeddings:
             embeddings[frame.frame_name] = frame.get_embedding()
             if (i + 1) % 10 == 0:
@@ -253,7 +267,7 @@ def apply_nested_filter(data: Dict, filter_options: Dict) -> Dict:
 
 
 def RETRIVE_RELEVANT_FRAMES(query: str) -> List[Dict[str, Any]]:
-    pretty_print("Starting retrieval process...", SEARCH)
+    pretty_print(f"{BRIGHT_BLUE}Starting retrieval process...", SEARCH)
     memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
     # Generate embeddings for all frames
     embeddings = generate_memory_embeddings(memory_frames)
@@ -264,7 +278,7 @@ def RETRIVE_RELEVANT_FRAMES(query: str) -> List[Dict[str, Any]]:
 
     if num_frames > num_embeddings:
         # Add additional embeddings
-        pretty_print(f"Adding embeddings for {num_frames - num_embeddings} new frames...", BRAIN)
+        pretty_print(f" {BLUE}Adding embeddings for {num_frames - num_embeddings} new frames...", BRAIN)
         for frame in memory_frames:
             if frame.frame_name not in embeddings:
                 embeddings[frame.frame_name] = frame.get_embedding()
@@ -299,5 +313,5 @@ def RETRIVE_RELEVANT_FRAMES(query: str) -> List[Dict[str, Any]]:
         print(json.dumps(filtered_frame, indent=2, cls=NumpyEncoder))
         frames_content.append(filtered_frame)
 
-    pretty_print("Retrieval process completed", SUCCESS)
+    pretty_print(f"{BLUE}Retrieval process completed", SUCCESS)
     return frames_content

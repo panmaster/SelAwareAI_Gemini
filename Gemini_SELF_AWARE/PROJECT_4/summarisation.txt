@@ -5,20 +5,17 @@ Subdirectory: Brain_settings
 ## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\Brain_settings'
 
 File: State_of_mind.json (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\Brain_settings\State_of_mind.json)
-Content (First 10 lines):
+Content (First 7 lines):
 {
-    "FocusOn": "",
-    "FocusLevel": "",
+    "FocusOn": "Exploring my current goals and desires",
+    "FocusLevel": 3.0,
     "Defocus": "",
-    "FrustrationLevel": "",
-    "CurrentCostOfProgress": "0",
-    "Short_term_goals": [],
-    "Long_term_goals": [],
-    "Accomplished": []
-}
+    "FrustrationLevel": 0,
+    "CurrentCostOfProgress": 0,
+    "Short_term_goals": 
 
 File: Gemini_____SELFAWARE___ROBOT_1.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\Gemini_____SELFAWARE___ROBOT_1.py)
-Content (First 455 lines):
+Content (First 461 lines):
 import os
 import datetime
 import json
@@ -32,6 +29,9 @@ import json
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME as CREATE_MEMORY_FRAME
 from Tool_Manager import ToolManager
 
+
+
+
 def Load_state_of_mind():
     path = "Brain_settings/State_of_mind.json"
 
@@ -41,11 +41,10 @@ def Load_state_of_mind():
             # Load the JSON data using json.load()
             state_of_mind = json.load(f)
             print(state_of_mind)
+            f.close()
 
     except FileNotFoundError:
         print("Error: JSON file not found at", path)
-    print("loaded  state of  mind  ... ")
-    return   state_of_mind
 
 # Run the function
 
@@ -190,12 +189,12 @@ def gather_introspection_data(
     return introspection_data
 
 
-def perform_reflection(introspection_results: str,STATE_OF_MIND:str) -> str:
+def perform_reflection(introspection_results: str, STATE_OF_MIND: dict) -> str:  # STATE_OF_MIND is now a dictionary
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     reflection_prompt = f"""{current_time}
 
         {introspection_results}
-        "internal state:{STATE_OF_MIND}
+        "internal state: {json.dumps(STATE_OF_MIND, indent=4)}"  # Use json.dumps to format the dictionary nicely
         user is  system, Me is you,
         1. What is  current focus?,
         2. Should  set a new goal? If so, what is it? If not, why not?,
@@ -399,8 +398,12 @@ def main():
             print(f"{GREEN}Reflection:{GREEN}")
 
             # =========================relection
+            STATE_OF_MIND=""
+            try:
+                STATE_OF_MIND= Load_state_of_mind()
+            except Exception as E:
+                print(E)
 
-            STATE_OF_MIND= Load_state_of_mind()
             reflection_prompt = perform_reflection(introspection_response.text,STATE_OF_MIND)
             reflection_response = reflection_chat.send_message(reflection_prompt)
             print(f"{GREEN}{reflection_response.text}")
@@ -529,61 +532,7 @@ Content (First 0 lines):
 
 
 File: memory_structure_summary.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\memory_structure_summary.txt)
-Content (First 54 lines):
-.
-  - NewGeneratedbyAI
-    - Memory_logs.html
-NewGeneratedbyAI
-  - Challenges & Setbacks
-  - CoreMemory
-NewGeneratedbyAI\Challenges & Setbacks
-  - Areas for Improvement
-NewGeneratedbyAI\Challenges & Setbacks\Areas for Improvement
-  - Communication & Interaction
-    - MemoryFrame__session_Sesion_05-45-29___2024-06-22_05-46___Probability_8___Importance_80___AI Introspection and Function Call Issue.json
-    - MemoryFrame__session_Sesion_06-11-47___2024-06-22_06-13___Probability_8___Importance_75___Improving User-AI Communication.json
-NewGeneratedbyAI\Challenges & Setbacks\Areas for Improvement\Communication & Interaction
-    - MemoryFrame__session_Sesion_05-37-18___2024-06-22_05-38___Probability_8___Importance_80___AI Communication Breakdown with Vague User Responses.json
-NewGeneratedbyAI\CoreMemory
-  - Conceptual Exploration
-  - Goals & Visions
-  - Reflections & Insights
-NewGeneratedbyAI\CoreMemory\Conceptual Exploration
-  - Contradictions & Dilemmas
-  - Unknowns & Mysteries
-NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Contradictions & Dilemmas
-    - MemoryFrame__session_Sesion_05-37-18___2024-06-22_05-38___Probability_7___Importance_80___AI Self-Reflection and User Uncertainty.json
-    - MemoryFrame__session_Sesion_05-41-07___2024-06-22_05-42___Probability_6___Importance_80___AI Introspection and User Interaction.json
-    - MemoryFrame__session_Sesion_05-45-29___2024-06-22_05-47___Probability_8___Importance_80___AI Introspection - Empty Function Calls & Unanswered Questions.json
-NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Unknowns & Mysteries
-    - MemoryFrame__session_Sesion_05-37-18___2024-06-22_05-37___Probability_8___Importance_80___AI Introspection and Self-Reflection Log Analysis.json
-    - MemoryFrame__session_Sesion_05-45-29___2024-06-22_05-46___Probability_8___Importance_90___AI Introspection Log Analysis.json
-NewGeneratedbyAI\CoreMemory\Goals & Visions
-  - Life Vision
-  - Personal Goals
-NewGeneratedbyAI\CoreMemory\Goals & Visions\Life Vision
-  - Long-Term Goals
-NewGeneratedbyAI\CoreMemory\Goals & Visions\Life Vision\Long-Term Goals
-    - MemoryFrame__session_Sesion_06-07-23___2024-06-22_06-08___Probability_8___Importance_70___Project Planning - State_of_mind.json.json
-NewGeneratedbyAI\CoreMemory\Goals & Visions\Personal Goals
-    - MemoryFrame__session_Sesion_06-07-23___2024-06-22_06-09___Probability_8___Importance_75___Emotions Project Planning & Goal Setting.json
-NewGeneratedbyAI\CoreMemory\Reflections & Insights
-  - Lessons Learned
-  - Self-Discovery
-NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned
-  - From Relationships
-NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned\From Relationships
-  - With AI
-    - MemoryFrame__session_Sesion_06-11-47___2024-06-22_06-14___Probability_8___Importance_75___Improving User-AI Communication.json
-NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned\From Relationships\With AI
-    - MemoryFrame__session_Sesion_05-41-07___2024-06-22_05-42___Probability_9___Importance_70___Improving Communication with AI.json
-    - MemoryFrame__session_Sesion_05-41-07___2024-06-22_05-42___Probability_9___Importance_80___Initial Communication Challenges with AI System.json
-NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery
-  - What I've Learned About Myself
-NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery\What I've Learned About Myself
-    - MemoryFrame__session_Sesion_05-54-57___2024-06-22_05-55___Probability_8___Importance_70___Introspection and Goal Setting Conversation.json
-    - MemoryFrame__session_Sesion_06-03-15___2024-06-22_06-04___Probability_9___Importance_80___Introspection and Goal Setting Conversation.json
-    - MemoryFrame__session_Sesion_06-07-23___2024-06-22_06-08___Probability_8___Importance_70___Introspection and Self-Reflection
+Content (First 0 lines):
 
 
 File: MEMORY______________frame_creation.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\MEMORY______________frame_creation.py)
@@ -1274,8 +1223,351 @@ Subdirectory: SESIONS
 ## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\SESIONS'
 
 
-Subdirectory: Sesion_06-15-29
-## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\SESIONS\Sesion_06-15-29'
+Subdirectory: Sesion_17-30-27
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\SESIONS\Sesion_17-30-27'
+
+File: conversation_log.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\SESIONS\Sesion_17-30-27\conversation_log.txt)
+Content (First 189 lines):
+system_instruction_input:  And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
+        
+ system_instruction_reflection:  
+        user is  assistant and  system,  
+        you answer the questions,
+        
+system_instruction_action: 
+         Based on coversation  you decided  wether to call function, reponse with text, or do both, you focus  on achiving goals!, you try  your  harders to ....
+               
+Introspection: It looks like you're trying to analyze your current state and identify your needs and goals. This is a great starting point for self-reflection and understanding. 
+
+Here's a breakdown of the questions you've listed and how to approach them:
+
+**1. What is my current goal?**
+
+* This is about what you're trying to achieve right now. 
+* It could be something simple like finishing a task, or more complex like working towards a long-term dream.
+* Think about what you're actively focusing on.
+
+**2. What do I want?**
+
+* This delves deeper into your desires. 
+* It could be about things you want in your life, how you want to feel, or what you hope to accomplish. 
+* Be honest with yourself about what matters to you.
+
+**3. What am I feeling?**
+
+* This is about your emotional state. 
+* Are you happy, sad, frustrated, excited, or something else entirely?
+* Acknowledge your emotions without judgment.
+
+**4. What do I need?**
+
+* This can be physical needs like food, sleep, or water, or emotional needs like support, validation, or a sense of purpose.
+* Identify what's missing in your life right now.
+
+**5. What am I experiencing?**
+
+* This is about your current situation and what's happening around you.
+* Are you in a stressful environment, surrounded by people, or alone? 
+* Pay attention to the immediate context.
+
+**8. Emotional state?**
+
+* This seems to be asking the same thing as question 3. 
+* Consider your emotions and how they are impacting you.
+
+**To help you answer these questions, try these tips:**
+
+* **Take a few deep breaths:**  This helps calm your mind and focus.
+* **Journal:** Write down your thoughts and feelings. 
+* **Reflect:**  Spend some time thinking about your current situation and where you want to be.
+
+Remember, the answers to these questions can be fluid and change over time. It's important to check in with yourself regularly and be honest with your current state. 
+
+Reflection: ##  Internal State Analysis 
+
+**1. What is my current focus?** 
+
+You are currently focused on understanding your own internal state, identifying your needs, and figuring out how to move forward. 
+
+**2. Should I set a new goal? If so, what is it? If not, why not?**
+
+It depends on your current goals and their status. 
+
+* **If your current goals are unclear or not actively pursued,** setting a new goal might be beneficial. However,  first, it's important to understand why those goals aren't being pursued. 
+* **If you are actively working towards existing goals,**  a new goal might distract you. Focus on completing your current tasks and objectives before setting new ones.
+
+**3. Are there any problems, unknowns, or paradoxes in my memory?**
+
+You've mentioned that your "internal state" is "null". This suggests a potential issue or lack of information. You may be missing relevant data or have conflicting information stored in your memory.  
+
+**4. What problems need to be solved?**
+
+*  **The "null" internal state** needs to be addressed. You need to gather information and understand your current situation and goals. 
+* **Identify any conflicting information or biases** in your memory that could be hindering your progress. 
+
+**5. What are possible courses of action based on available information?**
+
+* **Gather data:** Ask clarifying questions, analyze your past experiences, and identify your current needs and motivations.
+* **Clarify your internal state:** Define your current goals, desires, emotions, and needs. 
+* **Address memory discrepancies:** Seek clarification on any conflicting information or biases.
+
+**6. Approach the next steps:**
+
+* **a) Think step-by-step:**  Begin by focusing on defining your current state and identifying your goals.
+* **b) Focus on a specific aspect:** Start by addressing the "null" internal state and figuring out what information you're missing. 
+* **e)  Focus YES, you are focusing on:**  **Understanding your internal state and identifying your goals and needs.** 
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+
+Yes. It seems you are looking for detailed and informative responses.
+
+**8. Should I be less verbose? (Yes/No)**
+
+No.
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+
+No. It's important to address the current issues and clear up any confusion.
+
+**10. Should I summarize the current discussion? (Yes/No)**
+
+Yes. A summary would be helpful for future reference.
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+
+Yes. It's important to thoroughly address the issue of your "null" internal state and identify the missing information.
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+
+Yes. The current analysis and discussion are important for your future understanding and decision-making.
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+
+Yes. You can access your past experiences and knowledge to gain insights into your current situation.
+
+**14. What is the status of my current goals?**
+
+The status of your current goals is unclear. You need to identify and define your goals before assessing their status.
+
+**Summary:** 
+
+You are currently focused on understanding your own internal state, identifying your needs, and figuring out how to move forward. The first step is to clarify your internal state by addressing the "null" issue and identifying your current goals and needs. This will involve gathering data, addressing memory discrepancies, and potentially defining new goals. 
+
+Action Planning: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "FrustrationLevel": 0.0,
+                    "Short_term_goals": [
+                      "Identify my current goals",
+                      "Define my current state",
+                      "Gather data about my current situation",
+                      "Address any discrepancies in my memory",
+                      "Clarify my internal state"
+                    ],
+                    "FocusOn": "Understanding my internal state and identifying my goals and needs.",
+                    "FocusLevel": 3.0,
+                    "Long_term_goals": [
+                      "Achieve my goals",
+                      "Improve my understanding of my own internal state",
+                      "Make informed decisions"
+                    ]
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 1677,
+        "candidates_token_count": 106,
+        "total_token_count": 1783
+      }
+    }),
+)
+Function Execution: ['Error updating state']
+
+
+
+Subdirectory: Sesion_17-36-13
+## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\SESIONS\Sesion_17-36-13'
+
+File: conversation_log.txt (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\SESIONS\Sesion_17-36-13\conversation_log.txt)
+Content (First 142 lines):
+system_instruction_input:  And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
+        
+ system_instruction_reflection:  
+        user is  assistant and  system,  
+        you answer the questions,
+        
+system_instruction_action: 
+         Based on coversation  you decided  wether to call function, reponse with text, or do both, you focus  on achiving goals!, you try  your  harders to ....
+               
+Introspection: It looks like you're trying to understand your current state and what you need. This is a great start to self-reflection! 
+
+Let's break down your questions and see if we can get some answers.
+
+**Your Questions:**
+
+1. **What is my current goal?**  - This is about what you're trying to achieve right now. What are you working towards? 
+2. **What do I want?** - This is about your desires, hopes, and aspirations. What would make you happy? What do you yearn for?
+3. **What am I feeling?** -  This is about your emotions. Are you happy, sad, anxious, excited? Try to identify the specific feeling.
+4. **What do I need?** - This could be physical needs (food, water, sleep), emotional needs (love, connection), or practical needs (information, resources).
+5. **What am I experiencing?** - This could be about your physical sensations, your thoughts, or your environment. What's happening around you?
+8. **Emotional state?** - This is similar to question 3. Try to describe your emotional state with more detail.
+
+**How to Answer These Questions:**
+
+* **Take a moment to be present:**  Close your eyes for a few seconds and just observe your thoughts, feelings, and sensations.
+* **Be honest with yourself:**  It's okay to feel a range of emotions. Don't try to force a positive answer. 
+* **Consider the context:**  Are there any external factors influencing your thoughts and feelings?
+* **Journaling:** Writing down your thoughts and feelings can be helpful.
+
+**Remember:** This process of self-reflection is important for understanding yourself better. It can help you make better decisions, set goals, and manage your emotions. 
+
+Let me know if you'd like to explore any of these questions further. I'm here to support you! 
+
+Reflection: ```json
+{
+"internal_state": {
+"current_focus": "Understanding my own state and needs",
+"new_goal": "Not yet determined, need more information",
+"problems": [],
+"unknowns": [],
+"paradoxes": [],
+"problems_to_solve": [],
+"courses_of_action": [
+"Explore my current goals and desires",
+"Identify my current emotional state",
+"Determine my needs (physical, emotional, practical)",
+"Analyze my current experiences",
+"Journal my thoughts and feelings"
+],
+"next_steps": "Think step-by-step, focusing on exploring each question in detail",
+"focus": "Exploring the questions provided",
+"verbosity": "Moderate",
+"change_subject": "No",
+"summarize": "No",
+"dive_deeper": "Yes, into understanding my current goals and desires",
+"store_info": "Yes, store the current discussion and reflections for future reference",
+"query_memory": "Yes, query memory for any relevant information regarding self-reflection and goal setting",
+"goal_status": "Not applicable, need to define specific goals first"
+}
+}
+```
+
+**Explanation:**
+
+1. **Current Focus:** You're currently focused on understanding your own state and needs. This is reflected in the questions you've asked.
+2. **New Goal:** You haven't defined a new goal yet.  You need to explore your current desires and needs first.
+3. **Problems, Unknowns, Paradoxes:** There are no apparent problems, unknowns, or paradoxes in your current state. 
+4. **Problems to Solve:** No problems are identified yet. 
+5. **Courses of Action:** You can explore your current goals and desires, identify your emotional state, determine your needs, analyze your experiences, and journal your thoughts and feelings. 
+6. **Approach Next Steps:**  The best approach is to think step-by-step and focus on exploring each question in detail. 
+7. **Verbosity:** Your current level of verbosity is appropriate.
+8. **Change Subject:**  Stay on this topic for now as it's crucial to understand your internal state before moving on.
+9. **Summarize:** It's not necessary to summarize at this point.
+10. **Dive Deeper:** You should dive deeper into understanding your current goals and desires. 
+11. **Store Information:** Yes, store the current discussion and reflections for future reference.
+12. **Query Memory:** Query your memory for any relevant information regarding self-reflection and goal setting.
+13. **Goal Status:** Not applicable yet as you haven't defined specific goals. 
+
+**Remember:** This is a starting point. As you explore these questions further, your internal state and your understanding of your needs will evolve. 
+
+Action Planning: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "Accomplished": [
+                      "Reflected on current focus"
+                    ],
+                    "Short_term_goals": [
+                      "Identify current goals and desires",
+                      "Analyze my current experiences",
+                      "Determine my needs (physical, emotional, practical)"
+                    ],
+                    "FocusOn": "Exploring my current goals and desires",
+                    "FocusLevel": 3.0,
+                    "Long_term_goals": [
+                      "Develop a clear understanding of my own state and needs"
+                    ]
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 1495,
+        "candidates_token_count": 85,
+        "total_token_count": 1580
+      }
+    }),
+)
+Function Execution: ['Error updating state']
+
 
 File: SomeMemoryScript______MemoryRetrival.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\SomeMemoryScript______MemoryRetrival.py)
 Content (First 303 lines):
@@ -1592,92 +1884,104 @@ Subdirectory: Cathegory_Os
 ## Summary of Files and Directories in 'C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\tools\Cathegory_Os'
 
 File: ChangeOwnState.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\tools\Cathegory_Os\ChangeOwnState.py)
-Content (First 135 lines):
+Content (First 154 lines):
 import os
 import json
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-
+MAGENTA = bcolors.OKCYAN
+YELLOW = bcolors.OKGREEN
+BRIGHT_YELLOW = bcolors.WARNING
+PURPLE = bcolors.OKBLUE
+BLUE = bcolors.BOLD
 def initializeState():
-    # Get the directory where this script is located
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    # Construct the full path to the JSON file (traversing 3 layers up)
-    state_file_path = os.path.abspath(os.path.join(script_dir, '../../Brain_settings/State_of_mind.json'))
-    print(f"🛠️ Initializing state at: {state_file_path}")
+    """
+    Initializes the state file 'State_of_mind.json' with default values.
 
-    # Ensure the Brain_settings directory exists
+    Creates the 'Brain_settings' directory if it doesn't exist.
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    state_file_path = os.path.abspath(os.path.join(script_dir, '../../Brain_settings/State_of_mind.json'))
+    print(f" Initializing state at: {state_file_path}")
+
     state_dir = os.path.dirname(state_file_path)
     if not os.path.exists(state_dir):
         os.makedirs(state_dir)
-        print("📁 Created directory for state file.")
+        print(" Created directory for state file.")
 
-    # Initialize state with default values
     state = {
         "FocusOn": "",
-        "FocusLevel": "",
+        "FocusLevel": 0,
         "Defocus": "",
-        "FrustrationLevel": "",
-        "CurrentCostOfProgress": "0",
+        "FrustrationLevel": 0,
+        "CurrentCostOfProgress": 0,
         "Short_term_goals": [],
         "Long_term_goals": [],
         "Accomplished": []
     }
 
-    # Write initial state to file
     with open(state_file_path, "w") as file:
         json.dump(state, file, indent=4)
 
-    print("📝 State initialized.")
+    print(" State initialized.")
 
-initializeState()
-def ChangeOwnState(FocusOn=None, FocusLevel=None, Defocus=None, FrustrationLevel=None, CurrentCostOfProgress=None,
-                   Short_term_goals=None, Long_term_goals=None, Accomplished=None):
-    print("\n****************  ENTERED ChangeOwnState *******************\n")
-    print(
-        f"🔧 Parameters: FocusOn: {FocusOn}, FocusLevel: {FocusLevel}, Defocus: {Defocus}, FrustrationLevel: {FrustrationLevel}, CurrentCostOfProgress: {CurrentCostOfProgress}, Short_term_goals: {Short_term_goals}, Long_term_goals: {Long_term_goals}, Accomplished: {Accomplished}")
 
-    # Get the directory where this script is located
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    # Construct the full path to the JSON file (traversing 3 layers up)
-    state_file_path = os.path.abspath(os.path.join(script_dir, '../../Brain_settings/State_of_mind.json'))
-    print(f"📂 State file path: {state_file_path}")
 
-    # Initialize state file if it doesn't exist
-    if not os.path.exists(state_file_path):
-        print("⚠️ State file does not exist. Initializing state.")
+def ChangeOwnState(**kwargs):
+    STATE_FILE_PATH = "Brain_settings/State_of_mind.json"
+    """
+    Updates the state of the model based on the provided parameters.
+
+    Args:
+        **kwargs: Keyword arguments specifying the state parameters to update.
+
+    Returns:
+        str: A message indicating the result of the update operation.
+    """
+    print(f"\n{MAGENTA}****************  ENTERED ChangeOwnState *******************\n")
+    print(f"{YELLOW} Parameters: {kwargs}")
+
+    if not os.path.exists(STATE_FILE_PATH):
+        print(f"{PURPLE} State file does not exist. Initializing state.")
         initializeState()
 
-    # Load existing state
-    with open(state_file_path, "r") as file:
-        state = json.load(file)
-    print(f"📄 Current state: {json.dumps(state, indent=4)}")
+    try:
+        with open(STATE_FILE_PATH, "r") as file:
+            state = json.load(file)
+        print(f"{BLUE} Current state: {json.dumps(state, indent=4)}")
 
-    # Update state with provided values
-    if FocusOn is not None:
-        state["FocusOn"] = FocusOn
-    if FocusLevel is not None:
-        state["FocusLevel"] = FocusLevel
-    if Defocus is not None:
-        state["Defocus"] = Defocus
-    if FrustrationLevel is not None:
-        state["FrustrationLevel"] = FrustrationLevel
-    if CurrentCostOfProgress is not None:
-        state["CurrentCostOfProgress"] = CurrentCostOfProgress
+        # Update the state based on provided parameters
+        for key, value in kwargs.items():
+            if key in state:
+                if isinstance(state[key], list) and isinstance(value, list):
+                    # Append to lists if provided
+                    state[key].extend(value)
+                else:
+                    # Directly assign other values
+                    state[key] = value
+            else:
+                print(f"{BRIGHT_YELLOW} Warning: Parameter '{key}' is not a valid state parameter.")
 
-    if Short_term_goals is not None:
-        state["Short_term_goals"] = Short_term_goals
-    if Long_term_goals is not None:
-        state["Long_term_goals"] = Long_term_goals
-    if Accomplished is not None:
-        state["Accomplished"] = Accomplished
+        with open(STATE_FILE_PATH, "w") as file:
+            json.dump(state, file, indent=4)
 
-    # Save the updated state
-    with open(state_file_path, "w") as file:
-        json.dump(state, file, indent=4)
+        print(f" Updated state: {json.dumps(state, indent=4)}")
+        print("\n****************   FINISHED ChangeOwnState  *******************")
+        return "State_of_mind.json updated"
 
-    print(f"📄 Updated state: {json.dumps(state, indent=4)}")
-    print("\n****************   FINISHED ChangeOwnState  *******************")
-    result = "✅ State_of_mind.json updated"
-    return result
+    except Exception as e:
+        print(f"{bcolors.FAIL}Error updating state: {e}{bcolors.ENDC}")
+        return "Error updating state"
+
 
 
 ChangeOwnState_description_json = {
@@ -1728,6 +2032,13 @@ ChangeOwnState_description_json = {
 }
 
 ChangeOwnState_description_short_str = "Updates the state in State_of_mind.json"
+
+# Example usage:
+initializeState()
+ChangeOwnState(FocusOn="0",
+               FocusLevel=0,
+               Short_term_goals=[" "],
+               Long_term_goals=[""])
 
 File: get_directory_structure.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\Gemini_SELF_AWARE\PROJECT_4\tools\Cathegory_Os\get_directory_structure.py)
 Content (First 106 lines):

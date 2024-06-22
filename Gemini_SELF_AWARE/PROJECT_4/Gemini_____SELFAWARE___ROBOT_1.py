@@ -2,7 +2,8 @@ import os
 import datetime
 import json
 import time
-
+import json
+from google.protobuf import json_format
 from IPython.display import display, Markdown, clear_output
 from rich.console import Console
 import google.generativeai as genai
@@ -10,23 +11,8 @@ from prettytable import PrettyTable
 import json
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME as CREATE_MEMORY_FRAME
 from Tool_Manager import ToolManager
+import  traceback
 
-
-
-
-def Load_state_of_mind():
-    path = "Brain_settings/State_of_mind.json"
-
-    try:
-        # Open the JSON file in read mode
-        with open(path, 'r') as f:
-            # Load the JSON data using json.load()
-            state_of_mind = json.load(f)
-            print(state_of_mind)
-            f.close()
-
-    except FileNotFoundError:
-        print("Error: JSON file not found at", path)
 
 # Run the function
 
@@ -55,6 +41,31 @@ BRIGHT_MAGENTA = "\033[95m"
 BRIGHT_CYAN = "\033[96m"
 
 
+def Load_state_of_mind():
+    """
+    Loads the state from 'State_of_mind.json' file.
+
+    Returns:
+        dict: The loaded state of mind, or None if an error occurred.
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.abspath(os.path.join(script_dir, 'Brain_settings/State_of_mind.json'))
+
+    print(f"\n{GREEN}****************  LOADING STATE OF MIND  for  REFLECTION step *******************{RESET}\n")
+
+    try:
+        with open(path, 'r') as f:
+            state_of_mind = json.load(f)
+        print(f"{GREEN}Loaded state of mind:{RESET}")
+        print(json.dumps(state_of_mind, indent=4))
+
+        print(f"\n{GREEN}****************  FINISHED LOADING STATE OF MIND  *******************{RESET}\n")
+        return state_of_mind
+    except Exception as E:
+        print(f"Failed to load Load_state_of_mind: {E}")
+        return None
+
+
 
 def create_session_name_and_path():
     current_directory = os.getcwd()
@@ -67,44 +78,9 @@ def create_session_name_and_path():
     return {'session_name': session_name, 'session_path': session_path}
 
 
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):  # Pass tool_manager here
-    """Interprets the model's response, extracts function details, and executes the appropriate function."""
+import json
+from google.protobuf import json_format
 
-    print(f"{BRIGHT_BLUE}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
-    Multiple_ResultsOfFunctions_From_interpreter = []
-
-    if response.candidates:
-        for part in response.candidates[0].content.parts:
-            if hasattr(part, 'function_call'):
-                function_call = part.function_call
-                function_name = function_call.name
-                function_args = function_call.args
-
-                # Get the function from the tool manager
-                function_to_call = tool_manager.tool_mapping.get(function_name)
-
-                if function_to_call:  # Check if the tool function is found
-                    print(f"FUNCTION CALL: {function_name}({function_args}) ")
-
-                    try:
-                        results = function_to_call(**function_args)
-                        if results is not None:
-                            Multiple_ResultsOfFunctions_From_interpreter.append(results)
-                            print("function return:")
-                            print(f"{MAGENTA}  {results}")
-                    except TypeError as e:
-                        results = f"TypeError: {e}"
-                    except Exception as e:
-                        results = f"Exception: {e}"
-
-
-
-                else:
-                    print(f"Warning: Tool function '{function_name}' not found.")
-
-    print(f"{BRIGHT_BLUE}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING END------------------------\n")
-
-    return Multiple_ResultsOfFunctions_From_interpreter
 
 
 
@@ -233,7 +209,76 @@ def log_conversation(
         log_file.write(current_conversation_frame)
         log_file.write("-" * 20 + "\n\n")
 
+import json
+from google.protobuf import json_format
 
+
+import json
+
+def RESPONSE_INTERPRETER_FOR_FUNCTION_CALLING(response, tool_manager):
+    """Interprets the model's response, extracts function details, executes the appropriate functions,
+    and gathers results."""
+    print()
+    print(f"{BLUE}---------------------------RESPONSE_INTERPRETER_FOR_FUNCTION_CALLING-------------------------------")
+
+    Multiple_ResultsOfFunctions_From_interpreter = []
+
+    def process_function_call(function_call):
+        function_name = function_call.name
+        function_args = function_call.args
+
+        print(f"{BRIGHT_BLUE}Function Call name: {MAGENTA}{function_name}")
+        print(f"{BRIGHT_BLUE}Function Call args:")
+        for arg_name, arg_value in function_args.items():
+            print(f"  {YELLOW}{arg_name}: {arg_value}")
+
+        function_to_call = tool_manager.tool_mapping.get(function_name)
+
+        if function_to_call:
+            try:
+                results = function_to_call(**function_args)
+                modified_results = f"Result of Called function {function_name}: {results}"
+                print(f"Result of function: {results}")
+                Multiple_ResultsOfFunctions_From_interpreter.append(modified_results)
+            except Exception as e:
+                error_message = f"Failed to call function {function_name}: {str(e)}"
+                print(error_message)
+                Multiple_ResultsOfFunctions_From_interpreter.append(error_message)
+        else:
+            error_message = f"Warning: Tool function '{function_name}' not found."
+            print(error_message)
+            Multiple_ResultsOfFunctions_From_interpreter.append(error_message)
+
+    def process_content(content):
+        if hasattr(content, 'parts'):
+            for part in content.parts:
+                if hasattr(part, 'function_call'):
+                    process_function_call(part.function_call)
+        elif hasattr(content, 'function_call'):
+            process_function_call(content.function_call)
+
+    # Handle different response structures
+    if hasattr(response, 'result'):
+        response = response.result
+
+    if hasattr(response, 'candidates'):
+        for candidate in response.candidates:
+            if hasattr(candidate, 'content'):
+                process_content(candidate.content)
+    elif hasattr(response, 'content'):
+        process_content(response.content)
+    elif isinstance(response, dict):
+        if 'candidates' in response:
+            for candidate in response['candidates']:
+                if 'content' in candidate:
+                    process_content(candidate['content'])
+        elif 'content' in response:
+            process_content(response['content'])
+
+    print(f"{BLUE}-------END--------RESPONSE_INTERPRETER_FOR_FUNCTION_CALLING END-------------END---------- ")
+    print()
+    print()
+    return Multiple_ResultsOfFunctions_From_interpreter
 def main():
     session_info = create_session_name_and_path()
     session_path = session_info['session_path']
@@ -310,7 +355,7 @@ def main():
 
         )
 
-        reflection_chat = reflection_model.start_chat(history=[] )
+        reflection_chat = reflection_model.start_chat(history=[])
 
 
 
@@ -333,7 +378,7 @@ def main():
     while True:
         print()
         try:
-            if iteration_count % 3 == 0:
+            if iteration_count % 20 == 0:
                 user_input = input(f"{YELLOW}Enter your input (or press Enter to skip): {RESET}")
                 user_input_count += 1
             else:
@@ -347,7 +392,7 @@ def main():
             print(f"{GREEN}Awareness Loop: {iteration_count}{RESET}")
             function_call_results = str_function_call_results
             memory_summary = summarize_memory_folder_structure()
-            print(memory_summary)
+            #print(memory_summary)
 
             introspection_data = gather_introspection_data(
                 action_response_text_back_to_top,
@@ -399,13 +444,16 @@ def main():
                 action_prompt = plan_actions(reflection_response.text)
                 action_response = action_chat.send_message(action_prompt)
                 print(f"{MAGENTA }{action_response}")
-                if action_response.text is not  None:
-                    print(action_response.text)
-                    action_response_back_to_top=action_response.text
-                else:
-                    action_response_text_back_to_top=""
+                try:
+                    if action_response.text is not  None:
+                        print(action_response.text)
+                        action_response_back_to_top=action_response.text
+                    else:
+                        action_response_text_back_to_top=""
+                except Exception as E:
+                    print("")
             except Exception as E:
-                print(E)
+                print("")
 
 
             with open(conversation_log_path, "a+", encoding="utf-8") as file:
@@ -414,11 +462,11 @@ def main():
 
             #interpteter
             try:
-                #------------------INTERPRETER---------------------
+                #------------------INTERPRETER---------------------------------------------------------
                 print(f"{BRIGHT_BLUE}---------------------------START-INTERPRETER---------------------------------------------")
-                function_call_results = RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(action_response, tool_manager)
+                function_call_results =  RESPONSE_INTERPRETER_FOR_FUNCTION_CALLING(action_response, tool_manager)
                 str_function_call_results = dict_to_pretty_string(function_call_results)
-                print("----------------------------INTERPRETER-END--------------------------------------------")
+                print(f"{BRIGHT_BLUE}----------------------------INTERPRETER-END--------------------------------------------")
                 with open(conversation_log_path, "a+", encoding="utf-8") as file:
                     file.write(f"Function Execution: {function_call_results}\n")
             except Exception as e:
@@ -440,7 +488,7 @@ def main():
             try:
                 print()
                 print()
-                print("CREATE MEMORY FRAME FROM LOOP")
+                print(f"{GREEN}-----------------CREATE MEMORY FRAME FROM LOOP-----------------------")
                 current_conversation_frame = (
                     f"Introspection:\n{introspection_response.text}\n"
                     f"Reflection:\n{reflection_response.text}\n"

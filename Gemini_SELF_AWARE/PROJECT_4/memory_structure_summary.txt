@@ -2,20 +2,43 @@
   - NewGeneratedbyAI
     - Memory_logs.html
 NewGeneratedbyAI
+  - Challenges & Setbacks
   - CoreMemory
+  - memories
+NewGeneratedbyAI\Challenges & Setbacks
+  - Areas for Improvement
+  - Significant Mistakes
+NewGeneratedbyAI\Challenges & Setbacks\Areas for Improvement
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-09___Probability_8___Importance_75___Troubleshooting a Tool with 'RETRIVE_RELEVANT_FRAMES' Function.json
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-10___Probability_6___Importance_80___Troubleshooting Data Type Mismatch Error in 'get_directory_structure' Function.json
+NewGeneratedbyAI\Challenges & Setbacks\Significant Mistakes
+  - Description
+NewGeneratedbyAI\Challenges & Setbacks\Significant Mistakes\Description
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-11___Probability_7___Importance_75___Troubleshooting Invalid Directory Path Error.json
 NewGeneratedbyAI\CoreMemory
-  - Conceptual Exploration
+  - Knowledge Base
   - Reflections & Insights
-NewGeneratedbyAI\CoreMemory\Conceptual Exploration
-  - Contradictions & Dilemmas
-NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Contradictions & Dilemmas
-    - MemoryFrame__session_Sesion_08-13-51___2024-06-22_08-14___Probability_5___Importance_75___Analyzing a Self-Reflection Framework.json
+NewGeneratedbyAI\CoreMemory\Knowledge Base
+  - Areas of Expertise
+  - Key Concepts & Theories
+NewGeneratedbyAI\CoreMemory\Knowledge Base\Areas of Expertise
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-08___Probability_5___Importance_80___Introspection and Mental Wellbeing - Tool Exploration.json
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-10___Probability_8___Importance_75___Troubleshooting Missing State_of_mind.json File in AI Tool.json
+NewGeneratedbyAI\CoreMemory\Knowledge Base\Key Concepts & Theories
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-09___Probability_8___Importance_80___Exploring an AI Memory Tool for Personal Growth.json
 NewGeneratedbyAI\CoreMemory\Reflections & Insights
-  - Self-Discovery
-NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery
-  - What I've Learned About Myself
-NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery\What I've Learned About Myself
-    - MemoryFrame__session_Sesion_07-31-30___2024-06-22_07-32___Probability_8___Importance_75___Introspection and Self-Awareness Guidance.json
-    - MemoryFrame__session_Sesion_07-31-30___2024-06-22_07-32___Probability_9___Importance_80___Introspection Guide - Initial Questions and Framework.json
-    - MemoryFrame__session_Sesion_07-42-47___2024-06-22_07-43___Probability_8___Importance_80___Self-Discovery and Goal Setting
-    - MemoryFrame__session_Sesion_07-47-27___2024-06-22_07-48___Probability_9___Importance_80___Introspection & Self-Awareness Conversation.json
+  - Lessons Learned
+NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned
+  - From Goals
+NewGeneratedbyAI\CoreMemory\Reflections & Insights\Lessons Learned\From Goals
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-07___Probability_9___Importance_70___Self-Reflection and Goal Setting
+NewGeneratedbyAI\memories
+  - NewGeneratedbyAI
+NewGeneratedbyAI\memories\NewGeneratedbyAI
+  - Challenges & Setbacks
+NewGeneratedbyAI\memories\NewGeneratedbyAI\Challenges & Setbacks
+  - Significant Mistakes
+NewGeneratedbyAI\memories\NewGeneratedbyAI\Challenges & Setbacks\Significant Mistakes
+  - Description
+NewGeneratedbyAI\memories\NewGeneratedbyAI\Challenges & Setbacks\Significant Mistakes\Description
+    - MemoryFrame__session_Sesion_01-07-07___2024-06-23_01-11___Probability_8___Importance_80___Troubleshooting Invalid Directory Path Error in AI Tool.json
