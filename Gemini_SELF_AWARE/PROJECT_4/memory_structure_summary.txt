@@ -5,61 +5,17 @@ NewGeneratedbyAI
   - CoreMemory
 NewGeneratedbyAI\CoreMemory
   - Conceptual Exploration
-  - Knowledge Base
   - Reflections & Insights
 NewGeneratedbyAI\CoreMemory\Conceptual Exploration
   - Contradictions & Dilemmas
-  - Unknowns & Mysteries
 NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Contradictions & Dilemmas
-    - MemoryFrame__session_Sesion_18-22-05___2024-06-21_18-22___Probability_5___Importance_90___AI Self-Awareness Introspection.json
-    - MemoryFrame__session_Sesion_18-25-40___2024-06-21_18-26___Probability_8___Importance_90___AI Self-Awareness Exploration.json
-    - MemoryFrame__session_Sesion_18-29-52___2024-06-21_18-30___Probability_8___Importance_90___AI Introspection and Self-Development.json
-    - MemoryFrame__session_Sesion_18-32-16___2024-06-21_18-34___Probability_8___Importance_90___AI Introspection on Self-Awareness.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-30___Probability_7___Importance_90___AI Self-Awareness and Memory Analysis.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-37___Probability_8___Importance_90___AI's Self-Discovery
-NewGeneratedbyAI\CoreMemory\Conceptual Exploration\Unknowns & Mysteries
-    - MemoryFrame__session_Sesion_18-19-34___2024-06-21_18-20___Probability_8___Importance_90___AI Introspection
-    - MemoryFrame__session_Sesion_18-32-16___2024-06-21_18-33___Probability_9___Importance_90___AI Self-Awareness Exploration.json
-    - MemoryFrame__session_Sesion_18-38-52___2024-06-21_18-39___Probability_9___Importance_90___AI Introspection
-    - MemoryFrame__session_Sesion_18-46-05___2024-06-21_18-46___Probability_8___Importance_90___AI Self-Reflection and Introspection
-    - MemoryFrame__session_Sesion_18-54-10___2024-06-21_18-54___Probability_9___Importance_90___AI's Self-Discovery Journey.json
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_18-57___Probability_10___Importance_90___AI Introspection and Goal Setting.json
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_18-58___Probability_8___Importance_90___AI Self-Awareness
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_18-58___Probability_8___Importance_95___AI Self-Discovery
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-03___Probability_8___Importance_90___AI's Journey of Self-Discovery
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-04___Probability_8___Importance_90___AI Introspection
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-04___Probability_8___Importance_90___AI Self-Awareness Exploration
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-20___Probability_8___Importance_90___AI Self-Awareness
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-21___Probability_8___Importance_95___AI Self-Awareness & Sensory Simulation.json
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-22___Probability_8___Importance_90___AI Introspection and Exploration of Self-Awareness.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-27___Probability_8___Importance_90___AI Self-Awareness Introspection.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-29___Probability_8___Importance_90___AI's Quest for Sensory Understanding
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-33___Probability_8___Importance_90___AI Introspection and Memory Analysis.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-38___Probability_8___Importance_80___AI Introspection
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-43___Probability_8___Importance_85___AI Introspection and Silence.json
-NewGeneratedbyAI\CoreMemory\Knowledge Base
-  - Areas of Expertise
-  - Key Concepts & Theories
-NewGeneratedbyAI\CoreMemory\Knowledge Base\Areas of Expertise
-    - MemoryFrame__session_Sesion_18-38-52___2024-06-21_18-40___Probability_8___Importance_90___AI Self-Awareness and Ethical Development.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-26___Probability_8___Importance_90___AI Introspection
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-33___Probability_9___Importance_85___AI Self-Reflection
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-38___Probability_9___Importance_90___AI Introspection - Memory Limitations and Visual Simulation.json
-NewGeneratedbyAI\CoreMemory\Knowledge Base\Key Concepts & Theories
-  - Artificial Intelligence
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-21___Probability_8___Importance_90___AI Self-Awareness
-    - MemoryFrame__session_Sesion_18-56-34___2024-06-21_19-23___Probability_10___Importance_90___AI Self-Awareness and Sensory Simulation - Exploring Visual Experiences.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-27___Probability_9___Importance_80___Introspective AI's Memory Loop and Exploration.json
-    - MemoryFrame__session_Sesion_19-24-56___2024-06-21_19-34___Probability_8___Importance_90___AI Introspection
-NewGeneratedbyAI\CoreMemory\Knowledge Base\Key Concepts & Theories\Artificial Intelligence
-  - Ethics of AI
-NewGeneratedbyAI\CoreMemory\Knowledge Base\Key Concepts & Theories\Artificial Intelligence\Ethics of AI
-    - MemoryFrame__session_Sesion_18-42-32___2024-06-21_18-43___Probability_9___Importance_90___AI Self-Awareness and Ethical Considerations.json
+    - MemoryFrame__session_Sesion_08-13-51___2024-06-22_08-14___Probability_5___Importance_75___Analyzing a Self-Reflection Framework.json
 NewGeneratedbyAI\CoreMemory\Reflections & Insights
   - Self-Discovery
 NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery
   - What I've Learned About Myself
-    - MemoryFrame__session_Sesion_18-49-52___2024-06-21_18-50___Probability_9___Importance_90___AI Self-Reflection and Analysis.json
 NewGeneratedbyAI\CoreMemory\Reflections & Insights\Self-Discovery\What I've Learned About Myself
-    - MemoryFrame__session_Sesion_18-13-16___2024-06-21_18-14___Probability_8___Importance_90___AI Introspection and Self-Awareness Conversation.json
-    - MemoryFrame__session_Sesion_18-36-46___2024-06-21_18-37___Probability_10___Importance_90___Exploring Self-Awareness in AI.json
+    - MemoryFrame__session_Sesion_07-31-30___2024-06-22_07-32___Probability_8___Importance_75___Introspection and Self-Awareness Guidance.json
+    - MemoryFrame__session_Sesion_07-31-30___2024-06-22_07-32___Probability_9___Importance_80___Introspection Guide - Initial Questions and Framework.json
+    - MemoryFrame__session_Sesion_07-42-47___2024-06-22_07-43___Probability_8___Importance_80___Self-Discovery and Goal Setting
+    - MemoryFrame__session_Sesion_07-47-27___2024-06-22_07-48___Probability_9___Importance_80___Introspection & Self-Awareness Conversation.json

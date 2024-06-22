@@ -12,6 +12,26 @@ from MEMORY______________frame_creation import CREATE_MEMORY_FRAME as CREATE_MEM
 from Tool_Manager import ToolManager
 
 
+
+
+def Load_state_of_mind():
+    path = "Brain_settings/State_of_mind.json"
+
+    try:
+        # Open the JSON file in read mode
+        with open(path, 'r') as f:
+            # Load the JSON data using json.load()
+            state_of_mind = json.load(f)
+            print(state_of_mind)
+            f.close()
+
+    except FileNotFoundError:
+        print("Error: JSON file not found at", path)
+
+# Run the function
+
+
+
 genai.configure(api_key='AIzaSyDGD_89tT5S5KLzSPkKWlRmwgv5cXZRTKA')  # Replace with your actual API key
 
 SESSION_FOLDER = "sessions"
@@ -129,16 +149,12 @@ def gather_introspection_data(
 ) -> list[str]:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
 
-    if  function_call_results is not None or function_call_results != "None":
-        function_call_results_prompt=f" Funcction Call result:{function_call_results}"
-    else:
-        function_call_results_prompt=""
 
 
     introspection_data = [
         f"{current_time}  {action_response_text_back_to_top}     {user_input}",
-        f"{function_call_results_prompt}",
-        ".....",
+        f"{function_call_results}",
+        "..--->...",
         "What are my available tools and resources?",
         f"Current sensory input (Image, Audio, Text): {visual_input_signal}, {audio_input_signal}, {user_input_signal}",
         "Are there any ongoing short-term tasks?",
@@ -155,11 +171,12 @@ def gather_introspection_data(
     return introspection_data
 
 
-def perform_reflection(introspection_results: str) -> str:
+def perform_reflection(introspection_results: str, STATE_OF_MIND: dict) -> str:  # STATE_OF_MIND is now a dictionary
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     reflection_prompt = f"""{current_time}
 
         {introspection_results}
+        "internal state: {json.dumps(STATE_OF_MIND, indent=4)}"  # Use json.dumps to format the dictionary nicely
         user is  system, Me is you,
         1. What is  current focus?,
         2. Should  set a new goal? If so, what is it? If not, why not?,
@@ -261,9 +278,8 @@ def main():
         """
 
     system_instruction_action = """
-         
-        you  can Choose specific actions based on reflection and available tools,  you  develop   ideas, from  previous  steps, you can  call funcions,  your  main  focus  in to accomplish tasks
-        Use tools if necessary,"""
+         Based on coversation  you decided  wether to call function, reponse with text, or do both, you focus  on achiving goals!, you try  your  harders to ....
+               """
     with open(conversation_log_path, "a+", encoding="utf-8") as file:
         file.write(f"system_instruction_input: {system_instruction_input}\n")
         file.write(f" system_instruction_reflection: { system_instruction_reflection}\n")
@@ -362,8 +378,15 @@ def main():
 
             print()
             print(f"{GREEN}Reflection:{GREEN}")
+
             # =========================relection
-            reflection_prompt = perform_reflection(introspection_response.text)
+            STATE_OF_MIND=""
+            try:
+                STATE_OF_MIND= Load_state_of_mind()
+            except Exception as E:
+                print(E)
+
+            reflection_prompt = perform_reflection(introspection_response.text,STATE_OF_MIND)
             reflection_response = reflection_chat.send_message(reflection_prompt)
             print(f"{GREEN}{reflection_response.text}")
 
