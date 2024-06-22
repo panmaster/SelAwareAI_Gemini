@@ -142,7 +142,7 @@ def retrieve_relevant_memory_frames(
 ) -> Dict[str, Any]:
     try:
         query_embedding = get_bert_embedding(query)
-        embeddings = load_embeddings()
+        embeddings = load_embeddings()  # Load embeddings here as well
 
         similarities: List[Tuple[float, MemoryFrame]] = []
         updated_embeddings = False
@@ -152,7 +152,8 @@ def retrieve_relevant_memory_frames(
             if frame_embedding is not None:
                 similarity = cosine_similarity([query_embedding], [frame_embedding])[0][0]
                 similarities.append((similarity, frame))
-                if update_embeddings and frame.frame_name not in embeddings:
+                # Always update the embeddings dictionary if update_embeddings is True
+                if update_embeddings:
                     embeddings[frame.frame_name] = frame_embedding
                     updated_embeddings = True
 
@@ -178,10 +179,11 @@ def retrieve_relevant_memory_frames(
 
 def get_frame_embedding(frame: MemoryFrame, embeddings: Dict[str, np.ndarray], update_embeddings: bool) -> Optional[
     np.ndarray]:
-    if frame.frame_name in embeddings:
-        return embeddings[frame.frame_name]
-    elif update_embeddings:
+    # Always regenerate the embedding if update_embeddings is True
+    if update_embeddings:
         return frame.get_embedding()
+    elif frame.frame_name in embeddings:
+        return embeddings[frame.frame_name]
     return None
 
 
@@ -253,14 +255,28 @@ def apply_nested_filter(data: Dict, filter_options: Dict) -> Dict:
 def RETRIVE_RELEVANT_FRAMES(query: str) -> List[Dict[str, Any]]:
     pretty_print("Starting retrieval process...", SEARCH)
     memory_frames = load_memory_frames(MEMORY_FRAMES_DIR)
+    # Generate embeddings for all frames
     embeddings = generate_memory_embeddings(memory_frames)
+
+    # Check number of frames and embeddings
+    num_frames = len(memory_frames)
+    num_embeddings = len(embeddings)
+
+    if num_frames > num_embeddings:
+        # Add additional embeddings
+        pretty_print(f"Adding embeddings for {num_frames - num_embeddings} new frames...", BRAIN)
+        for frame in memory_frames:
+            if frame.frame_name not in embeddings:
+                embeddings[frame.frame_name] = frame.get_embedding()
+
+        save_embeddings(embeddings)
 
     retrieved_frames = retrieve_relevant_memory_frames(
         query=query,
         retrieval_method='cosine_similarity',
         filter_type='summary',
         top_n=2,
-        update_embeddings=True,
+        update_embeddings=True,  # Update embeddings during retrieval
         included_only_filled_areas=True,
         memory_frames=memory_frames
     )
@@ -285,4 +301,3 @@ def RETRIVE_RELEVANT_FRAMES(query: str) -> List[Dict[str, Any]]:
 
     pretty_print("Retrieval process completed", SUCCESS)
     return frames_content
-

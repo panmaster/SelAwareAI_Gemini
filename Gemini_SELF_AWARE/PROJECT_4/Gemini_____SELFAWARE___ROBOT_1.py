@@ -11,6 +11,24 @@ import json
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME as CREATE_MEMORY_FRAME
 from Tool_Manager import ToolManager
 
+def Load_state_of_mind():
+    path = "Brain_settings/State_of_mind.json"
+
+    try:
+        # Open the JSON file in read mode
+        with open(path, 'r') as f:
+            # Load the JSON data using json.load()
+            state_of_mind = json.load(f)
+            print(state_of_mind)
+
+    except FileNotFoundError:
+        print("Error: JSON file not found at", path)
+    print("loaded  state of  mind  ... ")
+    return   state_of_mind
+
+# Run the function
+
+
 
 genai.configure(api_key='AIzaSyDGD_89tT5S5KLzSPkKWlRmwgv5cXZRTKA')  # Replace with your actual API key
 
@@ -155,11 +173,12 @@ def gather_introspection_data(
     return introspection_data
 
 
-def perform_reflection(introspection_results: str) -> str:
+def perform_reflection(introspection_results: str,STATE_OF_MIND:str) -> str:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
     reflection_prompt = f"""{current_time}
 
         {introspection_results}
+        "internal state:{STATE_OF_MIND}
         user is  system, Me is you,
         1. What is  current focus?,
         2. Should  set a new goal? If so, what is it? If not, why not?,
@@ -263,7 +282,9 @@ def main():
     system_instruction_action = """
          
         you  can Choose specific actions based on reflection and available tools,  you  develop   ideas, from  previous  steps, you can  call funcions,  your  main  focus  in to accomplish tasks
-        Use tools if necessary,"""
+        Use tools if necessary,
+        you  can  also  pass  your continiue  corversation without calling  functions, you can develp  ideas, from previous  threat, give ideas,  share  description  of  funcionts,   be  creative,your  goal is to  take  best  accions to help achive  goal!!!
+        """
     with open(conversation_log_path, "a+", encoding="utf-8") as file:
         file.write(f"system_instruction_input: {system_instruction_input}\n")
         file.write(f" system_instruction_reflection: { system_instruction_reflection}\n")
@@ -362,8 +383,11 @@ def main():
 
             print()
             print(f"{GREEN}Reflection:{GREEN}")
+
             # =========================relection
-            reflection_prompt = perform_reflection(introspection_response.text)
+
+            STATE_OF_MIND= Load_state_of_mind()
+            reflection_prompt = perform_reflection(introspection_response.text,STATE_OF_MIND)
             reflection_response = reflection_chat.send_message(reflection_prompt)
             print(f"{GREEN}{reflection_response.text}")
 

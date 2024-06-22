@@ -161,7 +161,7 @@ def call_memory_model(user_input, response1_text):
               "importance": {
                 "reason": "", 
                 "potential_uses": [], 
-                "importance_level": "0-100" 
+                "importance_level": "0-100 , most  of  your  memories should  be  below 50, only very important essential can be higher then 80" 
               },
               "technical_details": {
                 "problem_solved": "", 
@@ -193,7 +193,7 @@ def call_memory_model(user_input, response1_text):
               }
             }
             ```
-            Here  you have  existing  folder structure  for  memory_folders_storage [{
+            Here  you have  existing  folder structure  for  memory_folders_storage but  you can break from the schema  for Important things! [{
     "Actions & Results": {
         "Actions & Results": {
             "Future": {},
