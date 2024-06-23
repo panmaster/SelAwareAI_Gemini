@@ -1,4 +1,4 @@
-tool_type_for_Tool_Manager = "all"
+tool_type_for_Tool_Manager = "action"
 import  os
 import  json
 def summarize_files_contents(file_paths):

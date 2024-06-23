@@ -21,7 +21,7 @@ ChangeOwnState._initialize_state()
 
 
 
-genai.configure(api_key='AIzaSyDGD_89tT5S5KLzSPkKWlRmwgv5cXZRTKA')  # Replace with your actual API key
+genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')  # Replace with your actual API key
 
 SESSION_FOLDER = "sessions"
 MEMORY_FOLDER = "memories"
@@ -289,7 +289,9 @@ def main():
     session_path = session_info['session_path']
     conversation_log_path = os.path.join(session_path, "conversation_log.txt")
     tool_manager = ToolManager()
-    tools_list_json = tool_manager.get_tools_list_json()
+    tools_list_json =  tool_manager.get_filtered_tools("all")
+
+
     iteration_count = 0
     user_input_count = 0
     function_call_results = ""
@@ -318,6 +320,7 @@ def main():
 
 
     available_tools = tool_manager.get_tools_list_json()
+    print(available_tools)
     print("prompt init")
     system_instruction_input= """ And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
         """

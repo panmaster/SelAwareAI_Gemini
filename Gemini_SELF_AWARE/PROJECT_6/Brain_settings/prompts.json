@@ -1,0 +1,7 @@
+{
+    "input": "Analyze current inputs, state, and emotions. What's the most important aspect to focus on?",
+    "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn?",
+    "action": "Based on current focus, reflections, and emotional state, what's the optimal next action?",
+    "emotion": "Based on recent events and outcomes, how should my emotional state be adjusted?",
+    "learning": "What new knowledge or skills should be prioritized for long-term improvement?"
+}
