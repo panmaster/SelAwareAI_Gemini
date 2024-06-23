@@ -18,7 +18,7 @@ import  traceback
 
 
 
-genai.configure(api_key='AIzaSyDGD_89tT5S5KLzSPkKWlRmwgv5cXZRTKA')  # Replace with your actual API key
+genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')  # Replace with your actual API key
 
 SESSION_FOLDER = "sessions"
 MEMORY_FOLDER = "memories"
@@ -313,6 +313,7 @@ def main():
 
 
     available_tools = tool_manager.get_tools_list_json()
+    print(available_tools)
     print("prompt init")
     system_instruction_input= """ And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
         """

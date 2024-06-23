@@ -1,4 +1,4 @@
-tool_type="all"
+tool_type_for_Tool_Manager="all"
 
 import os
 import json

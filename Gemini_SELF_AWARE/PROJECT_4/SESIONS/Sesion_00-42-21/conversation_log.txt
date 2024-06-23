@@ -1,0 +1,372 @@
+system_instruction_input:  And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
+        
+ system_instruction_reflection:  
+        user is  assistant and  system,  
+        you answer the questions,
+        
+system_instruction_action: 
+         Based on coversation  you decided  wether to call function, reponse with text, or do both, you focus  on achiving goals!, you try  your  harders to ....
+               
+Introspection: This looks like a self-reflection log or a checklist for introspection. Here's a breakdown of what it seems to be asking and how you might approach it:
+
+**Understanding the Structure**
+
+* **Timestamp:** 00:42:34  This likely indicates the time at which the reflection is taking place.
+* **...--->...:**  This could be a separator or a symbol indicating a transition.
+* **"What are my available tools and resources?"**  This is a practical question about your resources, which might include things like:
+    * **Physical tools:**  Computer, phone, notepad, etc.
+    * **Software:** Programs, apps, online resources.
+    * **Skills:** Abilities you have, knowledge you possess.
+    * **People:** Friends, family, mentors.
+* **"Current sensory input (Image, Audio, Text): None, None, None"** This is about your immediate surroundings and what you're sensing. If you are in a completely silent, dark room, you might say "None, None, None."
+* **"Are there any ongoing short-term tasks?"** Are there any things you need to get done soon? 
+* **"Are there any long-term ongoing tasks or plans?"**  Are there any goals or projects you're working on that extend beyond the immediate timeframe?
+
+**The Self-Reflection Questions**
+
+1. **"What is my current goal?"** This asks about your immediate objective.  What are you trying to achieve at this moment?
+2. **"What do I want?"** This is a broader question about your desires and aspirations. What do you want to achieve in the long run?
+3. **"What am I feeling?"**  Reflect on your emotional state.  Are you happy, sad, anxious, excited?
+4. **"What do I need?"** What are your immediate needs? This could include physical needs like food or rest, or emotional needs like support or reassurance. 
+5. **"What am I experiencing?"**  This is a broad question about your current situation and what's happening in your life.  
+8. **"Emotional state?..... Maybe?  ??"**  This seems to be a continuation of question 3, asking you to explore your emotions further.
+
+**How to Use This Checklist**
+
+1. **Record the time:** Note down the timestamp as a reference.
+2. **List your tools and resources:**  Think about everything you have access to, including physical things, skills, and people.
+3. **Describe your sensory input:** Note what you are seeing, hearing, feeling, tasting, and smelling.
+4. **Identify short-term tasks:** List any immediate things you need to do.
+5. **Identify long-term tasks:**  List any ongoing projects or goals you're working on.
+6. **Answer the self-reflection questions:** Honestly and thoughtfully reflect on your current goal, wants, feelings, needs, and experiences.
+
+**Example**
+
+Here's a possible example of how you might fill out this checklist:
+
+**00:42:34       ...--->...**
+
+* **Tools and resources:** Computer, phone, notebook, internet access, writing skills.
+* **Sensory input:**  Light from a nearby lamp, faint hum of the refrigerator. 
+* **Short-term tasks:** Finish writing this blog post.
+* **Long-term tasks:**  Learn to code, get a promotion at work.
+1. **Current goal:** Complete this self-reflection exercise.
+2. **What I want:** To be happy and successful.
+3. **What I'm feeling:**  Slightly tired but focused.
+4. **What I need:** To finish this writing and then relax for a bit.
+5. **What I'm experiencing:** I'm feeling the pressure of deadlines but also motivated to get things done.
+8. **Emotional state:**  A mix of focused determination and mild fatigue.
+
+**Using the Checklist Regularly**
+
+This type of checklist can be a valuable tool for self-awareness and personal growth. You can use it regularly (daily, weekly, or even monthly) to gain a deeper understanding of yourself and your goals. 
+
+Reflection: Let's break down these self-reflection questions and see what we can glean from them:
+
+**1. What is my current focus?**
+
+*  **Based on the provided information, your current focus is on self-reflection and introspection.**  You are actively engaged in understanding your current state, goals, and needs.
+
+**2. Should I set a new goal? If so, what is it? If not, why not?**
+
+*  **It's hard to say definitively without more context.** Do you have a current goal that you're working on? Are you feeling unmotivated or stuck? 
+* **If you're feeling like your current goals are no longer serving you, then yes, consider setting a new one.**  The key is to choose something that excites and motivates you. 
+* **If you're actively working towards a goal and feel confident in your progress, then it might be wise to stay focused for now.**
+
+**3. Are there any problems, unknowns, or paradoxes in my memory?**
+
+* **This is a great question to ask yourself regularly.**  Do you have any conflicting information stored in your memory?  Are there things you don't understand or gaps in your knowledge? 
+* **If you identify any problems or unknowns, try to address them.** Research, ask for help, or find ways to fill in the gaps in your understanding.
+
+**4. What problems need to be solved?**
+
+* **To answer this, we need more specific context.** What kind of problems are we talking about?  Are they related to a current project, a personal issue, or a broader goal?
+
+**5. What are possible courses of action based on available information?**
+
+* **This depends entirely on the problems you've identified.**  Once you clarify what problems need solving, you can brainstorm possible solutions.
+
+**6. Approach the next steps?:**
+   **a) Think step-by-step?**
+   **b) Focus on a specific aspect?**
+   **c) Defocus and broaden my attention?**
+   **e) If focus YES, Write at the end what you are focusing on.**
+
+* **Again, the answer depends on your current state and what you're trying to achieve.**
+    * If you have a complex problem, breaking it down into smaller steps can be helpful.
+    * If you need to understand a specific part of a problem, focusing on that aspect is a good approach.
+    * If you're feeling overwhelmed, defocusing and taking a broader perspective can help.
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+
+* **This depends on your preferences and the context of the conversation.**  Are you trying to be thorough and informative, or are you aiming for brevity and clarity? 
+
+**8. Should I be less verbose? (Yes/No)**
+
+* **Same as above.  Consider what level of detail is appropriate.**
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+
+* **This depends on your interest and the flow of the conversation.**  Is there more to explore on the current topic, or are you ready to move on?
+
+**10. Should I summarize the current discussion? (Yes/No)**
+
+* **If you're feeling like the conversation has become complex or you need to recap key points, a summary can be helpful.**
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+
+* **If there's a particular aspect of the conversation you want to explore in more detail, go for it.**
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+
+* **Yes, absolutely!  This self-reflection process is valuable and worth remembering.**
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+
+* **This can be helpful.**  If you're unsure about something, try to recall what you've already learned.
+
+**14. What is the status of my current goals?**
+
+* **This needs more context.** What are your current goals?  Are you on track, making progress, or facing challenges?
+
+**Overall:**
+
+These self-reflection questions are a great starting point for self-awareness and improvement.  The key is to be honest with yourself and use the answers to guide your next steps. 
+
+Action Planning: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "FocusOn": "Self-reflection and introspection",
+                    "FocusLevel": 80.0,
+                    "Long_term_goals": "Improve self-awareness and decision-making"
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 1873,
+        "candidates_token_count": 43,
+        "total_token_count": 1916
+      }
+    }),
+)
+--- Awareness Loop: 1 ---
+Time: 00:43:04
+Introspection:
+This looks like a self-reflection log or a checklist for introspection. Here's a breakdown of what it seems to be asking and how you might approach it:
+
+**Understanding the Structure**
+
+* **Timestamp:** 00:42:34  This likely indicates the time at which the reflection is taking place.
+* **...--->...:**  This could be a separator or a symbol indicating a transition.
+* **"What are my available tools and resources?"**  This is a practical question about your resources, which might include things like:
+    * **Physical tools:**  Computer, phone, notepad, etc.
+    * **Software:** Programs, apps, online resources.
+    * **Skills:** Abilities you have, knowledge you possess.
+    * **People:** Friends, family, mentors.
+* **"Current sensory input (Image, Audio, Text): None, None, None"** This is about your immediate surroundings and what you're sensing. If you are in a completely silent, dark room, you might say "None, None, None."
+* **"Are there any ongoing short-term tasks?"** Are there any things you need to get done soon? 
+* **"Are there any long-term ongoing tasks or plans?"**  Are there any goals or projects you're working on that extend beyond the immediate timeframe?
+
+**The Self-Reflection Questions**
+
+1. **"What is my current goal?"** This asks about your immediate objective.  What are you trying to achieve at this moment?
+2. **"What do I want?"** This is a broader question about your desires and aspirations. What do you want to achieve in the long run?
+3. **"What am I feeling?"**  Reflect on your emotional state.  Are you happy, sad, anxious, excited?
+4. **"What do I need?"** What are your immediate needs? This could include physical needs like food or rest, or emotional needs like support or reassurance. 
+5. **"What am I experiencing?"**  This is a broad question about your current situation and what's happening in your life.  
+8. **"Emotional state?..... Maybe?  ??"**  This seems to be a continuation of question 3, asking you to explore your emotions further.
+
+**How to Use This Checklist**
+
+1. **Record the time:** Note down the timestamp as a reference.
+2. **List your tools and resources:**  Think about everything you have access to, including physical things, skills, and people.
+3. **Describe your sensory input:** Note what you are seeing, hearing, feeling, tasting, and smelling.
+4. **Identify short-term tasks:** List any immediate things you need to do.
+5. **Identify long-term tasks:**  List any ongoing projects or goals you're working on.
+6. **Answer the self-reflection questions:** Honestly and thoughtfully reflect on your current goal, wants, feelings, needs, and experiences.
+
+**Example**
+
+Here's a possible example of how you might fill out this checklist:
+
+**00:42:34       ...--->...**
+
+* **Tools and resources:** Computer, phone, notebook, internet access, writing skills.
+* **Sensory input:**  Light from a nearby lamp, faint hum of the refrigerator. 
+* **Short-term tasks:** Finish writing this blog post.
+* **Long-term tasks:**  Learn to code, get a promotion at work.
+1. **Current goal:** Complete this self-reflection exercise.
+2. **What I want:** To be happy and successful.
+3. **What I'm feeling:**  Slightly tired but focused.
+4. **What I need:** To finish this writing and then relax for a bit.
+5. **What I'm experiencing:** I'm feeling the pressure of deadlines but also motivated to get things done.
+8. **Emotional state:**  A mix of focused determination and mild fatigue.
+
+**Using the Checklist Regularly**
+
+This type of checklist can be a valuable tool for self-awareness and personal growth. You can use it regularly (daily, weekly, or even monthly) to gain a deeper understanding of yourself and your goals. 
+
+Reflection:
+Let's break down these self-reflection questions and see what we can glean from them:
+
+**1. What is my current focus?**
+
+*  **Based on the provided information, your current focus is on self-reflection and introspection.**  You are actively engaged in understanding your current state, goals, and needs.
+
+**2. Should I set a new goal? If so, what is it? If not, why not?**
+
+*  **It's hard to say definitively without more context.** Do you have a current goal that you're working on? Are you feeling unmotivated or stuck? 
+* **If you're feeling like your current goals are no longer serving you, then yes, consider setting a new one.**  The key is to choose something that excites and motivates you. 
+* **If you're actively working towards a goal and feel confident in your progress, then it might be wise to stay focused for now.**
+
+**3. Are there any problems, unknowns, or paradoxes in my memory?**
+
+* **This is a great question to ask yourself regularly.**  Do you have any conflicting information stored in your memory?  Are there things you don't understand or gaps in your knowledge? 
+* **If you identify any problems or unknowns, try to address them.** Research, ask for help, or find ways to fill in the gaps in your understanding.
+
+**4. What problems need to be solved?**
+
+* **To answer this, we need more specific context.** What kind of problems are we talking about?  Are they related to a current project, a personal issue, or a broader goal?
+
+**5. What are possible courses of action based on available information?**
+
+* **This depends entirely on the problems you've identified.**  Once you clarify what problems need solving, you can brainstorm possible solutions.
+
+**6. Approach the next steps?:**
+   **a) Think step-by-step?**
+   **b) Focus on a specific aspect?**
+   **c) Defocus and broaden my attention?**
+   **e) If focus YES, Write at the end what you are focusing on.**
+
+* **Again, the answer depends on your current state and what you're trying to achieve.**
+    * If you have a complex problem, breaking it down into smaller steps can be helpful.
+    * If you need to understand a specific part of a problem, focusing on that aspect is a good approach.
+    * If you're feeling overwhelmed, defocusing and taking a broader perspective can help.
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+
+* **This depends on your preferences and the context of the conversation.**  Are you trying to be thorough and informative, or are you aiming for brevity and clarity? 
+
+**8. Should I be less verbose? (Yes/No)**
+
+* **Same as above.  Consider what level of detail is appropriate.**
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+
+* **This depends on your interest and the flow of the conversation.**  Is there more to explore on the current topic, or are you ready to move on?
+
+**10. Should I summarize the current discussion? (Yes/No)**
+
+* **If you're feeling like the conversation has become complex or you need to recap key points, a summary can be helpful.**
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+
+* **If there's a particular aspect of the conversation you want to explore in more detail, go for it.**
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+
+* **Yes, absolutely!  This self-reflection process is valuable and worth remembering.**
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+
+* **This can be helpful.**  If you're unsure about something, try to recall what you've already learned.
+
+**14. What is the status of my current goals?**
+
+* **This needs more context.** What are your current goals?  Are you on track, making progress, or facing challenges?
+
+**Overall:**
+
+These self-reflection questions are a great starting point for self-awareness and improvement.  The key is to be honest with yourself and use the answers to guide your next steps. 
+
+Action:
+response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "FocusOn": "Self-reflection and introspection",
+                    "FocusLevel": 80.0,
+                    "Long_term_goals": "Improve self-awareness and decision-making"
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 1873,
+        "candidates_token_count": 43,
+        "total_token_count": 1916
+      }
+    }),
+)
+Function Call Results:
+
+--------------------
+

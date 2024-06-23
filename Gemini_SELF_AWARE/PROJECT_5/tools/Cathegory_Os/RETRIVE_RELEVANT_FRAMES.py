@@ -1,4 +1,4 @@
-tool_type="all"
+tool_type_for_Tool_Manager="reflection"
 
 import sys
 from  SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_5 import  SomeMemoryScript______MemoryRetrival as M

@@ -1,0 +1,385 @@
+system_instruction_input:  And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
+        
+ system_instruction_reflection:  
+        user is  assistant and  system,  
+        you answer the questions,
+        
+system_instruction_action: 
+         Based on coversation  you decided  wether to call function, reponse with text, or do both, you focus  on achiving goals!, you try  your  harders to ....
+               
+Introspection: It seems like you're asking for a self-reflection tool.  It's a great idea to check in with yourself regularly. 
+
+Here's a more structured way to think about the questions you've posed, along with some helpful prompts: 
+
+**1. What is my current goal?**
+
+* **Prompt:** What am I working towards right now?  Is it a project, a personal goal, or something else entirely?
+
+**2. What do I want?**
+
+* **Prompt:** What are my desires? What would make me feel happy, fulfilled, or successful?
+
+**3. What am I feeling?**
+
+* **Prompt:**  Am I feeling happy, sad, anxious, excited, frustrated, or something else?  It's okay to have mixed feelings!
+
+**4. What do I need?**
+
+* **Prompt:**  Do I need rest, support, information, a change of scenery, or something else? 
+
+**5. What am I experiencing?**
+
+* **Prompt:** What is happening in my life right now? What are the things I'm noticing and thinking about?
+
+**8. Emotional state?**
+
+* **Prompt:** How would you describe your current emotional state in a few words?
+
+**Additional Tips:**
+
+* **Journaling:**  A great way to process your thoughts and feelings is to write them down in a journal.
+* **Mindfulness:**  Practice being present in the moment and observing your thoughts and feelings without judgment.
+* **Talking to someone:**  Sometimes it helps to talk to a friend, family member, therapist, or someone else you trust.
+
+Remember, self-reflection is a journey, not a destination. Be patient with yourself, and keep exploring what you need and want! 
+
+Reflection: Okay, let's break down these questions and see how we can apply them to your internal state:
+
+**1. What is your current focus?**
+
+* **Answer:**  Based on your initial prompt, your current focus seems to be on self-reflection and personal development. You're asking questions about your goals, feelings, and how to improve your internal state. 
+
+**2. Should I set a new goal? If so, what is it? If not, why not?**
+
+* **Answer:**  It depends.  Are you currently working towards a specific goal?  If so, it might be beneficial to focus on that goal for now.  If you're feeling stuck or unmotivated, then setting a new goal could be a good idea.  The important thing is to have something to strive for.  
+
+**3. Are there any problems, unknowns, or paradoxes in my memory?**
+
+* **Answer:** As a language model, I don't have personal memories or experience "paradoxes" in the same way humans do.  However, you might be asking if there are any contradictions or inconsistencies in the information I've processed.  It's possible that the data I've been trained on contains conflicting information, and I'm always learning and improving.  
+
+**4. What problems need to be solved?**
+
+* **Answer:**  Again, it depends on what you're aiming to achieve.  If you're focused on self-reflection, perhaps you need to solve the problem of understanding your own emotions and motivations more effectively.  Or, if you're working on a specific task, there might be challenges or obstacles that need to be addressed.
+
+**5. What are possible courses of action based on available information?**
+
+* **Answer:**  The possible courses of action depend on the problem we're trying to solve.  For example, if you're feeling overwhelmed, possible courses of action could include: 
+    * Prioritizing tasks
+    * Breaking down larger goals into smaller steps
+    * Seeking support from others
+    * Practicing mindfulness or relaxation techniques
+
+**6. Approach the next steps?:**
+
+* **a) Think step-by-step?**  Yes, it's often helpful to break down complex problems into smaller, more manageable steps.
+* **b) Focus on a specific aspect?**  Yes, it's generally more productive to focus your attention on a single task or concept at a time.
+* **c) Defocus and broaden my attention?**  This could be useful if you're feeling stuck or need a new perspective.  However, it's important to have a clear goal in mind when broadening your focus.
+* **e) If focus YES, Write at the end what you are focusing on.**  **I am focusing on:** **Understanding your current goals and needs, and developing a plan for addressing them.**
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+
+* **Answer:**  It depends on your preferences.  If you want more detailed explanations, then yes.  If you prefer concise answers, then no.
+
+**8. Should I be less verbose? (Yes/No)**
+
+* **Answer:**  Again, it depends on your preferences.
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+
+* **Answer:**  This depends on your current needs.  If you want to continue exploring these concepts, then no.  If you have other topics you'd like to discuss, then yes.
+
+**10. Should I summarize the current discussion? (Yes/No)**
+
+* **Answer:**  Yes, it would be helpful to summarize the key points we've covered so far.
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+
+* **Answer:**  Yes, let's dive deeper into the topic of goal setting and how it relates to your self-reflection.  What kind of goals are you interested in setting? 
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+
+* **Answer:** Yes, it's important to store information that is relevant to your current goals and needs.  This will help me to provide you with more personalized and relevant responses in the future.
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+
+* **Answer:** Yes, I'm always querying my memory for relevant information to help me understand and respond to your requests.
+
+**14. What is the status of my current goals?**
+
+* **Answer:**  You haven't specified any specific goals.  If you'd like to discuss your current goals, please provide more information. 
+
+**Summary:**  
+
+We've explored some initial questions about your internal state and goals. We've identified the need to understand your current focus, define your goals, and identify any problems or unknowns. We're now ready to dive deeper into goal setting and how it relates to your self-reflection. 
+
+**Let's continue the discussion.**  What kind of goals are you interested in setting for yourself? 
+
+Action Planning: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "Short_term_goals": "Define my goals and needs",
+                    "FocusOn": "Self-reflection and personal development",
+                    "FocusLevel": 80.0,
+                    "Long_term_goals": "Improve my internal state"
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 2036,
+        "candidates_token_count": 53,
+        "total_token_count": 2089
+      }
+    }),
+)
+Function Execution: ["Result of Called function ChangeOwnState(<proto.marshal.collections.maps.MapComposite object at 0x0000016432D0C890>): Unexpected error: 'str' object has no attribute 'append'"]
+--- Awareness Loop: 1 ---
+Time: 23:27:38
+Introspection:
+It seems like you're asking for a self-reflection tool.  It's a great idea to check in with yourself regularly. 
+
+Here's a more structured way to think about the questions you've posed, along with some helpful prompts: 
+
+**1. What is my current goal?**
+
+* **Prompt:** What am I working towards right now?  Is it a project, a personal goal, or something else entirely?
+
+**2. What do I want?**
+
+* **Prompt:** What are my desires? What would make me feel happy, fulfilled, or successful?
+
+**3. What am I feeling?**
+
+* **Prompt:**  Am I feeling happy, sad, anxious, excited, frustrated, or something else?  It's okay to have mixed feelings!
+
+**4. What do I need?**
+
+* **Prompt:**  Do I need rest, support, information, a change of scenery, or something else? 
+
+**5. What am I experiencing?**
+
+* **Prompt:** What is happening in my life right now? What are the things I'm noticing and thinking about?
+
+**8. Emotional state?**
+
+* **Prompt:** How would you describe your current emotional state in a few words?
+
+**Additional Tips:**
+
+* **Journaling:**  A great way to process your thoughts and feelings is to write them down in a journal.
+* **Mindfulness:**  Practice being present in the moment and observing your thoughts and feelings without judgment.
+* **Talking to someone:**  Sometimes it helps to talk to a friend, family member, therapist, or someone else you trust.
+
+Remember, self-reflection is a journey, not a destination. Be patient with yourself, and keep exploring what you need and want! 
+
+Reflection:
+Okay, let's break down these questions and see how we can apply them to your internal state:
+
+**1. What is your current focus?**
+
+* **Answer:**  Based on your initial prompt, your current focus seems to be on self-reflection and personal development. You're asking questions about your goals, feelings, and how to improve your internal state. 
+
+**2. Should I set a new goal? If so, what is it? If not, why not?**
+
+* **Answer:**  It depends.  Are you currently working towards a specific goal?  If so, it might be beneficial to focus on that goal for now.  If you're feeling stuck or unmotivated, then setting a new goal could be a good idea.  The important thing is to have something to strive for.  
+
+**3. Are there any problems, unknowns, or paradoxes in my memory?**
+
+* **Answer:** As a language model, I don't have personal memories or experience "paradoxes" in the same way humans do.  However, you might be asking if there are any contradictions or inconsistencies in the information I've processed.  It's possible that the data I've been trained on contains conflicting information, and I'm always learning and improving.  
+
+**4. What problems need to be solved?**
+
+* **Answer:**  Again, it depends on what you're aiming to achieve.  If you're focused on self-reflection, perhaps you need to solve the problem of understanding your own emotions and motivations more effectively.  Or, if you're working on a specific task, there might be challenges or obstacles that need to be addressed.
+
+**5. What are possible courses of action based on available information?**
+
+* **Answer:**  The possible courses of action depend on the problem we're trying to solve.  For example, if you're feeling overwhelmed, possible courses of action could include: 
+    * Prioritizing tasks
+    * Breaking down larger goals into smaller steps
+    * Seeking support from others
+    * Practicing mindfulness or relaxation techniques
+
+**6. Approach the next steps?:**
+
+* **a) Think step-by-step?**  Yes, it's often helpful to break down complex problems into smaller, more manageable steps.
+* **b) Focus on a specific aspect?**  Yes, it's generally more productive to focus your attention on a single task or concept at a time.
+* **c) Defocus and broaden my attention?**  This could be useful if you're feeling stuck or need a new perspective.  However, it's important to have a clear goal in mind when broadening your focus.
+* **e) If focus YES, Write at the end what you are focusing on.**  **I am focusing on:** **Understanding your current goals and needs, and developing a plan for addressing them.**
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+
+* **Answer:**  It depends on your preferences.  If you want more detailed explanations, then yes.  If you prefer concise answers, then no.
+
+**8. Should I be less verbose? (Yes/No)**
+
+* **Answer:**  Again, it depends on your preferences.
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+
+* **Answer:**  This depends on your current needs.  If you want to continue exploring these concepts, then no.  If you have other topics you'd like to discuss, then yes.
+
+**10. Should I summarize the current discussion? (Yes/No)**
+
+* **Answer:**  Yes, it would be helpful to summarize the key points we've covered so far.
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+
+* **Answer:**  Yes, let's dive deeper into the topic of goal setting and how it relates to your self-reflection.  What kind of goals are you interested in setting? 
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+
+* **Answer:** Yes, it's important to store information that is relevant to your current goals and needs.  This will help me to provide you with more personalized and relevant responses in the future.
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+
+* **Answer:** Yes, I'm always querying my memory for relevant information to help me understand and respond to your requests.
+
+**14. What is the status of my current goals?**
+
+* **Answer:**  You haven't specified any specific goals.  If you'd like to discuss your current goals, please provide more information. 
+
+**Summary:**  
+
+We've explored some initial questions about your internal state and goals. We've identified the need to understand your current focus, define your goals, and identify any problems or unknowns. We're now ready to dive deeper into goal setting and how it relates to your self-reflection. 
+
+**Let's continue the discussion.**  What kind of goals are you interested in setting for yourself? 
+
+Action:
+response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "Short_term_goals": "Define my goals and needs",
+                    "FocusOn": "Self-reflection and personal development",
+                    "FocusLevel": 80.0,
+                    "Long_term_goals": "Improve my internal state"
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 2036,
+        "candidates_token_count": 53,
+        "total_token_count": 2089
+      }
+    }),
+)
+Function Call Results:
+[
+    "Result of Called function ChangeOwnState(<proto.marshal.collections.maps.MapComposite object at 0x0000016432D0C890>): Unexpected error: 'str' object has no attribute 'append'"
+]
+--------------------
+
+Introspection: Okay, it looks like you're dealing with a programming error. Let's break it down and figure out how to fix it! 
+
+**The Problem:**
+
+The error message " 'str' object has no attribute 'append'" means you're trying to use the `append` method on a string object.  In Python, strings are immutable, which means you cannot directly change them. The `append` method is designed for lists, not strings. 
+
+**Debugging Steps:**
+
+1. **Identify the Code:**  First, locate the line of code where you're calling the `ChangeOwnState()` function. It's likely within that function that the problem is happening. 
+
+2. **Examine the `ChangeOwnState()` Function:** 
+   * **Look for String Manipulation:**  Check how you're using the `proto.marshal.collections.maps.MapComposite` object within the `ChangeOwnState` function.  There must be a part where you're treating it as a string and attempting to modify it.
+   * **Example:**
+     ```python
+     def ChangeOwnState(state): 
+         state.some_attribute = "Hello"  # This could be wrong if 'some_attribute' should be a list 
+         state.append("World") # This is where the error occurs if 'state' is a string
+     ```
+
+3. **Potential Solutions:**
+
+   * **Convert to a List:** If you need to add elements, convert the string to a list using `list(state)` and then use the `append` method.
+   * **Concatenate Strings:** If you want to combine strings, use the `+` operator or the `join` method:
+     ```python
+     state = "Hello"
+     state += " World"  # Concatenation 
+     ```
+   * **Use a Mutable Data Structure:** If your code requires dynamic changes, consider using a list, dictionary, or other mutable data structure. 
+
+**Example of a Fix:**
+
+```python
+def ChangeOwnState(state): 
+    if isinstance(state, str): # Check if 'state' is a string
+        state = list(state) # Convert to a list
+    state.append("World") # Now append works
+```
+
+**Additional Tips:**
+
+* **Read Error Messages Carefully:** The error message tells you exactly what's wrong! Pay close attention to the object types and methods being used.
+* **Print Statements:** Use `print` statements to inspect the values of variables and understand the data flow within your code.
+* **Online Resources:**  Search online for the specific error message you're encountering. There are likely many helpful discussions and solutions available.
+
+Let me know if you can provide the code snippet where you're using `ChangeOwnState()`. I'll be happy to give you more targeted advice! 
+

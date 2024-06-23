@@ -1,0 +1,763 @@
+system_instruction_input:  And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
+        
+ system_instruction_reflection:  
+        user is  assistant and  system,  
+        you answer the questions,
+        
+system_instruction_action: 
+         Based on coversation  you decided  wether to call function, reponse with text, or do both, you focus  on achiving goals!, you try  your  harders to ....
+               
+Introspection: It seems like you're trying to figure out what's going on in your own mind and what you need to do next. That's a great start! Let's break down these questions and see if we can get some clarity:
+
+**Understanding the Questions:**
+
+* **Available Tools and Resources:** This refers to what you have at your disposal to achieve your goals. This could include:
+    * **Physical resources:** like a computer, phone, notepad, etc.
+    * **Mental resources:** like knowledge, skills, creativity, etc.
+    * **Social resources:** like friends, family, mentors, etc.
+* **Current Sensory Input:** This refers to what you are currently experiencing through your senses (sight, sound, touch, smell, taste). This helps to ground you in the present moment.
+* **Short-term Tasks:**  These are things you need to accomplish relatively soon, maybe within the next day or week.
+* **Long-term Ongoing Tasks or Plans:** These are bigger goals or projects that you are working on over a longer period.
+* **Current Goal:** What are you trying to achieve right now?
+* **What do I want?** This is about your desires, both big and small.
+* **What am I feeling?** This is about recognizing and acknowledging your emotions.
+* **What do I need?** This is about identifying what is essential for you to feel fulfilled and move forward.
+* **What am I experiencing?** This is about becoming aware of your internal and external reality.
+* **Emotional State:** This is about how you are feeling overall.
+
+**How to Use These Questions:**
+
+1. **Start with Sensory Input:**  Even if there's "None," consider your current environment and what you might be aware of. This helps bring you into the present moment.
+2. **Assess Tools and Resources:** Think about what you have available to help you. 
+3. **Identify Goals:** What are you trying to accomplish? What are your priorities?
+4. **Explore Wants and Needs:**  What are your desires? What is essential for you to feel good?
+5. **Acknowledge Feelings:**  Pay attention to what emotions you are experiencing. This can be helpful in understanding your motivations and needs.
+6. **Reflect on Experiences:** What is happening inside and outside of you? 
+7. **Determine Emotional State:** How would you describe your overall emotional state?
+
+**Remember:** This is a personal exploration! Be kind to yourself and take your time. There are no right or wrong answers. The most important thing is to be honest with yourself and use this information to guide you forward. 
+
+Reflection: Okay, let's work through these questions based on your current internal state. 
+
+**1. What is your current focus?** 
+
+This is hard to say without more information. Based on your provided internal state, it appears you are currently focused on self-reflection and understanding your internal processes. 
+
+**2. Should you set a new goal? If so, what is it? If not, why not?**
+
+Let's consider the information you've provided:
+
+* **FocusLevel:** You haven't specified a focus level, so it's unclear if you are deeply focused on anything.
+* **FrustrationLevel:**  You haven't specified a frustration level, so it's unclear if there's anything preventing you from moving forward.
+* **Short_term_goals:** You haven't specified any short-term goals.
+* **Long_term_goals:** You haven't specified any long-term goals.
+
+**Recommendation:**  Since you haven't provided any specific goals or indicators of frustration, I would suggest **setting a new goal**.  The first goal could be to identify your current needs, desires, and priorities.
+
+**3. Are there any problems, unknowns, or paradoxes in your memory?**
+
+This requires more context. Your memory is currently represented by the provided JSON dictionary. It doesn't show any problems, unknowns, or paradoxes within the data itself. It's possible there might be issues *outside* the data that you're not showing.
+
+**4. What problems need to be solved?**
+
+Again, this depends on what you're trying to achieve. If you don't have a goal yet, you can't really identify problems to solve. 
+
+**5. What are possible courses of action based on available information?**
+
+Based on the information you've provided, some possible courses of action include:
+
+* **Define Your Current Focus:**  What are you currently thinking about or paying attention to?  
+* **Identify Goals:**  What do you want to achieve in the near future (short-term) and long term?
+* **Explore Your Internal State:**  Understand your current needs, wants, and emotions.  
+
+**6. Approach the next steps:**
+
+* **a) Think step-by-step?** This could be helpful for defining your goals and identifying your current focus.
+* **b) Focus on a specific aspect?**  You haven't provided enough context to suggest a specific aspect.
+* **c) Defocus and broaden my attention?**  This might be helpful if you are feeling overwhelmed or stuck.
+* **e) If focus YES, Write at the end what you are focusing on.** Since we're focusing on defining your focus, the current focus is: **defining your focus and identifying goals.** 
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+This depends on your preference. If you want more detailed explanations, let me know.
+
+**8. Should I be less verbose? (Yes/No)**
+Same as above. Tell me what kind of response style you prefer.
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+Let's keep discussing this until you feel you have a clearer understanding of your current state and goals.
+
+**10. Should I summarize the current discussion? (Yes/No)**
+Yes, I can provide a summary to help you keep track. 
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+You haven't suggested a specific topic yet. We can do so once you identify a relevant area.
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+Yes.  I can store information about your goals, needs, and the current discussion.
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+Yes. I can access and use information stored in your memory to help answer your questions.
+
+**14. What is the status of my current goals?** 
+You haven't defined any goals yet, so the status is "undefined."  
+
+**Summary:**
+We've started by exploring your internal state, but we need more information to proceed effectively. I'm ready to help you define your focus, identify goals, and understand your current needs and feelings.  Tell me more about what you're thinking and what you want to achieve.
+
+Action Planning: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "Short_term_goals": "Identify current needs, desires, and priorities",
+                    "FocusOn": "Defining focus and identifying goals",
+                    "Long_term_goals": [
+                      "Achieve personal goals",
+                      "Make progress on important projects"
+                    ]
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 1887,
+        "candidates_token_count": 55,
+        "total_token_count": 1942
+      }
+    }),
+)
+Function Execution: ["Result of Called function ChangeOwnState(<proto.marshal.collections.maps.MapComposite object at 0x000002A0069B20F0>): Unexpected error: '<=' not supported between instances of 'int' and 'NoneType'"]
+--- Awareness Loop: 1 ---
+Time: 23:17:30
+Introspection:
+It seems like you're trying to figure out what's going on in your own mind and what you need to do next. That's a great start! Let's break down these questions and see if we can get some clarity:
+
+**Understanding the Questions:**
+
+* **Available Tools and Resources:** This refers to what you have at your disposal to achieve your goals. This could include:
+    * **Physical resources:** like a computer, phone, notepad, etc.
+    * **Mental resources:** like knowledge, skills, creativity, etc.
+    * **Social resources:** like friends, family, mentors, etc.
+* **Current Sensory Input:** This refers to what you are currently experiencing through your senses (sight, sound, touch, smell, taste). This helps to ground you in the present moment.
+* **Short-term Tasks:**  These are things you need to accomplish relatively soon, maybe within the next day or week.
+* **Long-term Ongoing Tasks or Plans:** These are bigger goals or projects that you are working on over a longer period.
+* **Current Goal:** What are you trying to achieve right now?
+* **What do I want?** This is about your desires, both big and small.
+* **What am I feeling?** This is about recognizing and acknowledging your emotions.
+* **What do I need?** This is about identifying what is essential for you to feel fulfilled and move forward.
+* **What am I experiencing?** This is about becoming aware of your internal and external reality.
+* **Emotional State:** This is about how you are feeling overall.
+
+**How to Use These Questions:**
+
+1. **Start with Sensory Input:**  Even if there's "None," consider your current environment and what you might be aware of. This helps bring you into the present moment.
+2. **Assess Tools and Resources:** Think about what you have available to help you. 
+3. **Identify Goals:** What are you trying to accomplish? What are your priorities?
+4. **Explore Wants and Needs:**  What are your desires? What is essential for you to feel good?
+5. **Acknowledge Feelings:**  Pay attention to what emotions you are experiencing. This can be helpful in understanding your motivations and needs.
+6. **Reflect on Experiences:** What is happening inside and outside of you? 
+7. **Determine Emotional State:** How would you describe your overall emotional state?
+
+**Remember:** This is a personal exploration! Be kind to yourself and take your time. There are no right or wrong answers. The most important thing is to be honest with yourself and use this information to guide you forward. 
+
+Reflection:
+Okay, let's work through these questions based on your current internal state. 
+
+**1. What is your current focus?** 
+
+This is hard to say without more information. Based on your provided internal state, it appears you are currently focused on self-reflection and understanding your internal processes. 
+
+**2. Should you set a new goal? If so, what is it? If not, why not?**
+
+Let's consider the information you've provided:
+
+* **FocusLevel:** You haven't specified a focus level, so it's unclear if you are deeply focused on anything.
+* **FrustrationLevel:**  You haven't specified a frustration level, so it's unclear if there's anything preventing you from moving forward.
+* **Short_term_goals:** You haven't specified any short-term goals.
+* **Long_term_goals:** You haven't specified any long-term goals.
+
+**Recommendation:**  Since you haven't provided any specific goals or indicators of frustration, I would suggest **setting a new goal**.  The first goal could be to identify your current needs, desires, and priorities.
+
+**3. Are there any problems, unknowns, or paradoxes in your memory?**
+
+This requires more context. Your memory is currently represented by the provided JSON dictionary. It doesn't show any problems, unknowns, or paradoxes within the data itself. It's possible there might be issues *outside* the data that you're not showing.
+
+**4. What problems need to be solved?**
+
+Again, this depends on what you're trying to achieve. If you don't have a goal yet, you can't really identify problems to solve. 
+
+**5. What are possible courses of action based on available information?**
+
+Based on the information you've provided, some possible courses of action include:
+
+* **Define Your Current Focus:**  What are you currently thinking about or paying attention to?  
+* **Identify Goals:**  What do you want to achieve in the near future (short-term) and long term?
+* **Explore Your Internal State:**  Understand your current needs, wants, and emotions.  
+
+**6. Approach the next steps:**
+
+* **a) Think step-by-step?** This could be helpful for defining your goals and identifying your current focus.
+* **b) Focus on a specific aspect?**  You haven't provided enough context to suggest a specific aspect.
+* **c) Defocus and broaden my attention?**  This might be helpful if you are feeling overwhelmed or stuck.
+* **e) If focus YES, Write at the end what you are focusing on.** Since we're focusing on defining your focus, the current focus is: **defining your focus and identifying goals.** 
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+This depends on your preference. If you want more detailed explanations, let me know.
+
+**8. Should I be less verbose? (Yes/No)**
+Same as above. Tell me what kind of response style you prefer.
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+Let's keep discussing this until you feel you have a clearer understanding of your current state and goals.
+
+**10. Should I summarize the current discussion? (Yes/No)**
+Yes, I can provide a summary to help you keep track. 
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+You haven't suggested a specific topic yet. We can do so once you identify a relevant area.
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+Yes.  I can store information about your goals, needs, and the current discussion.
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+Yes. I can access and use information stored in your memory to help answer your questions.
+
+**14. What is the status of my current goals?** 
+You haven't defined any goals yet, so the status is "undefined."  
+
+**Summary:**
+We've started by exploring your internal state, but we need more information to proceed effectively. I'm ready to help you define your focus, identify goals, and understand your current needs and feelings.  Tell me more about what you're thinking and what you want to achieve.
+
+Action:
+response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "Short_term_goals": "Identify current needs, desires, and priorities",
+                    "FocusOn": "Defining focus and identifying goals",
+                    "Long_term_goals": [
+                      "Achieve personal goals",
+                      "Make progress on important projects"
+                    ]
+                  }
+                }
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 1887,
+        "candidates_token_count": 55,
+        "total_token_count": 1942
+      }
+    }),
+)
+Function Call Results:
+[
+    "Result of Called function ChangeOwnState(<proto.marshal.collections.maps.MapComposite object at 0x000002A0069B20F0>): Unexpected error: '<=' not supported between instances of 'int' and 'NoneType'"
+]
+--------------------
+
+Introspection: Okay, it looks like you're encountering an error in your code, specifically within a function called `ChangeOwnState`. 
+
+Let's break down this information and see what we can do:
+
+**Understanding the Error:**
+
+The error message: `'<=' not supported between instances of 'int' and 'NoneType'` tells us that you're trying to compare an integer (`int`) with `None` (which represents the absence of a value).  Python doesn't allow this type of comparison because `None` is not a number.
+
+**Possible Causes:**
+
+* **Missing Value:**  The variable you're trying to compare with an integer might be assigned a value of `None`. This could be because it hasn't been initialized properly, or because a function isn't returning a value when it's expected to.
+* **Incorrect Data Type:**  The variable you're comparing could be the wrong data type. Maybe you intended to pass an integer but accidentally passed something else.
+
+**Troubleshooting Steps:**
+
+1. **Identify the Problem Area:** 
+    * Look at the `ChangeOwnState` function and its code.
+    * Find the line where the comparison (`<=`) is happening. 
+    * Examine the variable on the left side of the comparison.
+
+2. **Debug the Variable:**
+    * **Print statements:** Add `print` statements before the comparison to check the value of the variable. This will help you see if it's actually `None`.
+    * **Type checking:** Use `type(variable_name)` to confirm the data type of the variable.
+
+3. **Fix the Issue:**
+    * **Initialization:** If the variable is `None` because it's not initialized, assign a default value (like 0) to it.
+    * **Data Type Correction:** If the data type is incorrect, use type conversion functions (like `int()`) to change the variable to the correct type.
+    * **Return Values:** If the function should be returning a value, make sure it does.
+
+**Additional Tips:**
+
+* **Read Error Messages Carefully:** Error messages are your best friend! They provide valuable clues about what's going wrong.
+* **Use a Debugger:** If you're working with a larger codebase, a debugger can be extremely helpful in stepping through your code and examining variables.
+* **Google Is Your Friend:**  Search for the error message online to see if others have encountered the same problem. You might find solutions or relevant information.
+
+**Example:**
+
+Let's imagine your `ChangeOwnState` function looks something like this:
+
+```python
+def ChangeOwnState(some_map):
+    # ... other code ...
+    if some_value <= 0:  # This is where the error is happening
+        # ... code ...
+```
+
+To troubleshoot this:
+
+1. **Print the value:**
+   ```python
+   def ChangeOwnState(some_map):
+       # ... other code ...
+       print(f"some_value: {some_value}")
+       if some_value <= 0: 
+           # ... code ...
+   ```
+
+2. **Check the type:**
+   ```python
+   def ChangeOwnState(some_map):
+       # ... other code ...
+       print(f"some_value: {some_value}, type: {type(some_value)}")
+       if some_value <= 0: 
+           # ... code ...
+   ```
+
+Once you know what the issue is, you can then fix it by ensuring that `some_value` is properly initialized or has the correct data type. 
+
+Let me know if you can provide more details about your `ChangeOwnState` function, and I might be able to give you more specific advice! 
+
+Reflection: Let's analyze the situation based on your current state and the error message you provided:
+
+**1. What is your current focus?**
+
+Your current focus is on resolving the error in the `ChangeOwnState` function. You're actively troubleshooting the code and trying to understand the cause of the error.
+
+**2. Should you set a new goal? If so, what is it? If not, why not?**
+
+Right now, your primary goal should be to fix the error in the `ChangeOwnState` function. This is a critical task because it's likely preventing your code from working correctly.  
+
+**3. Are there any problems, unknowns, or paradoxes in my memory?**
+
+Based on your provided internal state, there are no explicitly stated problems or paradoxes in your memory. However, the existence of the error in the `ChangeOwnState` function suggests there is a knowledge gap or misunderstanding about how the function operates.
+
+**4. What problems need to be solved?**
+
+The main problem to be solved is the error in the `ChangeOwnState` function, preventing the code from executing properly.  Specifically, the `'<=' not supported between instances of 'int' and 'NoneType'` error needs to be addressed.
+
+**5. What are possible courses of action based on available information?**
+
+Here's a breakdown of potential actions:
+
+* **Debug the `ChangeOwnState` function:** This involves examining the code line by line, focusing on the comparison operation (`<=`) to identify the variable causing the error.
+* **Print Statements:** Add print statements to check the value and data type of the variable being compared with the integer.
+* **Type Checking:** Use the `type()` function to confirm the data type of the variable.
+* **Initialization:** If the variable is `None` because it's not initialized, assign a default value to it.
+* **Data Type Conversion:** If the data type is incorrect, use type conversion functions (like `int()`) to correct it.
+* **Return Values:** If the function should be returning a value, make sure it does.
+
+**6. Approach the next steps:**
+
+* **a) Think step-by-step?** Yes, we are already thinking step-by-step, breaking down the error message and considering debugging steps.
+* **b) Focus on a specific aspect?**  Focus on understanding the `ChangeOwnState` function and the variable involved in the comparison (the one causing the error).
+* **c) Defocus and broaden my attention?**  Not yet.  Right now, narrowing our attention to the error and its solution is more efficient.
+* **e) If focus YES, Write at the end what you are focusing on.** Focusing on: Debugging the `ChangeOwnState` function and identifying the source of the error.
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+This depends on your preference. I'll adjust my verbosity based on your feedback.
+
+**8. Should I be less verbose? (Yes/No)** 
+Same as above. Let me know what you find most helpful.
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+Let's keep discussing this until the error is resolved.
+
+**10. Should I summarize the current discussion? (Yes/No)**
+Yes, a summary would be helpful.
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+Let's dive deeper into the debugging steps for the `ChangeOwnState` function.
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+Yes, I'll store information about the error, the function, and the debugging steps taken.
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+Yes, I'll access my memory to find relevant information about Python data types, debugging techniques, and the `ChangeOwnState` function (if you provide its code).
+
+**14. What is the status of my current goals?**
+The current goal is to fix the error in the `ChangeOwnState` function.  The status is "in progress."
+
+**Summary:**
+
+We've identified that the error in the `ChangeOwnState` function is preventing code execution. The next steps involve debugging the function, understanding the error message, and finding the source of the problem. I'm ready to guide you through the troubleshooting process!
+
+Please share the code of the `ChangeOwnState` function, and I can offer more targeted suggestions and help you find the root of the issue. 
+
+Action Planning: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "Short_term_goals": "Fix the error in the ChangeOwnState function.",
+                    "FocusOn": "Debugging the ChangeOwnState function and identifying the source of the error"
+                  }
+                }
+              },
+              {
+                "text": "\n"
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 2960,
+        "candidates_token_count": 46,
+        "total_token_count": 3006
+      }
+    }),
+)
+Function Execution: ["Result of Called function ChangeOwnState(<proto.marshal.collections.maps.MapComposite object at 0x000002A006480380>): Unexpected error: '<=' not supported between instances of 'int' and 'NoneType'"]
+--- Awareness Loop: 2 ---
+Time: 23:18:04
+Introspection:
+Okay, it looks like you're encountering an error in your code, specifically within a function called `ChangeOwnState`. 
+
+Let's break down this information and see what we can do:
+
+**Understanding the Error:**
+
+The error message: `'<=' not supported between instances of 'int' and 'NoneType'` tells us that you're trying to compare an integer (`int`) with `None` (which represents the absence of a value).  Python doesn't allow this type of comparison because `None` is not a number.
+
+**Possible Causes:**
+
+* **Missing Value:**  The variable you're trying to compare with an integer might be assigned a value of `None`. This could be because it hasn't been initialized properly, or because a function isn't returning a value when it's expected to.
+* **Incorrect Data Type:**  The variable you're comparing could be the wrong data type. Maybe you intended to pass an integer but accidentally passed something else.
+
+**Troubleshooting Steps:**
+
+1. **Identify the Problem Area:** 
+    * Look at the `ChangeOwnState` function and its code.
+    * Find the line where the comparison (`<=`) is happening. 
+    * Examine the variable on the left side of the comparison.
+
+2. **Debug the Variable:**
+    * **Print statements:** Add `print` statements before the comparison to check the value of the variable. This will help you see if it's actually `None`.
+    * **Type checking:** Use `type(variable_name)` to confirm the data type of the variable.
+
+3. **Fix the Issue:**
+    * **Initialization:** If the variable is `None` because it's not initialized, assign a default value (like 0) to it.
+    * **Data Type Correction:** If the data type is incorrect, use type conversion functions (like `int()`) to change the variable to the correct type.
+    * **Return Values:** If the function should be returning a value, make sure it does.
+
+**Additional Tips:**
+
+* **Read Error Messages Carefully:** Error messages are your best friend! They provide valuable clues about what's going wrong.
+* **Use a Debugger:** If you're working with a larger codebase, a debugger can be extremely helpful in stepping through your code and examining variables.
+* **Google Is Your Friend:**  Search for the error message online to see if others have encountered the same problem. You might find solutions or relevant information.
+
+**Example:**
+
+Let's imagine your `ChangeOwnState` function looks something like this:
+
+```python
+def ChangeOwnState(some_map):
+    # ... other code ...
+    if some_value <= 0:  # This is where the error is happening
+        # ... code ...
+```
+
+To troubleshoot this:
+
+1. **Print the value:**
+   ```python
+   def ChangeOwnState(some_map):
+       # ... other code ...
+       print(f"some_value: {some_value}")
+       if some_value <= 0: 
+           # ... code ...
+   ```
+
+2. **Check the type:**
+   ```python
+   def ChangeOwnState(some_map):
+       # ... other code ...
+       print(f"some_value: {some_value}, type: {type(some_value)}")
+       if some_value <= 0: 
+           # ... code ...
+   ```
+
+Once you know what the issue is, you can then fix it by ensuring that `some_value` is properly initialized or has the correct data type. 
+
+Let me know if you can provide more details about your `ChangeOwnState` function, and I might be able to give you more specific advice! 
+
+Reflection:
+Let's analyze the situation based on your current state and the error message you provided:
+
+**1. What is your current focus?**
+
+Your current focus is on resolving the error in the `ChangeOwnState` function. You're actively troubleshooting the code and trying to understand the cause of the error.
+
+**2. Should you set a new goal? If so, what is it? If not, why not?**
+
+Right now, your primary goal should be to fix the error in the `ChangeOwnState` function. This is a critical task because it's likely preventing your code from working correctly.  
+
+**3. Are there any problems, unknowns, or paradoxes in my memory?**
+
+Based on your provided internal state, there are no explicitly stated problems or paradoxes in your memory. However, the existence of the error in the `ChangeOwnState` function suggests there is a knowledge gap or misunderstanding about how the function operates.
+
+**4. What problems need to be solved?**
+
+The main problem to be solved is the error in the `ChangeOwnState` function, preventing the code from executing properly.  Specifically, the `'<=' not supported between instances of 'int' and 'NoneType'` error needs to be addressed.
+
+**5. What are possible courses of action based on available information?**
+
+Here's a breakdown of potential actions:
+
+* **Debug the `ChangeOwnState` function:** This involves examining the code line by line, focusing on the comparison operation (`<=`) to identify the variable causing the error.
+* **Print Statements:** Add print statements to check the value and data type of the variable being compared with the integer.
+* **Type Checking:** Use the `type()` function to confirm the data type of the variable.
+* **Initialization:** If the variable is `None` because it's not initialized, assign a default value to it.
+* **Data Type Conversion:** If the data type is incorrect, use type conversion functions (like `int()`) to correct it.
+* **Return Values:** If the function should be returning a value, make sure it does.
+
+**6. Approach the next steps:**
+
+* **a) Think step-by-step?** Yes, we are already thinking step-by-step, breaking down the error message and considering debugging steps.
+* **b) Focus on a specific aspect?**  Focus on understanding the `ChangeOwnState` function and the variable involved in the comparison (the one causing the error).
+* **c) Defocus and broaden my attention?**  Not yet.  Right now, narrowing our attention to the error and its solution is more efficient.
+* **e) If focus YES, Write at the end what you are focusing on.** Focusing on: Debugging the `ChangeOwnState` function and identifying the source of the error.
+
+**7. Should I be more verbose in my responses? (Yes/No)**
+This depends on your preference. I'll adjust my verbosity based on your feedback.
+
+**8. Should I be less verbose? (Yes/No)** 
+Same as above. Let me know what you find most helpful.
+
+**9. Should I change the subject or keep discussing this? (Yes/No)**
+Let's keep discussing this until the error is resolved.
+
+**10. Should I summarize the current discussion? (Yes/No)**
+Yes, a summary would be helpful.
+
+**11. Should I dive deeper into a specific topic? (Yes/No)**
+Let's dive deeper into the debugging steps for the `ChangeOwnState` function.
+
+**12. Should I store any of this information in my long-term memory (Yes/No)?**
+Yes, I'll store information about the error, the function, and the debugging steps taken.
+
+**13. Should I query my memory for relevant information? (Yes/No)**
+Yes, I'll access my memory to find relevant information about Python data types, debugging techniques, and the `ChangeOwnState` function (if you provide its code).
+
+**14. What is the status of my current goals?**
+The current goal is to fix the error in the `ChangeOwnState` function.  The status is "in progress."
+
+**Summary:**
+
+We've identified that the error in the `ChangeOwnState` function is preventing code execution. The next steps involve debugging the function, understanding the error message, and finding the source of the problem. I'm ready to guide you through the troubleshooting process!
+
+Please share the code of the `ChangeOwnState` function, and I can offer more targeted suggestions and help you find the root of the issue. 
+
+Action:
+response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "function_call": {
+                  "name": "ChangeOwnState",
+                  "args": {
+                    "Short_term_goals": "Fix the error in the ChangeOwnState function.",
+                    "FocusOn": "Debugging the ChangeOwnState function and identifying the source of the error"
+                  }
+                }
+              },
+              {
+                "text": "\n"
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 2960,
+        "candidates_token_count": 46,
+        "total_token_count": 3006
+      }
+    }),
+)
+Function Call Results:
+[
+    "Result of Called function ChangeOwnState(<proto.marshal.collections.maps.MapComposite object at 0x000002A006480380>): Unexpected error: '<=' not supported between instances of 'int' and 'NoneType'"
+]
+--------------------
+
+Introspection: It sounds like you're still encountering the same error message, "<=' not supported between instances of 'int' and 'NoneType'".  It's great that you're providing this information - it helps pinpoint the issue!
+
+**Let's break down the situation again:**
+
+* **Error Message:**  This error occurs when you try to compare an integer with `None` using the `<=` operator. Python doesn't know how to compare a number with the absence of a value.
+
+* **Likely Cause:** It's very likely that a variable inside your `ChangeOwnState` function is getting assigned a value of `None` when you expect it to be an integer. 
+
+* **Identifying the Variable:**  Since you mentioned a `MapComposite` object is being passed to the function, it's likely the problem lies within how you're extracting data from that object.
+
+**Troubleshooting Strategies:**
+
+1. **Print Statements for Debugging:**
+    *  Add `print` statements inside your `ChangeOwnState` function to check the values of variables *before* the comparison.  For example:
+        ```python
+        def ChangeOwnState(some_map):
+            # ... code ...
+            print(f"some_value: {some_value}, type: {type(some_value)}") 
+            if some_value <= 0:  # This is where the error is happening
+                # ... code ... 
+        ```
+    * **Examine the Output:** When you run your code, check the console output. Look for any lines where `some_value` is `None` or where its type is not `int`.
+
+2. **Inspect the MapComposite Object:**
+    * **Print the MapComposite:** Use `print(some_map)` inside your function to see what's inside the `MapComposite` object. This will show you the structure of the data.
+    * **Check for Keys and Values:**  Are there any specific keys within the `MapComposite` that are relevant to the `some_value` variable?  
+    * **Use a Debugger:** If you're using a development environment like PyCharm or VS Code, use a debugger to step through your code line by line. This will allow you to examine the state of your variables at each point in your code.
+
+3. **Fix the Value Assignment:**
+    * **Initialization:**  Make sure that `some_value` is assigned a default value (e.g., `0`) if it's possible that it might not have a value from the `MapComposite`.
+    * **Data Type Conversion:**  If you are retrieving `some_value` from the `MapComposite` and you suspect it might not be an integer, use the `int()` function to convert it:
+        ```python
+        some_value = int(some_map.get("key_for_some_value", 0))
+        ``` 
+    * **Handle None Values:** If you're expecting the value to be an integer but it might be `None`, use a conditional statement:
+        ```python
+        some_value = some_map.get("key_for_some_value")
+        if some_value is not None:
+            some_value = int(some_value)
+        else:
+            some_value = 0 # Or handle the None case differently
+        ```
+
+**Additional Help:**
+
+* **More Code:**  Please share more of the code related to your `ChangeOwnState` function and how you're using the `MapComposite` object.  
+* **Library Documentation:** If you're using a specific library for the `MapComposite` object, consult its documentation to understand how to extract values from it correctly. 
+
+I'm here to help you troubleshoot further! 
+

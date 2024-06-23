@@ -1,4 +1,4 @@
-tool_type="reflection"
+tool_type_for_Tool_Manager="reflection"
 
 
 import os
