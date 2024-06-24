@@ -5,10 +5,10 @@ import google.generativeai as genai
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME
 from Tool_Manager import ToolManager
 import traceback
-from tools.Cathegory_Os.ChangeOwnState import ChangeOwnState
+from SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_7.tools.AI_related.ChangeOwnState import ChangeOwnState
 from SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_6.tools.Cathegory_Os.UpdatePrompts import UpdatePrompts
-from tools.Cathegory_Os.RETRIEVE_RELEVANT_FRAMES import RETRIEVE_RELEVANT_FRAMES
-import  re
+from SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_7.tools.AI_related.RETRIEVE_RELEVANT_FRAMES import RETRIEVE_RELEVANT_FRAMES
+import re
 import ast
 import asyncio
 
@@ -49,6 +49,7 @@ class GeminiSelfAwareAI:
         self.context_window = []
         self.initialize_models()
         self.initialize()  # Call initialize here
+        self.valid_tool_types = {"all", "input", "reflection", "action", "web", "emotions"}
 
     def initialize(self):
         self.state_of_mind = self.load_state_of_mind()
@@ -71,11 +72,11 @@ class GeminiSelfAwareAI:
                 return json.load(f)
         except FileNotFoundError:
             default_prompts = {
-                "input": "Analyze current inputs, state, and emotions. What's the most important aspect to focus on?",
-                "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn?",
-                "action": "Based on current focus, reflections, and emotional state, what's the optimal next action?",
-                "emotion": "Based on recent events and outcomes, how should my emotional state be adjusted?",
-                "learning": "What new knowledge or skills should be prioritized for long-term improvement?"
+                "input": "Analyze current inputs, state, and emotions. What's the most important aspect to focus on?  You can call the 'retrieve_memories' function to access past relevant memories.  Provide your response in the following format:\n FocusOn: [identified focus]\n FocusLevel: [a float between 0 and 1]",
+                "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn? Consider potential improvements or adjustments to behavior and decision-making.  You can also call the 'retrieve_memories' function to access relevant memories.  Format your response to be clear and structured, highlighting key observations and recommendations.",
+                "action": "Based on the current focus, reflections, and emotional state, what is the optimal next action? If necessary, use available tools to perform actions.  Always justify your chosen action and explain its expected impact. You can also call the 'retrieve_memories' function to access relevant memories.",
+                "emotion": "Based on recent events and outcomes, how should my emotional state be adjusted?  Provide your response as a JSON object with emotion names as keys and values between 0 and 100, representing the intensity of each emotion.",
+                "learning": "What new knowledge or skills should be prioritized for long-term improvement based on recent experiences and outcomes? Summarize your insights and recommendations in a concise, structured format that can be easily integrated into the AI's knowledge base."
             }
             self.save_json(PROMPTS_FILE, default_prompts)
             return default_prompts
@@ -124,13 +125,18 @@ class GeminiSelfAwareAI:
 
     async def gather_introspection_data(self):
         current_time = datetime.datetime.now().strftime("%H:%M:%S")
-        relevant_memories = await RETRIEVE_RELEVANT_FRAMES(self.state_of_mind['FocusOn'])
         return f"{current_time}\n{self.prompts['input']}\n" \
                f"Current state: {json.dumps(self.state_of_mind, indent=2)}\n" \
                f"Current emotions: {json.dumps(self.emotions, indent=2)}\n" \
                f"Current sensory input: {self.sensory_inputs}\n" \
-               f"Previous action results: {self.sensory_inputs['previous_action_results']}\n" \
-               f"Relevant memories: {json.dumps(relevant_memories, indent=2)}"
+               f"Previous action results: {self.sensory_inputs['previous_action_results']}\n"
+
+    async def retrieve_memories(self, focus_on=None):
+        """Retrieves relevant memories based on the current focus."""
+        if focus_on:
+            relevant_memories = await RETRIEVE_RELEVANT_FRAMES(focus_on)
+            return f"Relevant memories: {json.dumps(relevant_memories, indent=2)}"
+        return ""
 
     def perform_reflection(self, introspection_results, function_results):
         current_time = datetime.datetime.now().strftime("%H:%M:%S")
@@ -138,7 +144,7 @@ class GeminiSelfAwareAI:
                f"Introspection Results: {introspection_results}\n" \
                f"Function Results: {function_results}\n" \
                f"Current state: {json.dumps(self.state_of_mind, indent=2)}\n" \
-               f"Current emotions: {json.dumps(self.emotions, indent=2)}"
+               f"Current emotions: {json.dumps(self.emotions, indent=2)}\n"
 
     def plan_actions(self, reflection_results, function_results):
         current_time = datetime.datetime.now().strftime("%H:%M:%S")
@@ -146,7 +152,7 @@ class GeminiSelfAwareAI:
                f"Reflection Results: {reflection_results}\n" \
                f"Function Results: {function_results}\n" \
                f"Current state: {json.dumps(self.state_of_mind, indent=2)}\n" \
-               f"Current emotions: {json.dumps(self.emotions, indent=2)}"
+               f"Current emotions: {json.dumps(self.emotions, indent=2)}\n"
 
     def update_emotions(self, action_results):
         current_time = datetime.datetime.now().strftime("%H:%M:%S")
@@ -253,49 +259,49 @@ class GeminiSelfAwareAI:
     def initialize_models(self):
         try:
             alltools_str = self.tool_manager.get_tools_list_json("all")
+            input_tools_str = self.tool_manager.get_tools_list_json("input")
+
             alltools = ast.literal_eval(alltools_str)
+            input_tools = ast.literal_eval(input_tools_str)
+
 
             input_instruction = """
-            You are an advanced AI assistant focused on analyzing inputs and current state.
-            Your role is to identify the most critical aspects of the given information,
-            determine the appropriate focus, and suggest a focus level.
-            Always conclude your response with:
-            FocusOn: [identified focus]
-            FocusLevel: [a float between 0 and 1]
-            """
+                        You are an AI assistant analyzing current inputs and the AI's state.
+                        Identify the most critical focus area and provide your response as:
+                        FocusOn: [identified focus]
+                        Answer questions:
+                        1.What do i want?
+                        2.what do i need?
+                        3.what do i plan to do ?
+                        4.what  am i feeling ?
+                        5.what am i expiriancing ?
+                        """
 
             reflection_instruction = """
-            You are a reflective AI assistant designed to analyze recent actions, outcomes,
-            and emotional states. Your goal is to draw insights, identify patterns, and
-            suggest improvements or adjustments to the AI's behavior and decision-making process.
-            Provide your reflections in a structured format, highlighting key observations and recommendations.
-            """
+                        You are a reflective AI assistant analyzing the input stage's output (including potential memories).
+                        Provide insights, identify patterns, suggest a concise action plan for the action model, and determine the FocusLevel for the next iteration:
+                        FocusLevel: [a float between 0 and 1]
+                        """
 
             action_instruction = """
-            You are an action-oriented AI assistant. Your role is to analyze the current
-            situation, reflections, and emotional state to determine the optimal next action.
-            When appropriate, use the available tools to perform actions. Always justify
-            your chosen action and explain its expected impact.
-            """
+                        You are an action-oriented AI assistant. Execute the action plan provided by the reflection stage using available tools.
+                        Justify your chosen actions and their expected impact. 
+                        """
 
             emotion_instruction = """
-            You are an emotion-analysis AI assistant. Your task is to evaluate recent events,
-            actions, and outcomes to suggest adjustments to the AI's emotional state.
-            Provide your response as a JSON object with emotion names as keys and values
-            between 0 and 100, representing the intensity of each emotion.
-            """
+                        You are an emotion-analysis AI assistant evaluating recent events, actions, and outcomes.
+                        Provide a concise JSON object with emotion adjustments (keys: emotion names, values: intensity 0-100). 
+                        """
 
             learning_instruction = """
-            You are a learning-focused AI assistant. Your role is to identify new knowledge
-            or skills that should be prioritized for long-term improvement based on recent
-            experiences and outcomes. Summarize your insights and recommendations in a
-            concise, structured format that can be easily integrated into the AI's knowledge base.
-            """
+                        You are a learning-focused AI assistant analyzing the results of the action stage.
+                        Identify new knowledge or skills for long-term improvement and summarize recommendations concisely. 
+                        """
 
             self.input_model = genai.GenerativeModel(
                 system_instruction=input_instruction,
                 model_name="gemini-1.5-flash-latest",
-                tools=alltools)
+                tools=input_tools)
             self.input_chat = self.input_model.start_chat(history=[])
 
             self.reflection_model = genai.GenerativeModel(
@@ -358,6 +364,7 @@ class GeminiSelfAwareAI:
                 # Input stage
                 print(f"{bcolors.HEADER}📥 Input Stage:{bcolors.ENDC}")
                 input_prompt = await self.gather_introspection_data()
+                input_prompt += await self.retrieve_memories(self.state_of_mind['FocusOn']) # Add memories if needed
                 input_response = self.input_chat.send_message(input_prompt)
                 input_results = await self.interpret_response_for_function_calling(input_response)
                 print(f"  - 🎤 User Input: {self.sensory_inputs['text']}")
@@ -376,6 +383,7 @@ class GeminiSelfAwareAI:
                 print(f"{bcolors.HEADER}🤔 Reflection Stage:{bcolors.ENDC}")
 
                 reflection_prompt = self.perform_reflection(input_text, input_results)
+                reflection_prompt += await self.retrieve_memories()  # Add memories if needed
                 reflection_response = self.reflection_chat.send_message(reflection_prompt)
                 reflection_results = await self.interpret_response_for_function_calling(reflection_response)
 
@@ -392,6 +400,7 @@ class GeminiSelfAwareAI:
                 print(f"{bcolors.HEADER}🚀 Action Stage:{bcolors.ENDC}")
 
                 action_prompt = self.plan_actions(reflection_text, reflection_results)
+                action_prompt += await self.retrieve_memories()  # Add memories if needed
                 action_response = self.action_chat.send_message(action_prompt)
                 action_results = await self.interpret_response_for_function_calling(action_response)
 

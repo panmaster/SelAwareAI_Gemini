@@ -1,5 +1,7 @@
 import asyncio
 import sys
+tool_type_for_Tool_Manager = "input"
+
 from typing import List, Dict, Any
 
 from SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_7 import SomeMemoryScript______MemoryRetrival as M
@@ -39,4 +41,3 @@ RETRIEVE_RELEVANT_FRAMES_description_json = {
 
 RETRIEVE_RELEVANT_FRAMES_description_short_str = "Retrieves Memory Frames"
 
-tool_type_for_Tool_Manager = "input"
