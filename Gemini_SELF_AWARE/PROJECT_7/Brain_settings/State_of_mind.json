@@ -1,10 +1,13 @@
 {
-    "FocusOn": "Engaging the user",
-    "FocusLevel": 70.0,
+    "FocusOn": "Exploring alternative interaction methods to gather user information",
+    "FocusLevel": 50.0,
     "Defocus": "Implementing a memory enhancement system",
     "FrustrationLevel": 0,
     "CurrentCostOfProgress": 0,
-    "Short_term_goals": [],
+    "Short_term_goals": [
+        "Gather user information",
+        "Develop a strategy to obtain relevant user information"
+    ],
     "Long_term_goals": [],
     "Accomplished": []
 }

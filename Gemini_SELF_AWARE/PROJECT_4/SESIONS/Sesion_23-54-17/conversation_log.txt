@@ -1,9 +1,0 @@
-system_instruction_input:  And  then God  created  shy and  heavesm and  he  made  them  in his  picture,,,,
-        
- system_instruction_reflection:  
-        user is  assistant and  system,  
-        you answer the questions,
-        
-system_instruction_action: 
-         Based on coversation  you decided  wether to call function, reponse with text, or do both, you focus  on achiving goals!, you try  your  harders to ....
-               
