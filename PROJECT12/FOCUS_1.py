@@ -152,6 +152,9 @@ class FocusManager:
 
     def run_simulation(self, duration: float):
         end_time = time.time() + duration
+        self.select_focus()
+
+
         while time.time() < end_time:
             delta_time = time.time() - self.last_update_time
             self.update_focus(delta_time)
@@ -215,3 +218,41 @@ manager.add_focus_point("React to Danger", FocusType.REACTIVE, MoscowCategory.MU
 manager.add_focus_point("Self-Reflection", FocusType.INTERNAL, MoscowCategory.COULD, 0.4, 0.5, 0.6, 50, "Meditate", 15)
 
 manager.run_simulation(duration=120)
+
+
+"""
+
+This Python code implements a simulated Focus Manager using a hierarchical system of Focus Points. Here's a breakdown of its key components and functionality:
+1. Focus Points:
+Represent tasks or goals: Each FocusPoint holds information about a specific task or objective.
+Attributes:
+name: Identifier of the focus point.
+focus_type: (REACTIVE, GOAL_ORIENTED, INTERNAL) - How the task is triggered.
+moscow_category: (MUST, SHOULD, COULD, WONT) - Prioritization level.
+importance, difficulty, reward, total_work: Parameters influencing task value.
+proposed_action, cost_per_run: Description of the action and its associated cost.
+parent: Allows for creating a tree-like structure of related focus points.
+Various other attributes track progress, focus level, frustration, and historical data.
+2. Focus Manager:
+Orchestrates focus allocation: The FocusManager class manages the overall focus allocation process.
+Key methods:
+add_focus_point(): Adds a new focus point to the system.
+process_stimulus(): Simulates external events that might trigger reactive focus shifts.
+select_focus(): Chooses the next focus point based on exploration or calculated scores.
+update_focus(): Updates the state of all focus points over time (focus decay, work done, cost accumulation).
+run_simulation(): Runs the simulation for a specified duration.
+print_status(), print_evaluation(): Provide insights into the simulation's progress and outcome.
+3. Simulation Logic:
+Time-based updates: The simulation progresses in discrete time steps.
+Focus dynamics:
+The currently focused task gains focus strength, allowing work to be done.
+Other tasks experience focus decay.
+Frustration can build up if a task is focused on for too long.
+Excessive cost can also lead to focus shifts.
+Stimulus processing: Random external events can interrupt the current focus if a reactive task is more important.
+Focus selection:
+A balance between exploration (trying new tasks) and exploitation (focusing on high-scoring tasks) is maintained.
+Scores consider factors like importance, predicted reward, difficulty, and cost.
+Example Usage:
+
+"""

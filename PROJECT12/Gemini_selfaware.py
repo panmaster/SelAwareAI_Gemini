@@ -7,6 +7,9 @@ from Tool_Manager import ToolManager
 import traceback
 from SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_8a.tools.AI_related.ChangeOwnState import ChangeOwnState
 from SelAwareAI_Gemini.Gemini_SELF_AWARE.PROJECT_8a.tools.AI_related.UpdatePrompts import UpdatePrompts
+from FOCUS_1 import FocusManager, FocusType, MoscowCategory
+
+
 
 import ast
 import re
@@ -411,8 +414,24 @@ class GeminiSelfAwareAI:
         self.state_of_mind.update(new_state)
         ChangeOwnState(**new_state)
 
+
+
+
     def run(self):
+
+        self.focus_manager = FocusManager()
+        #  Add your initial FocusPoints
+        self.focus_manager.add_focus_point("UnderstandUserNeeds", FocusType.GOAL_ORIENTED, MoscowCategory.MUST, 1.0,
+                                           0.8, 1.0, 100,
+                                           "Analyze user input", 10)
         """The main loop of the self-aware AI."""
+
+
+
+          # Select an initial focus point before the
+
+
+
         while True:
             try:
                 # Prepare for next iteration
@@ -443,10 +462,28 @@ class GeminiSelfAwareAI:
                 input_text = self.extract_text_from_response(input_response)
                 print(f"{bcolors.LIGHTBLUE}  - 🤖 Input Response: {input_text}{bcolors.ENDC}")
 
+
+                #focus
+                self.focus_manager.process_stimulus(stimulus_strength=0.5)  # Adjust strength as needed
+                self.focus_manager.select_focus()
+                current_focus_name = self.focus_manager.current_focus.name
+                print(f"{bcolors.OKCYAN}🤔 Current Focus: {current_focus_name}{bcolors.ENDC}")
+
+
+
+
+
+
+
+
+
+
+
                 # Reflection stage
                 print(f"{bcolors.OKCYAN}🤔 Reflection Stage:{bcolors.ENDC}")
                 reflection_prompt = self.perform_reflection(input_text, input_results)
-                reflection_prompt += self.retrieve_Focus()
+                reflection_prompt += f"The current focus is: {current_focus_name}. "
+                reflection_prompt += self.retrieve_Focus()  #focus
                 try:
                     reflection_response = self.reflection_chat.send_message(reflection_prompt)
                 except genai.errors.TimeoutError as e:
