@@ -139,7 +139,7 @@ class GeminiSelfAwareAI:
             with open(path, 'r') as f:
                 return json.load(f)
         except Exception as E:
-            print(f"{bcolors.FAIL}Error loading state of mind: {E}{bcolors.ENDC}")
+            print(f"{ FAIL}Error loading state of mind: {E}{ ENDC}")
             return {}
 
     def load_prompts(self):
@@ -290,7 +290,7 @@ class GeminiSelfAwareAI:
             self.save_json(EMOTIONS_FILE, self.emotions)
 
         except json.JSONDecodeError as e:
-            print(f"{bcolors.WARNING}Warning: Could not parse emotion response as JSON: {e}{bcolors.ENDC}")
+            print(f"{ WARNING}Warning: Could not parse emotion response as JSON: {e}{ ENDC}")
             print(f"Raw response: {emotion_response.text}")
 
     def learn_and_improve(self, action_results):
@@ -305,7 +305,7 @@ class GeminiSelfAwareAI:
             if len(self.long_term_memory) > 1000:
                 self.long_term_memory.pop(0)
         except json.JSONDecodeError as e:
-            print(f"{bcolors.WARNING}Warning: Could not parse learning response as JSON: {e}{bcolors.ENDC}")
+            print(f"{ WARNING}Warning: Could not parse learning response as JSON: {e}{ ENDC}")
             print(f"Raw response: {self.learning_response.text}")
 
     def store_conversation_frame(self, sensory_inputs, introspection_results, reflection_results, action_plan, function_call_result, emotion_response, learning_response):
@@ -340,9 +340,9 @@ class GeminiSelfAwareAI:
                     self.tool_manager.record_tool_usage(function_name)
                     results.append(f"Result of {function_name}: {result}")
                 except Exception as e:
-                    results.append(f"{bcolors.FAIL}Failed to call function {function_name}: {str(e)}{bcolors.ENDC}")
+                    results.append(f"{ FAIL}Failed to call function {function_name}: {str(e)}{ ENDC}")
             else:
-                results.append(f"{bcolors.WARNING}Warning: Tool function '{function_name}' not found.{bcolors.ENDC}")
+                results.append(f"{ WARNING}Warning: Tool function '{function_name}' not found.{ ENDC}")
 
         def process_content(content):
             if hasattr(content, 'parts'):
@@ -444,9 +444,9 @@ class GeminiSelfAwareAI:
                 safety_settings={"HARASSMENT": "block_none"})
             self.learning_chat = self.learning_model.start_chat(history=[])
 
-            print(f"{bcolors.OKGREEN}Models initialized successfully!{bcolors.ENDC}")
+            print(f"{ OKGREEN}Models initialized successfully!{ ENDC}")
         except Exception as E:
-            raise RuntimeError(f"{bcolors.FAIL}Error initializing models: {E}{bcolors.ENDC}")
+            raise RuntimeError(f"{ FAIL}Error initializing models: {E}{ ENDC}")
 
     def extract_text_from_response(self, response):
         text = ""
@@ -465,53 +465,53 @@ class GeminiSelfAwareAI:
             try:
                 # Prepare for next iteration
                 self.sensory_inputs["text"] = input(
-                    f"{bcolors.LIGHTBLUE}🎙️  Enter your input (or press Enter to skip): {bcolors.ENDC}")
+                    f"{ LIGHTBLUE}🎙️  Enter your input (or press Enter to skip): { ENDC}")
                 self.user_input_count += 1
 
                 self.iteration_count += 1
-                print(f"{bcolors.OKBLUE}✨🧠--- Awareness Loop: {self.iteration_count} ---🧠✨{bcolors.ENDC}")
+                print(f"{ OKBLUE}✨🧠--- Awareness Loop: {self.iteration_count} ---🧠✨{ ENDC}")
 
                 # Input stage
-                print(f"{bcolors.LIGHTBLUE}📥 Input Stage:{bcolors.ENDC}")
+                print(f"{ LIGHTBLUE}📥 Input Stage:{ ENDC}")
                 input_prompt = self.gather_introspection_data()
                 input_prompt += self.retrieve_Focus()
                 input_response = self.input_chat.send_message(input_prompt)
                 input_results = self.interpret_response_for_function_calling(input_response)
                 input_text = self.extract_text_from_response(input_response)
-                print(f"{bcolors.LIGHTBLUE}  - 🤖 Input Response: {input_text}{bcolors.ENDC}")
+                print(f"{ LIGHTBLUE}  - 🤖 Input Response: {input_text}{ ENDC}")
 
                 # Reflection stage
-                print(f"{bcolors.OKCYAN}🤔 Reflection Stage:{bcolors.ENDC}")
+                print(f"{ OKCYAN}🤔 Reflection Stage:{ ENDC}")
                 reflection_prompt = self.perform_reflection(input_text, input_results)
                 reflection_prompt += self.retrieve_Focus()
                 reflection_response = self.reflection_chat.send_message(reflection_prompt)
                 reflection_results = self.interpret_response_for_function_calling(reflection_response)
                 self.reflection_text = self.extract_text_from_response(reflection_response)
-                print(f"{bcolors.OKCYAN}  - 🤖 Reflection Output: {self.reflection_text}{bcolors.ENDC}")
+                print(f"{ OKCYAN}  - 🤖 Reflection Output: {self.reflection_text}{ ENDC}")
 
                 # Action stage
-                print(f"{bcolors.MAGENTA}🚀 Action Stage:{bcolors.ENDC}")
+                print(f"{ MAGENTA}🚀 Action Stage:{ ENDC}")
                 action_prompt = self.plan_actions(self.reflection_text, reflection_results)
                 action_prompt += self.retrieve_Focus()
                 action_response = self.action_chat.send_message(action_prompt)
                 action_results = self.interpret_response_for_function_calling(action_response)
                 self.action_response_text = self.extract_text_from_response(action_response)
-                print(f"{bcolors.MAGENTA}  - 🤖 Action Plan: {self.action_response_text}{bcolors.ENDC}")
+                print(f"{ MAGENTA}  - 🤖 Action Plan: {self.action_response_text}{ ENDC}")
 
-                print(f"{bcolors.YELLOW}📋 Interpreter Results:{bcolors.ENDC}")
+                print(f"{ YELLOW}📋 Interpreter Results:{ ENDC}")
                 self.function_call_results = input_results + reflection_results + action_results
                 for result in self.function_call_results:
-                    print(f"{bcolors.YELLOW}    - ✅ {result}{bcolors.ENDC}")
+                    print(f"{ YELLOW}    - ✅ {result}{ ENDC}")
 
                 # Emotion update
-                print(f"{bcolors.OKGREEN}😊 Emotional Update:{bcolors.ENDC}")
+                print(f"{ OKGREEN}😊 Emotional Update:{ ENDC}")
                 self.update_emotions(self.action_response_text)
-                print(f"{bcolors.OKGREEN}  - Current Emotions: {self.emotions}{bcolors.ENDC}")
+                print(f"{ OKGREEN}  - Current Emotions: {self.emotions}{ ENDC}")
 
                 # Learning stage
-                print(f"{bcolors.WHITE}📚 Learning and Improvement:{bcolors.ENDC}")
+                print(f"{ WHITE}📚 Learning and Improvement:{ ENDC}")
                 self.learn_and_improve(self.action_response_text)
-                print(f"{bcolors.WHITE}  - Learning Output: {self.learning_response.text}{bcolors.ENDC}")
+                print(f"{ WHITE}  - Learning Output: {self.learning_response.text}{ ENDC}")
 
                 current_loop_data = {
                     "tool_usage": self.tool_manager.get_tool_usage_stats(),
@@ -526,7 +526,7 @@ class GeminiSelfAwareAI:
                     }
                 }
                 updated_knowledge = self.learning_system.evaluate_and_learn(current_loop_data)
-                print(f"{bcolors.WHITE}  - Updated Knowledge: {json.dumps(updated_knowledge, indent=2)}{bcolors.ENDC}")
+                print(f"{ WHITE}  - Updated Knowledge: {json.dumps(updated_knowledge, indent=2)}{ ENDC}")
 
                 print("STORING MEMORY LOOP FRAME")
                 # Store conversation frame
@@ -557,7 +557,7 @@ class GeminiSelfAwareAI:
                     focus_on = input_text.split("FocusOn:")[-1].split("\n")[0].strip()
                     focus_level = float(self.reflection_text.split("FocusLevel:")[-1].split("\n")[0].strip())
                 except (IndexError, ValueError):
-                    print(f"{bcolors.WARNING}Warning: Could not extract FocusOn or FocusLevel from input_text{bcolors.ENDC}")
+                    print(f"{ WARNING}Warning: Could not extract FocusOn or FocusLevel from input_text{ ENDC}")
 
                 new_state = {
                     "FocusOn": focus_on,
@@ -592,7 +592,7 @@ class GeminiSelfAwareAI:
 
             except Exception as e:
 
-                print(f"{bcolors.FAIL}🚨  ERROR!  🚨: {e}{bcolors.ENDC}")
+                print(f"{ FAIL}🚨  ERROR!  🚨: {e}{ ENDC}")
 
                 traceback.print_exc()
 
@@ -615,7 +615,7 @@ class GeminiSelfAwareAI:
         return 0.8  # Example: 80% success rate
 
     def review_and_update_prompts(self):
-        print(f"{bcolors.OKGREEN}Reviewing and Updating Prompts{bcolors.ENDC}")
+        print(f"{ OKGREEN}Reviewing and Updating Prompts{ ENDC}")
         review_prompt = f"Review the current prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}"
         review_response = self.reflection_chat.send_message(review_prompt)
         try:
@@ -626,11 +626,11 @@ class GeminiSelfAwareAI:
                     UpdatePrompts(key, value)
             self.prompts = self.load_prompts()  # Reload prompts after update
         except json.JSONDecodeError as e:
-            print(f"{bcolors.WARNING}Warning: Could not parse prompt review response as JSON: {e}{bcolors.ENDC}")
+            print(f"{ WARNING}Warning: Could not parse prompt review response as JSON: {e}{ ENDC}")
             print(f"Raw response: {review_response.text}")
 
     def prioritize_tools(self):
-        print(f"{bcolors.OKGREEN}Prioritizing Tools{bcolors.ENDC}")
+        print(f"{ OKGREEN}Prioritizing Tools{ ENDC}")
         try:
             tool_usage = self.tool_manager.get_tool_usage_stats()
             prioritization_prompt = f"Analyze tool usage and suggest prioritization:\n{json.dumps(tool_usage, indent=2)}"
@@ -639,10 +639,10 @@ class GeminiSelfAwareAI:
                 tool_priorities = json.loads(prioritization_response.text)
                 self.tool_manager.update_tool_priorities(tool_priorities)
             except json.JSONDecodeError as e:
-                print(f"{bcolors.WARNING}Warning: Could not parse tool prioritization response as JSON: {e}{bcolors.ENDC}")
+                print(f"{ WARNING}Warning: Could not parse tool prioritization response as JSON: {e}{ ENDC}")
                 print(f"Raw response: {prioritization_response.text}")
         except AttributeError as e:
-            print(f"{bcolors.WARNING}Warning: Error in prioritize_tools: {e}{bcolors.ENDC}")
+            print(f"{ WARNING}Warning: Error in prioritize_tools: {e}{ ENDC}")
 
     def update_attachment(self, entity, value):
         if entity not in self.emotions["attachment"]:
@@ -652,7 +652,7 @@ class GeminiSelfAwareAI:
         self.save_json(EMOTIONS_FILE, self.emotions)
 
         def perform_system_check(self):
-            print(f"{bcolors.OKGREEN}Performing System Check{bcolors.ENDC}")
+            print(f"{ OKGREEN}Performing System Check{ ENDC}")
             check_prompt = "Perform a system check and suggest improvements or error recovery steps."
             check_response = self.reflection_chat.send_message(check_prompt)
             try:
@@ -664,11 +664,11 @@ class GeminiSelfAwareAI:
                     for improvement in system_status["improvements"]:
                         self.implement_improvement(improvement)
             except json.JSONDecodeError as e:
-                print(f"{bcolors.WARNING}Warning: Could not parse system check response as JSON: {e}{bcolors.ENDC}")
+                print(f"{ WARNING}Warning: Could not parse system check response as JSON: {e}{ ENDC}")
                 print(f"Raw response: {check_response.text}")
 
         def handle_error(self, error):
-            print(f"{bcolors.WARNING}Handling Error: {error}{bcolors.ENDC}")
+            print(f"{ WARNING}Handling Error: {error}{ ENDC}")
             error_prompt = f"An error occurred: {error}. Suggest recovery steps."
             error_response = self.reflection_chat.send_message(error_prompt)
 
@@ -677,7 +677,7 @@ class GeminiSelfAwareAI:
                 for step in recovery_steps:
                     self.execute_recovery_step(step)
             except json.JSONDecodeError:
-                print(f"{bcolors.WARNING}Could not parse recovery steps from response:{bcolors.ENDC}")
+                print(f"{ WARNING}Could not parse recovery steps from response:{ ENDC}")
                 print(error_response.text)
 
         def execute_recovery_step(self, step):
@@ -707,7 +707,7 @@ class GeminiSelfAwareAI:
                 if len(self.long_term_memory) > 1000:
                     self.long_term_memory.pop(0)
             except json.JSONDecodeError as e:
-                print(f"{bcolors.WARNING}Warning: Could not parse learning response as JSON: {e}{bcolors.ENDC}")
+                print(f"{ WARNING}Warning: Could not parse learning response as JSON: {e}{ ENDC}")
                 print(f"Raw response: {response.text}")
 
 if __name__ == "__main__":

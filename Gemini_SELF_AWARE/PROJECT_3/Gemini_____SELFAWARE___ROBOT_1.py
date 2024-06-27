@@ -82,11 +82,6 @@ file_path = os.path.join(session_info['session_path'], "conversation_log.txt")
 
 
 
-def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):  # Pass tool_manager here
-    """Interprets the model's response, extracts function details, and executes the appropriate function."""
-
-    print(f"{COLORS['bright_yellow']}----------------RESPONSE_INTERPRETER_FOR_FUNCION_CALLING START----------------------")
-    Multiple_ResultsOfFunctions_From_interpreter = []
 
 
 def RESPONSE_INTERPRETER_FOR_FUNCION_CALLING(response, tool_manager):

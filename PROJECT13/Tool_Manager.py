@@ -16,11 +16,9 @@ class ToolManager:
         self.all_tools: List[Dict] = []  # Stores tool metadata
         self.categories: Dict[str, Dict] = {}  # Stores tools by category
         self.tool_types: Dict[str, str] = {}  # Maps tool names to their types
-        self.valid_tool_types = {"all", "input", "reflection", "action", "web","emotions","focus"}
+        self.valid_tool_types = {"all", "input", "reflection", "action", "web", "emotions"}
         self._load_tools()
         self.tool_usage: Dict[str, Dict[str, float]] = {}  # Track usage and success metrics
-        self.tool_mapping["update_focus"] = self.update_focus
-
 
     def record_tool_usage(self, tool_name, success_metric: float = None):
         """Records tool usage and success metrics."""
@@ -154,32 +152,3 @@ class ToolManager:
     def get_tools_by_type(self, tool_type: str) -> List[str]:
         """Returns a list of tool names for a specific type."""
         return [tool["name"] for tool in self.all_tools if tool["type"] == tool_type]
-
-    def reload_tools(self) -> None:
-        """Reloads all tools from the tools directory."""
-        print(f"Reloading tools from {self.tools_directory}...")
-        self.tool_mapping = {}
-        self.all_tools = []
-        self.categories = {}
-        self.tool_types = {}
-        self._load_tools()
-        print("Tools reloaded.")
-
-    def add_tool(self, tool_info: Dict) -> None:
-        """Adds a new tool to the tool manager."""
-        print(f"Adding tool: {tool_info['name']}...")
-        self.all_tools.append(tool_info)
-        self.tool_types[tool_info["name"]] = tool_info["type"]
-        self.categories[tool_info["category"]]["tools"].append(tool_info["name"])
-        self.tool_mapping[tool_info["name"]] = getattr(importlib.import_module(
-            f"{tool_info['category']}.{tool_info['name']}"), tool_info["name"])
-        print("Tool added successfully.")
-
-    def update_focus(self, focus_manager, focus_name: str, focus_type: str, moscow_category: str, importance: float,
-                    difficulty: float, reward: float, total_work: float, proposed_action: str,
-                    cost_per_run: float):
-        # Implement the UpdateFocus logic here
-        pass
-
-
-

@@ -48,4 +48,4 @@ save_to_file_description_json = {
     ]
 }
 
-save_to_file_description_short_str="Saves content to a file"
+save_to_file_description_short_str="Searches memory frames within a specified folder based on provided criteria."
