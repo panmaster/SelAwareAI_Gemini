@@ -1898,11 +1898,11 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-MAGENTA = bcolors.OKCYAN
-YELLOW = bcolors.OKGREEN
-BRIGHT_YELLOW = bcolors.WARNING
-PURPLE = bcolors.OKBLUE
-BLUE = bcolors.BOLD
+MAGENTA =  OKCYAN
+YELLOW =  OKGREEN
+BRIGHT_YELLOW =  WARNING
+PURPLE =  OKBLUE
+BLUE =  BOLD
 def initializeState():
     """
     Initializes the state file 'State_of_mind.json' with default values.
@@ -1979,7 +1979,7 @@ def ChangeOwnState(**kwargs):
         return "State_of_mind.json updated"
 
     except Exception as e:
-        print(f"{bcolors.FAIL}Error updating state: {e}{bcolors.ENDC}")
+        print(f"{ FAIL}Error updating state: {e}{ ENDC}")
         return "Error updating state"
 
 

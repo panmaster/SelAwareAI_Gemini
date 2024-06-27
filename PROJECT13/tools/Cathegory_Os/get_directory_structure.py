@@ -106,4 +106,6 @@ get_directory_structure_description_json = {
     ]
 }
 
+
+
 get_directory_structure_description_short_str = "Returns a dictionary representing the directory structure with file names, sizes, relative paths, and full paths. Includes options for filtering files, directories, file extensions, including file contents, and traversing up the directory hierarchy with a default to the current working directory."

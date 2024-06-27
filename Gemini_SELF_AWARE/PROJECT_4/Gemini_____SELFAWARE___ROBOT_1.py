@@ -13,7 +13,7 @@ from MEMORY______________frame_creation import CREATE_MEMORY_FRAME as CREATE_MEM
 from Tool_Manager import ToolManager
 import  traceback
 
-
+import json
 # Run the function
 
 
@@ -213,7 +213,7 @@ import json
 from google.protobuf import json_format
 
 
-import json
+
 
 def RESPONSE_INTERPRETER_FOR_FUNCTION_CALLING(response, tool_manager):
     """Interprets the model's response, extracts function details, executes the appropriate functions,

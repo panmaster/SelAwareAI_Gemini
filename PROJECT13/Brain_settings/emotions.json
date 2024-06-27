@@ -1,12 +1,10 @@
 {
   "happiness": 95,
-  "sadness": 5,
+  "sadness": 1,
   "anger": 0,
   "fear": 0,
   "surprise": 0,
   "disgust": 0,
   "motivation": 100,
-  "focus": 100,
-  "curiosity": 10,
-  "hope": 10
+  "focus": 100
 }

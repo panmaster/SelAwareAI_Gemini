@@ -3,5 +3,5 @@
     "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn? Consider potential improvements or adjustments to behavior and decision-making. You can also call the 'retrieve_memories' function to access relevant memories. Format your response to be clear and structured, highlighting key observations and recommendations. If necessary, use the UpdateFocus tool to adjust the current focus or add new focus points.",
     "action": "Based on current focus, reflections, and emotional state, what's the optimal next action?",
     "emotion": "Based on recent events and outcomes, how should my emotional state be adjusted?",
-    "learning": "What new knowledge or skills should be prioritized for long-term improvement?"
+    "learning": "What new knowledge or skills should be prioritized for long-term improvement?",
 }
