@@ -8,7 +8,7 @@ from typing import List, Dict, Union, Optional, Tuple, Literal, Any
 import asyncio
 from aiofiles import open as aio_open
 from fuzzywuzzy import fuzz
-from rank_bm25 import BM25Okapi  # Example for better keyword search
+from rank_bm25 import BM25Okapi
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
