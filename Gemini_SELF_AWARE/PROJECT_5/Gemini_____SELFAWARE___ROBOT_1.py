@@ -24,7 +24,7 @@ ChangeOwnState._initialize_state()
 genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')  # Replace with your actual API key
 
 SESSION_FOLDER = "sessions"
-MEMORY_FOLDER = "memories"
+MEMORY_FOLDER = "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
 
 # ANSI escape codes for colors

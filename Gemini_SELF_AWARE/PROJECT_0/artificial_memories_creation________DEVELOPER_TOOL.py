@@ -51,11 +51,11 @@ def update_html_logs(memory_frame_number, proposed_name, timestamp, memory_frame
            """
 
         for memory_frame_path in memory_frame_paths:
-            # Calculate the relative path from the "memories" folder
+            # Calculate the relative path from the "memory" folder
             relative_path = os.path.relpath(memory_frame_path, memories_folder_path)
 
             # Construct the href using the relative path
-            href = f'memories/{relative_path}'  # Correctly create the relative path
+            href = f'memory/{relative_path}'  # Correctly create the relative path
 
             html_insertion += f"""
                        <li><a href='{href}'>{os.path.basename(href)}</a></li> 
@@ -82,9 +82,9 @@ print(counter)
 
 
 def Get_path_of_memories_folder():
-    """Returns the absolute path to the 'memories' folder."""
+    """Returns the absolute path to the 'memory' folder."""
     current = pathlib.Path.cwd()
-    memories_path = current / "memories"
+    memories_path = current / "memory"
     return memories_path.absolute()
 
 
@@ -159,7 +159,7 @@ def call_memory_model(user_input, response1_text):
         memory_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
             safety_settings={'HARASSMENT': 'block_none'},
-            system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
+            system_instruction="""You are a sophisticated AI assistant helping to organize memory. 
             Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate. 
             Use the provided JSON schema for your response and fill in all fields with relevant information.
             You can omit entries if they don't seem appropriate for memory storage and would be empty.
@@ -175,7 +175,7 @@ def call_memory_model(user_input, response1_text):
                 "author": "" 
               },
               "type": "conversation", // OR "technical_concept" 
-              "core": {
+              "engine": {
                 "main_topic": "", 
                 "category": "", 
                 "subcategory": "", 
@@ -343,7 +343,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
         probability = folder_info.get("probability", 0)
 
         target_folder_path = connection_map.get(folder_path, os.path.join(
-            os.path.abspath(os.path.dirname(__file__)), "memories", "NewGeneratedbyAI", folder_path
+            os.path.abspath(os.path.dirname(__file__)), "memory", "NewGeneratedbyAI", folder_path
         ))
         # Normalize the target_folder_path:
         target_folder_path = target_folder_path.replace("\\", "/")
@@ -373,8 +373,8 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
         except Exception as e:
             print(f"{RED}Error saving memory frame: {e}{RESET}")
 
-    # Get the full memories folder path
-    memories_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "memories"))
+    # Get the full memory folder path
+    memories_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "memory"))
 
     update_html_logs(MEMORY_FRAME_NUMBER, proposed_name, timestamp, memory_frame_paths, memories_folder_path)
     MEMORY_FRAME_NUMBER += 1
@@ -386,7 +386,7 @@ def load_connection_map():
     connection_map = {}
     try:
         script_path = os.path.abspath(os.path.dirname(__file__))
-        connection_map_path = os.path.join(script_path, "memories", "Memory_connections_map.txt")
+        connection_map_path = os.path.join(script_path, "memory", "Memory_connections_map.txt")
         with open(connection_map_path, 'r') as file:
             for line in file:
                 if line.strip():

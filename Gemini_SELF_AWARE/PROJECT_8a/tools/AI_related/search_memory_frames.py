@@ -203,7 +203,7 @@ async def retrieve_memory_parts(query: str, top_n: int = 5, fields: List[str] = 
         fields = [
             'metadata.creation_date', 'metadata.source', 'metadata.author',
             'type',
-            'core.main_topic', 'core.category', 'core.subcategory', 'core.memory_about',
+            'engine.main_topic', 'engine.category', 'engine.subcategory', 'engine.memory_about',
             'summary.concise_summary', 'summary.description',
             'content.keywords', 'content.entities', 'content.tags', 'content.observations',
             'content.facts', 'content.contradictions', 'content.paradoxes',
@@ -244,7 +244,7 @@ async def retrieve_memory_parts(query: str, top_n: int = 5, fields: List[str] = 
 async def main():
     query = "memory enhancement system"
     fields = [
-        'core.main_topic',
+        'engine.main_topic',
         'summary.concise_summary',
         'importance.importance_level',
         'technical_details.concept_definition',
@@ -254,12 +254,12 @@ async def main():
 
     print(f"Query: {query}")
     if results:
-        print(f"Found {len(results)} relevant memories:")
+        print(f"Found {len(results)} relevant memory:")
         for i, result in enumerate(results, 1):
             print(f"Memory {i}:")
             print(json.dumps(result, indent=2))
     else:
-        print("No relevant memories found.")
+        print("No relevant memory found.")
 
 
 

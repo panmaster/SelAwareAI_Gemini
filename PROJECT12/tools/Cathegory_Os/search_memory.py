@@ -75,7 +75,7 @@ def search_memory(
     for result in results:
         print(f"File: {result['file_path']}")
         print(f"Score: {result['score']}")
-        print(f"Main Topic: {result['data'].get('memory_data', {}).get('core', {}).get('main_topic', 'N/A')}")
+        print(f"Main Topic: {result['data'].get('memory_data', {}).get('engine', {}).get('main_topic', 'N/A')}")
         print(
             f"Concise Summary: {result['data'].get('memory_data', {}).get('summary', {}).get('concise_summary', 'N/A')}")
         print("---")
@@ -208,7 +208,7 @@ search_memory_description_short_str = 'Searches memory frames within a specified
 
 
 class MemoryFrameSearcher:
-    def __init__(self, memories_folder_path: str = "../../memories/AiGenerated"):
+    def __init__(self, memories_folder_path: str = "../../memory/AiGenerated"):
         self.memories_folder_path = memories_folder_path
 
     @lru_cache(maxsize=1000)
@@ -282,5 +282,5 @@ class MemoryFrameSearcher:
             file_info: Dict[str, Union[str, int]],
             category: str
     ) -> bool:
-        return memory_frame.get('memory_data', {}).get('core', {}).get('category') == category
+        return memory_frame.get('memory_data', {}).get('engine', {}).get('category') == category
 

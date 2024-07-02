@@ -12,7 +12,7 @@ import ast
 
 # Configuration
 genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')
-SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memories"
+SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
 PROMPTS_FILE = os.path.join("Brain_settings", "prompts.json")
 EMOTIONS_FILE = os.path.join("Brain_settings", "emotions.json")
@@ -128,7 +128,7 @@ class GeminiSelfAwareAI:
                f"Current emotions: {json.dumps(self.emotions, indent=2)}\n" \
                f"Current sensory input: {self.sensory_inputs}\n" \
                f"Previous action results: {self.sensory_inputs['previous_action_results']}\n" \
-               f"Relevant memories: {json.dumps(relevant_memories, indent=2)}"
+               f"Relevant memory: {json.dumps(relevant_memories, indent=2)}"
 
     def perform_reflection(self, introspection_results, function_results):
         current_time = datetime.datetime.now().strftime("%H:%M:%S")

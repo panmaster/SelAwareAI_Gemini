@@ -74,9 +74,9 @@ def update_html_logs(memory_frame_number, proposed_name, timestamp, memory_frame
         print(f"Error updating HTML logs: {e}")
 
 def Get_path_of_memories_folder():
-    """Returns the absolute path to the 'memories' folder."""
+    """Returns the absolute path to the 'memory' folder."""
     current = pathlib.Path.cwd()
-    memories_path = current / "memories"
+    memories_path = current / "memory"
     return memories_path.absolute()
 
 def process_user_input():
@@ -106,7 +106,7 @@ def call_memory_model(user_input, response1_text):
         memory_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
             safety_settings={'HARASSMENT': 'block_none'},
-            system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
+            system_instruction="""You are a sophisticated AI assistant helping to organize memory. 
             Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate. 
             Use the provided JSON schema for your response and fill in all fields with relevant information.
             You can omit entries if they don't seem appropriate for memory storage and would be empty.
@@ -122,7 +122,7 @@ def call_memory_model(user_input, response1_text):
                 "author": "" 
               },
               "type": "conversation", // OR "technical_concept" 
-              "core": {
+              "engine": {
                 "main_topic": "", 
                 "category": "", 
                 "subcategory": "", 
@@ -225,11 +225,11 @@ def extract_entries_smart(response_message):
                 "metadata.creation_date": "metadata",
                 "metadata.source": "metadata",
                 "metadata.author": "metadata",
-                "type": "core",
-                "core.main_topic": "core",
-                "core.category": "core",
-                "core.subcategory": "core",
-                "core.memory_about": "core",
+                "type": "engine",
+                "engine.main_topic": "engine",
+                "engine.category": "engine",
+                "engine.subcategory": "engine",
+                "engine.memory_about": "engine",
                 "summary.concise_summary": "summary",
                 "summary.description": "summary",
                 "impact.obtained_knowledge": "impact",
@@ -330,7 +330,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
 
     try:
         script_path = os.path.abspath(os.path.dirname(__file__))
-        connection_map_path = os.path.join(script_path, "memories", "Memory_connections_map.txt")
+        connection_map_path = os.path.join(script_path, "memory", "Memory_connections_map.txt")
         with open(connection_map_path, 'r') as file:
             content = file.read()
             folder_matches = re.findall(r'\*\*\*\*(.*?)\*\*\*\*(.*?)Path:\s*(.*?)\n', content, re.DOTALL)
@@ -355,7 +355,7 @@ def store_memory_frame(user_input, response1_text, response2_text, memory_data):
             target_folder_path = connection_map[folder_path]
         else:
             print(f"Folder '{folder_path}' not in connection map. Creating in 'NewGeneratedbyAI'...")
-            target_folder_path = os.path.join(script_path, "memories", "NewGeneratedbyAI", folder_path)
+            target_folder_path = os.path.join(script_path, "memory", "NewGeneratedbyAI", folder_path)
             os.makedirs(target_folder_path, exist_ok=True)
         highest_probability = max([folder.get("probability", 0) for folder in storage_folders], default=0)
 

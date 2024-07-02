@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 # Configuration
 genai.configure(api_key='YOUR_API_KEY')
-MEMORY_DIR = "memories"
+MEMORY_DIR = "memory"
 STATE_FILE = "brain_settings/State_of_mind.json"
 PROMPTS_FILE = "brain_settings/prompts.json"
 

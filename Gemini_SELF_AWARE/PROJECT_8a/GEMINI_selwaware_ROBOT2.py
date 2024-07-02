@@ -15,7 +15,7 @@ from typing import Any, Dict, Optional
 
 # Configuration
 genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')  # Replace with your actual API key
-SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memories"
+SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
 PROMPTS_FILE = os.path.join("Brain_settings", "prompts.json")
 EMOTIONS_FILE = os.path.join("Brain_settings", "emotions.json")
@@ -148,9 +148,9 @@ class GeminiSelfAwareAI:
                 return json.load(f)
         except FileNotFoundError:
             default_prompts = {
-                "input": "Analyze current inputs, state, and emotions. What's the most important aspect to focus on?  You can call the 'retrieve_memories' function to access past relevant memories.  Provide your response in the following format:\n FocusOn: [identified focus]\n FocusLevel: [a float between 0 and 1]",
-                "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn? Consider potential improvements or adjustments to behavior and decision-making.  You can also call the 'retrieve_memories' function to access relevant memories.  Format your response to be clear and structured, highlighting key observations and recommendations.",
-                "action": "Based on the current focus, reflections, and emotional state, what is the optimal next action? If necessary, use available tools to perform actions.  Always justify your chosen action and explain its expected impact. You can also call the 'retrieve_memories' function to access relevant memories.",
+                "input": "Analyze current inputs, state, and emotions. What's the most important aspect to focus on?  You can call the 'retrieve_memories' function to access past relevant memory.  Provide your response in the following format:\n FocusOn: [identified focus]\n FocusLevel: [a float between 0 and 1]",
+                "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn? Consider potential improvements or adjustments to behavior and decision-making.  You can also call the 'retrieve_memories' function to access relevant memory.  Format your response to be clear and structured, highlighting key observations and recommendations.",
+                "action": "Based on the current focus, reflections, and emotional state, what is the optimal next action? If necessary, use available tools to perform actions.  Always justify your chosen action and explain its expected impact. You can also call the 'retrieve_memories' function to access relevant memory.",
                 "emotion": "Based on recent events and outcomes, how should my emotional state be adjusted?  Provide your response as a JSON object with emotion names as keys and values between 0 and 100, representing the intensity of each emotion.",
                 "learning": "What new knowledge or skills should be prioritized for long-term improvement based on recent experiences and outcomes? Summarize your insights and recommendations in a concise, structured format that can be easily integrated into the learning system."
             }
@@ -392,7 +392,7 @@ class GeminiSelfAwareAI:
                         """
 
             reflection_instruction = """
-                        You are a reflective AI assistant analyzing the input stage's output (including potential memories).
+                        You are a reflective AI assistant analyzing the input stage's output (including potential memory).
                         Provide insights, identify patterns, suggest a concise action plan for the action model, and determine the FocusLevel for the next iteration:
                         FocusLevel: [a float between 0 and 1]
                         """

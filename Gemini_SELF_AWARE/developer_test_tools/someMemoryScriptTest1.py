@@ -7,7 +7,7 @@ import numpy as np
 from termcolor import colored, cprint
 
 # Directory where memory frames are stored
-MEMORY_FRAMES_DIR = './memories'  # Adjust this path if needed
+MEMORY_FRAMES_DIR = './memory'  # Adjust this path if needed
 
 # Load BERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
@@ -54,7 +54,7 @@ def validate_memory_frame(memory_frame):
     required_nested_fields = [
         "metadata",
         "type",
-        "core",
+        "engine",
         "summary",
         "content",
         "interaction",

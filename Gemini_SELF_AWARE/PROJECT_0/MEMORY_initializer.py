@@ -546,9 +546,9 @@ def compare_folder_structures(original, current):
 
 
 def initialize_memories():
-    """Initializes the memories folder structure and mappings."""
+    """Initializes the memory folder structure and mappings."""
     script_path = os.path.abspath(os.path.dirname(__file__))
-    memories_path = os.path.join(script_path, "memories")
+    memories_path = os.path.join(script_path, "memory")
     base_structure_file = os.path.join(memories_path, "BaseFileStructure.txt")
     current_structure_file = os.path.join(memories_path, "CurrentFolderStructure.txt")
     memory_connections_file = os.path.join(memories_path, "Memory_connections_map.txt")
@@ -566,7 +566,7 @@ def initialize_memories():
         except FileNotFoundError:
             return {}
 
-    # 1. Check if memories folder exists:
+    # 1. Check if memory folder exists:
     if not os.path.exists(memories_path):
         print_colored("Memories folder does not exist. Proceeding with full initialization...", "yellow")
         os.makedirs(memories_path, exist_ok=True)

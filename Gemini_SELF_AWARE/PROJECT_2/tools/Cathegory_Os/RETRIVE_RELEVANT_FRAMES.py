@@ -29,7 +29,7 @@ RETRIVE_RELEVANT_FRAMES_description_json = {
                     },
                     "Essentials": {
                         "type_": "STRING",
-                        "description": "Specifies the level of detail to return in the results. \n\n - \"all\": Returns all available information about the relevant frames.\n - \"sumarisation\": Returns a summarised version of the frame data, including metadata, type, core, summary, content, interaction, impact, importance, and technical details.\n - \"sumarisation_OnlyExistingEntries\": Returns a summarised version of the frame data, but only includes entries that have a non-empty value.\n Defaults to \"all\".",
+                        "description": "Specifies the level of detail to return in the results. \n\n - \"all\": Returns all available information about the relevant frames.\n - \"sumarisation\": Returns a summarised version of the frame data, including metadata, type, engine, summary, content, interaction, impact, importance, and technical details.\n - \"sumarisation_OnlyExistingEntries\": Returns a summarised version of the frame data, but only includes entries that have a non-empty value.\n Defaults to \"all\".",
 
                     }
                 },

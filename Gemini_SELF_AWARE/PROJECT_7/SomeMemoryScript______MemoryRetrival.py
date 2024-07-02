@@ -213,7 +213,7 @@ class ImprovedMemoryRetrieval:
                 for frame in relevant_frames
             ]
         except Exception as e:
-            logger.error(f"Error retrieving memories for query '{query}': {e}")
+            logger.error(f"Error retrieving memory for query '{query}': {e}")
             return []
 
     def keyword_search(self, query: str, top_n: int = 5) -> List[MemoryFrame]:
@@ -251,9 +251,9 @@ async def startup_event():
 async def retrieve_memories_api(query: Query):
     try:
         memories = await memory_retrieval.retrieve_memories(query.text, query.top_n)
-        return {"memories": memories}
+        return {"memory": memories}
     except Exception as e:
-        logger.error(f"Error retrieving memories via API for query '{query.text}': {e}")
+        logger.error(f"Error retrieving memory via API for query '{query.text}': {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
 # Async external function for retrieving relevant frames

@@ -393,7 +393,7 @@ class FocusManager:
         print(table)
 
 File: Gemini_selfaware.py (C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\PROJECT15\Gemini_selfaware.py)
-Content (First 966 lines):
+Content (First 985 lines):
 # Gemini_selfaware.py
 import os
 import datetime
@@ -404,7 +404,7 @@ import google.generativeai as genai
 from memory_frame_creation import CREATE_MEMORY_FRAME
 from Tool_Manager import ToolManager
 import traceback
-
+from ProjectTableManager import Project
 from typing import List
 
 
@@ -949,7 +949,7 @@ class GeminiSelfAwareAI:
         if random.uniform(0, 1) < self.exploration_rate:
             return random.choice(self.q_table.actions)  # Exploration
         else:
-            return self.q_table.choose_best_action(state)  # Exploitation
+            return self.q_table.choose_best_action(state)
 
 
     def get_available_projects(self) -> List[Project]:
@@ -960,6 +960,25 @@ class GeminiSelfAwareAI:
             if not self.is_project_completed(project_name):
                 available_projects.append(project)
         return available_projects
+
+    def observe_state(self):
+        current_project = self.project_table_manager.get_current_project()
+        if current_project is None:  # Handle case where no project is selected
+            top_tasks = []
+        else:
+            top_tasks = self.project_table_manager.get_top_tasks(current_project.name, 3)
+
+        # ... (Get other state information: emotions, resources, etc.)
+        state = State(
+            current_project_priority=current_project.priority if current_project else 0,  # Handle None case
+            current_project_deadline=current_project.deadline if current_project else None,  # Handle None case
+            top_tasks=top_tasks,
+            emotions=self.emotions,  # Include emotions in the state
+            # ... other state attributes from project table and other sources ...
+        )
+        return state
+
+
 
     def is_project_completed(self, project_name: str) -> bool:
         """Checks if a project is completed (you'll need to define your own completion logic)."""

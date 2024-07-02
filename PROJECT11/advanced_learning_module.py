@@ -90,7 +90,7 @@ def generate_insight(self, query: str) -> str:
 
     combined_content = " ".join([memory['content'] for memory in relevant_memories])
     # Here you could use a more sophisticated NLP model to generate an insight
-    # For now, we'll just return a simple combination of the relevant memories
+    # For now, we'll just return a simple combination of the relevant memory
     return f"Based on my knowledge, I can say that {combined_content}"
 
 

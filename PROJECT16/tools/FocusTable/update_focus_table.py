@@ -1,6 +1,6 @@
 tool_type_for_Tool_Manager = "reflection"
 import json
-
+import  os
 def update_focus_table(task_name: str, focus_type: str = None, moscow_category: str = None,
                       importance: int = None, difficulty: int = None, reward: int = None,
                       total_work: float = None, proposed_action: str = None, cost_per_run: float = None,
@@ -46,47 +46,49 @@ def update_focus_table(task_name: str, focus_type: str = None, moscow_category: 
         if task_name not in focus_table:
             return f"Task '{task_name}' not found in the focus table."
 
+        task = focus_table[task_name]  # Access the task by its name
+
         # Update only the provided parameters
         if focus_type is not None:
-            focus_table[task_name]['focus_type'] = focus_type
+            task['focus_type'] = focus_type
         if moscow_category is not None:
-            focus_table[task_name]['moscow_category'] = moscow_category
+            task['moscow_category'] = moscow_category
         if importance is not None:
-            focus_table[task_name]['importance'] = importance
+            task['importance'] = importance
         if difficulty is not None:
-            focus_table[task_name]['difficulty'] = difficulty
+            task['difficulty'] = difficulty
         if reward is not None:
-            focus_table[task_name]['reward'] = reward
+            task['reward'] = reward
         if total_work is not None:
-            focus_table[task_name]['total_work'] = total_work
+            task['total_work'] = total_work
         if proposed_action is not None:
-            focus_table[task_name]['proposed_action'] = proposed_action
+            task['proposed_action'] = proposed_action
         if cost_per_run is not None:
-            focus_table[task_name]['cost_per_run'] = cost_per_run
+            task['cost_per_run'] = cost_per_run
         if work_done is not None:
-            focus_table[task_name]['work_done'] = work_done
+            task['work_done'] = work_done
         if focus_strength is not None:
-            focus_table[task_name]['focus_strength'] = focus_strength
+            task['focus_strength'] = focus_strength
         if frustration is not None:
-            focus_table[task_name]['frustration'] = frustration
+            task['frustration'] = frustration
         if fatigue is not None:
-            focus_table[task_name]['fatigue'] = fatigue
+            task['fatigue'] = fatigue
         if accumulated_cost is not None:
-            focus_table[task_name]['accumulated_cost'] = accumulated_cost
+            task['accumulated_cost'] = accumulated_cost
         if status is not None:
-            focus_table[task_name]['status'] = status
+            task['status'] = status
         if learned_knowledge is not None:
-            focus_table[task_name]['learned_knowledge'] = learned_knowledge
+            task['learned_knowledge'] = learned_knowledge
         if important_facts is not None:
-            focus_table[task_name]['important_facts'] = important_facts
+            task['important_facts'] = important_facts
         if current_focus is not None:
-            focus_table[task_name]['current_focus'] = current_focus
+            task['current_focus'] = current_focus
         if goal is not None:
-            focus_table[task_name]['goal'] = goal
+            task['goal'] = goal
         if dependencies is not None:
-            focus_table[task_name]['dependencies'] = dependencies
+            task['dependencies'] = dependencies
         if deadline is not None:
-            focus_table[task_name]['deadline'] = deadline
+            task['deadline'] = deadline
 
         with open(file_path, 'w') as f:
             json.dump(focus_table, f, indent=2)
@@ -199,3 +201,72 @@ update_focus_table_description_json = {
 }
 
 update_focus_table_description_short_str = "Updates a task in the focus table."
+
+def check_update_focus_table():
+    """
+    Function to check if the update_focus_table function works correctly.
+    """
+    file_path = os.path.abspath("../../Brain_settings/focusTables/focus.json")
+
+    # 1. Load the focus table:
+    try:
+        with open(file_path, 'r') as f:
+            focus_table = json.load(f)
+        print(f"Focus table loaded successfully: {focus_table}")
+    except FileNotFoundError:
+        print(f"Error: Focus table file '{file_path}' not found. Creating a new focus table with example data.")
+        focus_table = {
+            "Task1": {
+                "focus_type": "work",
+                "moscow_category": "Must",
+                "importance": 5,
+                "difficulty": 3,
+                "reward": 4,
+                "total_work": 10.0,
+                "proposed_action": "Write code for the feature",
+                "cost_per_run": 1.0,
+                "work_done": 0.0,
+                "focus_strength": 0.0,
+                "frustration": 0.0,
+                "fatigue": 0.0,
+                "accumulated_cost": 0.0,
+                "status": "NOT_COMPLETED",
+                "learned_knowledge": "",
+                "important_facts": "",
+                "current_focus": False,
+                "goal": "Finish the feature",
+                "dependencies": [],
+                "deadline": "2024-07-15"
+            },
+            "Task2": {
+                # ...  add more example tasks here
+            }
+        }
+        with open(file_path, 'w') as f:
+            json.dump(focus_table, f, indent=2)
+
+    # 2. Update a task:
+    task_to_update = "Task1"
+    updated_status = "IN_PROGRESS"
+    result = update_focus_table(task_name=task_to_update, status=updated_status)
+    print(f"Update result: {result}")
+
+    # 3. Verify the update:
+    try:
+        with open(file_path, 'r') as f:
+            updated_focus_table = json.load(f)
+        print(f"Updated focus table: {updated_focus_table}")
+
+        # Access the updated task directly by name
+        if updated_focus_table[task_to_update]['status'] == updated_status:
+            print(f"Verification: Task '{task_to_update}' updated correctly with status '{updated_status}'")
+        else:
+            print(f"Verification failed: Task '{task_to_update}' status is not '{updated_status}'")
+
+    except FileNotFoundError:
+        print(f"Error: Focus table file '{file_path}' not found after update. ")
+    except Exception as e:
+        print(f"Error verifying update: {e}")
+
+if __name__ == "__main__":
+    check_update_focus_table()

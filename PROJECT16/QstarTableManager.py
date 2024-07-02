@@ -3,13 +3,17 @@ import random
 from typing import Dict, Tuple, Any
 from typing import List
 import  json
+from  FocusManager import Task
+
+from typing import Optional
 class State:
-    def __init__(self, current_project: str, current_task: str, emotions: Dict[str, float]):
+    def __init__(self, current_project: str, current_task: str, emotions: Dict[str, float], current_project_priority: int, current_project_deadline: str, top_tasks: List = None):
         self.current_project = current_project
         self.current_task = current_task
         self.emotions = emotions
-
-
+        self.current_project_priority = current_project_priority
+        self.current_project_deadline = current_project_deadline
+        self.top_tasks = top_tasks  # Add top_tasks attribute
 
     def __str__(self):
         return f"Project: {self.current_project}, Task: {self.current_task}, Emotions: {self.emotions}"
@@ -68,3 +72,12 @@ class QstarTable:
         with open(filename, 'r') as f:
             data = json.load(f)
             self.q_table = {eval(k): v for k, v in data.items()}
+
+    def get_current_task(self) -> Optional[Task]:
+        """Returns the currently active task (if any)."""
+        if self.current_project is None:
+            return None
+        for task in self.current_project.tasks:
+            if task.status == "IN_PROGRESS":
+                return task
+        return None

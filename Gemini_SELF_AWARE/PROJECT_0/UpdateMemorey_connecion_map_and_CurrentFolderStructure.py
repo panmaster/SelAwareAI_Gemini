@@ -99,10 +99,10 @@ def create_memory_connections_map(similar_folders, file_path):
 # --- Memory Synchronization Function ---
 def synchronize_memories():
     """Checks folder structure and updates the memory connection map."""
-    memories_path = os.path.join(os.getcwd(), "memories")  # Assuming script is in the same directory
+    memories_path = os.path.join(os.getcwd(), "memory")  # Assuming script is in the same directory
     memory_connections_file = os.path.join(memories_path, "Memory_connections_map.txt")
 
-    # 1. Check if memories folder exists:
+    # 1. Check if memory folder exists:
     if not os.path.exists(memories_path):
         print_colored("Memories folder does not exist.", "red")
         return

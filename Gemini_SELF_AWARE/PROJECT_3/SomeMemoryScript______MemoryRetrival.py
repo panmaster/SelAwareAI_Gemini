@@ -17,7 +17,7 @@ logging.basicConfig(filename='memory_retrieval.log', level=logging.ERROR,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Memory Configuration
-MEMORY_FRAMES_DIR = './memories'
+MEMORY_FRAMES_DIR = './memory'
 EMBEDDINGS_FILE = 'memory_embeddings.npy'
 
 # ANSI Color Codes
@@ -171,7 +171,7 @@ def update_memory_embeddings(memory_embeddings: Dict[str, np.ndarray],
                              relevant_indices: List[int],
                              query_embedding: np.ndarray,
                              learning_rate: float = 0.01) -> Dict[str, np.ndarray]:
-    """Fine-tunes the embeddings of relevant memories to be more similar
+    """Fine-tunes the embeddings of relevant memory to be more similar
     to the query embedding, allowing the system to learn from new queries.
     """
     try:
@@ -249,7 +249,7 @@ def RETRIEVE_RELEVANT_FRAMES_X(query: str) -> Dict:
                     "edit_number": frame.get("edit_number", 0),
                     "metadata": frame.get("metadata", {}),
                     "type": frame.get("type", ""),
-                    "core": frame.get("core", {}),
+                    "engine": frame.get("engine", {}),
                     "summary": frame.get("summary", {}),
                     "content": frame.get("content", {}),
                     "interaction": frame.get("interaction", {}),
@@ -260,7 +260,7 @@ def RETRIEVE_RELEVANT_FRAMES_X(query: str) -> Dict:
                     # Access nested values in 'memory_data'
                     "memory_data_metadata": frame.get("memory_data", {}).get("metadata", {}),
                     "memory_data_type": frame.get("memory_data", {}).get("type", ""),
-                    "memory_data_core": frame.get("memory_data", {}).get("core", {}),
+                    "memory_data_core": frame.get("memory_data", {}).get("engine", {}),
                     "memory_data_summary": frame.get("memory_data", {}).get("summary", {}),
                     "memory_data_content": frame.get("memory_data", {}).get("content", {}),
                     "memory_data_interaction": frame.get("memory_data", {}).get("interaction", {}),
@@ -353,7 +353,7 @@ def RETRIEVE_RELEVANT_FRAMES(query: str, Essentials="all") -> Dict:
                     "edit_number": frame.get("edit_number", 0),
                     "metadata": frame.get("metadata", {}),
                     "type": frame.get("type", ""),
-                    "core": frame.get("core", {}),
+                    "engine": frame.get("engine", {}),
                     "summary": frame.get("summary", {}),
                     "content": frame.get("content", {}),
                     "interaction": frame.get("interaction", {}),
@@ -364,7 +364,7 @@ def RETRIEVE_RELEVANT_FRAMES(query: str, Essentials="all") -> Dict:
                     # Access nested values in 'memory_data'
                     "memory_data_metadata": frame.get("memory_data", {}).get("metadata", {}),
                     "memory_data_type": frame.get("memory_data", {}).get("type", ""),
-                    "memory_data_core": frame.get("memory_data", {}).get("core", {}),
+                    "memory_data_core": frame.get("memory_data", {}).get("engine", {}),
                     "memory_data_summary": frame.get("memory_data", {}).get("summary", {}),
                     "memory_data_content": frame.get("memory_data", {}).get("content", {}),
                     "memory_data_interaction": frame.get("memory_data", {}).get("interaction", {}),
@@ -409,7 +409,7 @@ def RETRIEVE_RELEVANT_FRAMES(query: str, Essentials="all") -> Dict:
                     "memory_data": {
                         "metadata": frame_data["memory_data_metadata"],
                         "type": frame_data["memory_data_type"],
-                        "core": frame_data["memory_data_core"],
+                        "engine": frame_data["memory_data_core"],
                         "summary": frame_data["memory_data_summary"],
                         "content": frame_data["memory_data_content"],
                         "interaction": frame_data["memory_data_interaction"],

@@ -27,7 +27,7 @@ BRIGHT_CYAN = "\033[96m"
 colorama.init(autoreset=True)
 
 # Constants
-MEMORY_FRAMES_DIR = './memories'
+MEMORY_FRAMES_DIR = './memory'
 EMBEDDINGS_FILE = 'memory_embeddings.npz'
 LOGGING_FILE = 'memory_retrieval.log'
 

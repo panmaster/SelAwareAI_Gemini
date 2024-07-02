@@ -15,7 +15,7 @@ from SomeMemoryScript______MemoryRetrival import RETRIEVE_RELEVANT_FRAMES
 genai.configure(api_key='AIzaSyDGD_89tT5S5KLzSPkKWlRmwgv5cXZRTKA')  # Replace with your actual API key
 
 SESSION_FOLDER = "sessions"
-MEMORY_FOLDER = "memories"
+MEMORY_FOLDER = "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
 
 COLORS = {

@@ -22,7 +22,7 @@ from QstarTableManager import QstarTable, State
 import  random
 # Configuration
 genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')  # Replace with your actual API key
-SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memories"
+SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
 from FocusManager import FocusManager
 # ANSI escape codes for text colors
@@ -73,19 +73,16 @@ class GeminiSelfAwareAI:
         self.valid_tool_types = {"all", "input", "reflection", "action", "web", "emotions"}
         self.initialize()
         self.focus_manager = FocusManager()
+        self.current_focus = None
+
+
         self.file_path = " Brain_settings/focusTables/focus.json"  # Add this line
         self.q_table = QstarTable()
         self.q_table.initialize_table(["select_project", "start_task"])
 
         from ProjectTableManager import ProjectTableManager  # Import here
-
-        self.exploration_rate = 0.1
         self.project_table_manager = ProjectTableManager()
-        self.q_table = QstarTable()
-        self.current_state = State("", "", self.emotions)
-
-        self.q_table = QstarTable()  # Create an instance
-        self.q_table.initialize_table(["select_project", "start_task"])
+        self.exploration_rate = 0.1
 
 
 
@@ -133,7 +130,7 @@ class GeminiSelfAwareAI:
                           """
 
             reflection_instruction = """
-                          You are a reflective AI assistant analyzing the input stage's output (including potential memories).
+                          You are a reflective AI assistant analyzing the input stage's output (including potential memory).
                           Provide insights, identify patterns, suggest a concise action plan for the action model, and determine the FocusLevel for the next iteration:
                           FocusLevel: [a float between 0 and 1]
                           """
@@ -232,9 +229,9 @@ class GeminiSelfAwareAI:
         except Exception as E:
 
             return {
-                "input": "Analyze current inputs, state, and emotions. What's the most important aspect to focus on?  You can call the 'retrieve_memories' function to access past relevant memories.  Provide your response in the following format:\n FocusOn: [identified focus]\n FocusLevel: [a float between 0 and 1]",
-                "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn? Consider potential improvements or adjustments to behavior and decision-making.  You can also call the 'retrieve_memories' function to access relevant memories.  Format your response to be clear and structured, highlighting key observations and recommendations.",
-                "action": "Based on the current focus, reflections, and emotional state, what is the optimal next action? If necessary, use available tools to perform actions.  Always justify your chosen action and explain its expected impact. You can also call the 'retrieve_memories' function to access relevant memories.",
+                "input": "Analyze current inputs, state, and emotions. What's the most important aspect to focus on?  You can call the 'retrieve_memories' function to access past relevant memory.  Provide your response in the following format:\n FocusOn: [identified focus]\n FocusLevel: [a float between 0 and 1]",
+                "reflection": "Reflect on recent actions, outcomes, and emotional states. What insights can be drawn? Consider potential improvements or adjustments to behavior and decision-making.  You can also call the 'retrieve_memories' function to access relevant memory.  Format your response to be clear and structured, highlighting key observations and recommendations.",
+                "action": "Based on the current focus, reflections, and emotional state, what is the optimal next action? If necessary, use available tools to perform actions.  Always justify your chosen action and explain its expected impact. You can also call the 'retrieve_memories' function to access relevant memory.",
                 "emotion": "Based on recent events and outcomes, how should my emotional state be adjusted?  Provide your response as a JSON object with emotion names as keys and values between 0 and 100, representing the intensity of each emotion.",
                 "learning": "What new knowledge or skills should be prioritized for long-term improvement based on recent experiences and outcomes? Summarize your insights and recommendations in a concise, structured format that can be easily integrated into the learning system."
             }
@@ -484,7 +481,7 @@ class GeminiSelfAwareAI:
 
     def load_focus_table_from_json(self):
         """Loads the focus table from a JSON file."""
-        file_path = " Brain_settings/focusTables/focus.json"  # Add this line
+        file_path = "Brain_settings/focusTables/focus.json"
         focus_table = []
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -508,8 +505,23 @@ class GeminiSelfAwareAI:
             print(f"Unexpected error loading focus table: {e}")
             return []
 
+    def observe_state(self):
+        current_project = self.project_table_manager.get_current_project()
+        current_task = self.project_table_manager.get_current_task() if current_project else None  # Get current task
+        if current_project is None:  # Handle case where no project is selected
+            top_tasks = []
+        else:
+            top_tasks = self.project_table_manager.get_top_tasks(current_project.name, 3)
 
-
+        state = State(
+            current_project=current_project.name if current_project else None,
+            current_task=current_task,
+            emotions=self.emotions,
+            current_project_priority=current_project.priority if current_project else 0,
+            current_project_deadline=current_project.deadline if current_project else None,
+            top_tasks=top_tasks
+        )
+        return state
 
     def take_action(self, action):
         if action == "select_project":
@@ -537,9 +549,9 @@ class GeminiSelfAwareAI:
     def calculate_reward_and_next_state(self, result_text, current_state, action):
         reward = 0
         if "Selected project:" in result_text:
-            reward = 1  # Reward for selecting a project
+            reward = 1
         elif "Started task:" in result_text:
-            reward = 10  # Reward for starting a task
+            reward = 10
         next_state = self.observe_state()
         return reward, next_state
 
@@ -561,14 +573,23 @@ class GeminiSelfAwareAI:
                 available_projects.append(project)
         return available_projects
 
-    def observe_state(self) -> State:
+    def observe_state(self):
         current_project = self.project_table_manager.get_current_project()
-        current_task = self.project_table_manager.get_highest_priority_task(current_project)
-        return State(
-            current_project.name if current_project else "",
-            current_task.name if current_task else "",
-            self.emotions)
+        current_task = self.project_table_manager.get_current_task() if current_project else None  # Get current task
+        if current_project is None:  # Handle case where no project is selected
+            top_tasks = []
+        else:
+            top_tasks = self.project_table_manager.get_top_tasks(current_project.name, 3)
 
+        state = State(
+            current_project=current_project.name if current_project else None,
+            current_task=current_task,
+            emotions=self.emotions,
+            current_project_priority=current_project.priority if current_project else 0,
+            current_project_deadline=current_project.deadline if current_project else None,
+            top_tasks=top_tasks
+        )
+        return state
 
 
 
@@ -578,77 +599,60 @@ class GeminiSelfAwareAI:
         if not project:
             return False
 
-    def take_action(self, action: str) -> str:
-        if action == "select_project":
-            available_projects = self.project_table_manager.get_available_projects()
-            if available_projects:
-                selected_project = random.choice(available_projects)
-                self.project_table_manager.set_current_project(selected_project)
-                return f"Selected project: {selected_project.name}"
-            else:
-                return "No available projects to select."
-        elif action == "start_task":
-            current_project = self.project_table_manager.get_current_project()
-            if current_project:
-                task = self.project_table_manager.get_highest_priority_task(current_project)
-                if task:
-                    return self.project_table_manager.start_task(current_project.name, task.name)
-                else:
-                    return "No tasks found in the current project."
-            else:
-                return "No current project selected."
-        elif action == "complete_task":
-            current_project = self.project_table_manager.get_current_project()
-            if current_project:
-                task = self.project_table_manager.get_highest_priority_task(current_project)
-                if task:
-                    return self.project_table_manager.complete_task(current_project.name, task.name)
-                else:
-                    return "No tasks found in the current project."
-            else:
-                return "No current project selected."
-        elif action == "switch_task":
-            # Implement logic to switch to a different task
-            pass
-        elif action == "start_project":
-            available_projects = self.project_table_manager.get_available_projects()
-            if available_projects:
-                selected_project = random.choice(available_projects)
-                self.project_table_manager.set_current_project(selected_project)
-                return f"Selected project: {selected_project.name}"
-            else:
-                return "No available projects to select."
+    def update_focus(self):
+        """Updates the current focus based on the AI's state and environment."""
+        emotions = self.emotions  # Assuming self.emotions exists
+        resources = {
+            'energy': self.calculate_available_energy(),  # Implement this method
+            'time': self.calculate_available_time()  # Implement this method
+        }
+        self.current_focus = self.focus_manager.get_current_focus(emotions, resources)
+        if self.current_focus:
+            print(f"Current focus: {self.current_focus.name}")
         else:
-            return f"Unknown action: {action}"
+            print("No focus task selected.")
 
-    def calculate_reward(self, result: str) -> float:
-        if "Selected project:" in result:
-            return 1.0
-        elif "started" in result:
-            return 2.0
-        elif "completed" in result:
-            return 5.0
-        else:
-            return 0.0
+    def execute_focused_task(self):
+        """Executes the currently focused task."""
+        if not self.current_focus:
+            return
 
+        print(f"Executing task: {self.current_focus.name}")
+        # Implement task execution logic here
+        # This could involve calling specific methods or using the action_model
 
-
-
+        # Update task progress
+        self.focus_manager.update_task(self.current_focus.name,
+                                       work_done=self.current_focus.work_done + 0.1)
 
     def run(self):
         print("run")
         print("setup simulation")
 
-        # Load the focus table:
-        focus_table = self.load_focus_table_from_json()
+        emotions = self.emotions  # Assuming self.emotions exists
+        resources = {
+            'energy': self.calculate_available_energy(),  # Implement this method
+            'time': self.calculate_available_time()  # Implement this method
+        }
+        self.current_focus = self.focus_manager.get_current_focus(emotions, resources)
+
+        if self.current_focus:
+            print(f"Current focus: {self.current_focus.name}")
+        else:
+            print("No focus task selected.")
+
 
         # Correctly call print_focus_table:
         self.focus_manager.print_focus_table()  # Use
+
+
 
         input_interval = 5  # Get input every 5 loops
         loop_counter = 0
         while True:
             loop_counter += 1
+
+
 
             print(f"=====================================  Loop  =====================================")
 
@@ -671,11 +675,13 @@ class GeminiSelfAwareAI:
                 input_prompt = self.gather_introspection_data()
                 focus_Table = self.load_focus_table_from_json()
 
+
                 input_prompt += json.dumps(focus_Table, indent=2)
 
                 print(input_prompt)
 
                 print(f"{OKBLUE} --- Input Prompt:  {ENDC}")
+
 
                 # Process input using AI
                 try:
@@ -689,11 +695,11 @@ class GeminiSelfAwareAI:
                     except Exception as e:
                         print(e)
                 except Exception as e:
-                    print(f"{FAIL} ---> ERROR in Input Stage! ----> : {e}{ENDC}")
+                        print(f"{FAIL} ---> ERROR in Input Stage! ----> : {e}{ENDC}")
 
                 # Extract information from the input response
-                input_results = self.INTERPRET_response_for_function_calling(input_response)
-                time.sleep(2)  # interpreter
+                input_results = self.INTERPRET_response_for_function_calling(input_response )
+                time.sleep(2)# interpreter
                 input_text = self.extract_text_from_response(input_response)
 
                 # ============================= Focus Management =============================
@@ -703,42 +709,39 @@ class GeminiSelfAwareAI:
                 print(focus_Table)
                 print("printing focus  talbe end")
 
-                self.focus_manager.print_focus_table()  # Print the focus table here
 
                 # ============================= Reflection Stage =============================
                 print(f"{OKCYAN} Reflection Stage: {ENDC}")
                 # Prepare reflection prompt
 
                 reflection_prompt = self.perform_reflection(input_text, input_results)
-                completed_projects = self.state_of_mind.get('completed_projects', [])
-                if completed_projects:
-                    reflection_prompt += f"Completed projects: {', '.join([project.name for project in completed_projects])}\n"
-
                 focus_Table = self.load_focus_table_from_json()
 
-                # reflection_prompt += json.dumps(focus_Table, indent=2)
+
+
+                #reflection_prompt += json.dumps(focus_Table, indent=2)
                 for task in focus_Table:
                     reflection_prompt += f"Task: {task.name}, Focus Type: {task.focus_type}\n"  # Customize as needed
+
+
 
                 print(f"reflection_prompt: {reflection_prompt}")
                 try:
                     print(f"{OKCYAN} --- Sending Reflection to AI:  {ENDC}")
                     reflection_response = self.reflection_chat.send_message(reflection_prompt)
-                    print(
-                        f"{OKCYAN} --- AI Response Reflection response: {reflection_response} {ENDC}"
-                    )
+                    print(f"{OKCYAN} --- AI Response Reflection response: {reflection_response} {ENDC}")
                     self.reflection_text = self.extract_text_from_response(reflection_response)
                     print(self.reflection_text)
                 except Exception as e:
                     print(f"{FAIL} ERROR in Reflection Stage! : {e}{ENDC}")
                     traceback.print_exc()
                 # Extract information from reflection response
-                reflection_results = self.INTERPRET_response_for_function_calling(
-                    reflection_response
-                )  # interpreter
+                reflection_results = self.INTERPRET_response_for_function_calling( reflection_response)  # interpreter
                 print(f"reflection_results {reflection_results}")
 
+
                 # ============================= Action Stage =============================
+
 
                 # Prepare action prompt
                 action_prompt = self.plan_actions(self.reflection_text, reflection_results)
@@ -748,53 +751,50 @@ class GeminiSelfAwareAI:
                 try:
                     print(f"{MAGENTA} --- Sending Action to AI:  {ENDC}")
                     action_response = self.action_chat.send_message(action_prompt_str)
-                    print(
-                        f"{MAGENTA} --- AI Response Action Response: {action_response}  {ENDC}"
-                    )
+                    print(f"{MAGENTA} --- AI Response Action Response: {action_response}  {ENDC}")
                     try:
-                        action_response_text = self.extract_text_from_response(
-                            action_response
-                        )
+                        action_response_text=self.extract_text_from_response(action_response)
                         print(f"action response  text :{action_response_text}")
-                    except Exception as E:
+                    except Exception  as E:
                         print(E)
                 except genai.errors.TimeoutError as e:
-                    print(
-                        f"{WARNING}Warning: Timeout error during action stage. Trying again.{ENDC}"
-                    )
+                    print( f"{WARNING}Warning: Timeout error during action stage. Trying again.{ENDC}")
                     continue
                 except Exception as e:
                     print(f"{FAIL} ERROR in Action Stage! : {e}{ENDC}")
                     traceback.print_exc()
 
+
+
+
                 # Extract information from action response
-                action_results = self.INTERPRET_response_for_function_calling(
-                    action_response
-                )  # interpreter
+                action_results = self.INTERPRET_response_for_function_calling(action_response)  # interpreter
                 # ============================= Summarize Results =============================
                 print(f"{YELLOW} Interpreter Results:  {ENDC}")
                 self.function_call_results = (
                     input_results + reflection_results + action_results
                 )
-                print(
-                    "=========function_call_result=====input_results + reflection_results + action_result============"
-                )
+                print("=========function_call_result=====input_results + reflection_results + action_result============")
                 for result in self.function_call_results:
                     print(f"{YELLOW}    - {result}{ENDC}")
 
-                # =============================  q learning =============================
-                current_state = self.observe_state()
-                action = self.q_table.choose_best_action(current_state)
-                result = self.take_action(action)
-                reward = self.calculate_reward(result)  # Use your existing calculate_reward method
-                next_state = self.observe_state()
-                self.q_table.update_q_value(
-                    current_state, action, reward, next_state
-                )
+                # ============================= New code q learning =============================
+                current_state = self.observe_state()  # (Define this function - see below)
+                action = self.choose_action(current_state)  # (Define this function - see below)
 
                 print(f"{WHITE} Q-Learning Action: {action}{ENDC}")
                 result_text = self.take_action(action)  # (Define this function - see below)
                 print(f"{WHITE} Action Result: {result_text}{ENDC}")
+
+                reward, next_state = self.calculate_reward_and_next_state(result_text, current_state,
+                                                                          action)  # Define this function
+                self.q_table.update_q_value(current_state, action, reward, next_state)
+
+
+
+
+
+
 
                 # ============================= Emotion Update =============================
                 print(f"{OKGREEN} Emotional Update: {ENDC}")
@@ -804,8 +804,7 @@ class GeminiSelfAwareAI:
                 # ============================= Learning Stage =============================
                 print(f"{WHITE} Learning and Improvement: {ENDC}")
                 self.learn_and_improve(self.action_response_text)
-                print(
-                    f"{WHITE}  - Learning Output: {self.learning_response.text}{ENDC}"
+                print(f"{WHITE}  - Learning Output: {self.learning_response.text}{ENDC}"
                 )
 
                 # ============================= Store Conversation Frame =============================
@@ -835,6 +834,9 @@ class GeminiSelfAwareAI:
 
                 # ============================= Update State of Mind =============================
 
+
+
+
                 # ============================= Update Context Window =============================
                 self.context_window.append(
                     {
@@ -849,7 +851,8 @@ class GeminiSelfAwareAI:
                 if len(self.context_window) > 10:
                     self.context_window.pop(0)
 
-                # ============================= Update Focus =============================
+                #===========================Update Focus===================================
+
 
                 # ============================= Periodic Tasks =============================
                 if self.iteration_count % 50 == 0:
@@ -857,15 +860,20 @@ class GeminiSelfAwareAI:
                 if self.iteration_count % 20 == 0:
                     self.perform_system_check()
 
+
+
                 # ============================= Allow Exit =============================
                 if self.sensory_inputs["text"].lower() == "exit":
                     print("Exiting the program. Goodbye! ")
                     break
 
+
+
             except Exception as e:
                 print(f"{FAIL} ERROR! : {e}{ENDC}")
                 traceback.print_exc()
                 self.handle_error(e)
+
 
     def update_attachment(self, entity, value):
         """Updates the attachment value for a given entity."""

@@ -8,7 +8,7 @@ from termcolor import colored, cprint
 from difflib import SequenceMatcher
 
 # Directory where memory frames are stored
-MEMORY_FRAMES_DIR = './memories'  # Adjust this path if needed
+MEMORY_FRAMES_DIR = './memory'  # Adjust this path if needed
 EMBEDDINGS_FILE = 'memory_embeddings.npy'  # File to store embeddings
 
 # Load BERT model and tokenizer
@@ -61,7 +61,7 @@ def validate_memory_frame(memory_frame):
     required_nested_fields = [
         "metadata",
         "type",
-        "core",
+        "engine",
         "summary",
         "content",
         "interaction",
@@ -91,7 +91,7 @@ def generate_memory_embeddings(memory_frames):
     embeddings = []
     for frame in memory_frames:
         # Embed key sections
-        core_embedding = get_bert_embedding(" ".join(frame["memory_data"]["core"].values()))
+        core_embedding = get_bert_embedding(" ".join(frame["memory_data"]["engine"].values()))
         summary_embedding = get_bert_embedding(frame["memory_data"]["summary"]["description"])
         content_embedding = get_bert_embedding(" ".join(frame["memory_data"]["content"]["keywords"]))
 

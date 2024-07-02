@@ -74,9 +74,9 @@ def update_html_logs(memory_frame_number, proposed_name, timestamp, memory_frame
 
 
 def get_path_of_memories_folder():
-    """Returns the absolute path to the 'memories' folder."""
+    """Returns the absolute path to the 'memory' folder."""
     current = pathlib.Path.cwd()
-    memories_path = current / "memories"
+    memories_path = current / "memory"
     return memories_path.absolute()
 
 
@@ -112,7 +112,7 @@ def call_memory_model(user_input, introspection, reflection, action, function_ca
         memory_model = genai.GenerativeModel(
             model_name='gemini-1.5-flash-latest',
             safety_settings={'HARASSMENT': 'block_none'},
-            system_instruction="""You are a sophisticated AI assistant helping to organize memories. 
+            system_instruction="""You are a sophisticated AI assistant helping to organize memory. 
             Analyze and summarize the above user-AI conversation, focusing on elements that would be most useful for storing and retrieving this memory later. Don't hallucinate. 
             Use the provided JSON schema for your response and fill in all fields with relevant information.
             You can omit entries if they don't seem appropriate for memory storage and would be empty.
@@ -128,7 +128,7 @@ def call_memory_model(user_input, introspection, reflection, action, function_ca
                 "author": "" 
               },
               "type": "conversation", // OR "technical_concept" 
-              "core": {
+              "engine": {
                 "main_topic": "", 
                 "category": "", 
                 "subcategory": "", 

@@ -89,7 +89,7 @@ class EmotionalCognition:
 
     async def generate_emotional_insight(self) -> str:
         dominant_emotion, intensity = self.emotional_state.get_dominant_emotion()
-        recent_memories = self.emotion_memory[-5:]  # Get last 5 emotional memories
+        recent_memories = self.emotion_memory[-5:]  # Get last 5 emotional memory
 
         insight = f"I am currently feeling {dominant_emotion} with an intensity of {intensity:.2f}. "
         insight += "Recent experiences have made me feel "

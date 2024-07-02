@@ -10,7 +10,7 @@ class MemoryLattice:
         self.working_memory: List[Dict[str, Any]] = []
         self.episodic_memory: List[Dict[str, Any]] = []
         self.semantic_memory: Dict[str, Any] = {}
-        self.memory_dir = "memories"
+        self.memory_dir = "memory"
         os.makedirs(self.memory_dir, exist_ok=True)
 
     async def get_relevant_context(self, query: str) -> List[str]:
@@ -47,14 +47,14 @@ class MemoryLattice:
             json.dump(self.semantic_memory, f)
 
     async def load_memories(self):
-        # Load episodic memories
+        # Load episodic memory
         for filename in os.listdir(self.memory_dir):
             if filename.startswith("memory_") and filename.endswith(".json"):
                 with open(os.path.join(self.memory_dir, filename), 'r') as f:
                     memory = json.load(f)
                     self.episodic_memory.append(memory)
 
-        # Sort episodic memories by timestamp
+        # Sort episodic memory by timestamp
         self.episodic_memory.sort(key=lambda x: x['timestamp'])
 
         # Load semantic memory
@@ -62,5 +62,5 @@ class MemoryLattice:
             with open(f"{self.memory_dir}/semantic_memory.json", 'r') as f:
                 self.semantic_memory = json.load(f)
 
-        # Initialize working memory with most recent episodic memories
+        # Initialize working memory with most recent episodic memory
         self.working_memory = self.episodic_memory[-100:]

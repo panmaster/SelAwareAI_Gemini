@@ -69,7 +69,7 @@ add_task_to_focus_table_description_json ={
         "properties": {
           "task_name": {
             "type_": "STRING",
-            "description": "The name of the task to add."
+            "description": "The name of the task to add. If None, defaults to 'unnamed'."
           },
           "focus_type": {
             "type_": "STRING",
@@ -105,54 +105,54 @@ add_task_to_focus_table_description_json ={
           },
           "work_done": {
             "type_": "NUMBER",
-            "description": "The amount of work already completed on the task (in units)."
+            "description": "The amount of work already completed on the task (in units). Defaults to 0.0."
           },
           "focus_strength": {
             "type_": "NUMBER",
-            "description": "The current level of focus dedicated to the task."
+            "description": "The current level of focus dedicated to the task. Defaults to 0.0."
           },
           "frustration": {
             "type_": "NUMBER",
-            "description": "The current level of frustration with the task."
+            "description": "The current level of frustration with the task. Defaults to 0.0."
           },
           "fatigue": {
             "type_": "NUMBER",
-            "description": "The current level of fatigue experienced with the task."
+            "description": "The current level of fatigue experienced with the task. Defaults to 0.0."
           },
           "accumulated_cost": {
             "type_": "NUMBER",
-            "description": "The total cost (in time, energy, etc.) accumulated so far for the task."
+            "description": "The total cost (in time, energy, etc.) accumulated so far for the task. Defaults to 0.0."
           },
           "status": {
             "type_": "STRING",
-            "description": "The current status of the task (e.g., 'NOT_COMPLETED', 'IN_PROGRESS', 'COMPLETED')."
+            "description": "The current status of the task (e.g., 'NOT_COMPLETED', 'IN_PROGRESS', 'COMPLETED'). Defaults to 'NOT_COMPLETED'."
           },
           "learned_knowledge": {
             "type_": "STRING",
-            "description": "Any knowledge learned or insights gained while working on the task."
+            "description": "Any knowledge learned or insights gained while working on the task. Defaults to empty string."
           },
           "important_facts": {
             "type_": "STRING",
-            "description": "Any important facts or details relevant to the task."
+            "description": "Any important facts or details relevant to the task. Defaults to empty string."
           },
           "current_focus": {
             "type_": "BOOLEAN",
-            "description": "Whether the task is currently the primary focus."
+            "description": "Whether the task is currently the primary focus. Defaults to False."
           },
           "goal": {
             "type_": "STRING",
-            "description": "The specific goal or outcome desired from completing the task."
+            "description": "The specific goal or outcome desired from completing the task. Defaults to empty string."
           },
           "dependencies": {
             "type_": "ARRAY",
             "items": {
               "type_": "STRING",
-              "description": "A list of other tasks that this task depends on."
+              "description": "A list of other tasks that this task depends on. Defaults to empty list."
             }
           },
           "deadline": {
             "type_": "STRING",
-            "description": "The deadline for completing the task (in YYYY-MM-DD format)."
+            "description": "The deadline for completing the task (in YYYY-MM-DD format). Defaults to None."
           }
         },
         "required": [
@@ -164,19 +164,7 @@ add_task_to_focus_table_description_json ={
           "reward",
           "total_work",
           "proposed_action",
-          "cost_per_run",
-          "work_done",
-          "focus_strength",
-          "frustration",
-          "fatigue",
-          "accumulated_cost",
-          "status",
-          "learned_knowledge",
-          "important_facts",
-          "current_focus",
-          "goal",
-          "dependencies",
-          "deadline"
+          "cost_per_run"
         ]
       }
     }
