@@ -1,17 +1,9 @@
 import os
 import datetime
-import json
 import time
-import json
-from google.protobuf import json_format
-from IPython.display import display, Markdown, clear_output
-from rich.console import Console
 import google.generativeai as genai
-from prettytable import PrettyTable
-import json
 from MEMORY______________frame_creation import CREATE_MEMORY_FRAME as CREATE_MEMORY_FRAME
 from Tool_Manager import ToolManager
-import  traceback
 from tools.Cathegory_Os import ChangeOwnState
 
 import  google.api_core
@@ -79,12 +71,6 @@ def create_session_name_and_path():
     session_path = os.path.join(sessions_folder, session_name)
     os.makedirs(session_path, exist_ok=True)
     return {'session_name': session_name, 'session_path': session_path}
-
-
-import json
-from google.protobuf import json_format
-
-
 
 
 def dict_to_pretty_string(dictionary):
@@ -213,9 +199,6 @@ def log_conversation(
         log_file.write(f"Time: {current_time}\n")
         log_file.write(current_conversation_frame)
         log_file.write("-" * 20 + "\n\n")
-
-import json
-from google.protobuf import json_format
 
 
 import json

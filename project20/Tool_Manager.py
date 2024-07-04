@@ -1,3 +1,4 @@
+#Tool_Manager.py
 import os
 import importlib.util
 import json
@@ -16,20 +17,11 @@ class ToolManager:
         self.all_tools: List[Dict] = []  # Stores tool metadata
         self.categories: Dict[str, Dict] = {}  # Stores tools by category
         self.tool_types: Dict[str, str] = {}  # Maps tool names to their types
-        self.valid_tool_types = {"all", "input", "reflection", "action", "web", "emotions"}
+        self.valid_tool_types = {"os","focus"}
         self._load_tools()
         self.tool_usage: Dict[str, Dict[str, float]] = {}  # Track usage and success metrics
 
-    def record_tool_usage(self, tool_name, success_metric: float = None):
-        """Records tool usage and success metrics."""
-        self.tool_usage[tool_name] = self.tool_usage.get(tool_name, {"usage": 0, "success": 0})
-        self.tool_usage[tool_name]["usage"] += 1
-        if success_metric is not None:
-            self.tool_usage[tool_name]["success"] += success_metric
 
-    def get_tool_usage_stats(self):
-        """Returns the tool usage statistics."""
-        return {tool: self.tool_usage.get(tool, 0) for tool in self.tool_mapping}
 
     def _load_tools(self) -> None:
         """Loads tools from the specified directory."""
@@ -113,37 +105,7 @@ class ToolManager:
             print(f"  \033[93m{i}. {json.dumps(tool, indent=2)}\033[0m")
         return tools_structure
 
-    def update_tool_priorities(self, priorities: Dict[str, float]):
-        """Updates the priorities of tools based on the provided dictionary."""
-        for tool_name, priority in priorities.items():
-            if tool_name in self.tool_mapping:
-                # You might want to store this priority in a separate attribute
-                # for later use. For example, self.tool_priorities[tool_name] = priority
-                print(f"Updated priority for {tool_name}: {priority}")
 
-    def prioritize_tools(self, reflection_chat: Any) -> None:
-        """Prioritizes tools based on usage and success metrics, using a Gemini model."""
-        print(f"Prioritizing Tools")
-        try:
-            tool_usage = self.tool_usage
-            weights = {"usage": 0.5, "success": 0.3, "efficiency": 0.2}  # Example weights
-            prioritization_prompt = f"""
-            Analyze tool usage and suggest prioritization based on the following data:
-            {json.dumps(tool_usage, indent=2)} 
-            Weights:
-            {json.dumps(weights, indent=2)}
-            Provide your response as a JSON object with tool names as keys and their priorities as values (0.0 to 1.0).
-            """
-            prioritization_response = reflection_chat.send_message(prioritization_prompt)
-
-            try:
-                tool_priorities: Dict[str, float] = json.loads(prioritization_response.text)
-                self.update_tool_priorities(tool_priorities)
-            except json.JSONDecodeError as e:
-                logger.warning(f"Could not parse tool prioritization response as JSON: {e}")
-                logger.info(f"Raw response: {prioritization_response.text}")
-        except AttributeError as e:
-            logger.warning(f"Error in prioritize_tools: {e}")
 
     def get_tool_by_name(self, tool_name: str) -> Optional[Callable]:
         """Returns the tool function based on its name."""

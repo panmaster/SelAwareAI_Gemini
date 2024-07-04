@@ -17,30 +17,8 @@ import json
 from google.generativeai import protos
 
 
-def create_session_with_sanitisation():
-    """
-    Create a session identifier based on the current date and time, ensuring uniqueness and some basic sanitization.
-    """
-    # Get the current date and time
-    now = datetime.datetime.now()
-
-    # Create a string from the current date and time
-    date_time_str = now.strftime("%Y-%m-%d %H:%M:%S.%f")
-
-    # Encode the date_time_str to bytes
-    date_time_bytes = date_time_str.encode('utf-8')
-
-    # Create a SHA-256 hash of the date_time_bytes
-    hash_object = hashlib.sha256(date_time_bytes)
-
-    # Get the hexadecimal representation of the hash
-    session_id = hash_object.hexdigest()
-
-    return session_id
 
 
-# Create a session with sanitisation
-session = create_session_with_sanitisation()
 
 
 def initialize_awareness_loop_models():
