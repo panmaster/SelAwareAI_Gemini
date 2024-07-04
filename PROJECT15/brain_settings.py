@@ -5,7 +5,7 @@ import json
 # Constants for file paths (adjust as needed)
 PROMPTS_FILE = "Brain_settings/prompts.json"
 EMOTIONS_FILE = "Brain_settings/emotions.json"
-FOCUS_FILE = "Brain_settings/Focus.json"
+FOCUS_FILE = "Brain_settings/other.json"
 
 
 def load_json(file_path):
@@ -45,12 +45,12 @@ def save_emotions(emotions):
 
 
 def load_state_of_mind():
-    """Loads the state of mind from the Focus.json file."""
+    """Loads the state of mind from the other.json file."""
     return load_json(FOCUS_FILE)
 
 
 def save_state_of_mind(state_of_mind):
-    """Saves the state of mind to the Focus.json file."""
+    """Saves the state of mind to the other.json file."""
     save_json(FOCUS_FILE, state_of_mind)
 
 
@@ -64,13 +64,13 @@ def update_attachment(emotions, entity, value):
 
 
 def get_focus_data():
-    """Loads and returns focus data from the Focus.json file."""
+    """Loads and returns focus data from the other.json file."""
     return load_state_of_mind()
 
 
 def set_focus(focus_on):
-    """Sets the focus in the Focus.json file."""
+    """Sets the focus in the other.json file."""
     state_of_mind = load_state_of_mind()
     state_of_mind["FocusOn"] = focus_on
     save_state_of_mind(state_of_mind)
-    return f"Focus set to: {focus_on}"
+    return f"other set to: {focus_on}"

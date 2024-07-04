@@ -216,7 +216,7 @@ class FocusManager:
         """Prints the focus table in a nicely formatted way using PrettyTable."""
 
         table = PrettyTable()
-        table.field_names = ["Name", "Focus Type", "Moscow", "Importance", "Difficulty", "Reward",
+        table.field_names = ["Name", "other Type", "Moscow", "Importance", "Difficulty", "Reward",
                              "Work Done", "Status", "Dependencies", "Deadline", "Score"]
 
         for task in self.focus_table:

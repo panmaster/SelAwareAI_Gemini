@@ -204,7 +204,7 @@ class GeminiSelfAwareAI:
                 base_tasks = self.create_base_focus_table()
                 with open(file_path, 'w') as f:
                     json.dump([task.__dict__ for task in base_tasks], f, indent=2)
-                print(f"Focus table file '{file_path}' created with example content.")
+                print(f"other table file '{file_path}' created with example content.")
             except Exception as e:
                 print(f"Error creating focus table file: {e}")
 
@@ -213,9 +213,9 @@ class GeminiSelfAwareAI:
 
 
     def load_state_of_mind(self):
-        """Loads state of mind from Focus.json."""
+        """Loads state of mind from other.json."""
         try:
-            with open("Brain_settings/Focus.json", 'r') as f:
+            with open("Brain_settings/other.json", 'r') as f:
                 return json.load(f)
         except FileNotFoundError:
 
@@ -702,8 +702,8 @@ class GeminiSelfAwareAI:
                 time.sleep(2)# interpreter
                 input_text = self.extract_text_from_response(input_response)
 
-                # ============================= Focus Management =============================
-                print("Focus Table")
+                # ============================= other Management =============================
+                print("other Table")
                 focus_Table = self.load_focus_table_from_json()
                 print("printing focus  talbe start")
                 print(focus_Table)
@@ -721,7 +721,7 @@ class GeminiSelfAwareAI:
 
                 #reflection_prompt += json.dumps(focus_Table, indent=2)
                 for task in focus_Table:
-                    reflection_prompt += f"Task: {task.name}, Focus Type: {task.focus_type}\n"  # Customize as needed
+                    reflection_prompt += f"Task: {task.name}, other Type: {task.focus_type}\n"  # Customize as needed
 
 
 
@@ -851,7 +851,7 @@ class GeminiSelfAwareAI:
                 if len(self.context_window) > 10:
                     self.context_window.pop(0)
 
-                #===========================Update Focus===================================
+                #===========================Update other===================================
 
 
                 # ============================= Periodic Tasks =============================

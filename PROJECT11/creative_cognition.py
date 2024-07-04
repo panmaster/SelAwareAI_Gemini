@@ -124,7 +124,7 @@ async def generate_creative_insight(self) -> str:
     insight += f"3. Current creativity metrics: {self.creativity_metrics}\n"
 
     if avg_novelty > avg_usefulness:
-        insight += "4. Focus on improving the practical applications of ideas to balance novelty and usefulness.\n"
+        insight += "4. other on improving the practical applications of ideas to balance novelty and usefulness.\n"
     else:
         insight += "4. Explore more unconventional combinations to increase novelty while maintaining usefulness.\n"
 

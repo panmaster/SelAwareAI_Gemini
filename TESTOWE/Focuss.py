@@ -8,7 +8,7 @@ from prettytable import PrettyTable
 import json
 import os
 
-FILEPATH = "../PROJECT13/Brain_settings/Focus.json"
+FILEPATH = "../PROJECT13/Brain_settings/other.json"
 
 
 class FocusType(Enum):
@@ -284,7 +284,7 @@ class FocusManager:
 
     def summarize(self):
         table = PrettyTable()
-        table.field_names = ["Focus Point", "Focus Strength", "Type", "Importance", "Difficulty",
+        table.field_names = ["other Point", "other Strength", "Type", "Importance", "Difficulty",
                              "Reward", "Total Work", "Completion %", "Frustration", "Fatigue", "Status",
                              "Attention Span"]
 
@@ -329,7 +329,7 @@ class FocusManager:
             with open(FILEPATH, 'r') as f:
                 # Check if the file is empty
                 if os.stat(FILEPATH).st_size == 0:
-                    print("Focus.json is empty. Loading default focus points.")
+                    print("other.json is empty. Loading default focus points.")
                     self.add_focus_point(name="What am I experiencing?", focus_type=FocusType.INTERNAL,
                                          moscow_category=MoscowCategory.MUST, importance=0.9, difficulty=0.3,
                                          reward=7, total_work=60, proposed_action="Journal for 15 minutes",
@@ -347,7 +347,7 @@ class FocusManager:
                                          proposed_action="Observe my surroundings for 5 minutes",
                                          cost_per_run=0.002)
                 else:
-                    print("Loading focus points from Focus.json")
+                    print("Loading focus points from other.json")
                     state = json.load(f)
                     self.focus_tree = {name: self.deserialize_focus_point(fp_data) for name, fp_data in
                                        state["focus_tree"].items()}
@@ -491,7 +491,7 @@ class FocusManager:
 
     def summarize(self):
         table = PrettyTable()
-        table.field_names = ["Focus Point", "Focus Strength", "Type", "Importance", "Difficulty",
+        table.field_names = ["other Point", "other Strength", "Type", "Importance", "Difficulty",
                              "Reward", "Total Work", "Completion %", "Frustration", "Fatigue", "Status",
                              "Attention Span"]
 
@@ -536,7 +536,7 @@ class FocusManager:
             with open(FILEPATH, 'r') as f:
                 # Check if the file is empty
                 if os.stat(FILEPATH).st_size == 0:
-                    print("Focus.json is empty. Loading default focus points.")
+                    print("other.json is empty. Loading default focus points.")
                     self.add_focus_point(name="What am I experiencing?", focus_type=FocusType.INTERNAL,
                                          moscow_category=MoscowCategory.MUST, importance=0.9, difficulty=0.3,
                                          reward=7, total_work=60, proposed_action="Journal for 15 minutes",
@@ -554,7 +554,7 @@ class FocusManager:
                                          proposed_action="Observe my surroundings for 5 minutes",
                                          cost_per_run=0.002)
                 else:
-                    print("Loading focus points from Focus.json")
+                    print("Loading focus points from other.json")
                     state = json.load(f)
                     self.focus_tree = {name: self.deserialize_focus_point(fp_data) for name, fp_data in
                                        state["focus_tree"].items()}
@@ -647,7 +647,7 @@ if __name__ == "__main__":
         fm = FocusManager()
         fm.load_state()  # Try to load saved state
 
-        # Example Focus Points
+        # Example other Points
         fm.add_focus_point(name="Write a report", focus_type=FocusType.GOAL_ORIENTED,
                            moscow_category=MoscowCategory.MUST, importance=0.9, difficulty=0.6,
                            reward=10, total_work=120, proposed_action="Open document and start writing",

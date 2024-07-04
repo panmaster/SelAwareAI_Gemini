@@ -22,15 +22,15 @@ def remove_from_focus_table(task_name):
             # Save the updated focus table
             with open(file_path, 'w') as f:
                 json.dump(focus_tree, f, indent=2)
-            print(f"Focus table updated. Task '{task_name}' removed.")
-            return "Task removed from Focus table"
+            print(f"other table updated. Task '{task_name}' removed.")
+            return "Task removed from other table"
         else:
             print(f"Task '{task_name}' not found in the focus table.")
-            return "Task not found in Focus table"
+            return "Task not found in other table"
 
     except Exception as e:
         print(f"Error removing task from focus table: {e}")
-        return "Error removing task from Focus table"
+        return "Error removing task from other table"
 
 remove_from_focus_table_description_json = {  # JSON description
     "function_declarations": [

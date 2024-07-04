@@ -19,7 +19,7 @@ SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
 PROMPTS_FILE = os.path.join("Brain_settings", "prompts.json")
 EMOTIONS_FILE = os.path.join("Brain_settings", "emotions.json")
-FOCUS_FILE = os.path.join("Brain_settings", "Focus.json")
+FOCUS_FILE = os.path.join("Brain_settings", "other.json")
 
 # ANSI escape codes for text colors
 class bcolors:
@@ -134,7 +134,7 @@ class GeminiSelfAwareAI:
 
     def load_state_of_mind(self):
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.abspath(os.path.join(script_dir, 'Brain_settings', 'Focus.json')) # Corrected path
+        path = os.path.abspath(os.path.join(script_dir, 'Brain_settings', 'other.json')) # Corrected path
         try:
             with open(path, 'r') as f:
                 return json.load(f)
@@ -218,9 +218,9 @@ class GeminiSelfAwareAI:
                   FocusData = json.dumps(parsed_data)
               except json.JSONDecodeError:
                   FocusData = file_contents
-           return f"Focus Memory Data: {FocusData}"
+           return f"other Memory Data: {FocusData}"
        except FileNotFoundError:
-           return "Focus Memory Data: Not Found"
+           return "other Memory Data: Not Found"
 
     def Set_Focus(self, focus_on=None):
         """Sets the focus in the FOCUS_FILE."""
@@ -238,7 +238,7 @@ class GeminiSelfAwareAI:
         with open(FOCUS_FILE, 'w') as file:
             json.dump(data, file, indent=4)
 
-        return f"Focus set to: {focus_on}"
+        return f"other set to: {focus_on}"
 
 
     def perform_reflection(self, introspection_results, function_results):
