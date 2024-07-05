@@ -219,7 +219,7 @@ class GeminiSelfAwareAI:
             return {"FocusOn": "", "FocusLevel": 0.0}
 
     def load_prompts(self):
-        """Loads prompts from prompts.json."""
+        """Loads stage_prompts from stage_prompts.json."""
         try:
             with open("Brain_settings/prompts.json", 'r') as f:
                 return json.load(f)
@@ -917,37 +917,37 @@ class GeminiSelfAwareAI:
 
         def review_and_update_prompts(self):
             def review_and_update_prompts(self):
-                """Reviews and updates prompts based on the AI's reflection."""
+                """Reviews and updates stage_prompts based on the AI's reflection."""
                 print(f"{OKGREEN}Reviewing and Updating Prompts{ENDC}")
-                review_prompt = f"Review the current prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}  You can change these prompts by using the function call update_prompts"
+                review_prompt = f"Review the current stage_prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}  You can change these stage_prompts by using the function call update_prompts"
                 review_response = self.reflection_chat.send_message(review_prompt)
 
                 results_from_review_and_update_prompts = self.INTERPRET_response_for_function_calling(review_response)
 
                 # The update_prompts function will be called if needed by the interpreter
-                # This avoids changing the whole set of prompts at once
+                # This avoids changing the whole set of stage_prompts at once
 
-                # Reload prompts after potential updates
+                # Reload stage_prompts after potential updates
                 self.prompts = self.load_prompts()
 
-            """Reviews and updates prompts based on the AI's reflection."""
+            """Reviews and updates stage_prompts based on the AI's reflection."""
             print(f"{ OKGREEN}Reviewing and Updating Prompts{ ENDC}")
-            review_prompt = f"Review the current prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}  you can  change  these prompts  by  using  funcion call  update_prompts"
+            review_prompt = f"Review the current stage_prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}  you can  change  these stage_prompts  by  using  funcion call  update_prompts"
             review_response = self.reflection_chat.send_message(review_prompt)
             # until it  seams  to be  ok  but  after  that  the code  bemoces  too much dependable  on fitrlation,
-            # it would  be better  to ask   ai  to check prompts  and  call update_prompts.py if needed
+            # it would  be better  to ask   ai  to check stage_prompts  and  call update_prompts.py if needed
 
             #instead  of  this  secion  we  could  just    put  interpeter  here'
             results_from_review_and_update_prompts= self.INTERPRET_response_for_function_calling(review_response)
-            #  yeah  that  part  of  code  must  be  adjusted  to aadjust  prompts.json,  but  i  think  i
-            #  also changing  whole  prompts,, can  be   qute  bad,  mabe the prompts  could  be  changed for  just  a  few  iteration after  that  they would  be  turn  back to orginal
+            #  yeah  that  part  of  code  must  be  adjusted  to aadjust  stage_prompts.json,  but  i  think  i
+            #  also changing  whole  stage_prompts,, can  be   qute  bad,  mabe the stage_prompts  could  be  changed for  just  a  few  iteration after  that  they would  be  turn  back to orginal
             try:
                 suggested_prompts = json.loads(review_response.text)
                 for key, value in suggested_prompts.items():
                     if key in self.prompts and value != self.prompts[key]:
                         print(f"  - Updating prompt for {key}")
                        #UpdatePrompts(key, value)
-                self.prompts = self.load_prompts()  # Reload prompts after update
+                self.prompts = self.load_prompts()  # Reload stage_prompts after update
             except json.JSONDecodeError as e:
                 print(f"{ WARNING}Warning: Could not parse prompt review response as JSON: {e}{ENDC}")
                 print(f"Raw response: {review_response.text}")

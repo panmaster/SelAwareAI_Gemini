@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 genai.configure(api_key='YOUR_API_KEY')
 MEMORY_DIR = "memory"
 STATE_FILE = "brain_settings/State_of_mind.json"
-PROMPTS_FILE = "brain_settings/prompts.json"
+PROMPTS_FILE = "brain_settings/stage_prompts.json"
 
 
 class AdaptiveCognitiveArchitecture:

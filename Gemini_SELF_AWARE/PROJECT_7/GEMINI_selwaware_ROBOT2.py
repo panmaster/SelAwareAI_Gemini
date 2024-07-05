@@ -23,7 +23,7 @@ from typing import Any, Dict, Optional
 genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')  # Replace with your actual API key
 SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
-PROMPTS_FILE = os.path.join("Brain_settings", "prompts.json")
+PROMPTS_FILE = os.path.join("Brain_settings", "stage_prompts.json")
 EMOTIONS_FILE = os.path.join("Brain_settings", "emotions.json")
 
 # ANSI escape codes for text colors
@@ -587,7 +587,7 @@ class GeminiSelfAwareAI:
         return 0.8  # Example: 80% success rate
     def review_and_update_prompts(self):
         print(f"{ OKGREEN}Reviewing and Updating Prompts{ ENDC}")
-        review_prompt = f"Review the current prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}"
+        review_prompt = f"Review the current stage_prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}"
         review_response = self.reflection_chat.send_message(review_prompt) # No await needed
         try:
             suggested_prompts = json.loads(review_response.text)
@@ -595,7 +595,7 @@ class GeminiSelfAwareAI:
                 if key in self.prompts and value != self.prompts[key]:
                     print(f"  - Updating prompt for {key}")
                     UpdatePrompts(key, value) # No await needed
-            self.prompts = self.load_prompts()  # Reload prompts after update
+            self.prompts = self.load_prompts()  # Reload stage_prompts after update
         except json.JSONDecodeError as e:
             print(f"{ WARNING}Warning: Could not parse prompt review response as JSON: {e}{ ENDC}")
             print(f"Raw response: {review_response.text}")

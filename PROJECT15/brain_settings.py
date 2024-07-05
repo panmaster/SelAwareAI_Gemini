@@ -25,12 +25,12 @@ def save_json(file_path, data):
 
 
 def load_prompts():
-    """Loads prompts from the prompts.json file."""
+    """Loads stage_prompts from the stage_prompts.json file."""
     return load_json(PROMPTS_FILE)
 
 
 def save_prompts(prompts):
-    """Saves prompts to the prompts.json file."""
+    """Saves stage_prompts to the stage_prompts.json file."""
     save_json(PROMPTS_FILE, prompts)
 
 

@@ -1,0 +1,21 @@
+{
+  "tool_usage": {},
+  "goals": {
+    "main_goal": 0.75,
+    "sub_goal": 0.5
+  },
+  "workflow_knowledge": [
+    "Learned in iteration 1: ...",
+    "Learned in iteration 1: ...",
+    "Learned in iteration 1: ...",
+    "Learned in iteration 1: ...",
+    "Learned in iteration 1: ...",
+    "Learned in iteration 1: ...",
+    "Learned in iteration 2: ...",
+    "Learned in iteration 3: ..."
+  ],
+  "performance_metrics": {
+    "iteration_time": 2.5,
+    "action_success_rate": 0.8
+  }
+}

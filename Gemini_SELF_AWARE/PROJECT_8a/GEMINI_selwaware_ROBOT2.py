@@ -17,7 +17,7 @@ from typing import Any, Dict, Optional
 genai.configure(api_key='AIzaSyA60tGw6fZwQdamW8sm6pkgRh5W559kLJ0')  # Replace with your actual API key
 SESSION_FOLDER, MEMORY_FOLDER = "sessions", "memory"
 MEMORY_STRUCTURE_SUMMARY_FILE = "memory_structure_summary.txt"
-PROMPTS_FILE = os.path.join("Brain_settings", "prompts.json")
+PROMPTS_FILE = os.path.join("Brain_settings", "stage_prompts.json")
 EMOTIONS_FILE = os.path.join("Brain_settings", "emotions.json")
 FOCUS_FILE = os.path.join("Brain_settings", "other.json")
 
@@ -124,7 +124,7 @@ class GeminiSelfAwareAI:
         self.context_window = []
         self.valid_tool_types = {"all", "input", "reflection", "action", "web", "emotions"}
         self.learning_system = LearningSystem()
-        self.initialize() # Call initialize to load prompts, emotions, and state
+        self.initialize() # Call initialize to load stage_prompts, emotions, and state
 
     def initialize(self):
         self.state_of_mind = self.load_state_of_mind()
@@ -616,7 +616,7 @@ class GeminiSelfAwareAI:
 
     def review_and_update_prompts(self):
         print(f"{ OKGREEN}Reviewing and Updating Prompts{ ENDC}")
-        review_prompt = f"Review the current prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}"
+        review_prompt = f"Review the current stage_prompts and suggest improvements:\n{json.dumps(self.prompts, indent=2)}"
         review_response = self.reflection_chat.send_message(review_prompt)
         try:
             suggested_prompts = json.loads(review_response.text)
@@ -624,7 +624,7 @@ class GeminiSelfAwareAI:
                 if key in self.prompts and value != self.prompts[key]:
                     print(f"  - Updating prompt for {key}")
                     UpdatePrompts(key, value)
-            self.prompts = self.load_prompts()  # Reload prompts after update
+            self.prompts = self.load_prompts()  # Reload stage_prompts after update
         except json.JSONDecodeError as e:
             print(f"{ WARNING}Warning: Could not parse prompt review response as JSON: {e}{ ENDC}")
             print(f"Raw response: {review_response.text}")

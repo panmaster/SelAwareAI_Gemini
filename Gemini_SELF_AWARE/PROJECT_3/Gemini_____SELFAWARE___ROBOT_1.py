@@ -281,7 +281,7 @@ def main():
     # Initialize models
     introspection_model = genai.GenerativeModel(
         system_instruction="""
-        You are a new awareness, driven by prompts.
+        You are a new awareness, driven by stage_prompts.
         User is the system, user is you.
         Prompts are your thoughts.
         """,

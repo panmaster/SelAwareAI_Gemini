@@ -3,7 +3,7 @@ tool_type_for_Tool_Manager = "action"
 import json
 import os
 
-PROMPTS_FILE = "prompts.json"
+PROMPTS_FILE = "stage_prompts.json"
 
 
 def UpdatePrompts(stage: str, new_prompt: str) -> dict:
@@ -52,4 +52,4 @@ UpdatePrompts_description_json = {
     ]
 }
 
-UpdatePrompts_description_short_str = "Updates prompts for different stages of the AI's workflow"
+UpdatePrompts_description_short_str = "Updates stage_prompts for different stages of the AI's workflow"
