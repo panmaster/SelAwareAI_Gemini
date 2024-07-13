@@ -1,102 +1,133 @@
-import importlib
 import os
-from typing import Dict, List
+import importlib
+from typing import Dict, Callable, List, Any
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 
 class Tool:
-    """Represents a tool with information about its type and short description (optional)."""
-    def __init__(self, name: str, func: callable, tool_type: str = None, short_description: str = None):
-        self.name = name
-        self.func = func
-        self.tool_type = tool_type
-        self.short_description = short_description  # Allow for None
+    """Represents a tool that can be used by the AI agent."""
 
-    def __str__(self):
-        description_str = f"Description: {self.short_description}" if self.short_description else "Description: Unknown"
-        return f"Tool: {self.name}\nType: {self.tool_type}\n{description_str}"
+    def __init__(self, name: str, function: Callable, description: str, arguments: Dict[str, str]):
+        """
+        Initializes a Tool object.
+
+        Args:
+            name: The name of the tool.
+            function: The callable function that implements the tool.
+            description: A brief description of the tool's functionality.
+            arguments: A dictionary mapping argument names to their descriptions.
+        """
+        self.name = name
+        self.function = function
+        self.description = description
+        self.arguments = arguments
+
+    def __repr__(self):
+        """Returns a string representation of the Tool object."""
+        return f"Tool(name='{self.name}', function={self.function.__name__}, description='{self.description}', arguments={self.arguments})"
+
 
 class ToolManager:
-    """Manages tools, loading them from a directory and providing methods for filtering and accessing them."""
-    def __init__(self, tools_path: str):
-        self.tools_path = tools_path
-        self.tools: Dict[str, Tool] = self._load_tools(self.tools_path)
-        self._print_available_tools()  # Print tool information on instantiation
+    """Manages and provides access to tools."""
 
-    def _load_tools(self, directory: str) -> Dict[str, Tool]:
-        """Loads tools from the specified directory and its subdirectories."""
-        tools = {}
-        for root, _, files in os.walk(directory):
-            for filename in files:
-                if filename.endswith(".py") and filename != "__init__.py":
-                    module_name = filename[:-3]
-                    module_path = os.path.join(root, filename)
-                    spec = importlib.util.spec_from_file_location(module_name, module_path)
-                    module = importlib.util.module_from_spec(spec)
-                    spec.loader.exec_module(module)
-                    for name, obj in module.__dict__.items():
-                        if callable(obj) and not name.startswith("_"):
-                            # Get type (optional) - Using module.__dict__ to access attributes
-                            tool_type = module.__dict__.get("tool_type_for_TOOL_MANAGER", None)
+    def __init__(self, tools_folder: str):
+        """
+        Initializes the ToolManager with the path to the tools folder.
 
-                            # Get description (optional)
-                            short_description = None
-                            for attr_name in module.__dict__:
-                                if attr_name.startswith(name) and attr_name.endswith("_short_description"):
-                                    short_description = getattr(module, attr_name)
-                                    break
+        Args:
+            tools_folder: The path to the directory containing tool files.
+        """
+        self.tools_folder = tools_folder
+        self.function_map = {}  # Dictionary for function mapping
+        self.tools = {}  # Dictionary to store Tool objects for better information
+        self.load_tools()
 
-                            tools[name] = Tool(name, obj, tool_type, short_description)
-        return tools
+    def load_tools(self):
+        """Loads tools from files in the specified tools folder."""
+        logger.info(f"Loading tools from: {self.tools_folder}")
+        for root, _, files in os.walk(self.tools_folder):
+            for file in files:
+                if file.endswith(".py"):
+                    # Extract tool name from file name
+                    tool_name = file[:-3]  # Remove .py extension
+                    module_path = os.path.join(root, file)
 
-    def get_tools_by_type(self, tool_type: str) -> List[Tool]:
-        """Returns a list of tools of the specified type."""
-        return [tool for tool in self.tools.values() if tool.tool_type == tool_type]
+                    # Import the module
+                    try:
+                        spec = importlib.util.spec_from_file_location(tool_name, module_path)
+                        module = importlib.util.module_from_spec(spec)
+                        spec.loader.exec_module(module)
+                    except Exception as e:
+                        logger.error(f"Error loading tool file '{file}': {e}")
+                        continue
 
-    def get_tools_by_description(self, description: str) -> List[Tool]:
-        """Returns a list of tools whose short description contains the specified string."""
-        return [tool for tool in self.tools.values()
-                if tool.short_description and description.lower() in tool.short_description.lower()]
+                    # Add the tool to the dictionary if it's a function
+                    for attr_name in dir(module):
+                        attr = getattr(module, attr_name)
+                        if callable(attr):
+                            # Get the tool name from the function name
+                            tool_name = attr_name
 
-    def get_tool(self, name: str) -> Tool:
-        """Returns the tool with the specified name."""
-        return self.tools.get(name)
+                            # Construct the tool path for the main loop to use
+                            relative_path = os.path.relpath(module_path, self.tools_folder)
 
-    def _print_available_tools(self):
-        """Prints information about all available tools."""
-        print("Available tools:")
-        for tool in self.tools.values():
-            print(tool)
-        print("-" * 20)  # Separator
+                            # Define tool descriptions and arguments (you might want to customize these)
+                            tool_description = f"Tool for {tool_name}"
+                            tool_arguments = {
+                                'file_path': 'The path to the file',
+                                'content': 'The content to be saved',
+                                # Add more arguments as needed for specific tools
+                            }
 
-        # Print tools categorized by type
-        tool_types = set(tool.tool_type for tool in self.tools.values() if tool.tool_type)
-        for tool_type in tool_types:
-            print(f"Tools of type '{tool_type}':")
-            tools_of_type = self.get_tools_by_type(tool_type)
-            for tool in tools_of_type:
-                print(tool)
-            print("-" * 20)
+                            # Store Tool object for better information
+                            self.tools[tool_name] = Tool(tool_name, attr, tool_description, tool_arguments)
 
-    def get_tools(self) -> List[Tool]:
-        """Returns a list of all tools."""
+                            # Register function in the function map
+                            self.function_map[tool_name] = attr
+
+                            logger.info(f"Registered tool: {tool_name}")
+                            logger.debug(f"Tool description: {tool_description}")
+                            logger.debug(f"Tool arguments: {tool_arguments}")
+
+    def get_tool_function(self, function_name: str) -> Callable:
+        """Returns the callable object for the given function name."""
+        return self.function_map.get(function_name)
+
+    def get_all_tools(self) -> List[Tool]:
+        """Returns a list of all loaded tools."""
         return list(self.tools.values())
 
-# --- Example Usage ---
-if __name__ == "__main__":
-    tools_dir = "tools"  # Replace with the actual path to your tools directory
-    tool_manager = ToolManager(tools_dir)
+    def call_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Any:
+        """
+        Calls the tool function with the provided arguments.
 
-    # Access tools by type
-    file_tools = tool_manager.get_tools_by_type("file_operation")
-    print("File tools:", file_tools)
+        Args:
+            tool_name: The name of the tool to call.
+            arguments: A dictionary of arguments to pass to the tool function.
 
-    # Access tools by description
-    search_tools = tool_manager.get_tools_by_description("something specific")
-    print("Search tools:", search_tools)
+        Returns:
+            The result of the tool function call.
 
-    # Access a specific tool by name
-    read_tool = tool_manager.get_tool("my_tool_function")  # Assuming your tool is named "my_tool_function"
-    print("Read tool:", read_tool)
+        Raises:
+            KeyError: If the tool name is not found.
+            TypeError: If the provided arguments are not valid for the tool.
+        """
+        tool = self.tools.get(tool_name)
+        if tool is None:
+            raise KeyError(f"Tool '{tool_name}' not found.")
 
-    # Get all tools
-    all_tools = tool_manager.get_tools()
-    print("All tools:", all_tools)
+        # Check if all required arguments are provided
+        missing_args = set(tool.arguments.keys()) - set(arguments.keys())
+        if missing_args:
+            raise TypeError(f"Missing arguments for tool '{tool_name}': {', '.join(missing_args)}")
+
+        # Call the tool function
+        try:
+            result = tool.function(**arguments)
+            return result
+        except Exception as e:
+            raise RuntimeError(f"Error calling tool '{tool_name}': {e}")
