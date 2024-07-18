@@ -4,33 +4,27 @@ import json
 import logging
 import os
 import importlib
-import asyncio  # For asynchronous operations
-import random
-import time
 
 # --- Set up logging ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-
-# --- Simulated Asynchronous AI Model ---
-async def ai_model(prompt: str, tools: list = None) -> Any:
+# --- Placeholder for AI Model ---
+# Replace with your ACTUAL AI library and model initialization (e.g., Google Gemini)
+def ai_model(prompt: str, tools: list = None) -> Any:
     """
-    Simulates an asynchronous AI model call (replace with your actual AI integration).
+    This is a placeholder for your AI model execution logic.
+    Replace it with the code that calls your actual AI model.
 
     Args:
-        prompt: The prompt string for the model.
-        tools: A list of tool functions (can be ignored in this simulation).
+        prompt: The formatted prompt string to send to the AI model.
+        tools: (Optional) A list of tools to make available to the model.
 
     Returns:
-        A dictionary representing the AI's response.
+        The AI model's response (format depends on your AI library).
     """
     logger.info(f"AI Model called with prompt: {prompt}")
-
-    # Simulate processing time (replace with your actual model call)
-    await asyncio.sleep(random.uniform(1, 3))  # Simulate 1-3 seconds of thinking
-
-    # Simulated response - adapt based on your AI model's output format
+    # Example using a dummy response (REPLACE THIS):
     return {"candidates": [{"content": {"parts": [{"text": f"AI Response to: {prompt}"}]}}]}
 
 
@@ -78,10 +72,6 @@ class ToolRegistry:
             else:
                 logger.warning(f"Tool '{tool_name}' not found in registry.")
         return loaded_tools
-
-    def get_tools_by_type(self, tool_type: str) -> List[Tool]:
-        """Returns a list of tools based on their type."""
-        return [tool for tool in self.tools.values() if tool.tool_type == tool_type]
 
 
 tool_registry = ToolRegistry()
@@ -137,8 +127,8 @@ def interpret_function_calls(response_text: str, tool_registry: ToolRegistry) ->
             results.append(f"Error executing tool '{tool_name}': {e}")
     return results
 
-# --- Hierarchical Modelium Execution (with Parallelism and Async) ---
-async def CreateHierarchicalModelium(
+# --- Hierarchical Modelium Execution (with Code Generation) ---
+def CreateHierarchicalModelium(
         configs: Dict,
         level: int = 1,
         max_depth: int = 3,
@@ -146,11 +136,12 @@ async def CreateHierarchicalModelium(
         parent_data: Dict = None,
         shared_data: Dict = None
 ) -> Tuple[Dict, str]:
+
     if shared_data is None:
         shared_data = {}
 
     outputs = {}
-    generated_code = ""
+    generated_code = ""  # Store generated Python code
 
     for i, (config_key, config) in enumerate(configs.items()):
         if not all(key in config for key in ["model_name", "model_type", "prompt"]):
@@ -159,8 +150,8 @@ async def CreateHierarchicalModelium(
         model_name = config["model_name"]
         logger.info(f"Generating code for model: {model_name} (Level {level})")
 
-        # --- Prompt Construction ---
-        generated_code += f"    # --- Model {config_key} ---\n"
+        # --- Dynamic Code Generation ---
+        generated_code += f"    # --- Model {model_name} ---\n"
         generated_code += f"    prompt_{i} = f'''{config['prompt']}'''\n"
 
         # Add parent and shared data to the prompt
@@ -169,48 +160,27 @@ async def CreateHierarchicalModelium(
         if shared_data:
             generated_code += f"    prompt_{i} = prompt_{i}.format(**{shared_data})\n"
 
-        # --- Parallel Model Execution (Asynchronous) ---
-        if "parallel_models" in config:
-            generated_code += f"    # --- Parallel Models (Group {i}) ---\n"
-            generated_code += f"    parallel_results_{i} = await asyncio.gather(*[\n"
+        # Tool Access
+        tools_code = "[]"
+        if config.get("tool_access") == "all":
+            tools_code = "tool_registry.get_all_tools()"
+        elif config.get("tool_access") == "tool_chooser":
+            tools_code = "[tool_registry.retrieve_tools_by_names]"
 
-            for j, parallel_config in enumerate(config["parallel_models"]):
-                parallel_model_name = parallel_config["model_name"]
-                generated_code += f"        run_model(\n"
-                generated_code += f"            model_config={json.dumps(parallel_config)},\n"
-                generated_code += f"            tool_registry=tool_registry,\n"
-                generated_code += f"            parent_data=outputs,\n"
-                generated_code += f"            shared_data=shared_data\n"
-                generated_code += f"        )"
-                if j < len(config["parallel_models"]) - 1:
-                    generated_code += ",\n"  # Add a comma for all but the last
+        # Model Execution (using the placeholder ai_model)
+        generated_code += f"    response_{i} = ai_model(prompt_{i}, tools={tools_code})\n"
+        generated_code += f"    text_{i} = extract_text_from_response(response_{i})\n"
+        generated_code += f"    outputs['{model_name}'] = text_{i}\n"
+        generated_code += f"    logger.info(f'{model_name} Output: {{text_{i}}}')\n"
 
-            generated_code += f"    ])\n"
-            generated_code += f"    outputs['parallel_group_{i}_results'] = parallel_results_{i}\n"
-        else:
-            # --- Standard Model Execution (Asynchronous) ---
-            # Tool Access (adjust logic as needed)
-            tools_code = "[]"
-            if config.get("tool_access") == "all":
-                tools_code = "tool_registry.get_all_tools()"
-            elif config.get("tool_access") and '|' in config.get("tool_access"):
-                requested_types = config.get("tool_access").split('|')
-                tools_code = f"tool_registry.get_tools_by_type('{requested_types[0]}')"  # Use get_tools_by_type
-                # ... (add other tool access options if necessary) ...
+        # Tool Usage
+        if config.get("use_interpreter", False) and tool_registry:
+            generated_code += f"    tool_results_{i} = interpret_function_calls(text_{i}, tool_registry)\n"
+            generated_code += f"    outputs['{model_name}_tool_results'] = tool_results_{i}\n"
 
-            # Model Execution (using the placeholder ai_model)
-            generated_code += f"    response_{i} = await run_model(model_config={json.dumps(config)}, tool_registry=tool_registry, parent_data=outputs, shared_data=shared_data)\n"
-            generated_code += f"    text_{i} = extract_text_from_response(response_{i})\n"
-            generated_code += f"    outputs['{config_key}'] = text_{i}\n"
-            generated_code += f"    logger.info(f'{config_key} Output: {{text_{i}}}')\n"
-            # --- Tool Usage ---
-            if config.get("use_interpreter", False) and tool_registry:
-                generated_code += f"    tool_results_{i} = interpret_function_calls(text_{i}, tool_registry)\n"
-                generated_code += f"    outputs['{config_key}_tool_results'] = tool_results_{i}\n"
-
-        # --- Recursive Call (for Child Models) ---
+        # Recursive Call (for child models)
         if "children" in config and level < max_depth:
-            child_outputs, child_code = await CreateHierarchicalModelium(
+            child_outputs, child_code = CreateHierarchicalModelium(
                 config["children"], level + 1, max_depth, tool_registry,
                 parent_data=outputs, shared_data=shared_data
             )
@@ -219,86 +189,46 @@ async def CreateHierarchicalModelium(
 
     return outputs, generated_code
 
-
-async def run_model(model_config, tool_registry, parent_data, shared_data):
-    """Helper function to execute a single model."""
-    model_name = model_config['model_name']
-    prompt = model_config['prompt'].format(**parent_data, **shared_data)
-
-    # Tool Access (adjust logic as needed)
-    tools = []
-    if model_config.get("tool_access") == "all":
-        tools = tool_registry.get_all_tools()
-    elif model_config.get("tool_access") and '|' in model_config.get("tool_access"):
-        requested_types = model_config.get("tool_access").split('|')
-        tools = tool_registry.get_tools_by_type(requested_types[0])  # Use get_tools_by_type
-        # ... (add other tool access options if necessary) ...
-
-    response = await ai_model(prompt, tools=tools)
-    text = extract_text_from_response(response)
-    logger.info(f"{model_name} Output: {text}")
-
-    if model_config.get("use_interpreter", False) and tool_registry:
-        tool_results = interpret_function_calls(text, tool_registry)
-        return text, tool_results
-    else:
-        return text
-
-
 # --- Example Usage ---
 if __name__ == "__main__":
     # Register tools with the ToolRegistry
     register_tools(tool_registry)
+
     # Define your hierarchical model configuration
     hierarchical_model_configs = {
         "Model_A": {
             "model_name": "Model_A",
             "model_type": "your_model_type",
             "prompt": "Model A Prompt. Shared data: {shared_value}",
-            "use_interpreter": True,
+            "use_interpreter": True,  # Enable tool use for this model
             "tool_access": "all",
-            "parallel_models": [  # Example of parallel models
-                {
-                    "model_name": "Parallel_Model_1",
-                    "model_type": "your_model_type",
-                    "prompt": "Parallel Model 1 Prompt: {Model_A} - Shared: {shared_value}",
-                    "use_interpreter": False,
-                    "tool_access": "weather"
-                },
-                {
-                    "model_name": "Parallel_Model_2",
-                    "model_type": "your_model_type",
-                    "prompt": "Parallel Model 2 Prompt: {Model_A} - Shared: {shared_value}",
-                    "use_interpreter": False,
-                    "tool_access": "weather"
-                }
-            ],
             "children": {
                 "Model_B1": {
                     "model_name": "Model_B1",
                     "model_type": "your_model_type",
                     "prompt": "Model B1 Prompt. Parent output: {Model_A}",
                     "use_interpreter": False,
+                    "tool_access": "none",  # No tools for this model
                 },
                 "Model_B2": {
                     "model_name": "Model_B2",
                     "model_type": "your_model_type",
                     "prompt": "Model B2 Prompt. Parent output: {Model_A}",
                     "use_interpreter": False,
+                    "tool_access": "none",  # No tools for this model
                 }
             }
         }
     }
     try:
-        # Run the asynchronous Modelium
-        modelium_output, generated_code = asyncio.run(
-            CreateHierarchicalModelium(
-                hierarchical_model_configs,
-                tool_registry=tool_registry,
-                shared_data={"shared_value": "This is shared!"}
-            )
+        modelium_output, generated_code = CreateHierarchicalModelium(
+            hierarchical_model_configs,
+            tool_registry=tool_registry,
+            shared_data={"shared_value": "This is shared!"}
         )
         print("Generated Code:\n", generated_code)
+        # (You can execute 'generated_code' here or save it to a file)
         print(json.dumps(modelium_output, indent=4))
+
     except ModeliumCreationError as e:
         print(f"Error creating Modelium: {e}")
