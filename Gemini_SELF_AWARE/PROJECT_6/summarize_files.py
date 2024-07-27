@@ -4,7 +4,7 @@ from rich.table import Table
 from rich.panel import Panel
 
 # Constants
-SUMMARY_FILENAME = "summarisation.txt"
+SUMMARY_FILENAME = "OLDsummarisation.txt"
 CONTENT_LIMIT = 500000
 BASE_FILE_LIMIT = 100
 CURRENT_FOLDER_LIMIT = 100
@@ -14,7 +14,7 @@ INCLUDE_MEMORY_FRAMES = False  # Set to True to include files with 'MemoryFrames
 
 # Exclude files from the summary
 EXCLUDED_FILES = [
-    "summarisation.txt",
+    "OLDsummarisation.txt",
     os.path.basename(__file__)  # Exclude the current script file
 ]
 

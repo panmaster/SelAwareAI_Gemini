@@ -1,0 +1,291 @@
+C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\TESTOWE\visEngine6
+├── index.html
+├── ModeliumDesigner.js
+└── style.css
+
+
+## File: index.html (in: C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\TESTOWE\visEngine6)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelium Designer</title>
+    <link rel="stylesheet" href="https://unpkg.com/vis-network/styles/vis-network.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/jstree/dist/themes/default/style.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div id="sidebar">
+            <button id="showPresetsButton">Show Presets</button>
+            <div id="sidebar-menu">
+                <div class="node-type" data-type="modelium" draggable="true">Add Modelium</div>
+                <div class="node-type" data-type="model" draggable="true">Add Model</div>
+                <div class="node-type" data-type="result" draggable="true">Add Result</div>
+                <div class="node-type" data-type="return" draggable="true">Add Return</div>
+            </div>
+            <div id="properties">
+                <h3>Properties</h3>
+                <div id="node-properties"></div>
+
+            </div>
+            <div>
+                <input type="checkbox" id="show-prompt" onchange="updateModelLabels()">
+                <label for="show-prompt">Show Prompt</label>
+                <input type="checkbox" id="show-system-instructions" onchange="updateModelLabels()">
+                <label for="show-system-instructions">Show System Instructions</label>
+                <input type="checkbox" id="show-tools" onchange="updateModelLabels()">
+                <label for="show-tools">Show Tools</label>
+                <input type="checkbox" id="show-model-type" onchange="updateModelLabels()">
+                <label for="show-model-type">Show Model Type</label>
+            </div>
+        </div>
+
+        <div id="modelium-container"></div>
+    </div>
+
+    <div id="presets-window" class="modal">
+        <div class="modal-content">
+            <h2>Presets</h2>
+            <div id="preset-list"></div>
+            <button onclick="closePresetsWindow()">Close</button>
+        </div>
+    </div>
+
+    <div id="prompt-selection-window" class="modal">
+        <div class="modal-content">
+            <h2>Select Prompts and Injectors</h2>
+            <div id="prompt-tree"></div>
+            <button id="update-prompts-button">Update Prompts</button>
+            <button onclick="closePromptSelectisonWindow()">Close</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://unpkg.com/jstree/dist/jstree.min.js"></script>
+    <script src="ModeliumDesigner.js"></script>
+</body>
+</html>
+
+## File: ModeliumDesigner.js (in: C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\TESTOWE\visEngine6)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelium Visualizer</title>
+    <script src="https://visjs.org/dist/vis.js"></script>
+    <link rel="stylesheet" href="https://visjs.org/dist/vis.css">
+    <style>
+        #modelium-container {
+            width: 100%;
+            height: 800px;
+            border: 1px solid lightgray;
+        }
+
+        .node-type {
+            width: 100px;
+            height: 30px;
+            border: 1px solid black;
+            margin: 10px;
+            padding: 5px;
+            text-align: center;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="node-type" data-type="modelium" draggable="true">Modelium</div>
+    </div>
+    <div id="modelium-container"></div>
+    <div id="node-properties"></div>
+    <script src="your-script.js"></script>
+</body>
+</html>
+
+## File: style.css (in: C:\Users\DELL\Desktop\selfawareGemini\SelAwareAI_Gemini\TESTOWE\visEngine6)
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #181818;
+    color: #eee;
+}
+
+.main-container {
+    display: flex;
+    height: 100%;
+}
+
+#modelium-container {
+    flex-grow: 1;
+    border: 1px solid #333;
+    background-color: #282828;
+}
+
+#sidebar {
+    width: 300px;
+    background-color: #282828;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar-menu {
+    flex-grow: 1;
+    padding-bottom: 20px;
+}
+
+.node-type {
+    padding: 10px;
+    border: 1px solid #333;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background-color: #333;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.node-type:hover {
+    background-color: #444;
+}
+
+#properties {
+    margin-top: 20px;
+}
+
+#node-properties h3 {
+    margin-top: 0;
+    color: #eee;
+    font-weight: bold;
+}
+
+#node-properties label {
+    display: block;
+    margin-bottom: 5px;
+    color: #eee;
+}
+
+#node-properties input,
+#node-properties textarea,
+#node-properties select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #222;
+    color: #eee;
+}
+
+.modelium-to-model {
+    color: #f39c12;
+    width: 3px;
+}
+
+.modelium-to-model .vis-edge .vis-line {
+    stroke-dasharray: 5, 5;
+}
+
+#sidebar button,
+.modal-content button {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease;
+}
+
+#sidebar button:hover,
+.modal-content button:hover {
+    background-color: #2980b9;
+}
+
+.node-icon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+}
+
+.tools-icon {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAjklEQVR4nO3UQQqDMBCF4X+yCXgQ7yEIgu4KvULXbQW9/26KCSWSlEKpC1cDswj5mMwbQoxxwWtaawvr7+xYa21pCYEHjtivtTiDz5RSqfSctR0X5JzPD+NKqTp0xLRjWlzQe7+WUnZCiA0ppQ0hxK6UsvfeX//6XT/ihjue0Fq71VrXEMKhtfZijLl9Mz8BmI0StacvT10AAAAASUVORK5CYII=');
+}
+
+.parallel-icon {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAV0lEQVR4nGNgGAWjYKiD/wDMQKwCZD4TsS4k1jByDWMiRhGxLiTFMCZiFRHrQlINYyJGEbEuJMcwJkIKiXUhuYYx4VNIiovINYyJkEJiXUiJYaNgZAMAYnAb1CJ5IcEAAAAASUVORK5CYII=');
+}
+
+.vis-node {
+    border-width: 2px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.vis-node.modelium {
+    background-color: #f1c40f;
+    border-color: #f39c12;
+}
+
+.vis-node.model {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+.vis-node.result {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+.vis-node.return {
+    background-color: #27ae60;
+    border-color: #1e8449;
+}
+
+.vis-node .vis-label {
+    color: #000;
+    font-size: 12px;
+}
+
+.vis-node.model.with-tools {
+    min-height: 100px;
+}
+
+.vis-node.model.with-loop {
+    min-height: 120px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+

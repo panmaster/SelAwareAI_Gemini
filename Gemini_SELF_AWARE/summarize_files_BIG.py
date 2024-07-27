@@ -14,7 +14,7 @@ INCLUDE_MEMORY_FRAMES = False  # Set to True to include files with 'MemoryFrames
 
 # Exclude files from the summary
 EXCLUDED_FILES = [
-    "summarisation.txt",
+    "OLDsummarisation.txt",
     os.path.basename(__file__)  # Exclude the current script file
 ]
 
