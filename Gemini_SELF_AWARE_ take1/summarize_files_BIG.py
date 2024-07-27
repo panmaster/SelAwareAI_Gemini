@@ -5,11 +5,11 @@ from rich.panel import Panel
 
 # Constants
 SUMMARY_FILENAME = "summarisation.txt"
-CONTENT_LIMIT = 500000
+CONTENT_LIMIT = 500000  # Limit for displaying content
 BASE_FILE_LIMIT = 100
 CURRENT_FOLDER_LIMIT = 100
 MEMORY_MAP_LIMIT = 10
-FLAT_MODE = True
+FLAT_MODE = True  # Set to True for full content, False for limited content
 INCLUDE_MEMORY_FRAMES = False  # Set to True to include files with 'MemoryFrames' in their names
 
 # Exclude files from the summary
@@ -17,6 +17,9 @@ EXCLUDED_FILES = [
     "OLDsummarisation.txt",
     os.path.basename(__file__)  # Exclude the current script file
 ]
+
+# Store already seen file content to avoid repetition
+seen_contents = {}
 
 def summarize_directory(directory, limit=100):
     """Summarizes a directory's files and subdirectories, applying limits."""
@@ -47,16 +50,29 @@ def write_summary_to_file(summary_file, directory, limit=100):
             # Write file info to file
             summary_file.write(f"File: {item} ({item_path})\n")
 
-            # Write file content snippet with appropriate limits
-            if item == "MEMORY_initializer.py" or item == "Memory_connections_map.txt":
-                # Apply MEMORY_MAP_LIMIT here
-                write_limited_file_content(summary_file, item_path, MEMORY_MAP_LIMIT)
-            elif item == "BaseFileStructure.txt":
-                write_file_content(summary_file, item_path, BASE_FILE_LIMIT)
-            elif item == "CurrentFolderStructure.txt":
-                write_file_content(summary_file, item_path, CURRENT_FOLDER_LIMIT)
+            # Read the file content
+            try:
+                with open(item_path, "r", encoding="utf-8") as f:
+                    file_content = f.read()
+            except UnicodeDecodeError as e:
+                summary_file.write(f"Error decoding file '{item_path}': {e}\n\n")
+                continue
+
+            # Check if the content has been seen before
+            if file_content in seen_contents:
+                summary_file.write(f"Content is the same as in file: {seen_contents[file_content]}\n\n")
             else:
-                write_file_content(summary_file, item_path, limit)
+                seen_contents[file_content] = item_path  # Store the content and file path
+
+                # Write file content snippet with appropriate limits
+                if item == "MEMORY_initializer.py" or item == "Memory_connections_map.txt":
+                    write_limited_file_content(summary_file, item_path, MEMORY_MAP_LIMIT)
+                elif item == "BaseFileStructure.txt":
+                    write_file_content(summary_file, item_path, BASE_FILE_LIMIT)
+                elif item == "CurrentFolderStructure.txt":
+                    write_file_content(summary_file, item_path, CURRENT_FOLDER_LIMIT)
+                else:
+                    write_file_content(summary_file, item_path, limit)
 
         elif os.path.isdir(item_path):
             # Recursively write subdirectories with appropriate limits
@@ -72,13 +88,14 @@ def write_file_content(summary_file, file_path, limit):
     """Writes a limited snippet of file content or full content if FLAT_MODE is True."""
     try:
         with open(file_path, "r", encoding="utf-8") as f:
-            content = f.readlines()
+            content = f.read()
+
             if FLAT_MODE:
                 limited_content = content
             else:
                 limited_content = content[:limit]
             summary_file.write(
-                f"Content (First {len(limited_content)} lines):\n{''.join(limited_content)}\n\n"
+                f"Content (First {len(limited_content)} lines):\n{limited_content}\n\n"
             )
     except UnicodeDecodeError as e:
         summary_file.write(f"Error decoding file '{file_path}': {e}\n\n")

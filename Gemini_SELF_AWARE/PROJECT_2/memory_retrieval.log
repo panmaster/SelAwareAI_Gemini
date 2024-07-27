@@ -1,5 +1,0 @@
-2024-06-20 09:37:44,551 - ERROR - Error during embedding or retrieval: Found array with dim 3. check_pairwise_arrays expected <= 2.
-2024-06-20 09:40:01,374 - ERROR - Error during embedding or retrieval: Found array with dim 3. check_pairwise_arrays expected <= 2.
-2024-06-20 10:30:49,991 - ERROR - Error during embedding or retrieval: Object of type float32 is not JSON serializable
-2024-06-20 10:32:18,943 - ERROR - Error during embedding or retrieval: Object of type float32 is not JSON serializable
-2024-06-20 10:40:12,189 - ERROR - Error during embedding or retrieval: Object of type float32 is not JSON serializable
