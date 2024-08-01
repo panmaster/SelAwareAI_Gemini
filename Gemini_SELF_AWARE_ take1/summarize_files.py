@@ -4,7 +4,7 @@ from rich.table import Table
 from rich.panel import Panel
 
 # Constants
-SUMMARY_FILENAME = "summarisation.txt"
+SUMMARY_FILENAME = "OLDsummarisation.txt"
 CONTENT_LIMIT = 500000
 BASE_FILE_LIMIT = 100
 CURRENT_FOLDER_LIMIT = 100
