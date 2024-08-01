@@ -1,0 +1,180 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #181818;
+    color: #eee;
+}
+
+.main-container {
+    display: flex;
+    height: 100%;
+}
+
+#modelium-container {
+    flex-grow: 1;
+    border: 1px solid #333;
+    background-color: #282828;
+}
+
+#sidebar {
+    width: 300px;
+    background-color: #282828;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar-menu {
+    flex-grow: 1;
+    padding-bottom: 20px;
+}
+
+.node-type {
+    padding: 10px;
+    border: 1px solid #333;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background-color: #333;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.node-type:hover {
+    background-color: #444;
+}
+
+#properties {
+    margin-top: 20px;
+}
+
+#node-properties h3 {
+    margin-top: 0;
+    color: #eee;
+    font-weight: bold;
+}
+
+#node-properties label {
+    display: block;
+    margin-bottom: 5px;
+    color: #eee;
+}
+
+#node-properties input,
+#node-properties textarea,
+#node-properties select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #222;
+    color: #eee;
+}
+
+.modelium-to-model {
+    color: #f39c12;
+    width: 3px;
+}
+
+.modelium-to-model .vis-edge .vis-line {
+    stroke-dasharray: 5, 5;
+}
+
+#sidebar button,
+.modal-content button {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease;
+}
+
+#sidebar button:hover,
+.modal-content button:hover {
+    background-color: #2980b9;
+}
+
+.node-icon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+}
+
+.tools-icon {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAjklEQVR4nO3UQQqDMBCF4X+yCXgQ7yEIgu4KvULXbQW9/26KCSWSlEKpC1cDswj5mMwbQoxxwWtaawvr7+xYa21pCYEHjtivtTiDz5RSqfSctR0X5JzPD+NKqTp0xLRjWlzQe7+WUnZCiA0ppQ0hxK6UsvfeX//6XT/ihjue0Fq71VrXEMKhtfZijLl9Mz8BmI0StacvT10AAAAASUVORK5CYII=');
+}
+
+.parallel-icon {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAV0lEQVR4nGNgGAWjYKiD/wDMQKwCZD4TsS4k1jByDWMiRhGxLiTFMCZiFRHrQlINYyJGEbEuJMcwJkIKiXUhuYYx4VNIiovINYyJkEJiXUiJYaNgZAMAYnAb1CJ5IcEAAAAASUVORK5CYII=');
+}
+
+.vis-node {
+    border-width: 2px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.vis-node.modelium {
+    background-color: #f1c40f;
+    border-color: #f39c12;
+}
+
+.vis-node.model {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+.vis-node.result {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+.vis-node.return {
+    background-color: #27ae60;
+    border-color: #1e8449;
+}
+
+.vis-node .vis-label {
+    color: #000;
+    font-size: 12px;
+}
+
+.vis-node.model.with-tools {
+    min-height: 100px;
+}
+
+.vis-node.model.with-loop {
+    min-height: 120px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}

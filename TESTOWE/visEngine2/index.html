@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelium Designer</title>
+    <link rel="stylesheet" href="https://unpkg.com/vis-network/styles/vis-network.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/jstree/dist/themes/default/style.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div id="sidebar">
+            <button id="showPresetsButton">Show Presets</button>
+            <div id="sidebar-menu">
+                <div class="node-type" data-type="modelium" draggable="true">Add Modelium</div>
+                <div class="node-type" data-type="model" draggable="true">Add Model</div>
+                <div class="node-type" data-type="result" draggable="true">Add Result</div>
+                <div class="node-type" data-type="return" draggable="true">Add Return</div>
+            </div>
+            <div id="properties">
+                <h3>Properties</h3>
+                <div id="node-properties"></div>
+
+            </div>
+            <div>
+                <input type="checkbox" id="show-prompt" onchange="updateModelLabels()">
+                <label for="show-prompt">Show Prompt</label>
+                <input type="checkbox" id="show-system-instructions" onchange="updateModelLabels()">
+                <label for="show-system-instructions">Show System Instructions</label>
+                <input type="checkbox" id="show-tools" onchange="updateModelLabels()">
+                <label for="show-tools">Show Tools</label>
+                <input type="checkbox" id="show-model-type" onchange="updateModelLabels()">
+                <label for="show-model-type">Show Model Type</label>
+            </div>
+        </div>
+
+        <div id="modelium-container"></div>
+    </div>
+
+    <div id="presets-window" class="modal">
+        <div class="modal-content">
+            <h2>Presets</h2>
+            <div id="preset-list"></div>
+            <button onclick="closePresetsWindow()">Close</button>
+        </div>
+    </div>
+
+    <div id="prompt-selection-window" class="modal">
+        <div class="modal-content">
+            <h2>Select Prompts and Injectors</h2>
+            <div id="prompt-tree"></div>
+            <button id="update-prompts-button">Update Prompts</button>
+            <button onclick="closePromptSelectisonWindow()">Close</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://unpkg.com/jstree/dist/jstree.min.js"></script>
+    <script src="ModeliumDesigner.js"></script>
+</body>
+</html>
