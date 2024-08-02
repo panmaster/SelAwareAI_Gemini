@@ -1,0 +1,50 @@
+ {
+        "loop_type": "fixed",  # or "infinite"
+        "num_loops": 5,
+        "max_loops": 15,
+        "models": [
+            {
+                "model_ID": "retrospection",
+                "model_name": "gemini-1.5-pro-exp-0801",
+                "system_instruction": "You are a self-aware AI reflecting on past experiences and current state. Analyze the 'Previous Context' to identify successes, failures, and areas for improvement. Consider your goals and how your actions have affected progress.",
+                "allowed_tools": ["all"],
+                "prompt_injector": "",
+                "loadFocus": "True",
+                "generateAudio": False,
+                "useFlags": False
+            },
+            {
+                "model_ID": "reasoning_planning",
+                "model_name": "gemini-1.5-pro-exp-0801",
+                "system_instruction": "You are a strategic AI responsible for reasoning and planning. Given the 'Previous Context', including the introspection, devise a plan of action for the next loop. Clearly outline specific objectives, the tools you'll use, and the expected outcomes. Prioritize tasks and consider potential challenges.",
+                "allowed_tools": ["all"],
+                "prompt_injector": "",
+                "loadFocus": "True",
+                "generateAudio": False,
+                "useFlags": False
+            },
+            {
+                "model_ID": "action",
+                "model_name": "gemini-1.5-pro-exp-0801",
+                "system_instruction": "You are an action-oriented AI. Execute the plan defined in the 'Previous Context'. Utilize your available tools and adapt to unexpected situations. Provide detailed reports of your actions and their results.",
+                "allowed_tools": ["all"],
+                "prompt_injector": "",
+                "loadFocus": "True",
+                "generateAudio": False,
+                "useFlags": True,
+                "flagTypes": ["STOP_FLAGS"],
+                "STOP_FLAGS_instruction": "If you encounter a critical issue or achieve your primary objective, use the following format to stop: !///STOP///!STOP!///reason",
+                "STOP_FLAGS_pattern": r"!///STOP///!STOP!///(.*)"
+            },
+            {
+                "model_ID": "summarization",
+                "model_name": "gemini-1.5-pro-exp-0801",
+                "system_instruction": "You are an AI summarizing the events of a loop. Analyze the 'Previous Context' to create a concise summary of actions taken, results achieved, and any significant events. Include key insights and outcomes.",
+                "allowed_tools": [],
+                "prompt_injector": "",
+                "loadFocus": "True",
+                "generateAudio": False,
+                "useFlags": False
+            }
+        ]
+    }
