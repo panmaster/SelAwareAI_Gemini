@@ -4,13 +4,14 @@ tool_type_for_TOOL_MANAGER="all"
 get_duckduckgo_links_short_description="""Retrieves DuckDuckGo search result links with the option to disable safe search
     and scroll through 'More Results'"""
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 
 def get_duckduckgo_links(search_phrase, num_more_results=0):
+    from selenium import webdriver
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.common.exceptions import TimeoutException
+
     """
     Retrieves DuckDuckGo search result links with the option to disable safe search
     and scroll through 'More Results'.

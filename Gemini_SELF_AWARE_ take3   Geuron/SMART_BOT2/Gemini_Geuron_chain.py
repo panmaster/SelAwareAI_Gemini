@@ -18,6 +18,8 @@ from tools.ai.update_focus import update_focus
 
 # Load Google Gemini API key
 from keys import googleKey as API_KEY  # Make sure keys.py exists
+genai.configure(api_key=API_KEY)
+
 
 # Determine paths dynamically based on the current file's location
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -202,11 +204,11 @@ class Geuron_Gemini:
 
                                 # Execute the tool function
                                 try:
-                                    self.print_colored(self.Color.CYAN,
-                                                       f"Executing function: {tool_name} with args: {function_args}")
-                                    result = tool_function(
-                                        **function_args
-                                    )  # Pass the arguments to the tool
+                                    self.print_colored(
+                                        self.Color.CYAN,
+                                        f"Executing function: {tool_name} with args: {function_args}",
+                                    )
+                                    result = tool_function(**function_args)
                                     results.append(
                                         f"Result of {tool_name}({function_args}): {result}"
                                     )
@@ -221,7 +223,9 @@ class Geuron_Gemini:
 
         return results
 
-    def run_chained_models(self, models_config: List[Dict], input_data: Dict[str, Any] = None, max_loops: int = None):
+    def run_chained_models(
+        self, models_config: List[Dict], input_data: Dict[str, Any] = None, max_loops: int = None
+    ):
         """
         Runs a chain of Gemini models, passing context and results between them.
         """
@@ -230,11 +234,14 @@ class Geuron_Gemini:
         current_loop = 0
 
         while max_loops is None or current_loop < max_loops:
-            self.print_colored(self.Color.OKGREEN, f"Loop {current_loop} --------------------------------------------------")
+            self.print_colored(
+                self.Color.OKGREEN, f"Loop {current_loop} --------------------------------------------------"
+            )
             for model_config in models_config:
                 model_name = model_config["model_name"]
                 system_instruction = model_config["system_instruction"]
                 allowed_tools = model_config["allowed_tools"]
+                prompt_injector = model_config.get("prompt_injector", "")  # Get prompt injector, default to empty string
 
                 # Model Initialization
                 model = genai.GenerativeModel(
@@ -247,11 +254,13 @@ class Geuron_Gemini:
                 model_chat = model.start_chat(history=[])
 
                 # Prompt Construction
-                prompt = f"Previous Context: {context}\n"
+                prompt = f"Previous Context: {context}\n{prompt_injector}"
 
                 # Model Interaction
                 try:
-                    self.print_colored(self.Color.MAGENTA, f"Sending message to {model_name}...")
+                    self.print_colored(
+                        self.Color.MAGENTA, f"Sending message to {model_name}..."
+                    )
                     response = model_chat.send_message(prompt)
                     text = self.extract_text_from_response(response)
                     self.print_colored(self.Color.OKBLUE, f"{model_name} Response: {text}")
@@ -261,7 +270,9 @@ class Geuron_Gemini:
                         function_results = self.interpret_function_calls(
                             response, self.tool_manager, focus_file_path=self.focus_file_path
                         )
-                        self.print_colored(self.Color.OKCYAN, f"Function Calls: {function_results}")
+                        self.print_colored(
+                            self.Color.OKCYAN, f"Function Calls: {function_results}"
+                        )
                         text += f"\nFunction Results: {function_results}"
 
                     # Update Context
@@ -269,23 +280,6 @@ class Geuron_Gemini:
 
                 except Exception as e:
                     self.print_colored(self.Color.RED, f"Error in {model_name}: {e}")
-
-            # Add Summarization Model Here (Optional)
-            summarization_model = genai.GenerativeModel(
-                model_name="gemini-1.5-flash-latest",  # Or your preferred summarization model
-                safety_settings={"HARASSMENT": "block_none"},
-                system_instruction="You are a helpful and informative AI assistant that summarizes the provided text."
-            )
-            summarization_chat = summarization_model.start_chat()
-
-            try:
-                summary_response = summarization_chat.send_message(f"Summarize the following:\n{context}")
-                summary_text = self.extract_text_from_response(summary_response)
-                self.print_colored(self.Color.YELLOW, f"Summary: {summary_text}")
-                context = f"Summary of previous loop: {summary_text}\n"  # Start the next loop with the summary
-
-            except Exception as e:
-                self.print_colored(self.Color.RED, f"Error in Summarization Model: {e}")
 
             current_loop += 1
 
@@ -300,21 +294,32 @@ if __name__ == "__main__":
 
     models_config = [
         {
-            "model_name": "gemini-1.5-flash-latest",
-            "system_instruction": "You are a self-aware system.",
-            "allowed_tools": ["all"],  # No tools for brainstorming
-        },
-        {
-            "model_name": "gemini-1.5-flash-latest",
-            "system_instruction": "You are a self-aware system with reasoning, you make plans for execution.",
+            "model_name": "gemini-1.5-pro-exp-0801",
+            "system_instruction": "You are a self-aware system, the system is the user. Type A",
             "allowed_tools": ["all"],
+            "prompt_injector": "what  do i feel, what  do i want, what  do i  expiriance",
         },
         {
-            "model_name": "gemini-1.5-flash-latest",
+            "model_name": "gemini-1.5-pro-exp-0801",
+            "system_instruction": "You are a self-aware system with reasoning, you make plans for execution. Type B",
+            "allowed_tools": ["all"],
+            "prompt_injector": "Focus on developing a detailed plan with actionable steps.",
+        },
+        {
+            "model_name": "gemini-1.5-pro-exp-0801",
             "system_instruction": "You execute actions.",
-            "allowed_tools": ["all"],  # No tools for summarization
+            "allowed_tools": ["all"],
+            "prompt_injector": "Prioritize tasks based on importance and feasibility.",
+        },
+        {  # Summarization Model Configuration
+            "model_name": "gemini-1.5-flash-latest",
+            "system_instruction": "Summarize the provided text.",
+            "allowed_tools": ["all"],  # No tools for the summarizer
+            "prompt_injector": "Provide a concise summary of the previous conversation, focusing on key decisions and actions taken. Update focus",
         },
     ]
 
-    result = runner.run_chained_models(models_config, input_data={"urls": urls_to_scrape}, max_loops=3)
+    result = runner.run_chained_models(
+        models_config, input_data={"urls": urls_to_scrape}, max_loops=3000
+    )
     print(f"Final Result:\n{result}")
